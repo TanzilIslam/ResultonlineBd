@@ -1,0 +1,21 @@
+{
+  "name": "result-online-bd",
+  "version": "1.0.0",
+  "description": "A blog Web application where you can find the greatest article about Technology,Education,Health,History and so more.You can also find the recent issue of the world.It is the place where you will find your problem&#39;s solution by our experts.",
+  "author": "Md. Tanzil Islam",
+  "private": true,
+  "scripts": {
+    "dev": "nuxt",
+    "build": "nuxt build",
+    "start": "nuxt start",
+    "generate": "nuxt generate"
+  },
+  "dependencies": {
+    "@nuxtjs/axios": "^5.3.6",
+    "bootstrap": "^4.1.3",
+    "bootstrap-vue": "^2.0.0",
+    "core-js": "^2.6.11",
+    "nuxt": "^2.0.0"
+  },
+  "devDependencies": {}
+}
