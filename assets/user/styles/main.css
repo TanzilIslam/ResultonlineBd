@@ -1,0 +1,23 @@
+body{
+    background: #FAFAFA !important;
+  }
+  /* Channel Tabs Start */
+  .latest-under-line{
+    height : 3px; 
+    width: 77px; 
+    background-color: black;
+  }
+  .about-under-line{
+    height : 3px;
+    width: 75px;
+    background-color: black; 
+    margin-left: 75px;
+   }
+  .line {
+    margin-top: 0px;
+    padding-top: 0px;
+  }
+  /* Channel Tabs End */
+
+  
+ 

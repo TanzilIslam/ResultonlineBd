@@ -1,35 +1,24 @@
 export const state = () => ({
+
     homeArticle: [],
     topContent: [],
+
     programming: [],
+
     mobileBrandLogo: [],
     SelectedMobileBrandArticle: [],
+    mobileTop: [],
+    mobileBottom: [],
+
     celebrity: [],
     islam: [],
     history: [],
     health: [],
     technology: [],
     education: [],
-
-    showLatestDiv: true,
-    showAboutDiv: false,
-
-
-
-    loadmore: [],
-    cart: [],
     searched: [],
-
-
-
-
-
-    food: [],
-    feed: [],
-
-    mobileTop: [],
-    mobileBottom: []
-
+    detailArticle: [],
+    authorAllArticle: []
 })
 
 export const getters = {
@@ -48,6 +37,13 @@ export const getters = {
     getSelectedMobileBrandArticle(state) {
         return state.SelectedMobileBrandArticle
     },
+    getMobileTop(state) {
+        return state.mobileTop
+    },
+    getMobileBottom(state) {
+        return state.mobileBottom
+    },
+
     getCelebrity(state) {
         return state.celebrity
     },
@@ -67,45 +63,15 @@ export const getters = {
     getEducation(state) {
         return state.education
     },
-
-    getshowLatestDiv(state) {
-        return state.showLatestDiv
-    },
-    getshowAboutDiv(state) {
-        return state.showAboutDiv
-    },
-
-
-
-
-    getMobileTop(state) {
-        return state.mobileTop
-    },
-    getMobileBottom(state) {
-        return state.mobileBottom
-    },
-    getFeed(state) {
-        return state.feed
-    },
-    getFood(state) {
-        return state.food
-    },
-
-
-
-
-
-    getCart(state) {
-        return state.cart
-    },
     getSearched(state) {
         return state.searched
     },
-    getLoadmore(state) {
-        return state.loadmore
-
+    getdetailArticle(state) {
+        return state.detailArticle
+    },
+    getAuthorAllArticle(state) {
+        return state.authorAllArticle
     }
-
 }
 
 export const mutations = {
@@ -177,24 +143,19 @@ export const mutations = {
     setLoadMoreEducationArticle(state, payload) {
         state.education.push(payload)
     },
-    setshowLatestDiv(state, payload) {
-        state.showLatestDiv = payload
-
-    },
-
-    setshowAboutDiv(state, payload) {
-        state.showAboutDiv = payload
-
-    },
-
     setMobileTop(state, payload) {
         state.mobileTop = payload
     },
     setMobileBottom(state, payload) {
         state.mobileBottom = payload
     },
+    setDetailArticle(state, payload) {
+        state.detailArticle = payload
 
-
+    },
+    setAuthorAllArticle(state, payload) {
+        state.authorAllArticle = payload
+    },
     addToCart(state, payload) {
         state.cart.push(payload)
     },
@@ -275,13 +236,6 @@ export const actions = {
     setLoadMoreEducationArticle(context, payload) {
         context.commit('setLoadMoreEducationArticle', payload)
     },
-    setshowLatestDiv(context, payload) {
-        context.commit('setshowLatestDiv', payload)
-    },
-
-    setshowAboutDiv(context, payload) {
-        context.commit('setshowAboutDiv', payload)
-    },
     addToCart(context, payload) {
         context.commit('addToCart', payload)
     },
@@ -291,14 +245,15 @@ export const actions = {
     setMobileBottom(context, payload) {
         context.commit('setMobileBottom', payload)
     },
-    setFeed(context, payload) {
-        context.commit('setFeed', payload)
-    },
-    setFood(context, payload) {
-        context.commit('setFood', payload)
-    },
     setTechnology(context, payload) {
         context.commit('setTechnology', payload)
+    },
+    setDetailArticle(context, payload) {
+        context.commit('setDetailArticle', payload)
+
+    },
+    setAuthorAllArticle(context, payload) {
+        context.commit('setAuthorAllArticle', payload)
     },
     searchedInventory(context, payload) {
         context.commit('searchedInventory', payload)

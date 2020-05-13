@@ -18,23 +18,20 @@ export default {
   /*
   ** Customize the progress-bar color
   */
-  loading: { color: '#fff' },
+  loading: { color: 'red', height: '4px' },
   /*
   ** Global CSS
   */
-  css: ['~/assets/user/styles/main.css'
-  ],
+  css: ['~/assets/user/styles/main.css'],
   /*
   ** Plugins to load before mounting the App
   */
   plugins: [
-    '~plugins/component-registration.js'
-  ],
+    '~plugins/component-registration.js'],
   /*
   ** Nuxt.js dev-modules
   */
-  buildModules: [
-  ],
+  buildModules: [],
   /*
   ** Nuxt.js modules
   */
@@ -42,8 +39,7 @@ export default {
     // Doc: https://bootstrap-vue.js.org
     'bootstrap-vue/nuxt',
     // Doc: https://axios.nuxtjs.org/usage
-    '@nuxtjs/axios'
-  ],
+    '@nuxtjs/axios'],
   bootstrapVue: {
     icons: true // Install the IconsPlugin (in addition to BootStrapVue plugin
   },
@@ -51,8 +47,7 @@ export default {
   ** Axios module configuration
   ** See https://axios.nuxtjs.org/options
   */
-  axios: {
-  },
+  axios: {},
   /*
   ** Build configuration
   */

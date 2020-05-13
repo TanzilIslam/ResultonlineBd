@@ -1,5 +1,8 @@
 <template>
   <div class="home">
+    <b-container>
+      <Carousel />
+    </b-container>
     <Breadcrumb :allActive="true" />
     <b-row>
       <b-col sm="12" md="3" lg="3" xl="3">
@@ -32,7 +35,6 @@
 <script>
 export default {
   layout: "default",
-  fetchDelay: 5000,
   head() {
     return {
       title: "ResultOnlineBd - Home Page",
@@ -68,7 +70,6 @@ export default {
       this.currentPage = this.currentPage + 1;
     }
   },
-  // this.$store.dispatch("SET_LoadMoreHomeArticle", item.results)
   computed: {
     HomeArticle() {
       var self = this;
