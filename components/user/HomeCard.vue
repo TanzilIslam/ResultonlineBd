@@ -6,7 +6,7 @@
           <div class="ml-3 mt-3 mb-2">
             <b-card-img-lazy
               blankColor="#bbb"
-              :blank="true"
+              :blank="false"
               class="rounded-circle p-1 img-logo"
               :src="article.contentowners.authorsprofilrimg"
             ></b-card-img-lazy>
@@ -14,7 +14,6 @@
           <div class="mt-4 ml-3 mb-2">
             <!-- <b-card-text> -->
             <nuxt-link
-              prefetch
               :to="`/authorProfile/${article.contentowners.authorsname}`"
             >
               <h5 class="custome-home-card-title">
@@ -26,10 +25,10 @@
           </div>
         </div>
         <h5 class="ml-4">{{ article.title }}</h5>
-        <nuxt-link prefetch :to="`/detailPost/${article.slug}`">
+        <nuxt-link :to="`/detailPost/${article.slug}`">
           <b-card-img-lazy
             blankColor="#bbb"
-            :blank="true"
+            :blank="false"
             :src="article.photo"
             bottom
             height="230"
@@ -40,24 +39,6 @@
       </b-card>
     </div>
   </div>
-  <!-- <div>
-    <b-card no-body class="mb-4">
-      <b-card-img-lazy
-        blankColor="#bbb"
-        :blank="true"
-        class="rounded-circle p-1 img-logo ml-3 mt-3 mb-2"
-        :src="article.contentowners.authorsprofilrimg"
-      ></b-card-img-lazy>
-      <nuxt-link
-        prefetch
-        :to="`/authorProfile/${article.contentowners.authorsname}`"
-      >
-        <h5 class="custome-home-card-title">
-          {{ article.contentowners.authorsname }}
-        </h5>
-      </nuxt-link>
-    </b-card>
-  </div> -->
 </template>
 <script>
 export default {

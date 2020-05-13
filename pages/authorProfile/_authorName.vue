@@ -70,20 +70,19 @@
         <p>{{ AuthorAllArticle.about }}</p>
       </div>
     </b-row>
-    <div class="myPagination">
+    <!-- <div class="myPagination">
       <div class="text-center mt-5 mb-3">
         <b-button variant="dark" @click="fetchMoreData()">Load More</b-button>
       </div>
-    </div>
+    </div> -->
   </div>
 </template>
 
 <script>
 export default {
-  layout: "default",
   head() {
     return {
-      title: "ResultOnlineBd - Home Page",
+      title: "ResultOnlineBd " + this.AuthorAllArticle.authorsname,
       meta: [
         {
           hid: "description",
@@ -98,28 +97,25 @@ export default {
     return {
       showLatestDiv: true,
       showAboutDiv: false,
-      currentPage: 2,
-      AuthorProfileImage: "",
-      AuthorContentLength: "",
-      details: {}
+      currentPage: 2
     };
   },
   async fetch() {
-    this.details = await this.$axios
+    var details = await this.$axios
       .$get(process.env.baseUrl + "/channel/" + this.$route.params.authorName)
       .then(item => this.$store.dispatch("setAuthorAllArticle", item));
   },
   methods: {
-    async fetchMoreData() {
-      let moreData = await this.$axios
-        .$get(process.env.baseUrl + "/?page=" + this.currentPage)
-        .then(item =>
-          item.results.forEach(element => {
-            this.$store.dispatch("setLoadMoreHomeArticle", element);
-          })
-        );
-      this.currentPage = this.currentPage + 1;
-    },
+    // async fetchMoreData() {
+    //   let moreData = await this.$axios
+    //     .$get(process.env.baseUrl + "/?page=" + this.currentPage)
+    //     .then(item =>
+    //       item.results.forEach(element => {
+    //         this.$store.dispatch("setLoadMoreHomeArticle", element);
+    //       })
+    //     );
+    //   this.currentPage = this.currentPage + 1;
+    // },
     goLatest() {
       var self = this;
       self.showLatestDiv = true;

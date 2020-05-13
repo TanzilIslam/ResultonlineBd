@@ -18,6 +18,7 @@
           v-for="(article, index) in HomeArticle"
           :key="index"
           :article="article"
+          :data-index="index"
         />
       </b-col>
       <b-col sm="12" md="4" lg="4" xl="4">

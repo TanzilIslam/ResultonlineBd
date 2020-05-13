@@ -17,8 +17,8 @@ export const state = () => ({
     technology: [],
     education: [],
     searched: [],
-    detailArticle: [],
-    authorAllArticle: []
+    detailArticle: {},
+    authorAllArticle: [],
 })
 
 export const getters = {
@@ -167,7 +167,10 @@ export const mutations = {
     },
     reset(state) {
         state.cart = []
-    }
+    },
+    setDetailCard(state, payload) {
+        state.detailCard = payload
+    },
 }
 
 export const actions = {
@@ -251,6 +254,9 @@ export const actions = {
     setDetailArticle(context, payload) {
         context.commit('setDetailArticle', payload)
 
+    },
+    setAuthorAllArticle(context, payload) {
+        context.commit('setAuthorAllArticle', payload)
     },
     setAuthorAllArticle(context, payload) {
         context.commit('setAuthorAllArticle', payload)

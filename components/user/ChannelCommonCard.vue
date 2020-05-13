@@ -1,6 +1,6 @@
 <template>
   <div class="channel-common-card">
-    <b-card no-body class="custom-channel-common-card">
+    <b-card no-body style="width: 260px" class="custom-channel-common-card">
       <b-card-img
         :src="ArticleCover"
         top
