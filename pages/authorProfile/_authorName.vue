@@ -41,11 +41,7 @@
         </b-tabs>
       </b-col>
       <div class="ml-2 mr-3" v-show="showLatestDiv">
-        <VclChannelCommonCard v-if="$fetchState.pending" />
-        <h4 v-else-if="$fetchState.error">
-          Error while fetching posts: {{ $fetchState.error.message }}
-        </h4>
-        <b-row v-else>
+        <b-row>
           <b-col
             md="3"
             lg="3"
@@ -57,7 +53,7 @@
           >
             <nuxt-link prefetch :to="`/detailPost/${a.slug}`">
               <ChannelCommonCard
-                :ArticleCover="'http://cdn.resultonlinebd.com/' + a.photo"
+                :ArticleCover="'http://cdn.resultonlinebd.com' + a.photo"
                 :ArticleTitle="a.title"
                 :ArticlePublish="a.release_date"
               />
@@ -79,6 +75,7 @@
 </template>
 
 <script>
+import { mapState } from "vuex";
 export default {
   head() {
     return {
@@ -93,11 +90,27 @@ export default {
       ]
     };
   },
-  async fetch() {
-    var details = await this.$axios
-      .$get(process.env.baseUrl + "/channel/" + this.$route.params.authorName)
-      .then(item => this.$store.dispatch("setAuthorAllArticle", item));
+  //async fetch() {
+    //var details = await this.$axios
+      //.$get(process.env.baseUrl + "/channel/" + this.$route.params.authorName)
+      //.then(item => this.$store.dispatch("setAuthorAllArticle", item));
+  //},
+  
+   async fetch ({ store, error, params }) {
+    try {
+      await store.dispatch("fetchAuthorAllArticle", params.authorName);
+    } catch (e) {
+      error({
+        statusCode: 503,
+        message: "Unable to fetch events at this time. Please try again."
+      });
+    } finally {
+    }
   },
+  computed: mapState({
+     AuthorAllArticle: state => state.authorAllArticle
+  }),
+
   data() {
     return {
       showLatestDiv: true,
@@ -127,12 +140,12 @@ export default {
       self.showAboutDiv = true;
     }
   },
-  computed: {
-    AuthorAllArticle() {
-      var self = this;
-      return self.$store.getters.getAuthorAllArticle;
-    }
-  }
+  //computed: {
+    //AuthorAllArticle() {
+      //var self = this;
+      //return self.$store.getters.getAuthorAllArticle;
+    //}
+  //}
 };
 </script>
 

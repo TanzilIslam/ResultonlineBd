@@ -184,7 +184,8 @@ export const mutations = {
     },
     SET_loadingData(state, payload) {
         state.loadingData = payload
-    }
+    },
+
 }
 
 export const actions = {
@@ -192,6 +193,12 @@ export const actions = {
         return ApiService.getdetailsCard(slug).then(response => {
             commit('SET_DetailsCard', response.data),
                 commit('SET_loadingData', false)
+        })
+
+    },
+    fetchAuthorAllArticle({ commit }, authorName) {
+        return ApiService.getauthorprofile(authorName).then(response => {
+            commit('setAuthorAllArticle', response.data)
         })
 
     },

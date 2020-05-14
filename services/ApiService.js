@@ -13,8 +13,13 @@ export default {
     getHomeCards() {
         return apiClient.get('/')
     },
+	
     getdetailsCard(slug) {
         return apiClient.get('/details/' + slug)
+    },
+    
+    getauthorprofile(authorName){
+    	return apiClient.get('/channel/' + authorName)
     },
     getProgrammingPosts() {
         return apiClient.get('/')
