@@ -93,7 +93,6 @@ export default {
       ]
     };
   },
-
   async fetch() {
     var details = await this.$axios
       .$get(process.env.baseUrl + "/channel/" + this.$route.params.authorName)

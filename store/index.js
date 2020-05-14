@@ -1,7 +1,10 @@
+import ApiService from '~/services/ApiService.js'
+
 export const state = () => ({
 
     homeArticle: [],
     topContent: [],
+    loadingData: true,
 
     programming: [],
 
@@ -19,6 +22,7 @@ export const state = () => ({
     searched: [],
     detailArticle: {},
     authorAllArticle: [],
+    detailsCard: {}
 })
 
 export const getters = {
@@ -75,6 +79,10 @@ export const getters = {
 }
 
 export const mutations = {
+
+
+
+
     setHomeArticle(state, payload) {
         state.homeArticle = payload
     },
@@ -171,9 +179,22 @@ export const mutations = {
     setDetailCard(state, payload) {
         state.detailCard = payload
     },
+    SET_DetailsCard(state, payload) {
+        state.detailsCard = payload
+    },
+    SET_loadingData(state, payload) {
+        state.loadingData = payload
+    }
 }
 
 export const actions = {
+    fetchDetailsCard({ commit }, slug) {
+        return ApiService.getdetailsCard(slug).then(response => {
+            commit('SET_DetailsCard', response.data),
+                commit('SET_loadingData', false)
+        })
+
+    },
     setHomeArticle(context, payload) {
         context.commit('setHomeArticle', payload)
     },

@@ -1,6 +1,6 @@
 <template>
   <div class="vlcD">
-    <vue-content-loading class="vcl" :width="300" :height="270">
+    <vue-content-loading class="vcl" :width="300" :height="230">
       <!-- <circle cx="30" cy="30" r="20" /> -->
       <!-- <rect x="60" y="20" rx="4" ry="4" width="64" height="10" /> -->
       <!-- <rect x="60" y="40" rx="4" ry="4" width="60" height="8" /> -->
@@ -42,6 +42,5 @@ export default {
   /* border: 1px solid black; */
   border-radius: 5px;
   /* box-shadow: 0px 0px 0px 2px rgba(0,0,0,0.3); */
-  margin-bottom: 10px;
 }
 </style>
