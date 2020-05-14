@@ -13,13 +13,11 @@
           </div>
           <div class="mt-4 ml-3 mb-2">
             <!-- <b-card-text> -->
-            <nuxt-link
-              :to="`/authorProfile/${article.contentowners.authorsname}`"
-            >
+            <n-link :to="`/authorProfile/${article.contentowners.authorsname}`">
               <h5 class="custome-home-card-title">
                 {{ article.contentowners.authorsname }}
               </h5>
-            </nuxt-link>
+            </n-link>
             <p class="text-muted">{{ article.release_date }}</p>
             <!-- </b-card-text> -->
           </div>

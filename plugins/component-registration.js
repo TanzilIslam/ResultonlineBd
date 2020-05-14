@@ -9,6 +9,9 @@ import LatestCard from '~/components/user/LatestCard'
 import VclHomeCard from '~/components/user/vue-content-loading-cards/VclHomeCard'
 import VclChannelCommonCard from '~/components/user/vue-content-loading-cards/VclChannelCommonCard'
 import ChannelCommonCard from '~/components/user/ChannelCommonCard'
+import VclDetailCard from '~/components/user/vue-content-loading-cards/VclDetailCard'
+import StarRating from 'vue-star-rating'
+
 
 Vue.component('NavBar', NavBar)
 Vue.component('Carousel', Carousel)
@@ -19,4 +22,6 @@ Vue.component('LatestCard', LatestCard)
 Vue.component('VclHomeCard', VclHomeCard)
 Vue.component('VclChannelCommonCard', VclChannelCommonCard)
 Vue.component('ChannelCommonCard', ChannelCommonCard)
+Vue.component('VclDetailCard', VclDetailCard)
+Vue.component('star-rating', StarRating);
 

@@ -93,17 +93,18 @@ export default {
       ]
     };
   },
+
+  async fetch() {
+    var details = await this.$axios
+      .$get(process.env.baseUrl + "/channel/" + this.$route.params.authorName)
+      .then(item => this.$store.dispatch("setAuthorAllArticle", item));
+  },
   data() {
     return {
       showLatestDiv: true,
       showAboutDiv: false,
       currentPage: 2
     };
-  },
-  async fetch() {
-    var details = await this.$axios
-      .$get(process.env.baseUrl + "/channel/" + this.$route.params.authorName)
-      .then(item => this.$store.dispatch("setAuthorAllArticle", item));
   },
   methods: {
     // async fetchMoreData() {
