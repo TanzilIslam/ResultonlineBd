@@ -1,19 +1,19 @@
 <template>
-  <div class="channel-common-card">
-    <b-card no-body class="custom-channel-common-card">
+  <div class="author-small-card">
+    <b-card no-body style="width: 260px" class="custom-author-small-card">
       <b-card-img
-        :src="article.photo"
+        :src="ArticleCover"
         top
         height="165"
         style="border-radius: 10px;"
       ></b-card-img>
       <b-card-text class="text-muted custom-card-text-date" text-tag="p">{{
-        article.release_date
+        ArticlePublish
       }}</b-card-text>
       <b-card-text text-tag="h6" class="custom-card-text-title">{{
-        article.title.length > 40
-          ? article.title.substr(0, 39)
-          : article.title + " ..."
+        ArticleTitle.length > 40
+          ? ArticleTitle.substr(0, 39)
+          : ArticleTitle + " ..."
       }}</b-card-text>
     </b-card>
   </div>
@@ -21,21 +21,27 @@
 
 <script>
 export default {
-  name: "ChannelCommonCard",
   props: {
-    article: {
-      type: Object,
-      required: true
+    ArticleCover: {
+      type: String,
+      default: ""
+    },
+    ArticlePublish: {
+      type: String,
+      default: "2101-11-22"
+    },
+    ArticleTitle: {
+      type: String,
+      default: "This is the Title"
     }
   }
 };
 </script>
 
 <style  scoped>
-/* .channel-common-card{
-
+/* .author-small-card {
 } */
-.custom-channel-common-card {
+.custom-author-small-card {
   border: none !important;
   cursor: pointer;
   background-color: rgb(255, 255, 255);

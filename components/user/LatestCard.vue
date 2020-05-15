@@ -6,12 +6,10 @@
         <b-list-group-item class="custom-list-item" v-for="i in 6" :key="i">
           <div class="d-flex">
             <div>
-              <b-img-lazy
+              <b-img
                 class="custom-latest-image"
-                v-bind="mainProps"
                 :src="require('~/assets/user/latestCard/logo.png')"
-                alt="Image 1"
-              ></b-img-lazy>
+              ></b-img>
             </div>
             <div class="custom-latest-text">
               This is a sample title for latest div.This will show on right
@@ -28,12 +26,7 @@
 export default {
   name: "LatestHomeCard",
   data() {
-    return {
-      mainProps: {
-        blank: true,
-        blankColor: "#bbb"
-      }
-    };
+    return {};
   }
 };
 </script>

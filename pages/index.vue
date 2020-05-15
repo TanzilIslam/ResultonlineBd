@@ -9,13 +9,8 @@
         <SideBar />
       </b-col>
       <b-col sm="12" md="5" lg="5" xl="5">
-        <VclHomeCard v-if="$fetchState.pending" />
-        <p v-else-if="$fetchState.error">
-          Error while fetching posts: {{ $fetchState.error.message }}
-        </p>
         <HomeCard
-          v-else
-          v-for="(article, index) in HomeArticle"
+          v-for="(article, index) in HomeArticles"
           :key="index"
           :article="article"
           :data-index="index"
@@ -27,13 +22,14 @@
     </b-row>
     <div class="myPagination">
       <div class="text-center mt-5 mb-3">
-        <b-button variant="dark" @click="fetchMoreData()">Load More</b-button>
+        <b-button variant="dark" @click="loadData">Load More</b-button>
       </div>
     </div>
   </div>
 </template>
 
 <script>
+import { mapState } from "vuex";
 export default {
   layout: "default",
   head() {
@@ -54,27 +50,34 @@ export default {
       currentPage: 2
     };
   },
-  async fetch() {
-    let data = await this.$axios
-      .$get(process.env.baseUrl + "/")
-      .then(item => this.$store.dispatch("setHomeArticle", item.results));
-  },
-  methods: {
-    async fetchMoreData() {
-      let moreData = await this.$axios
-        .$get(process.env.baseUrl + "/?page=" + this.currentPage)
-        .then(item =>
-          item.results.forEach(element => {
-            this.$store.dispatch("setLoadMoreHomeArticle", element);
-          })
-        );
-      this.currentPage = this.currentPage + 1;
+  async fetch({ store, error }) {
+    try {
+      await store.dispatch("FetchHomeArticles");
+    } catch (e) {
+      error({
+        statusCode: 503,
+        message: "Unable to fetch data at this time.Please try again."
+      });
+    } finally {
     }
   },
-  computed: {
-    HomeArticle() {
-      var self = this;
-      return self.$store.getters.getHomeArticle;
+  computed: mapState({
+    HomeArticles: state => state.HomeArticles
+  }),
+  methods: {
+    async loadData() {
+      try {
+        let moreData = await this.$axios
+          .$get(process.env.baseUrl + "/?page=" + this.currentPage)
+          .then(item =>
+            item.results.forEach(element => {
+              this.$store.dispatch("FetchMoreHomeArticles", element);
+            })
+          );
+        this.currentPage = this.currentPage + 1;
+      } catch (e) {
+        alert("No more data");
+      }
     }
   }
 };

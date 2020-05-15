@@ -2,17 +2,17 @@ import ApiService from '~/services/ApiService.js'
 
 export const state = () => ({
 
-    homeArticle: [],
-    topContent: [],
-    loadingData: true,
+    HomeArticles: [],
+    AuthorArticles: [],
+    ProgrammingArticles: [],
 
-    programming: [],
+
+    topContent: [],
 
     mobileBrandLogo: [],
     SelectedMobileBrandArticle: [],
     mobileTop: [],
     mobileBottom: [],
-
     celebrity: [],
     islam: [],
     history: [],
@@ -21,86 +21,39 @@ export const state = () => ({
     education: [],
     searched: [],
     detailArticle: {},
-    authorAllArticle: [],
+
     detailsCard: {}
 })
 
-export const getters = {
-    getHomeArticle(state) {
-        return state.homeArticle
-    },
-    getTopContent(state) {
-        return state.topContent
-    },
-    getProgramming(state) {
-        return state.programming
-    },
-    getMobileBrandLogo(state) {
-        return state.mobileBrandLogo
-    },
-    getSelectedMobileBrandArticle(state) {
-        return state.SelectedMobileBrandArticle
-    },
-    getMobileTop(state) {
-        return state.mobileTop
-    },
-    getMobileBottom(state) {
-        return state.mobileBottom
-    },
-
-    getCelebrity(state) {
-        return state.celebrity
-    },
-    getIslam(state) {
-        return state.islam
-    },
-    getHistory(state) {
-        return state.history
-    },
-    getHealth(state) {
-        return state.health
-    },
-    getTechnology(state) {
-        return state.technology
-    },
-
-    getEducation(state) {
-        return state.education
-    },
-    getSearched(state) {
-        return state.searched
-    },
-    getdetailArticle(state) {
-        return state.detailArticle
-    },
-    getAuthorAllArticle(state) {
-        return state.authorAllArticle
-    }
-}
 
 export const mutations = {
-
-
-
-
-    setHomeArticle(state, payload) {
-        state.homeArticle = payload
+    SetHomeArticles(state, payload) {
+        state.HomeArticles = payload
     },
-    setLoadMoreHomeArticle(state, payload) {
-        state.homeArticle.push(payload)
+    SetMoreHomeArticles(state, payload) {
+        state.HomeArticles.push(payload)
     },
+
+    SetAuthorArticles(state, payload) {
+        state.AuthorArticles = payload
+    },
+
+
+    SetProgrammingArticles(state, payload) {
+        state.ProgrammingArticles = payload
+    },
+    SetMoreProgrammingArticles(state, payload) {
+        state.ProgrammingArticles.push(payload)
+    },
+
+
+
 
     setTopContent(state, payload) {
         state.topContent = payload
     },
     setLoadMoreTopContent(state, payload) {
         state.topContent.push(payload)
-    },
-    setProgramming(state, payload) {
-        state.programming = payload
-    },
-    setLoadMoreProgrammingArticle(state, payload) {
-        state.programming.push(payload)
     },
 
 
@@ -161,9 +114,7 @@ export const mutations = {
         state.detailArticle = payload
 
     },
-    setAuthorAllArticle(state, payload) {
-        state.authorAllArticle = payload
-    },
+
     addToCart(state, payload) {
         state.cart.push(payload)
     },
@@ -189,6 +140,36 @@ export const mutations = {
 }
 
 export const actions = {
+    FetchHomeArticles({ commit }) {
+        return ApiService.GetHomeArticles().then(response => {
+            commit('SetHomeArticles', response.data.results)
+        })
+    },
+    FetchMoreHomeArticles(context, payload) {
+        context.commit('SetMoreHomeArticles', payload)
+    },
+
+    FetchAuthorArticles({ commit }, authorName) {
+        return ApiService.GetAuthorArticles(authorName).then(response => {
+            commit('SetAuthorArticles', response.data)
+        })
+
+    },
+
+    FetchProgrammingArticles({ commit }) {
+        return ApiService.GetProgrammingArticles().then(response => {
+            commit('SetProgrammingArticles', response.data.results)
+        })
+
+    },
+
+
+    FetchMoreProgrammingArticles(context, payload) {
+        context.commit('SetMoreProgrammingArticles', payload)
+    },
+
+
+
     fetchDetailsCard({ commit }, slug) {
         return ApiService.getdetailsCard(slug).then(response => {
             commit('SET_DetailsCard', response.data),
@@ -196,18 +177,11 @@ export const actions = {
         })
 
     },
-    fetchAuthorAllArticle({ commit }, authorName) {
-        return ApiService.getauthorprofile(authorName).then(response => {
-            commit('setAuthorAllArticle', response.data)
-        })
 
-    },
     setHomeArticle(context, payload) {
         context.commit('setHomeArticle', payload)
     },
-    setLoadMoreHomeArticle(context, payload) {
-        context.commit('setLoadMoreHomeArticle', payload)
-    },
+
 
     setTopContent(context, payload) {
         context.commit('setTopContent', payload)
@@ -296,4 +270,56 @@ export const actions = {
         context.commit('removeItem', payload)
     }
 
+}
+export const getters = {
+    // getHomeArticle(state) {
+    //     return state.homeArticle
+    // },
+    // getTopContent(state) {
+    //     return state.topContent
+    // },
+    // getProgramming(state) {
+    //     return state.programming
+    // },
+    // getMobileBrandLogo(state) {
+    //     return state.mobileBrandLogo
+    // },
+    // getSelectedMobileBrandArticle(state) {
+    //     return state.SelectedMobileBrandArticle
+    // },
+    // getMobileTop(state) {
+    //     return state.mobileTop
+    // },
+    // getMobileBottom(state) {
+    //     return state.mobileBottom
+    // },
+
+    // getCelebrity(state) {
+    //     return state.celebrity
+    // },
+    // getIslam(state) {
+    //     return state.islam
+    // },
+    // getHistory(state) {
+    //     return state.history
+    // },
+    // getHealth(state) {
+    //     return state.health
+    // },
+    // getTechnology(state) {
+    //     return state.technology
+    // },
+
+    // getEducation(state) {
+    //     return state.education
+    // },
+    // getSearched(state) {
+    //     return state.searched
+    // },
+    // getdetailArticle(state) {
+    //     return state.detailArticle
+    // },
+    // getAuthorAllArticle(state) {
+    //     return state.authorAllArticle
+    // }
 }

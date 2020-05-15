@@ -4,35 +4,29 @@
       <b-card no-body style="max-width: 40rem;" class="mb-4">
         <div class="d-flex">
           <div class="ml-3 mt-3 mb-2">
-            <b-card-img-lazy
-              blankColor="#bbb"
-              :blank="false"
+            <b-card-img
               class="rounded-circle p-1 img-logo"
               :src="article.contentowners.authorsprofilrimg"
-            ></b-card-img-lazy>
+            ></b-card-img>
           </div>
           <div class="mt-4 ml-3 mb-2">
-            <!-- <b-card-text> -->
-            <n-link :to="`/authorProfile/${article.contentowners.authorsname}`">
-              <h5 class="custome-home-card-title">
-                {{ article.contentowners.authorsname }}
-              </h5>
-            </n-link>
-            <p class="text-muted">{{ article.release_date }}</p>
-            <!-- </b-card-text> -->
+            <nuxt-link
+              prefetch
+              :to="`/authorProfile/${article.contentowners.authorsname}`"
+            >
+              <b-card-text text-tag="h5" class="custome-home-card-title">
+                {{ article.contentowners.authorsname }}</b-card-text
+              >
+            </nuxt-link>
+            <b-card-text text-tag="p" class="text-muted">{{
+              article.release_date
+            }}</b-card-text>
           </div>
         </div>
         <h5 class="ml-4">{{ article.title }}</h5>
-        <nuxt-link :to="`/detailPost/${article.slug}`">
-          <b-card-img-lazy
-            blankColor="#bbb"
-            :blank="false"
-            :src="article.photo"
-            bottom
-            height="230"
-            width="280"
-          >
-          </b-card-img-lazy>
+        <nuxt-link prefetch :to="`/detailPost/${article.slug}`">
+          <b-card-img :src="article.photo" bottom height="230" width="280">
+          </b-card-img>
         </nuxt-link>
       </b-card>
     </div>

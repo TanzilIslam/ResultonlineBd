@@ -2,7 +2,7 @@
   <div class="sideBar">
     <h5 class="text-center chanel">Channel</h5>
     <b-list-group class="list">
-      <b-list-group-item to="/ProgrammingPosts" class="mylist">
+      <b-list-group-item to="/channel/programming" class="mylist">
         <b-icon icon="code" scale="2"></b-icon>
         <span style="margin-left:15px">Programming</span>
       </b-list-group-item>

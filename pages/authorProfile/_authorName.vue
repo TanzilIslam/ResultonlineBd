@@ -6,17 +6,15 @@
           <b-row>
             <b-col sm="6" md="6" lg="6" xl="6" class="mt-4 mx-auto">
               <div class="d-flex ml-4 mt-4">
-                <b-img-lazy
-                  :blank="true"
-                  blankColor="#bbb"
+                <b-img
                   class="custom-author-logo mt-4"
-                  :src="AuthorAllArticle.authorsprofilrimg"
-                ></b-img-lazy>
+                  :src="AuthorArticles.authorsprofilrimg"
+                ></b-img>
                 <div class="vl mt-4"></div>
                 <div class="custom-text mt-4 ml-3">
                   <h4>Content Amount</h4>
                   <h5>
-                    {{ AuthorAllArticle.Status_list.length }}
+                    {{ AuthorArticles.Status_list.length }}
                   </h5>
                 </div>
               </div>
@@ -48,11 +46,11 @@
             xs="12"
             sm="6"
             xl="3"
-            v-for="(a, index) in AuthorAllArticle.Status_list"
+            v-for="(a, index) in AuthorArticles.Status_list"
             :key="index"
           >
             <nuxt-link prefetch :to="`/detailPost/${a.slug}`">
-              <ChannelCommonCard
+              <AuthorSmallCard
                 :ArticleCover="'http://cdn.resultonlinebd.com' + a.photo"
                 :ArticleTitle="a.title"
                 :ArticlePublish="a.release_date"
@@ -62,15 +60,10 @@
         </b-row>
       </div>
       <div v-show="showAboutDiv">
-        <h3>{{ AuthorAllArticle.authorsname }}</h3>
-        <p>{{ AuthorAllArticle.about }}</p>
+        <h3>{{ AuthorArticles.authorsname }}</h3>
+        <p>{{ AuthorArticles.about }}</p>
       </div>
     </b-row>
-    <!-- <div class="myPagination">
-      <div class="text-center mt-5 mb-3">
-        <b-button variant="dark" @click="fetchMoreData()">Load More</b-button>
-      </div>
-    </div> -->
   </div>
 </template>
 
@@ -79,7 +72,7 @@ import { mapState } from "vuex";
 export default {
   head() {
     return {
-      title: "ResultOnlineBd " + this.AuthorAllArticle.authorsname,
+      title: "ResultOnlineBd " + this.AuthorArticles.authorsname,
       meta: [
         {
           hid: "description",
@@ -90,15 +83,9 @@ export default {
       ]
     };
   },
-  //async fetch() {
-    //var details = await this.$axios
-      //.$get(process.env.baseUrl + "/channel/" + this.$route.params.authorName)
-      //.then(item => this.$store.dispatch("setAuthorAllArticle", item));
-  //},
-  
-   async fetch ({ store, error, params }) {
+  async fetch({ store, error, params }) {
     try {
-      await store.dispatch("fetchAuthorAllArticle", params.authorName);
+      await store.dispatch("FetchAuthorArticles", params.authorName);
     } catch (e) {
       error({
         statusCode: 503,
@@ -108,7 +95,7 @@ export default {
     }
   },
   computed: mapState({
-     AuthorAllArticle: state => state.authorAllArticle
+    AuthorArticles: state => state.AuthorArticles
   }),
 
   data() {
@@ -119,16 +106,6 @@ export default {
     };
   },
   methods: {
-    // async fetchMoreData() {
-    //   let moreData = await this.$axios
-    //     .$get(process.env.baseUrl + "/?page=" + this.currentPage)
-    //     .then(item =>
-    //       item.results.forEach(element => {
-    //         this.$store.dispatch("setLoadMoreHomeArticle", element);
-    //       })
-    //     );
-    //   this.currentPage = this.currentPage + 1;
-    // },
     goLatest() {
       var self = this;
       self.showLatestDiv = true;
@@ -139,13 +116,7 @@ export default {
       self.showLatestDiv = false;
       self.showAboutDiv = true;
     }
-  },
-  //computed: {
-    //AuthorAllArticle() {
-      //var self = this;
-      //return self.$store.getters.getAuthorAllArticle;
-    //}
-  //}
+  }
 };
 </script>
 

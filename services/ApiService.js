@@ -10,19 +10,20 @@ const apiClient = axios.create({
 })
 
 export default {
-    getHomeCards() {
+    GetHomeArticles() {
         return apiClient.get('/')
     },
-	
+    GetAuthorArticles(authorName) {
+        return apiClient.get('/channel/' + authorName)
+    },
+
     getdetailsCard(slug) {
         return apiClient.get('/details/' + slug)
     },
-    
-    getauthorprofile(authorName){
-    	return apiClient.get('/channel/' + authorName)
-    },
-    getProgrammingPosts() {
-        return apiClient.get('/')
+
+
+    GetProgrammingArticles() {
+        return apiClient.get('/channeldel?search=Programming')
     },
 
 }

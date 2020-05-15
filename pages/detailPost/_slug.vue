@@ -100,7 +100,7 @@ export default {
       ]
     };
   },
-  async fetch({ context, store, error, params }) {
+  async fetch({ store, error, params }) {
     try {
       await store.dispatch("fetchDetailsCard", params.slug);
     } catch (e) {
