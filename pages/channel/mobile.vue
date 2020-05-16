@@ -1,7 +1,7 @@
 <template>
-  <div class="celebrity-post">
+  <div class="mobile-post">
     <!-- Cover Start -->
-    <ChannelCover ChannelCoverTitle="Celebrity" />
+    <ChannelCover ChannelCoverTitle="Mobile" />
     <!-- Cover End -->
 
     <!--Tab start -->
@@ -172,7 +172,7 @@ export default {
 </script>
 
 <style scoped>
-/* .celebrity-post{
+/* .mobile-post{
 
 } */
 a {

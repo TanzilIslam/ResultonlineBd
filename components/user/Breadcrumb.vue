@@ -2,14 +2,20 @@
   <div class="breadcrumb">
     <b-container>
       <b-row>
-        <b-col class="text-center" sm="12" xs="12" lg="12" md="12">
+        <b-col class="text-center">
           <b-button
             variant="outline-dark"
-            class="b-button ml-2"
+            class="b-button"
             v-bind:class="{ active: allActive }"
             @click="loadAll()"
           >
-            <b-icon icon="window" scale="1" variant=" light ? dark "></b-icon>ALL
+            <b-icon
+              class="mr-2"
+              icon="window"
+              scale="1"
+              variant=" light ? dark "
+            ></b-icon
+            >ALL
           </b-button>
           <b-button
             variant="outline-dark"
@@ -17,15 +23,27 @@
             v-bind:class="{ active: topActive }"
             @click="loadTop()"
           >
-            <b-icon icon="graph-up" scale="1" variant=" light ? dark "></b-icon>#Top
+            <b-icon
+              class="mr-2"
+              icon="graph-up"
+              scale="1"
+              variant=" light ? dark "
+            ></b-icon
+            >Top
           </b-button>
           <b-button
             variant="outline-dark"
             class="b-button ml-2"
-            v-bind:class="{ active: trendingActive }"
-            @click="loadTrending()"
+            v-bind:class="{ active: highRatedActive }"
+            @click="loadhighRated()"
           >
-            <b-icon icon="credit-card" scale="1" variant=" light ? dark "></b-icon>#Trending
+            <b-icon
+              class="mr-2"
+              icon="credit-card"
+              scale="1"
+              variant=" light ? dark "
+            ></b-icon
+            >High Rated
           </b-button>
         </b-col>
       </b-row>
@@ -45,7 +63,7 @@ export default {
       type: Boolean,
       default: false
     },
-    trendingActive: {
+    highRatedActive: {
       type: Boolean,
       default: false
     }
@@ -58,10 +76,10 @@ export default {
       this.$router.push("/");
     },
     loadTop() {
-      this.$router.push("/TopPosts");
+      this.$router.push("/top");
     },
-    loadTrending() {
-      this.$router.push("/TrendingPosts");
+    loadhighRated() {
+      this.$router.push("/high-rated");
     }
   }
 };
@@ -73,8 +91,8 @@ export default {
 }
 .b-button {
   border-radius: 15px;
-  font-size: 12px;
+  font-size: 13px;
   height: 30px;
-  text-align: center;
+  text-align: center !important;
 }
 </style>

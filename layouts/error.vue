@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="text-center">
     <svg
       xmlns="http://www.w3.org/2000/svg"
       width="90"
@@ -12,9 +12,14 @@
       />
     </svg>
 
-    <div class="title">
+    <h4 class="title">
       {{ message }}
-    </div>
+    </h4>
+    <h3>
+      <nuxt-link to="/">
+        Return to homepage
+      </nuxt-link>
+    </h3>
     <p v-if="statusCode === 404">
       <nuxt-link to="/">
         Return to homepage

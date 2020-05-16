@@ -1,8 +1,6 @@
 <template>
   <div class="home">
-    <b-container>
-      <Carousel />
-    </b-container>
+    <Carousel />
     <Breadcrumb :allActive="true" />
     <b-row>
       <b-col sm="12" md="3" lg="3" xl="3">

@@ -13,6 +13,13 @@ export default {
     GetHomeArticles() {
         return apiClient.get('/')
     },
+    GetTopArticles() {
+        return apiClient.get('/TopContent')
+    },
+    GetHighRatedArticles() {
+        return apiClient.get('/HighRatedContent')
+    },
+
     GetAuthorArticles(authorName) {
         return apiClient.get('/channel/' + authorName)
     },

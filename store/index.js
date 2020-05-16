@@ -4,10 +4,13 @@ export const state = () => ({
 
     HomeArticles: [],
     AuthorArticles: [],
+    TopArticles: [],
+    HighRatedArticles: [],
+
     ProgrammingArticles: [],
 
 
-    topContent: [],
+
 
     mobileBrandLogo: [],
     SelectedMobileBrandArticle: [],
@@ -25,7 +28,6 @@ export const state = () => ({
     detailsCard: {}
 })
 
-
 export const mutations = {
     SetHomeArticles(state, payload) {
         state.HomeArticles = payload
@@ -33,6 +35,26 @@ export const mutations = {
     SetMoreHomeArticles(state, payload) {
         state.HomeArticles.push(payload)
     },
+
+
+    SetTopArticles(state, payload) {
+        state.TopArticles = payload
+    },
+
+    SetMoreTopArticles(state, payload) {
+        state.TopArticles.push(payload)
+    },
+
+
+    SetHighRatedArticles(state, payload) {
+        state.HighRatedArticles = payload
+    },
+
+    SetMoreHighRatedArticles(state, payload) {
+        state.HighRatedArticles.push(payload)
+    },
+
+
 
     SetAuthorArticles(state, payload) {
         state.AuthorArticles = payload
@@ -49,12 +71,6 @@ export const mutations = {
 
 
 
-    setTopContent(state, payload) {
-        state.topContent = payload
-    },
-    setLoadMoreTopContent(state, payload) {
-        state.topContent.push(payload)
-    },
 
 
     setMobileBrandLogo(state, payload) {
@@ -148,6 +164,28 @@ export const actions = {
     FetchMoreHomeArticles(context, payload) {
         context.commit('SetMoreHomeArticles', payload)
     },
+
+    FetchTopArticles({ commit }) {
+        return ApiService.GetTopArticles().then(response => {
+            commit('SetTopArticles', response.data.results)
+        })
+    },
+    FetchMoreTopArticles(context, payload) {
+        context.commit('SetMoreTopArticles', payload)
+    },
+
+
+    FetchHighRatedArticles({ commit }) {
+        return ApiService.GetHighRatedArticles().then(response => {
+            commit('SetHighRatedArticles', response.data.results)
+        })
+    },
+    FetchMoreHighRatedArticles(context, payload) {
+        context.commit('SetMoreHighRatedArticles', payload)
+    },
+
+
+
 
     FetchAuthorArticles({ commit }, authorName) {
         return ApiService.GetAuthorArticles(authorName).then(response => {

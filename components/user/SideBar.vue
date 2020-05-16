@@ -6,37 +6,37 @@
         <b-icon icon="code" scale="2"></b-icon>
         <span style="margin-left:15px">Programming</span>
       </b-list-group-item>
-      <b-list-group-item to="/MobilePhonePosts" class="mylist">
+      <b-list-group-item to="/channel/mobile" class="mylist">
         <b-icon icon="phone" scale="2"></b-icon>
         <span style="margin-left:15px">Mobile Phone</span>
       </b-list-group-item>
 
-      <b-list-group-item to="/CelebrityPosts" class="mylist">
+      <b-list-group-item to="/channel/celebrity" class="mylist">
         <b-icon icon="camera-video-fill" scale="2"></b-icon>
         <span style="margin-left:15px">Celebrity</span>
       </b-list-group-item>
 
-      <b-list-group-item to="/IslamPosts" class="mylist">
+      <b-list-group-item to="/channel/islam" class="mylist">
         <b-icon icon="calendar" scale="2"></b-icon>
         <span style="margin-left:15px">Islam</span>
       </b-list-group-item>
 
-      <b-list-group-item to="/HistoryPosts" class="mylist">
+      <b-list-group-item to="/channel/history" class="mylist">
         <b-icon icon="cone-striped" scale="2"></b-icon>
         <span style="margin-left:15px">History</span>
       </b-list-group-item>
 
-      <b-list-group-item to="/HealthPosts" class="mylist">
+      <b-list-group-item to="/channel/health" class="mylist">
         <b-icon icon="moon" scale="2"></b-icon>
         <span style="margin-left:15px">Health</span>
       </b-list-group-item>
 
-      <b-list-group-item to="/TechnologyPosts" class="mylist">
+      <b-list-group-item to="/channel/technology" class="mylist">
         <b-icon icon="gear-wide-connected" scale="2"></b-icon>
         <span style="margin-left:15px">Technology</span>
       </b-list-group-item>
 
-      <b-list-group-item to="/EducationPosts" class="mylist">
+      <b-list-group-item to="/channel/education" class="mylist">
         <b-icon icon=" book-half" scale="2"></b-icon>
         <span style="margin-left:15px">Education</span>
       </b-list-group-item>
@@ -53,7 +53,7 @@ export default {
 <style scoped >
 .mylist,
 span {
-  font-size: 15px !important;
+  font-size: 16px !important;
 }
 .chanel {
   height: 40px;

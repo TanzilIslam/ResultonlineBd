@@ -1,7 +1,7 @@
 <template>
-  <div class="celebrity-post">
+  <div class="islam-post">
     <!-- Cover Start -->
-    <ChannelCover ChannelCoverTitle="Celebrity" />
+    <ChannelCover ChannelCoverTitle="Islam" />
     <!-- Cover End -->
 
     <!--Tab start -->
@@ -30,7 +30,7 @@
           xs="12"
           sm="6"
           xl="4"
-          v-for="(article, index) in CelebrityArticles"
+          v-for="(article, index) in IslamArticles"
           :key="index"
         >
           <nuxt-link prefetch :to="`/detailPost/${article.slug}`">
@@ -111,14 +111,14 @@ export default {
           hid: "description",
           name: "description",
           content:
-            "Here you can find all the latest information about CelebrityArticles "
+            "Here you can find all the latest information about IslamArticles "
         }
       ]
     };
   },
   async fetch({ store, error }) {
     try {
-      await store.dispatch("FetchCelebrityArticles");
+      await store.dispatch("FetchIslamArticles");
     } catch (e) {
       error({
         statusCode: 503,
@@ -128,7 +128,7 @@ export default {
     }
   },
   computed: mapState({
-    CelebrityArticles: state => state.CelebrityArticles
+    IslamArticles: state => state.IslamArticles
   }),
   data() {
     return {
@@ -159,7 +159,7 @@ export default {
           )
           .then(item =>
             item.results.forEach(element => {
-              this.$store.dispatch("FetchMoreCelebrityArticles", element);
+              this.$store.dispatch("FetchMoreIslamArticles", element);
             })
           );
         this.currentPage = this.currentPage + 1;
@@ -172,7 +172,7 @@ export default {
 </script>
 
 <style scoped>
-/* .celebrity-post{
+/* .islam-post{
 
 } */
 a {

@@ -12,13 +12,14 @@ export default {
       { hid: 'description', name: 'description', content: process.env.npm_package_description || '' }
     ],
     link: [
-      { rel: 'png', type: 'image/x-icon', href: '/favicon.ico' }
+      { rel: 'png', type: 'image/x-icon', href: '/favicon.ico' },
+      // { rel: 'stylesheet', href: "https://fonts.googleapis.com/css2?family=Roboto:ital@1&display=swap" }
     ]
   },
   /*
   ** Customize the progress-bar color
   */
-  loading: {  color: '#ff0000', height: '3px', duration: 5000, throttle: 500 },
+  loading: { color: '#ff0000', height: '3px', duration: 5000, throttle: 500 },
   /*
   ** Global CSS
   */
