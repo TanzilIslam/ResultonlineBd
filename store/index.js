@@ -1,8 +1,9 @@
 import ApiService from '~/services/ApiService.js'
 
+
 export const state = () => ({
 
-    HomeArticles: [],
+    // HomeArticles: [],
     AuthorArticles: [],
     TopArticles: [],
     HighRatedArticles: [],
@@ -29,12 +30,12 @@ export const state = () => ({
 })
 
 export const mutations = {
-    SetHomeArticles(state, payload) {
-        state.HomeArticles = payload
-    },
-    SetMoreHomeArticles(state, payload) {
-        state.HomeArticles.push(payload)
-    },
+    // SetHomeArticles(state, payload) {
+    //     state.HomeArticles = payload
+    // },
+    // SetMoreHomeArticles(state, payload) {
+    //     state.HomeArticles.push(payload)
+    // },
 
 
     SetTopArticles(state, payload) {
@@ -156,14 +157,14 @@ export const mutations = {
 }
 
 export const actions = {
-    FetchHomeArticles({ commit }) {
-        return ApiService.GetHomeArticles().then(response => {
-            commit('SetHomeArticles', response.data.results)
-        })
-    },
-    FetchMoreHomeArticles(context, payload) {
-        context.commit('SetMoreHomeArticles', payload)
-    },
+    // FetchHomeArticles({ commit }) {
+    //     return ApiService.GetHomeArticles().then(response => {
+    //         commit('SetHomeArticles', response.data.results)
+    //     })
+    // },
+    // FetchMoreHomeArticles(context, payload) {
+    //     context.commit('SetMoreHomeArticles', payload)
+    // },
 
     FetchTopArticles({ commit }) {
         return ApiService.GetTopArticles().then(response => {

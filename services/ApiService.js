@@ -13,6 +13,10 @@ export default {
     GetHomeArticles() {
         return apiClient.get('/')
     },
+    GetMoreHomeArticles(pageNumber) {
+        return apiClient.get('/?page=' + pageNumber)
+    },
+
     GetTopArticles() {
         return apiClient.get('/TopContent')
     },

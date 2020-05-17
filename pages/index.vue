@@ -7,12 +7,15 @@
         <SideBar />
       </b-col>
       <b-col sm="12" md="5" lg="5" xl="5">
-        <HomeCard
-          v-for="(article, index) in HomeArticles"
-          :key="index"
-          :article="article"
-          :data-index="index"
-        />
+        <VclHomeCard v-show="ContentLoading" />
+        <div v-show="!ContentLoading">
+          <HomeCard
+            v-for="(article, index) in HomeArticles"
+            :key="index"
+            :article="article"
+            :data-index="index"
+          />
+        </div>
       </b-col>
       <b-col sm="12" md="4" lg="4" xl="4">
         <LatestCard />
@@ -50,7 +53,7 @@ export default {
   },
   async fetch({ store, error }) {
     try {
-      await store.dispatch("FetchHomeArticles");
+      await store.dispatch("home/FetchHomeArticles");
     } catch (e) {
       error({
         statusCode: 503,
@@ -60,21 +63,15 @@ export default {
     }
   },
   computed: mapState({
-    HomeArticles: state => state.HomeArticles
+    HomeArticles: state => state.home.HomeArticles,
+    ContentLoading: state => state.home.ContentLoading
   }),
   methods: {
     async loadData() {
       try {
-        let moreData = await this.$axios
-          .$get(process.env.baseUrl + "/?page=" + this.currentPage)
-          .then(item =>
-            item.results.forEach(element => {
-              this.$store.dispatch("FetchMoreHomeArticles", element);
-            })
-          );
-        this.currentPage = this.currentPage + 1;
+        await this.$store.dispatch("home/FetchMoreHomeArticles");
       } catch (e) {
-        alert("No more data");
+        alert("No more data" + e);
       }
     }
   }
