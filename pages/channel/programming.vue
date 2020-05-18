@@ -24,7 +24,13 @@
     <!-- Latest Div Start -->
     <div v-show="showLatestDiv">
       <b-row>
+        <VclChannelCommonCard v-if="$fetchState.pending" />
+        <h4 v-else-if="$fetchState.error">
+          Error while fetching posts: {{ error }}
+        </h4>
+
         <b-col
+          v-else
           md="4"
           lg="4"
           xs="12"
@@ -116,25 +122,23 @@ export default {
       ]
     };
   },
-  async fetch({ store, error }) {
-    try {
-      await store.dispatch("FetchProgrammingArticles");
-    } catch (e) {
-      error({
-        statusCode: 503,
-        message: "Unable to fetch data at this time.Please try again."
-      });
-    } finally {
-    }
+  async fetch() {
+    await this.$axios
+      .$get(process.env.baseUrl + `/channeldel?search=Programming`)
+      .then(posts =>
+        this.$store.dispatch(
+          "programming/FetchProgrammingArticles",
+          posts.results
+        )
+      );
   },
   computed: mapState({
-    ProgrammingArticles: state => state.ProgrammingArticles
+    ProgrammingArticles: state => state.programming.ProgrammingArticles
   }),
   data() {
     return {
       showLatestDiv: true,
-      showAboutDiv: false,
-      currentPage: 2
+      showAboutDiv: false
     };
   },
   methods: {
@@ -150,23 +154,17 @@ export default {
     },
     async loadData() {
       try {
-        let moreData = await this.$axios
-          .$get(
-            process.env.baseUrl +
-              "/channeldel?page=" +
-              this.currentPage +
-              "&search=Programming"
-          )
-          .then(item =>
-            item.results.forEach(element => {
-              this.$store.dispatch("FetchMoreProgrammingArticles", element);
-            })
-          );
-        this.currentPage = this.currentPage + 1;
+        await this.$store.dispatch("programming/FetchMoreProgrammingArticles");
       } catch (e) {
-        alert("No more data");
+        alert("No more data" + e);
       }
     }
+  },
+  mounted() {
+    this.$nextTick(() => {
+      this.$nuxt.$loading.start();
+      setTimeout(() => this.$nuxt.$loading.finish(), 1000);
+    });
   }
 };
 </script>

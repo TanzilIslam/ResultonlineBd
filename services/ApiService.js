@@ -10,31 +10,24 @@ const apiClient = axios.create({
 })
 
 export default {
-    GetHomeArticles() {
-        return apiClient.get('/')
-    },
+
     GetMoreHomeArticles(pageNumber) {
         return apiClient.get('/?page=' + pageNumber)
     },
-
-    GetTopArticles() {
-        return apiClient.get('/TopContent')
-    },
-    GetHighRatedArticles() {
-        return apiClient.get('/HighRatedContent')
+    GetMoreTopArticles(pageNumber) {
+        return apiClient.get('/TopContent?page=' + pageNumber)
     },
 
     GetAuthorArticles(authorName) {
         return apiClient.get('/channel/' + authorName)
     },
 
-    getdetailsCard(slug) {
+    GetDetailArticle(slug) {
         return apiClient.get('/details/' + slug)
     },
-
-
-    GetProgrammingArticles() {
-        return apiClient.get('/channeldel?search=Programming')
+    GetMoreProgrammingArticles(pageNumber) {
+        return apiClient.get('channeldel?page=' + pageNumber + '&search=Programming')
     },
+
 
 }

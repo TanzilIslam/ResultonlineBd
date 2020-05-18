@@ -7,15 +7,17 @@
         <SideBar />
       </b-col>
       <b-col sm="12" md="5" lg="5" xl="5">
-        <VclHomeCard v-show="ContentLoading" />
-        <div v-show="!ContentLoading">
-          <HomeCard
-            v-for="(article, index) in HomeArticles"
-            :key="index"
-            :article="article"
-            :data-index="index"
-          />
-        </div>
+        <VclHomeCard v-if="$fetchState.pending" />
+        <h4 v-else-if="$fetchState.error">
+          Error while fetching posts: {{ error }}
+        </h4>
+        <HomeCard
+          v-else
+          v-for="(article, index) in HomeArticles"
+          :key="index"
+          :article="article"
+          :data-index="index"
+        />
       </b-col>
       <b-col sm="12" md="4" lg="4" xl="4">
         <LatestCard />
@@ -47,24 +49,17 @@ export default {
     };
   },
   data() {
-    return {
-      currentPage: 2
-    };
+    return {};
   },
-  async fetch({ store, error }) {
-    try {
-      await store.dispatch("home/FetchHomeArticles");
-    } catch (e) {
-      error({
-        statusCode: 503,
-        message: "Unable to fetch data at this time.Please try again."
-      });
-    } finally {
-    }
+  async fetch() {
+    await this.$axios
+      .$get(process.env.baseUrl)
+      .then(posts =>
+        this.$store.dispatch("home/FetchHomeArticles", posts.results)
+      );
   },
   computed: mapState({
-    HomeArticles: state => state.home.HomeArticles,
-    ContentLoading: state => state.home.ContentLoading
+    HomeArticles: state => state.home.HomeArticles
   }),
   methods: {
     async loadData() {
@@ -74,6 +69,12 @@ export default {
         alert("No more data" + e);
       }
     }
+  },
+  mounted() {
+    this.$nextTick(() => {
+      this.$nuxt.$loading.start();
+      setTimeout(() => this.$nuxt.$loading.finish(), 1000);
+    });
   }
 };
 </script>

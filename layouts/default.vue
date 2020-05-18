@@ -2,7 +2,7 @@
   <div>
     <NavBar />
     <b-container>
-      <nuxt keep-alive />
+      <nuxt />
     </b-container>
   </div>
 </template>

@@ -40,6 +40,7 @@
       </b-col>
       <div class="ml-2 mr-3" v-show="showLatestDiv">
         <b-row>
+          <VclChannelCommonCard v-if="Loading" />
           <b-col
             md="3"
             lg="3"
@@ -60,8 +61,10 @@
         </b-row>
       </div>
       <div v-show="showAboutDiv">
-        <h3>{{ AuthorArticles.authorsname }}</h3>
-        <p>{{ AuthorArticles.about }}</p>
+        <b-container>
+          <h3>{{ AuthorArticles.authorsname }}</h3>
+          <p class="about-text">{{ AuthorArticles.about }}</p>
+        </b-container>
       </div>
     </b-row>
   </div>
@@ -77,15 +80,17 @@ export default {
         {
           hid: "description",
           name: "description",
-          content:
-            "Here you can find all the latest information about technology,mobile phones,educations etc."
+          content: "what you need to know About  " + this.AuthorArticles.about
         }
       ]
     };
   },
   async fetch({ store, error, params }) {
     try {
-      await store.dispatch("FetchAuthorArticles", params.authorName);
+      await store.dispatch(
+        "authorProfile/FetchAuthorArticles",
+        params.authorName
+      );
     } catch (e) {
       error({
         statusCode: 503,
@@ -95,14 +100,14 @@ export default {
     }
   },
   computed: mapState({
-    AuthorArticles: state => state.AuthorArticles
+    AuthorArticles: state => state.authorProfile.AuthorArticles
   }),
 
   data() {
     return {
       showLatestDiv: true,
       showAboutDiv: false,
-      currentPage: 2
+      Loading: false
     };
   },
   methods: {
@@ -116,6 +121,12 @@ export default {
       self.showLatestDiv = false;
       self.showAboutDiv = true;
     }
+  },
+  mounted() {
+    this.$nextTick(() => {
+      this.$nuxt.$loading.start();
+      setTimeout(() => this.$nuxt.$loading.finish(), 1000);
+    });
   }
 };
 </script>
@@ -127,15 +138,13 @@ export default {
 .custom-text {
   color: rgb(255, 255, 255);
 }
-/* .content-warper {
-} */
+
 .vl {
   border-left: 3px solid rgb(230, 233, 230);
   height: 150px;
   margin-left: 30px;
 }
 .custom-cover {
-  /* margin-top: 60px; */
   background-image: linear-gradient(120deg, #d4fc79 0%, #96e6a1 100%);
   height: 320px;
   border-radius: 10px;
@@ -150,5 +159,8 @@ export default {
 a {
   color: black !important;
   text-decoration: none;
+}
+.about-text {
+  text-align: justify;
 }
 </style>

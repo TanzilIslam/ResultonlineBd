@@ -4,7 +4,12 @@
     <Breadcrumb :topActive="true" />
     <div class="top-container">
       <b-row>
+        <VclChannelCommonCard v-if="$fetchState.pending" />
+        <h4 v-else-if="$fetchState.error">
+          Error while fetching posts: {{ error }}
+        </h4>
         <b-col
+          v-else
           sm="6"
           md="4"
           lg="4"
@@ -46,40 +51,33 @@ export default {
       ]
     };
   },
-  async fetch({ store, error }) {
-    try {
-      await store.dispatch("FetchTopArticles");
-    } catch (e) {
-      error({
-        statusCode: 503,
-        message: "Unable to fetch data at this time.Please try again."
-      });
-    } finally {
-    }
+  async fetch() {
+    await this.$axios
+      .$get(process.env.baseUrl + `/TopContent`)
+      .then(posts =>
+        this.$store.dispatch("top/FetchTopArticles", posts.results)
+      );
   },
   computed: mapState({
-    TopArticles: state => state.TopArticles
+    TopArticles: state => state.top.TopArticles
   }),
   data() {
-    return {
-      currentPage: 2
-    };
+    return {};
   },
   methods: {
     async loadData() {
       try {
-        let moreData = await this.$axios
-          .$get(process.env.baseUrl + "/TopContent?page=" + this.currentPage)
-          .then(item =>
-            item.results.forEach(element => {
-              this.$store.dispatch("FetchMoreTopArticles", element);
-            })
-          );
-        this.currentPage = this.currentPage + 1;
+        await this.$store.dispatch("top/FetchMoreTopArticles");
       } catch (e) {
-        alert("No more data");
+        alert("No more data" + e);
       }
     }
+  },
+  mounted() {
+    this.$nextTick(() => {
+      this.$nuxt.$loading.start();
+      setTimeout(() => this.$nuxt.$loading.finish(), 1000);
+    });
   }
 };
 </script>

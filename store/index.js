@@ -4,8 +4,8 @@ import ApiService from '~/services/ApiService.js'
 export const state = () => ({
 
     // HomeArticles: [],
-    AuthorArticles: [],
-    TopArticles: [],
+    // AuthorArticles: [],
+    // TopArticles: [],
     HighRatedArticles: [],
 
     ProgrammingArticles: [],
@@ -26,7 +26,7 @@ export const state = () => ({
     searched: [],
     detailArticle: {},
 
-    detailsCard: {}
+    // detailsCard: {}
 })
 
 export const mutations = {
@@ -38,13 +38,13 @@ export const mutations = {
     // },
 
 
-    SetTopArticles(state, payload) {
-        state.TopArticles = payload
-    },
+    // SetTopArticles(state, payload) {
+    //     state.TopArticles = payload
+    // },
 
-    SetMoreTopArticles(state, payload) {
-        state.TopArticles.push(payload)
-    },
+    // SetMoreTopArticles(state, payload) {
+    //     state.TopArticles.push(payload)
+    // },
 
 
     SetHighRatedArticles(state, payload) {
@@ -57,9 +57,9 @@ export const mutations = {
 
 
 
-    SetAuthorArticles(state, payload) {
-        state.AuthorArticles = payload
-    },
+    // SetAuthorArticles(state, payload) {
+    //     state.AuthorArticles = payload
+    // },
 
 
     SetProgrammingArticles(state, payload) {
@@ -127,10 +127,10 @@ export const mutations = {
     setMobileBottom(state, payload) {
         state.mobileBottom = payload
     },
-    setDetailArticle(state, payload) {
-        state.detailArticle = payload
+    // setDetailArticle(state, payload) {
+    //     state.detailArticle = payload
 
-    },
+    // },
 
     addToCart(state, payload) {
         state.cart.push(payload)
@@ -166,14 +166,14 @@ export const actions = {
     //     context.commit('SetMoreHomeArticles', payload)
     // },
 
-    FetchTopArticles({ commit }) {
-        return ApiService.GetTopArticles().then(response => {
-            commit('SetTopArticles', response.data.results)
-        })
-    },
-    FetchMoreTopArticles(context, payload) {
-        context.commit('SetMoreTopArticles', payload)
-    },
+    // FetchTopArticles({ commit }) {
+    //     return ApiService.GetTopArticles().then(response => {
+    //         commit('SetTopArticles', response.data.results)
+    //     })
+    // },
+    // FetchMoreTopArticles(context, payload) {
+    //     context.commit('SetMoreTopArticles', payload)
+    // },
 
 
     FetchHighRatedArticles({ commit }) {
@@ -188,12 +188,12 @@ export const actions = {
 
 
 
-    FetchAuthorArticles({ commit }, authorName) {
-        return ApiService.GetAuthorArticles(authorName).then(response => {
-            commit('SetAuthorArticles', response.data)
-        })
+    // FetchAuthorArticles({ commit }, authorName) {
+    //     return ApiService.GetAuthorArticles(authorName).then(response => {
+    //         commit('SetAuthorArticles', response.data)
+    //     })
 
-    },
+    // },
 
     FetchProgrammingArticles({ commit }) {
         return ApiService.GetProgrammingArticles().then(response => {
@@ -209,13 +209,13 @@ export const actions = {
 
 
 
-    fetchDetailsCard({ commit }, slug) {
-        return ApiService.getdetailsCard(slug).then(response => {
-            commit('SET_DetailsCard', response.data),
-                commit('SET_loadingData', false)
-        })
+    // fetchDetailsCard({ commit }, slug) {
+    //     return ApiService.getdetailsCard(slug).then(response => {
+    //         commit('SET_DetailsCard', response.data),
+    //             commit('SET_loadingData', false)
+    //     })
 
-    },
+    // },
 
     setHomeArticle(context, payload) {
         context.commit('setHomeArticle', payload)

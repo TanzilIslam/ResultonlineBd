@@ -19,7 +19,7 @@ export default {
   /*
   ** Customize the progress-bar color
   */
-  loading: { color: '#ff0000', height: '3px', duration: 5000, throttle: 500 },
+  loading: { color: '#ff0000', height: '3px' },
   /*
   ** Global CSS
   */

@@ -2,20 +2,21 @@
   <div class="detail-post">
     <b-row>
       <b-col md="6" lg="6" xl="6" sm="12" xs="12">
-        <VclDetailCard v-show="loadingData" />
-        <div v-show="!loadingData">
+        <VclDetailCard v-show="Loading" />
+        <div>
           <b-card
             no-body
-            :img-src="detailCard.photo"
+            :img-src="DetailArticle.photo"
             img-alt="card Image"
             text-variant="white"
             img-height="370"
           ></b-card>
           <p style="font-size:18px" class="text-muted mt-3">
-            {{ detailCard.channel.channelname }} | {{ detailCard.release_date }}
+            {{ DetailArticle.channel.channelname }} |
+            {{ DetailArticle.release_date }}
           </p>
-          <h4>{{ detailCard.title }}</h4>
-          <p class="details mt-4">{{ detailCard.details }}</p>
+          <h4>{{ DetailArticle.title }}</h4>
+          <p class="details mt-4">{{ DetailArticle.details }}</p>
         </div>
         <div class="d-flex">
           <h5 class="mr-4 mt-3">Please Rate us:</h5>
@@ -85,24 +86,25 @@ export default {
   components: {},
   data() {
     return {
-      rating: 0
+      rating: 0,
+      Loading: false
     };
   },
   head() {
     return {
-      title: this.detailCard.title,
+      title: this.DetailArticle.title,
       meta: [
         {
           hid: "description",
           name: "description",
-          content: "What you need to know about " + this.detailCard.title
+          content: this.DetailArticle.details
         }
       ]
     };
   },
   async fetch({ store, error, params }) {
     try {
-      await store.dispatch("fetchDetailsCard", params.slug);
+      await store.dispatch("detailPage/FetchDetailArticle", params.slug);
     } catch (e) {
       error({
         statusCode: 503,
@@ -112,8 +114,7 @@ export default {
     }
   },
   computed: mapState({
-    detailCard: state => state.detailsCard,
-    loadingData: state => state.loadingData
+    DetailArticle: state => state.detailPage.DetailArticle
   }),
   methods: {
     setRating(rating) {
@@ -130,6 +131,12 @@ export default {
         alert("This is awsome");
       }
     }
+  },
+  mounted() {
+    this.$nextTick(() => {
+      this.$nuxt.$loading.start();
+      setTimeout(() => this.$nuxt.$loading.finish(), 1000);
+    });
   }
 };
 </script>
