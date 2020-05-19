@@ -12,9 +12,9 @@
                 ></b-img>
                 <div class="vl mt-4"></div>
                 <div class="custom-text mt-4 ml-3">
-                  <h4>Content Amount</h4>
+                  <!-- <h4>Content Amount</h4> -->
                   <h3 class="text-dark">
-                    {{ AuthorArticles.List.length }}
+                    Hello Everyone! I am {{ AuthorArticles.authorsname }}
                   </h3>
                   <!-- <h3 class="text-dark">
                     {{ AuthorArticles.authorsname }}

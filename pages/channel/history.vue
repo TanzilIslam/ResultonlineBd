@@ -23,7 +23,11 @@
 
     <!-- Latest Div Start -->
     <div v-show="showLatestDiv">
-      <b-row>
+      <VclChannelCommonCard v-if="$fetchState.pending" />
+      <h4 v-else-if="$fetchState.error">
+        Error while fetching posts: {{ error }}
+      </h4>
+      <b-row v-else>
         <b-col
           md="4"
           lg="4"
@@ -105,7 +109,7 @@ export default {
   layout: "channel",
   head() {
     return {
-      title: "Celebrity page - ResultOnlineBd",
+      title: "History page - ResultOnlineBd",
       meta: [
         {
           hid: "description",
@@ -116,19 +120,15 @@ export default {
       ]
     };
   },
-  async fetch({ store, error }) {
-    try {
-      await store.dispatch("FetchHistoryArticles");
-    } catch (e) {
-      error({
-        statusCode: 503,
-        message: "Unable to fetch data at this time.Please try again."
-      });
-    } finally {
-    }
+  async fetch() {
+    await this.$axios
+      .$get(process.env.baseUrl + `/channeldel?search=History`)
+      .then(posts =>
+        this.$store.dispatch("history/FetchHistoryArticles", posts.results)
+      );
   },
   computed: mapState({
-    HistoryArticles: state => state.HistoryArticles
+    HistoryArticles: state => state.history.HistoryArticles
   }),
   data() {
     return {
@@ -150,21 +150,9 @@ export default {
     },
     async loadData() {
       try {
-        let moreData = await this.$axios
-          .$get(
-            process.env.baseUrl +
-              "/channeldel?page=" +
-              this.currentPage +
-              "&search=Programming"
-          )
-          .then(item =>
-            item.results.forEach(element => {
-              this.$store.dispatch("FetchMoreHistoryArticles", element);
-            })
-          );
-        this.currentPage = this.currentPage + 1;
+        await this.$store.dispatch("history/FetchMoreHistoryArticles");
       } catch (e) {
-        alert("No more data");
+        alert("No more data" + e);
       }
     }
   }

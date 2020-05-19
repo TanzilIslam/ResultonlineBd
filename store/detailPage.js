@@ -13,9 +13,12 @@ export const mutations = {
 
 export const actions = {
 
-    FetchDetailArticle({ commit }, slug) {
-        return ApiService.GetDetailArticle(slug).then(response => {
-            commit('SET_DETAIL_ARTICLE', response.data)
-        })
-    },
+    // FetchDetailArticle({ commit }, slug) {
+    //     return ApiService.GetDetailArticle(slug).then(response => {
+    //         commit('SET_DETAIL_ARTICLE', response.data)
+    //     })
+    // },
+    FetchDetailArticle({ commit }, posts) {
+        commit('SET_DETAIL_ARTICLE', posts)
+    }
 }

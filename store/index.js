@@ -17,9 +17,9 @@ export const state = () => ({
     SelectedMobileBrandArticle: [],
     mobileTop: [],
     mobileBottom: [],
-    celebrity: [],
-    islam: [],
-    history: [],
+    // celebrity: [],
+    // islam: [],
+    // history: [],
     health: [],
     technology: [],
     education: [],
@@ -62,12 +62,12 @@ export const mutations = {
     // },
 
 
-    SetProgrammingArticles(state, payload) {
-        state.ProgrammingArticles = payload
-    },
-    SetMoreProgrammingArticles(state, payload) {
-        state.ProgrammingArticles.push(payload)
-    },
+    // SetProgrammingArticles(state, payload) {
+    //     state.ProgrammingArticles = payload
+    // },
+    // SetMoreProgrammingArticles(state, payload) {
+    //     state.ProgrammingArticles.push(payload)
+    // },
 
 
 
@@ -82,25 +82,25 @@ export const mutations = {
     setSelectedMobileBrandArticle(state, payload) {
         state.SelectedMobileBrandArticle = payload
     },
-    setCelebrity(state, payload) {
-        state.celebrity = payload
-    },
-    setLoadMoreCelebrityArticle(state, payload) {
-        state.celebrity.push(payload)
-    },
-    setIslam(state, payload) {
-        state.islam = payload
-    },
-    setLoadMoreIslamArticle(state, payload) {
-        state.islam.push(payload)
-    },
+    // setCelebrity(state, payload) {
+    //     state.celebrity = payload
+    // },
+    // setLoadMoreCelebrityArticle(state, payload) {
+    //     state.celebrity.push(payload)
+    // },
+    // setIslam(state, payload) {
+    //     state.islam = payload
+    // },
+    // setLoadMoreIslamArticle(state, payload) {
+    //     state.islam.push(payload)
+    // },
 
-    setHistory(state, payload) {
-        state.history = payload
-    },
-    setLoadMoreHistoryArticle(state, payload) {
-        state.history.push(payload)
-    },
+    // setHistory(state, payload) {
+    //     state.history = payload
+    // },
+    // setLoadMoreHistoryArticle(state, payload) {
+    //     state.history.push(payload)
+    // },
     setHealth(state, payload) {
         state.health = payload
     },
@@ -195,17 +195,17 @@ export const actions = {
 
     // },
 
-    FetchProgrammingArticles({ commit }) {
-        return ApiService.GetProgrammingArticles().then(response => {
-            commit('SetProgrammingArticles', response.data.results)
-        })
+    // FetchProgrammingArticles({ commit }) {
+    //     return ApiService.GetProgrammingArticles().then(response => {
+    //         commit('SetProgrammingArticles', response.data.results)
+    //     })
 
-    },
+    // },
 
 
-    FetchMoreProgrammingArticles(context, payload) {
-        context.commit('SetMoreProgrammingArticles', payload)
-    },
+    // FetchMoreProgrammingArticles(context, payload) {
+    //     context.commit('SetMoreProgrammingArticles', payload)
+    // },
 
 
 
@@ -217,23 +217,23 @@ export const actions = {
 
     // },
 
-    setHomeArticle(context, payload) {
-        context.commit('setHomeArticle', payload)
-    },
+    // setHomeArticle(context, payload) {
+    //     context.commit('setHomeArticle', payload)
+    // },
 
 
-    setTopContent(context, payload) {
-        context.commit('setTopContent', payload)
-    },
-    setLoadMoreTopContent(context, payload) {
-        context.commit('setLoadMoreTopContent', payload)
-    },
-    setProgramming(context, payload) {
-        context.commit('setProgramming', payload)
-    },
-    setLoadMoreProgrammingArticle(context, payload) {
-        context.commit('setLoadMoreProgrammingArticle', payload)
-    },
+    // setTopContent(context, payload) {
+    //     context.commit('setTopContent', payload)
+    // },
+    // setLoadMoreTopContent(context, payload) {
+    //     context.commit('setLoadMoreTopContent', payload)
+    // },
+    // setProgramming(context, payload) {
+    //     context.commit('setProgramming', payload)
+    // },
+    // setLoadMoreProgrammingArticle(context, payload) {
+    //     context.commit('setLoadMoreProgrammingArticle', payload)
+    // },
 
     setMobileBrandLogo(context, payload) {
         context.commit('setMobileBrandLogo', payload)
@@ -242,25 +242,25 @@ export const actions = {
         context.commit('setSelectedMobileBrandArticle', payload)
     },
 
-    setCelebrity(context, payload) {
-        context.commit('setCelebrity', payload)
-    },
-    setLoadMoreCelebrityArticle(context, payload) {
-        context.commit('setLoadMoreCelebrityArticle', payload)
-    },
-    setIslam(context, payload) {
-        context.commit('setIslam', payload)
-    },
-    setLoadMoreIslamArticle(context, payload) {
-        context.commit('setLoadMoreIslamArticle', payload)
-    },
-    setHistory(context, payload) {
-        context.commit('setHistory', payload)
-    },
+    // setCelebrity(context, payload) {
+    //     context.commit('setCelebrity', payload)
+    // },
+    // setLoadMoreCelebrityArticle(context, payload) {
+    //     context.commit('setLoadMoreCelebrityArticle', payload)
+    // },
+    // setIslam(context, payload) {
+    //     context.commit('setIslam', payload)
+    // },
+    // setLoadMoreIslamArticle(context, payload) {
+    //     context.commit('setLoadMoreIslamArticle', payload)
+    // },
+    // setHistory(context, payload) {
+    //     context.commit('setHistory', payload)
+    // },
 
-    setLoadMoreHistoryArticle(context, payload) {
-        context.commit('setLoadMoreHistoryArticle', payload)
-    },
+    // setLoadMoreHistoryArticle(context, payload) {
+    //     context.commit('setLoadMoreHistoryArticle', payload)
+    // },
     setHealth(context, payload) {
         context.commit('setHealth', payload)
     },
@@ -292,16 +292,16 @@ export const actions = {
     setTechnology(context, payload) {
         context.commit('setTechnology', payload)
     },
-    setDetailArticle(context, payload) {
-        context.commit('setDetailArticle', payload)
+    // setDetailArticle(context, payload) {
+    //     context.commit('setDetailArticle', payload)
 
-    },
-    setAuthorAllArticle(context, payload) {
-        context.commit('setAuthorAllArticle', payload)
-    },
-    setAuthorAllArticle(context, payload) {
-        context.commit('setAuthorAllArticle', payload)
-    },
+    // },
+    // setAuthorAllArticle(context, payload) {
+    //     context.commit('setAuthorAllArticle', payload)
+    // },
+    // setAuthorAllArticle(context, payload) {
+    //     context.commit('setAuthorAllArticle', payload)
+    // },
     searchedInventory(context, payload) {
         context.commit('searchedInventory', payload)
     },

@@ -37,7 +37,7 @@
       </b-list-group-item>
 
       <b-list-group-item to="/channel/education" class="mylist">
-        <b-icon icon=" book-half" scale="2"></b-icon>
+        <b-icon icon="book-half" scale="2"></b-icon>
         <span style="margin-left:15px">Education</span>
       </b-list-group-item>
     </b-list-group>

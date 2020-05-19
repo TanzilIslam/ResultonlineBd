@@ -23,7 +23,11 @@
 
     <!-- Latest Div Start -->
     <div v-show="showLatestDiv">
-      <b-row>
+      <VclChannelCommonCard v-if="$fetchState.pending" />
+      <h4 v-else-if="$fetchState.error">
+        Error while fetching posts: {{ error }}
+      </h4>
+      <b-row v-else>
         <b-col
           md="4"
           lg="4"
@@ -116,25 +120,20 @@ export default {
       ]
     };
   },
-  async fetch({ store, error }) {
-    try {
-      await store.dispatch("FetchCelebrityArticles");
-    } catch (e) {
-      error({
-        statusCode: 503,
-        message: "Unable to fetch data at this time.Please try again."
-      });
-    } finally {
-    }
+  async fetch() {
+    await this.$axios
+      .$get(process.env.baseUrl + `/channeldel?search=Celebrity`)
+      .then(posts =>
+        this.$store.dispatch("celebrity/FetchCelebrityArticles", posts.results)
+      );
   },
   computed: mapState({
-    CelebrityArticles: state => state.CelebrityArticles
+    CelebrityArticles: state => state.celebrity.CelebrityArticles
   }),
   data() {
     return {
       showLatestDiv: true,
-      showAboutDiv: false,
-      currentPage: 2
+      showAboutDiv: false
     };
   },
   methods: {
@@ -150,23 +149,17 @@ export default {
     },
     async loadData() {
       try {
-        let moreData = await this.$axios
-          .$get(
-            process.env.baseUrl +
-              "/channeldel?page=" +
-              this.currentPage +
-              "&search=Programming"
-          )
-          .then(item =>
-            item.results.forEach(element => {
-              this.$store.dispatch("FetchMoreCelebrityArticles", element);
-            })
-          );
-        this.currentPage = this.currentPage + 1;
+        await this.$store.dispatch("celebrity/FetchMoreCelebrityArticles");
       } catch (e) {
-        alert("No more data");
+        alert("No more data" + e);
       }
     }
+  },
+  mounted() {
+    this.$nextTick(() => {
+      this.$nuxt.$loading.start();
+      setTimeout(() => this.$nuxt.$loading.finish(), 1000);
+    });
   }
 };
 </script>

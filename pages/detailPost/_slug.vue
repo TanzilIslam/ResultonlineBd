@@ -2,8 +2,11 @@
   <div class="detail-post">
     <b-row>
       <b-col md="6" lg="6" xl="6" sm="12" xs="12">
-        <VclDetailCard v-show="Loading" />
-        <div>
+        <VclDetailCard v-if="$fetchState.pending" />
+        <h4 v-else-if="$fetchState.error">
+          Error while fetching posts: {{ error }}
+        </h4>
+        <div v-else>
           <b-card
             no-body
             :img-src="DetailArticle.photo"
@@ -11,12 +14,24 @@
             text-variant="white"
             img-height="370"
           ></b-card>
-          <p style="font-size:18px" class="text-muted mt-3">
+          <b-card-text
+            style="font-size:18px"
+            text-tag="p"
+            class="text-muted mt-3"
+          >
+            {{ DetailArticle.channel.channelname }} |
+            {{ DetailArticle.release_date }}</b-card-text
+          >
+          <b-card-text text-tag="h4">{{ DetailArticle.title }}</b-card-text>
+          <b-card-text text-tag="p" class="details mt-4">
+            {{ DetailArticle.details }}</b-card-text
+          >
+          <!-- <p style="font-size:18px" class="text-muted mt-3">
             {{ DetailArticle.channel.channelname }} |
             {{ DetailArticle.release_date }}
-          </p>
-          <h4>{{ DetailArticle.title }}</h4>
-          <p class="details mt-4">{{ DetailArticle.details }}</p>
+          </p> -->
+          <!-- <h4>{{ DetailArticle.title }}</h4> -->
+          <!-- <p class="details mt-4">{{ DetailArticle.details }}</p> -->
         </div>
         <div class="d-flex">
           <h5 class="mr-4 mt-3">Please Rate us:</h5>
@@ -102,16 +117,12 @@ export default {
       ]
     };
   },
-  async fetch({ store, error, params }) {
-    try {
-      await store.dispatch("detailPage/FetchDetailArticle", params.slug);
-    } catch (e) {
-      error({
-        statusCode: 503,
-        message: "Unable to fetch events at this time. Please try again."
-      });
-    } finally {
-    }
+  async fetch() {
+    await this.$axios
+      .$get(process.env.baseUrl + `/details/${this.$route.params.slug}`)
+      .then(posts =>
+        this.$store.dispatch("detailPage/FetchDetailArticle", posts)
+      );
   },
   computed: mapState({
     DetailArticle: state => state.detailPage.DetailArticle
