@@ -1,12 +1,10 @@
 <template>
   <div class="vcl-channel-common-card">
-    <b-container>
-      <b-row>
-        <b-col md="4" lg="4" xs="12" sm="6" xl="4" v-for="i in 21" :key="i">
-          <vcl-twitch class="custom-vcl-channel-common-card"></vcl-twitch>
-        </b-col>
-      </b-row>
-    </b-container>
+    <b-row>
+      <b-col md="4" lg="4" xs="12" sm="6" xl="4" v-for="i in 21" :key="i">
+        <vcl-twitch class="custom-vcl-channel-common-card"></vcl-twitch>
+      </b-col>
+    </b-row>
   </div>
 </template>
 

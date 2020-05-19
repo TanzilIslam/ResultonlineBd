@@ -24,7 +24,8 @@ export default {
   props: {
     ArticleCover: {
       type: String,
-      default: ""
+      default:
+        "https://images.unsplash.com/photo-1519455953755-af066f52f1a6?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=334&q=80"
     },
     ArticlePublish: {
       type: String,

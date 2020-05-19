@@ -23,14 +23,12 @@
 
     <!-- Latest Div Start -->
     <div v-show="showLatestDiv">
-      <b-row>
-        <VclChannelCommonCard v-if="$fetchState.pending" />
-        <h4 v-else-if="$fetchState.error">
-          Error while fetching posts: {{ error }}
-        </h4>
-
+      <VclChannelCommonCard v-if="$fetchState.pending" />
+      <h4 v-else-if="$fetchState.error">
+        Error while fetching posts: {{ error }}
+      </h4>
+      <b-row v-else>
         <b-col
-          v-else
           md="4"
           lg="4"
           xs="12"

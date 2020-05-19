@@ -12,10 +12,13 @@
                 ></b-img>
                 <div class="vl mt-4"></div>
                 <div class="custom-text mt-4 ml-3">
-                  <h4>Content Amount</h4>
-                  <h5>
+                  <!-- <h4>Content Amount</h4> -->
+                  <!-- <h3 class="text-dark">
                     {{ AuthorArticles.Status_list.length }}
-                  </h5>
+                  </h3> -->
+                  <h3 class="text-dark">
+                    {{ AuthorArticles.authorsname }}
+                  </h3>
                 </div>
               </div>
             </b-col>
@@ -40,8 +43,12 @@
       </b-col>
       <div class="ml-2 mr-3" v-show="showLatestDiv">
         <b-row>
-          <VclChannelCommonCard v-if="Loading" />
+          <VclChannelCommonCard v-if="$fetchState.pending" />
+          <h4 v-else-if="$fetchState.error">
+            Error while fetching posts: {{ error }}
+          </h4>
           <b-col
+            v-else
             md="3"
             lg="3"
             xs="12"
@@ -52,7 +59,6 @@
           >
             <nuxt-link prefetch :to="`/detailPost/${a.slug}`">
               <AuthorSmallCard
-                :ArticleCover="'http://cdn.resultonlinebd.com' + a.photo"
                 :ArticleTitle="a.title"
                 :ArticlePublish="a.release_date"
               />
@@ -71,7 +77,9 @@
 </template>
 
 <script>
+//  :ArticleCover="'http://cdn.resultonlinebd.com' + a.photo"
 import { mapState } from "vuex";
+
 export default {
   head() {
     return {
@@ -85,20 +93,27 @@ export default {
       ]
     };
   },
-  async fetch({ store, error, params }) {
-    try {
-      await store.dispatch(
-        "authorProfile/FetchAuthorArticles",
-        params.authorName
+  async fetch() {
+    await this.$axios
+      .$get(process.env.baseUrl + `/channel/${this.$route.params.authorName}`)
+      .then(posts =>
+        this.$store.dispatch("authorProfile/FetchAuthorArticles", posts)
       );
-    } catch (e) {
-      error({
-        statusCode: 503,
-        message: "Unable to fetch events at this time. Please try again."
-      });
-    } finally {
-    }
   },
+  // async fetch({ store, error, params }) {
+  //   try {
+  //     await store.dispatch(
+  //       "authorProfile/FetchAuthorArticles",
+  //       params.authorName
+  //     );
+  //   } catch (e) {
+  //     error({
+  //       statusCode: 503,
+  //       message: "Unable to fetch events at this time. Please try again."
+  //     });
+  //   } finally {
+  //   }
+  // },
   computed: mapState({
     AuthorArticles: state => state.authorProfile.AuthorArticles
   }),

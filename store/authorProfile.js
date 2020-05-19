@@ -1,7 +1,7 @@
 import ApiService from '~/services/ApiService.js'
 export const namespaced = true
 export const state = () => ({
-    AuthorArticles: [],
+    AuthorArticles: {},
 })
 
 export const mutations = {
@@ -11,10 +11,13 @@ export const mutations = {
 }
 
 export const actions = {
-    FetchAuthorArticles({ commit }, authorName) {
-        return ApiService.GetAuthorArticles(authorName).then(response => {
-            commit('SET_AUTHOR_ARTICLES', response.data)
-        })
+    // FetchAuthorArticles({ commit }, authorName) {
+    //     return ApiService.GetAuthorArticles(authorName).then(response => {
+    //         commit('SET_AUTHOR_ARTICLES', response.data)
+    //     })
 
+    // }
+    FetchAuthorArticles({ commit }, posts) {
+        commit('SET_AUTHOR_ARTICLES', posts)
     }
 }
