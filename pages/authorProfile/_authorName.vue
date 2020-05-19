@@ -12,13 +12,13 @@
                 ></b-img>
                 <div class="vl mt-4"></div>
                 <div class="custom-text mt-4 ml-3">
-                  <!-- <h4>Content Amount</h4> -->
-                  <!-- <h3 class="text-dark">
-                    {{ AuthorArticles.Status_list.length }}
-                  </h3> -->
+                  <h4>Content Amount</h4>
                   <h3 class="text-dark">
-                    {{ AuthorArticles.authorsname }}
+                    {{ AuthorArticles.Status_list.length }}
                   </h3>
+                  <!-- <h3 class="text-dark">
+                    {{ AuthorArticles.authorsname }}
+                  </h3> -->
                 </div>
               </div>
             </b-col>
@@ -59,6 +59,7 @@
           >
             <nuxt-link prefetch :to="`/detailPost/${a.slug}`">
               <AuthorSmallCard
+                :ArticleCover="'http://cdn.resultonlinebd.com' + a.photo"
                 :ArticleTitle="a.title"
                 :ArticlePublish="a.release_date"
               />
@@ -77,7 +78,6 @@
 </template>
 
 <script>
-//  :ArticleCover="'http://cdn.resultonlinebd.com' + a.photo"
 import { mapState } from "vuex";
 
 export default {
