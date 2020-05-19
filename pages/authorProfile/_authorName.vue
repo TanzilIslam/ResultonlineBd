@@ -14,7 +14,7 @@
                 <div class="custom-text mt-4 ml-3">
                   <h4>Content Amount</h4>
                   <h3 class="text-dark">
-                    {{ AuthorArticles.Status_list.length }}
+                    {{ AuthorArticles.List.length }}
                   </h3>
                   <!-- <h3 class="text-dark">
                     {{ AuthorArticles.authorsname }}
@@ -54,7 +54,7 @@
             xs="12"
             sm="6"
             xl="3"
-            v-for="(a, index) in AuthorArticles.Status_list"
+            v-for="(a, index) in AuthorArticles.List"
             :key="index"
           >
             <nuxt-link prefetch :to="`/detailPost/${a.slug}`">
