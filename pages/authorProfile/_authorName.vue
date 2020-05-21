@@ -25,6 +25,8 @@
           </b-row>
         </div>
       </b-col>
+    </b-row>
+    <b-row>
       <b-col md="12">
         <b-tabs :no-nav-style="true" content-class="mt-0 mb-0">
           <b-tab
@@ -41,39 +43,38 @@
           <hr class="line" />
         </b-tabs>
       </b-col>
-      <div class="ml-2 mr-3" v-show="showLatestDiv">
-        <b-row>
-          <VclChannelCommonCard v-if="$fetchState.pending" />
-          <h4 v-else-if="$fetchState.error">
-            Error while fetching posts: {{ error }}
-          </h4>
-          <b-col
-            v-else
-            md="3"
-            lg="3"
-            xs="12"
-            sm="6"
-            xl="3"
-            v-for="(a, index) in AuthorArticles.List"
-            :key="index"
-          >
-            <nuxt-link prefetch :to="`/detailPost/${a.slug}`">
-              <AuthorSmallCard
-                :ArticleCover="'http://cdn.resultonlinebd.com' + a.photo"
-                :ArticleTitle="a.title"
-                :ArticlePublish="a.release_date"
-              />
-            </nuxt-link>
-          </b-col>
-        </b-row>
-      </div>
-      <div v-show="showAboutDiv">
-        <b-container>
-          <h3>{{ AuthorArticles.authorsname }}</h3>
-          <p class="about-text">{{ AuthorArticles.about }}</p>
-        </b-container>
-      </div>
     </b-row>
+    <div v-show="showLatestDiv">
+      <AuthorVclCard v-if="$fetchState.pending" />
+      <h4 v-else-if="$fetchState.error">
+        Error while fetching posts: {{ error }}
+      </h4>
+      <b-row v-else>
+        <b-col
+          sm="6"
+          md="3"
+          lg="3"
+          xl="3"
+          v-for="(a, index) in AuthorArticles.List"
+          :key="index"
+        >
+          <nuxt-link prefetch :to="`/detailPost/${a.slug}`">
+            <AuthorSmallCard
+              :ArticleCover="'http://cdn.resultonlinebd.com' + a.photo"
+              :ArticleTitle="a.title"
+              :ArticlePublish="a.release_date"
+            />
+          </nuxt-link>
+        </b-col>
+      </b-row>
+    </div>
+    <div v-show="showAboutDiv">
+      <b-container>
+        <h3>{{ AuthorArticles.authorsname }}</h3>
+        <p class="about-text">{{ AuthorArticles.about }}</p>
+      </b-container>
+    </div>
+    <!-- </b-row> -->
   </div>
 </template>
 

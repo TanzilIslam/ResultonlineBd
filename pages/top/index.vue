@@ -3,13 +3,12 @@
     <Carousel />
     <Breadcrumb :topActive="true" />
     <div class="top-container">
-      <b-row>
-        <VclChannelCommonCard v-if="$fetchState.pending" />
-        <h4 v-else-if="$fetchState.error">
-          Error while fetching posts: {{ error }}
-        </h4>
+      <VclChannelCommonCard v-if="$fetchState.pending" />
+      <h4 v-else-if="$fetchState.error">
+        Error while fetching posts: {{ error }}
+      </h4>
+      <b-row v-else>
         <b-col
-          v-else
           sm="6"
           md="4"
           lg="4"

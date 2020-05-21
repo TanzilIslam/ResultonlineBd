@@ -10,12 +10,12 @@
             @click="loadAll()"
           >
             <b-icon
-              class="mr-2"
+              class="ml-2 mr-2"
               icon="window"
               scale="1"
               variant=" light ? dark "
             ></b-icon
-            >ALL
+            ><span class="mr-2">ALL</span>
           </b-button>
           <b-button
             variant="outline-dark"
@@ -24,12 +24,12 @@
             @click="loadTop()"
           >
             <b-icon
-              class="mr-2"
+              class="ml-2 mr-2"
               icon="graph-up"
               scale="1"
               variant=" light ? dark "
             ></b-icon
-            >Top
+            ><span class="mr-2">Top</span>
           </b-button>
           <b-button
             variant="outline-dark"
@@ -38,12 +38,12 @@
             @click="loadhighRated()"
           >
             <b-icon
-              class="mr-2"
+              class="ml-2 mr-2"
               icon="credit-card"
               scale="1"
               variant=" light ? dark "
             ></b-icon
-            >High Rated
+            ><span class="mr-2">High Rated</span>
           </b-button>
         </b-col>
       </b-row>
@@ -91,8 +91,11 @@ export default {
 }
 .b-button {
   border-radius: 15px;
-  font-size: 13px;
+  font-size: 14px;
   height: 30px;
   text-align: center !important;
+  font-weight: 400;
+  line-height: 1.4;
+  letter-spacing: -0.5px;
 }
 </style>

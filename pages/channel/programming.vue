@@ -23,6 +23,7 @@
 
     <!-- Latest Div Start -->
     <div v-show="showLatestDiv">
+      <VclChannelCommonCard />
       <VclChannelCommonCard v-if="$fetchState.pending" />
       <h4 v-else-if="$fetchState.error">
         Error while fetching posts: {{ error }}
