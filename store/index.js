@@ -8,7 +8,7 @@ export const state = () => ({
     // TopArticles: [],
     HighRatedArticles: [],
 
-    ProgrammingArticles: [],
+    // ProgrammingArticles: [],
 
 
 
@@ -20,11 +20,11 @@ export const state = () => ({
     // celebrity: [],
     // islam: [],
     // history: [],
-    health: [],
-    technology: [],
-    education: [],
+    // health: [],
+    // technology: [],
+    // education: [],
     searched: [],
-    detailArticle: {},
+    // detailArticle: {},
 
     // detailsCard: {}
 })
@@ -101,26 +101,26 @@ export const mutations = {
     // setLoadMoreHistoryArticle(state, payload) {
     //     state.history.push(payload)
     // },
-    setHealth(state, payload) {
-        state.health = payload
-    },
-    setLoadMoreHealthArticle(state, payload) {
-        state.health.push(payload)
-    },
+    // setHealth(state, payload) {
+    //     state.health = payload
+    // },
+    // setLoadMoreHealthArticle(state, payload) {
+    //     state.health.push(payload)
+    // },
 
-    setTechnology(state, payload) {
-        state.technology = payload
-    },
-    setLoadMoreTechnologyArticle(state, payload) {
-        state.technology.push(payload)
-    },
+    // setTechnology(state, payload) {
+    //     state.technology = payload
+    // },
+    // setLoadMoreTechnologyArticle(state, payload) {
+    //     state.technology.push(payload)
+    // },
 
-    setEducation(state, payload) {
-        state.education = payload
-    },
-    setLoadMoreEducationArticle(state, payload) {
-        state.education.push(payload)
-    },
+    // setEducation(state, payload) {
+    //     state.education = payload
+    // },
+    // setLoadMoreEducationArticle(state, payload) {
+    //     state.education.push(payload)
+    // },
     setMobileTop(state, payload) {
         state.mobileTop = payload
     },
@@ -261,25 +261,25 @@ export const actions = {
     // setLoadMoreHistoryArticle(context, payload) {
     //     context.commit('setLoadMoreHistoryArticle', payload)
     // },
-    setHealth(context, payload) {
-        context.commit('setHealth', payload)
-    },
+    // setHealth(context, payload) {
+    //     context.commit('setHealth', payload)
+    // },
 
-    setLoadMoreHealthArticle(context, payload) {
-        context.commit('setLoadMoreHealthArticle', payload)
-    },
-    setTechnology(context, payload) {
-        context.commit('setTechnology', payload)
-    },
-    setLoadMoreTechnologyArticle(context, payload) {
-        context.commit('setLoadMoreTechnologyArticle', payload)
-    },
-    setEducation(context, payload) {
-        context.commit('setEducation', payload)
-    },
-    setLoadMoreEducationArticle(context, payload) {
-        context.commit('setLoadMoreEducationArticle', payload)
-    },
+    // setLoadMoreHealthArticle(context, payload) {
+    //     context.commit('setLoadMoreHealthArticle', payload)
+    // },
+    // setTechnology(context, payload) {
+    //     context.commit('setTechnology', payload)
+    // },
+    // setLoadMoreTechnologyArticle(context, payload) {
+    //     context.commit('setLoadMoreTechnologyArticle', payload)
+    // },
+    // setEducation(context, payload) {
+    //     context.commit('setEducation', payload)
+    // },
+    // setLoadMoreEducationArticle(context, payload) {
+    //     context.commit('setLoadMoreEducationArticle', payload)
+    // },
     addToCart(context, payload) {
         context.commit('addToCart', payload)
     },
@@ -289,9 +289,9 @@ export const actions = {
     setMobileBottom(context, payload) {
         context.commit('setMobileBottom', payload)
     },
-    setTechnology(context, payload) {
-        context.commit('setTechnology', payload)
-    },
+    // setTechnology(context, payload) {
+    //     context.commit('setTechnology', payload)
+    // },
     // setDetailArticle(context, payload) {
     //     context.commit('setDetailArticle', payload)
 

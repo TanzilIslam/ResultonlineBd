@@ -28,6 +28,24 @@ export default {
     GetMoreProgrammingArticles(pageNumber) {
         return apiClient.get('channeldel?page=' + pageNumber + '&search=Programming')
     },
+    GetMoreCelebrityArticles(pageNumber) {
+        return apiClient.get('channeldel?page=' + pageNumber + '&search=Celebrity')
+    },
+    GetMoreIslamArticles(pageNumber) {
+        return apiClient.get('channeldel?page=' + pageNumber + '&search=Islam')
+    },
+    GetMoreHistoryArticles(pageNumber) {
+        return apiClient.get('channeldel?page=' + pageNumber + '&search=History')
+    },
 
+    GetMoreHealthArticles(pageNumber) {
+        return apiClient.get('channeldel?page=' + pageNumber + '&search=Health')
+    },
+    GetMoreTechnologyArticles(pageNumber) {
+        return apiClient.get('channeldel?page=' + pageNumber + '&search=Technology')
+    },
 
+    GetMoreEducationArticles(pageNumber) {
+        return apiClient.get('channeldel?page=' + pageNumber + '&search=Education')
+    },
 }

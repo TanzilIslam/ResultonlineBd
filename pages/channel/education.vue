@@ -1,7 +1,7 @@
 <template>
-  <div class="celebrity-post">
+  <div class="eduation-post">
     <!-- Cover Start -->
-    <ChannelCover ChannelCoverTitle="Celebrity" />
+    <ChannelCover ChannelCoverTitle="Education" />
     <!-- Cover End -->
 
     <!--Tab start -->
@@ -23,14 +23,18 @@
 
     <!-- Latest Div Start -->
     <div v-show="showLatestDiv">
-      <b-row>
+      <VclChannelCommonCard v-if="$fetchState.pending" />
+      <h4 v-else-if="$fetchState.error">
+        Error while fetching posts: {{ error }}
+      </h4>
+      <b-row v-else>
         <b-col
           md="4"
           lg="4"
           xs="12"
           sm="6"
           xl="4"
-          v-for="(article, index) in CelebrityArticles"
+          v-for="(article, index) in EducationArticles"
           :key="index"
         >
           <nuxt-link prefetch :to="`/detailPost/${article.slug}`">
@@ -50,7 +54,7 @@
 
     <!-- About Div Start -->
     <div v-show="showAboutDiv">
-      <h3>this is abour apge of Celebrity</h3>
+      <h3>this is about page of Education Articles</h3>
       <h5 class="text-muted">Every body should know</h5>
       <p>
         Lorem ipsum dolor sit amet consectetur adipisicing elit. Earum, esse.
@@ -105,36 +109,31 @@ export default {
   layout: "channel",
   head() {
     return {
-      title: "Celebrity page - ResultOnlineBd",
+      title: "Education page - ResultOnlineBd",
       meta: [
         {
           hid: "description",
           name: "description",
           content:
-            "Here you can find all the latest information about CelebrityArticles "
+            "Here you can find all the latest information about Education Articles "
         }
       ]
     };
   },
-  async fetch({ store, error }) {
-    try {
-      await store.dispatch("FetchCelebrityArticles");
-    } catch (e) {
-      error({
-        statusCode: 503,
-        message: "Unable to fetch data at this time.Please try again."
-      });
-    } finally {
-    }
+  async fetch() {
+    await this.$axios
+      .$get(process.env.baseUrl + `/channeldel?search=Education`)
+      .then(posts =>
+        this.$store.dispatch("education/FetchEducationArticles", posts.results)
+      );
   },
   computed: mapState({
-    CelebrityArticles: state => state.CelebrityArticles
+    EducationArticles: state => state.education.EducationArticles
   }),
   data() {
     return {
       showLatestDiv: true,
-      showAboutDiv: false,
-      currentPage: 2
+      showAboutDiv: false
     };
   },
   methods: {
@@ -150,21 +149,9 @@ export default {
     },
     async loadData() {
       try {
-        let moreData = await this.$axios
-          .$get(
-            process.env.baseUrl +
-              "/channeldel?page=" +
-              this.currentPage +
-              "&search=Programming"
-          )
-          .then(item =>
-            item.results.forEach(element => {
-              this.$store.dispatch("FetchMoreCelebrityArticles", element);
-            })
-          );
-        this.currentPage = this.currentPage + 1;
+        await this.$store.dispatch("education/FetchMoreEducationArticles");
       } catch (e) {
-        alert("No more data");
+        alert("No more data" + e);
       }
     }
   }
@@ -172,7 +159,7 @@ export default {
 </script>
 
 <style scoped>
-/* .celebrity-post{
+/* .education-post{
 
 } */
 a {
