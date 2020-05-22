@@ -116,25 +116,14 @@ export default {
       ]
     };
   },
-  async fetch({ store, error }) {
-    try {
-      await store.dispatch("FetchCelebrityArticles");
-    } catch (e) {
-      error({
-        statusCode: 503,
-        message: "Unable to fetch data at this time.Please try again."
-      });
-    } finally {
-    }
-  },
+  async fetch() {},
   computed: mapState({
     CelebrityArticles: state => state.CelebrityArticles
   }),
   data() {
     return {
       showLatestDiv: true,
-      showAboutDiv: false,
-      currentPage: 2
+      showAboutDiv: false
     };
   },
   methods: {
@@ -150,19 +139,6 @@ export default {
     },
     async loadData() {
       try {
-        let moreData = await this.$axios
-          .$get(
-            process.env.baseUrl +
-              "/channeldel?page=" +
-              this.currentPage +
-              "&search=Programming"
-          )
-          .then(item =>
-            item.results.forEach(element => {
-              this.$store.dispatch("FetchMoreCelebrityArticles", element);
-            })
-          );
-        this.currentPage = this.currentPage + 1;
       } catch (e) {
         alert("No more data");
       }

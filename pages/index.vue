@@ -19,6 +19,7 @@
           :data-index="index"
         />
       </b-col>
+      <!-- Latest card start -->
       <b-col sm="12" md="4" lg="4" xl="4">
         <div class="latest-home-card">
           <h5 class="custom-latest-title">Latest</h5>
@@ -46,26 +47,25 @@
             </b-list-group-item>
           </b-list-group>
         </div>
-        <!-- <LatestCard
-          v-for="(article, index) in LatestArticles"
-          :key="index"
-          :article="article"
-          :data-index="index"
-        /> -->
       </b-col>
+      <!-- Latest card End -->
     </b-row>
+
+    <!-- pagination Start -->
     <div class="myPagination">
       <div class="text-center mt-5 mb-3">
-        <b-button variant="dark" @click="loadData">
-          <span v-if="loaded"> Load More</span>
-          <span v-else-if="!loaded"
-            ><b-spinner
-              style="width: 2rem; height: 2rem;"
-              label="Loading..."
-            ></b-spinner></span
-        ></b-button>
+        <span v-if="!loaded"
+          ><b-spinner
+            style="width: 2rem; height: 2rem;"
+            label="Loading..."
+          ></b-spinner
+        ></span>
+        <b-button v-else-if="loaded" variant="dark" @click="loadData">
+          <span> Load More</span>
+        </b-button>
       </div>
     </div>
+    <!-- pagination End -->
   </div>
 </template>
 

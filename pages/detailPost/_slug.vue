@@ -1,6 +1,68 @@
 <template>
   <div class="detail-post">
     <b-row>
+      <b-col cols="12" sm="12" md="9" lg="9" xl="9">
+        <VclDetailCard v-if="$fetchState.pending" />
+        <h4 v-else-if="$fetchState.error">
+          Error while fetching posts: {{ $fetchState.error.message }}
+        </h4>
+        <div v-else>
+          <b-card
+            no-body
+            :img-src="DetailArticle.photo"
+            img-alt="card Image"
+            text-variant="white"
+            img-height="370"
+          ></b-card>
+          <div>
+            <b-row>
+              <b-col cols="6" sm="6" md="11" lg="10" xl="10">
+                <b-card-text
+                  style="font-size:18px"
+                  text-tag="p"
+                  class="text-muted mt-3"
+                >
+                  {{ DetailArticle.channel.channelname }} |
+                  {{ DetailArticle.release_date }} -
+                </b-card-text>
+              </b-col>
+              <b-col cols="6" sm="6" md="1" lg="2" xl="2">
+                <div class="d-flex mt-3">
+                  -
+                  <b-img
+                    class=""
+                    style="width:20px;height:20px;"
+                    :src="require('~/assets/user/detailPage/fire.png')"
+                  ></b-img>
+                  <b-card-text text-tag="p" class="text-muted ">{{
+                    DetailArticle.view
+                  }}</b-card-text>
+                </div>
+              </b-col>
+            </b-row>
+          </div>
+          <b-card-text class="mt-4" text-tag="h4">{{
+            DetailArticle.title
+          }}</b-card-text>
+          <b-card-text text-tag="p" class="details mt-4">
+            {{ DetailArticle.details }}</b-card-text
+          >
+        </div>
+        <div class="d-flex">
+          <h5 class="mr-4 mt-3">Please Rate us:</h5>
+          <client-only>
+            <star-rating
+              :show-rating="false"
+              v-model="rating"
+              @rating-selected="setRating"
+              :glow="2"
+            ></star-rating>
+          </client-only>
+        </div>
+      </b-col>
+      <b-col cols="12" sm="12" md="3" lg="3" xl="3"> </b-col>
+    </b-row>
+    <!-- <b-row>
       <b-col md="6" lg="6" xl="6" sm="12" xs="12">
         <VclDetailCard v-if="$fetchState.pending" />
         <h4 v-else-if="$fetchState.error">
@@ -26,12 +88,6 @@
           <b-card-text text-tag="p" class="details mt-4">
             {{ DetailArticle.details }}</b-card-text
           >
-          <!-- <p style="font-size:18px" class="text-muted mt-3">
-            {{ DetailArticle.channel.channelname }} |
-            {{ DetailArticle.release_date }}
-          </p> -->
-          <!-- <h4>{{ DetailArticle.title }}</h4> -->
-          <!-- <p class="details mt-4">{{ DetailArticle.details }}</p> -->
         </div>
         <div class="d-flex">
           <h5 class="mr-4 mt-3">Please Rate us:</h5>
@@ -91,7 +147,7 @@
           </b-col>
         </b-row>
       </b-col>
-    </b-row>
+    </b-row> -->
   </div>
 </template>
 
@@ -157,7 +213,9 @@ hr {
   border: 1px solid black;
 }
 .details {
-  text-align: justify;
+  font-size: 1.125rem;
+  color: #333745;
+  line-height: 1.7;
 }
 .custom-card-text-title {
   margin-top: 0px !important;
