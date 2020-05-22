@@ -5,22 +5,24 @@
     <div class="top-container">
       <VclChannelCommonCard v-if="$fetchState.pending" />
       <h4 v-else-if="$fetchState.error">
-        Error while fetching posts: {{ error }}
+        Error while fetching posts: {{ $fetchState.error.message }}
       </h4>
-      <b-row v-else>
-        <b-col
-          sm="6"
-          md="4"
-          lg="4"
-          xl="4"
-          v-for="(article, index) in TopArticles"
-          :key="index"
-        >
-          <nuxt-link prefetch :to="`/detailPost/${article.slug}`">
-            <ChannelCommonCard :article="article" :data-index="index" />
-          </nuxt-link>
-        </b-col>
-      </b-row>
+      <div v-else>
+        <b-row>
+          <b-col
+            sm="6"
+            md="4"
+            lg="4"
+            xl="4"
+            v-for="(article, index) in TopArticles"
+            :key="index"
+          >
+            <nuxt-link prefetch :to="`/detailPost/${article.slug}`">
+              <ChannelCommonCard :article="article" :data-index="index" />
+            </nuxt-link>
+          </b-col>
+        </b-row>
+      </div>
       <!-- Pagination Start End -->
       <div class="myPagination">
         <div class="text-center mt-5 mb-3">

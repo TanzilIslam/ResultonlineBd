@@ -3,6 +3,7 @@ export const namespaced = true
 export const state = () => ({
     PageNumber: 2,
     HomeArticles: [],
+    LatestArticles: []
 })
 
 export const mutations = {
@@ -11,6 +12,9 @@ export const mutations = {
     },
     SET_MORE_HOME_ARTICLES(state, payload) {
         state.HomeArticles.push(payload)
+    },
+    SET_LATEST_ARTICLES(state, payload) {
+        state.LatestArticles = payload
     },
     INCREASE_PAGE_NUMBER(state) {
         state.PageNumber++;
@@ -30,4 +34,7 @@ export const actions = {
             commit('INCREASE_PAGE_NUMBER')
         })
     },
+    FetchLatestArticles({ commit }, posts) {
+        commit('SET_LATEST_ARTICLES', posts)
+    }
 }

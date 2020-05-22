@@ -1,29 +1,30 @@
 <template>
   <div class="latest-home-card">
-    <div>
-      <h5 class="custom-latest-title">Latest</h5>
-      <b-list-group>
-        <b-list-group-item class="custom-list-item" v-for="i in 6" :key="i">
-          <div class="d-flex">
-            <div>
-              <b-img
-                class="custom-latest-image"
-                :src="require('~/assets/user/latestCard/logo.png')"
-              ></b-img>
-            </div>
-            <div class="custom-latest-text">
-              This is a sample title for latest div.This will show on right
-              <p class="mt-4 text-muted">2012-7-90</p>
-            </div>
+    <h5 class="custom-latest-title">Latest</h5>
+    <b-list-group>
+      <b-list-group-item class="custom-list-item">
+        <div class="d-flex">
+          <div>
+            <b-img class="custom-latest-image" :src="article.photo"></b-img>
           </div>
-        </b-list-group-item>
-      </b-list-group>
-    </div>
+          <div class="custom-latest-text">
+            {{ article.title }}
+            <p class="mt-4 text-muted">{{ article.release_date }}</p>
+          </div>
+        </div>
+      </b-list-group-item>
+    </b-list-group>
   </div>
 </template>
 
 <script>
 export default {
+  props: {
+    article: {
+      type: Object,
+      required: true
+    }
+  },
   name: "LatestHomeCard",
   data() {
     return {};

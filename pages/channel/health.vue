@@ -25,7 +25,7 @@
     <div v-show="showLatestDiv">
       <VclChannelCommonCard v-if="$fetchState.pending" />
       <h4 v-else-if="$fetchState.error">
-        Error while fetching posts: {{ error }}
+        Error while fetching posts: {{ $fetchState.error.message }}
       </h4>
       <b-row v-else>
         <b-col
