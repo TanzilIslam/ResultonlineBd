@@ -13,7 +13,7 @@
             :img-src="DetailArticle.photo"
             img-alt="card Image"
             text-variant="white"
-            img-height="370"
+            img-height="479"
           ></b-card>
           <span style="font-size:18px" class="text-muted">
             {{ DetailArticle.channel.channelname }} |
@@ -53,7 +53,7 @@
           <b-list-group>
             <b-list-group-item
               class="mt-3 custom-list-item"
-              v-for="i in 3"
+              v-for="i in 4"
               :key="i"
             >
               <div class="d-flex">
@@ -67,7 +67,7 @@
                   <p class="mb-4">
                     <strong> This is a common title of details page</strong>
                   </p>
-                  <span class="float-left">Technology</span>
+                  <span class="float-left">Technology |</span>
                   <span class="mr-2 float-right text-muted">2010-11-22</span>
                 </div>
               </div>
@@ -247,7 +247,7 @@ hr {
 }
 .custom-list-item {
   border: none !important;
-  margin-bottom: 5px;
+  margin-bottom: 10px;
   cursor: pointer;
   padding: 0px !important;
 }
