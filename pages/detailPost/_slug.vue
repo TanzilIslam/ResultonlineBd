@@ -64,8 +64,11 @@
                   ></b-img>
                 </div>
                 <div class="custom-latest-text">
-                  <strong> This is a common title of details page</strong>
-                  <p class="mt-3 text-muted">2010-11-22</p>
+                  <p class="mb-4">
+                    <strong> This is a common title of details page</strong>
+                  </p>
+                  <span class="float-left">Technology</span>
+                  <span class="mr-2 float-right text-muted">2010-11-22</span>
                 </div>
               </div>
             </b-list-group-item>
@@ -250,7 +253,7 @@ hr {
 }
 
 .custom-latest-text {
-  margin-left: 12px;
+  margin-left: 5px;
   margin-top: 10px;
   text-align: left;
   line-height: 20px;
