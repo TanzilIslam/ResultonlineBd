@@ -32,11 +32,27 @@
           <b-card-text class="mt-4" text-tag="h4">{{
             DetailArticle.title
           }}</b-card-text>
-          <b-card-text text-tag="p" class="details mt-4">
-            {{ DetailArticle.details }}</b-card-text
-          >
+          <p class="details mt-4">
+            {{ DetailArticle.details }}
+          </p>
+          <p class="premimum-details">
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Debitis
+            ullam maxime, soluta dolor aspernatur ipsa commodi laboriosam
+            obcaecati quae quia consequuntur ad, delectus id nam. Unde explicabo
+            illo sed necessitatibus.
+          </p>
+          <div class="text-center mt-4 mb-4">
+            <h5 class="details"><strong>get unlimited access</strong></h5>
+            <p class="details">
+              You've read all of your free stories this month. Become a member
+              to keep reading.simple
+            </p>
+            <b-button variant="success">
+              <span> Load More</span>
+            </b-button>
+          </div>
         </div>
-        <div class="d-flex">
+        <!-- <div class="d-flex">
           <h5 class="mr-4 mt-3">Please Rate us:</h5>
           <client-only>
             <star-rating
@@ -46,16 +62,12 @@
               :glow="2"
             ></star-rating>
           </client-only>
-        </div>
+        </div> -->
       </b-col>
       <b-col cols="12" sm="12" md="3" lg="3" xl="3">
-        <div class="ml-3 latest-home-card">
+        <div class="ml-2 latest-home-card">
           <b-list-group>
-            <b-list-group-item
-              class="mt-3 custom-list-item"
-              v-for="i in 4"
-              :key="i"
-            >
+            <b-list-group-item class="custom-list-item" v-for="i in 4" :key="i">
               <div class="d-flex">
                 <div>
                   <b-img
@@ -229,9 +241,17 @@ export default {
 };
 </script>
 
-<style scoped>
+
+<style  scoped>
 hr {
   border: 1px solid black;
+}
+.premimum-details {
+  font-size: 1.125rem;
+  color: #333745;
+  line-height: 1.7;
+  font-family: "Roboto", sans-serif;
+  opacity: 0.3;
 }
 .details {
   font-size: 1.125rem;
@@ -249,14 +269,14 @@ hr {
 }
 
 .custom-latest-image {
-  width: 70px;
+  width: 80px;
   height: 80px;
   margin-left: 2px;
   border-radius: 5px;
 }
 .custom-list-item {
   border: none !important;
-  margin-bottom: 24px;
+  margin-bottom: 53px;
   cursor: pointer;
   padding: 0px !important;
 }
@@ -268,8 +288,8 @@ hr {
 }
 .latest-home-card {
   background: #fff;
-  box-shadow: 0 5px 0.9rem -0.8rem rgba(0, 0, 0, 0.8),
+  /* box-shadow: 0 5px 0.9rem -0.8rem rgba(0, 0, 0, 0.8),
     0 0 0 1px rgba(0, 0, 0, 0.05);
-  border-radius: 5px;
+  border-radius: 5px; */
 }
 </style>

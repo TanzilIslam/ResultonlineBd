@@ -24,7 +24,17 @@
         <div class="latest-home-card">
           <h5 class="custom-latest-title">Latest</h5>
           <b-list-group>
+            <moon-loader
+              v-if="$fetchState.pending"
+              color="#000000"
+              class="spinner"
+              :size="60"
+            ></moon-loader>
+            <h4 v-else-if="$fetchState.error">
+              Error while fetching posts: {{ $fetchState.error.message }}
+            </h4>
             <b-list-group-item
+              v-else
               v-for="(article, index) in LatestArticles"
               :key="index"
               :data-index="index"
@@ -71,8 +81,10 @@
 
 <script>
 import { mapState } from "vuex";
+import { MoonLoader } from "@saeris/vue-spinners";
 export default {
   layout: "default",
+  components: { MoonLoader },
   head() {
     return {
       title: "ResultOnlineBd - Home Page",
@@ -163,6 +175,11 @@ export default {
   text-align: left;
   line-height: 20px;
   font-size: 14px;
+}
+
+.spinner {
+  align-self: center;
+  margin-bottom: 10px;
 }
 a {
   color: black !important;
