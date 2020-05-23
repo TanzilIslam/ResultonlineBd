@@ -60,11 +60,11 @@
                 <div>
                   <b-img
                     class="custom-latest-image"
-                    :src="require('~/assets/user/latestCard/logo.png')"
+                    :src="require('~/assets/user/dummyImages/1.jpg')"
                   ></b-img>
                 </div>
                 <div class="custom-latest-text">
-                  <p class="mb-4">
+                  <p class="mb-2">
                     <strong> This is a common title of details page</strong>
                   </p>
                   <span class="float-left">Technology |</span>
@@ -185,6 +185,13 @@ export default {
           content: this.DetailArticle.details
         }
       ]
+      // link: [
+      //   {
+      //     rel: "stylesheet",
+      //     href:
+      //       "https://fonts.googleapis.com/css2?family=Roboto:ital@1&display=swap"
+      //   }
+      // ]
     };
   },
   async fetch() {
@@ -230,6 +237,7 @@ hr {
   font-size: 1.125rem;
   color: #333745;
   line-height: 1.7;
+  font-family: "Roboto", sans-serif;
 }
 .custom-card-text-title {
   margin-top: 0px !important;
@@ -241,22 +249,21 @@ hr {
 }
 
 .custom-latest-image {
-  width: 60px;
-  height: 60px;
-  margin-left: 5px;
+  width: 70px;
+  height: 80px;
+  margin-left: 2px;
+  border-radius: 5px;
 }
 .custom-list-item {
   border: none !important;
-  margin-bottom: 10px;
+  margin-bottom: 24px;
   cursor: pointer;
   padding: 0px !important;
 }
 
 .custom-latest-text {
   margin-left: 5px;
-  margin-top: 10px;
   text-align: left;
-  line-height: 20px;
   font-size: 16px;
 }
 .latest-home-card {
