@@ -1,6 +1,6 @@
 <template>
   <div class="detail-post">
-    <b-row>
+    <b-row no-gutters>
       <b-col cols="12" sm="12" md="9" lg="9" xl="9">
         <VclDetailCard v-if="$fetchState.pending" />
         <h4 v-else-if="$fetchState.error">
@@ -8,38 +8,26 @@
         </h4>
         <div v-else>
           <b-card
+            class="mb-2"
             no-body
             :img-src="DetailArticle.photo"
             img-alt="card Image"
             text-variant="white"
             img-height="370"
           ></b-card>
-          <div>
-            <b-row>
-              <b-col cols="6" sm="6" md="11" lg="10" xl="10">
-                <b-card-text
-                  style="font-size:18px"
-                  text-tag="p"
-                  class="text-muted mt-3"
-                >
-                  {{ DetailArticle.channel.channelname }} |
-                  {{ DetailArticle.release_date }} -
-                </b-card-text>
-              </b-col>
-              <b-col cols="6" sm="6" md="1" lg="2" xl="2">
-                <div class="d-flex mt-3">
-                  -
-                  <b-img
-                    class=""
-                    style="width:20px;height:20px;"
-                    :src="require('~/assets/user/detailPage/fire.png')"
-                  ></b-img>
-                  <b-card-text text-tag="p" class="text-muted ">{{
-                    DetailArticle.view
-                  }}</b-card-text>
-                </div>
-              </b-col>
-            </b-row>
+          <span style="font-size:18px" class="text-muted">
+            {{ DetailArticle.channel.channelname }} |
+            {{ DetailArticle.release_date }}
+          </span>
+          <div class="d-flex float-right mb-4">
+            <b-img
+              class=""
+              style="width:20px;height:20px;"
+              :src="require('~/assets/user/detailPage/fire.png')"
+            ></b-img>
+            <b-card-text text-tag="p" class="text-muted ">{{
+              DetailArticle.view
+            }}</b-card-text>
           </div>
           <b-card-text class="mt-4" text-tag="h4">{{
             DetailArticle.title
@@ -60,7 +48,30 @@
           </client-only>
         </div>
       </b-col>
-      <b-col cols="12" sm="12" md="3" lg="3" xl="3"> </b-col>
+      <b-col cols="12" sm="12" md="3" lg="3" xl="3">
+        <div class="ml-3 latest-home-card">
+          <b-list-group>
+            <b-list-group-item
+              class="mt-3 custom-list-item"
+              v-for="i in 3"
+              :key="i"
+            >
+              <div class="d-flex">
+                <div>
+                  <b-img
+                    class="custom-latest-image"
+                    :src="require('~/assets/user/latestCard/logo.png')"
+                  ></b-img>
+                </div>
+                <div class="custom-latest-text">
+                  <strong> This is a common title of details page</strong>
+                  <p class="mt-3 text-muted">2010-11-22</p>
+                </div>
+              </div>
+            </b-list-group-item>
+          </b-list-group>
+        </div>
+      </b-col>
     </b-row>
     <!-- <b-row>
       <b-col md="6" lg="6" xl="6" sm="12" xs="12">
@@ -224,5 +235,31 @@ hr {
   font-size: 18px;
   line-height: 1.4;
   letter-spacing: -0.5px;
+}
+
+.custom-latest-image {
+  width: 60px;
+  height: 60px;
+  margin-left: 5px;
+}
+.custom-list-item {
+  border: none !important;
+  margin-bottom: 5px;
+  cursor: pointer;
+  padding: 0px !important;
+}
+
+.custom-latest-text {
+  margin-left: 12px;
+  margin-top: 10px;
+  text-align: left;
+  line-height: 20px;
+  font-size: 16px;
+}
+.latest-home-card {
+  background: #fff;
+  box-shadow: 0 5px 0.9rem -0.8rem rgba(0, 0, 0, 0.8),
+    0 0 0 1px rgba(0, 0, 0, 0.05);
+  border-radius: 5px;
 }
 </style>
