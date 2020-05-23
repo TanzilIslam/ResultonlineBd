@@ -2,25 +2,81 @@
   <div class="home">
     <Carousel />
     <Breadcrumb :allActive="true" />
+    <!-- <div class="container"> -->
+    <!-- <div class="row">
+      <div class="col-12 col-sm-12 col-md-3 col-lg-3 col-xl-3">
+        <SideBar />
+      </div>
+      <div
+        class="col-12 col-sm-12 col-md-4 col-lg-4 col-xl-4  col-lg-push-5 col-md-push-5"
+      >
+        <div class="latest-home-card">
+          <h5 class="custom-latest-title">Latest</h5>
+          <b-list-group>
+            <moon-loader
+              v-if="$fetchState.pending"
+              color="#000000"
+              class="spinner"
+              :size="60"
+            ></moon-loader>
+            <h4 v-else-if="$fetchState.error">
+              Error while fetching posts: {{ $fetchState.error.message }}
+            </h4>
+            <b-list-group-item
+              v-else
+              v-for="(article, index) in LatestArticles"
+              :key="index"
+              :data-index="index"
+              class="custom-list-item"
+            >
+              <nuxt-link prefetch :to="`/detailPost/${article.slug}`">
+                <div class="d-flex">
+                  <div>
+                    <b-img
+                      class="custom-latest-image"
+                      :src="article.photo"
+                    ></b-img>
+                  </div>
+                  <div class="custom-latest-text">
+                    {{ article.title }}
+                    <p class="mt-4 text-muted">{{ article.release_date }}</p>
+                  </div>
+                </div>
+              </nuxt-link>
+            </b-list-group-item>
+          </b-list-group>
+        </div>
+      </div>
+      <div
+        class="col-12 col-sm-12 col-md-5 col-lg-5 col-xl-5  col-lg-pull-4 col-md-pull-4"
+      >
+        <div class="home-cards">
+          <VclHomeCard v-if="$fetchState.pending" />
+          <h4 v-else-if="$fetchState.error">
+            Error while fetching posts: {{ $fetchState.error.message }}
+          </h4>
+          <HomeCard
+            v-else
+            v-for="(article, index) in HomeArticles"
+            :key="index"
+            :article="article"
+            :data-index="index"
+          />
+        </div>
+      </div>
+    </div> -->
+    <!-- </div> -->
     <b-row>
       <b-col sm="12" md="3" lg="3" xl="3">
         <SideBar />
       </b-col>
-      <b-col sm="12" md="5" lg="5" xl="5">
-        <VclHomeCard v-if="$fetchState.pending" />
-        <h4 v-else-if="$fetchState.error">
-          Error while fetching posts: {{ $fetchState.error.message }}
-        </h4>
-        <HomeCard
-          v-else
-          v-for="(article, index) in HomeArticles"
-          :key="index"
-          :article="article"
-          :data-index="index"
-        />
-      </b-col>
-      <!-- Latest card start -->
-      <b-col sm="12" md="4" lg="4" xl="4">
+      <b-col
+        sm="12"
+        md="4"
+        lg="4"
+        xl="4"
+        class="order-md-last order-lg-last order-xl-last"
+      >
         <div class="latest-home-card">
           <h5 class="custom-latest-title">Latest</h5>
           <b-list-group>
@@ -58,7 +114,21 @@
           </b-list-group>
         </div>
       </b-col>
-      <!-- Latest card End -->
+      <b-col sm="12" md="5" lg="5" xl="5">
+        <div class="home-cards">
+          <VclHomeCard v-if="$fetchState.pending" />
+          <h4 v-else-if="$fetchState.error">
+            Error while fetching posts: {{ $fetchState.error.message }}
+          </h4>
+          <HomeCard
+            v-else
+            v-for="(article, index) in HomeArticles"
+            :key="index"
+            :article="article"
+            :data-index="index"
+          />
+        </div>
+      </b-col>
     </b-row>
 
     <!-- pagination Start -->
