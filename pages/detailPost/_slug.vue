@@ -33,13 +33,8 @@
             DetailArticle.title
           }}</b-card-text>
           <div v-if="details.length >= DetailArticle.contentlenth">
-            <p class="details mt-4">
+            <p class="details-bg  mt-4">
               {{ DetailArticle.details }}
-            </p>
-            <p class="premimum-details">
-              For Further information please click and visit the site.There you
-              will find a lot of in formation.Thank You for Staying with us.Good
-              Luck!!!
             </p>
             <div class="text-center mt-4 mb-4">
               <h5 class="details"><strong>get unlimited access</strong></h5>
@@ -263,6 +258,14 @@ hr {
   line-height: 1.7;
   font-family: "Roboto", sans-serif;
 }
+.details-bg {
+  padding: 10px;
+  background-image: url("~assets/user/detailPage/detailsBg.png");
+  font-size: 1.125rem;
+  color: #333745;
+  line-height: 1.7;
+  font-family: "Roboto", sans-serif;
+}
 .custom-card-text-title {
   margin-top: 0px !important;
   color: rgb(27, 30, 33);
@@ -290,10 +293,10 @@ hr {
   text-align: left;
   font-size: 16px;
 }
-.latest-home-card {
-  background: #fff;
-  /* box-shadow: 0 5px 0.9rem -0.8rem rgba(0, 0, 0, 0.8),
+/* .latest-home-card { */
+/* background: #fff; */
+/* box-shadow: 0 5px 0.9rem -0.8rem rgba(0, 0, 0, 0.8),
     0 0 0 1px rgba(0, 0, 0, 0.05);
   border-radius: 5px; */
-}
+/* } */
 </style>
