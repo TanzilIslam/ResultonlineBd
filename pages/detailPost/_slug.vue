@@ -33,10 +33,25 @@
             DetailArticle.title
           }}</b-card-text>
           <div v-if="details.length >= DetailArticle.contentlenth">
+            <!-- <span class="details">{{
+              DetailArticle.details.slice(
+                0,
+                (DetailArticle.details.length * 80) / 100
+              )
+            }}</span>
+            <span class="details-bg">
+              {{
+                DetailArticle.details.slice(
+                  (DetailArticle.details.length * 80) / 100,
+                  DetailArticle.details.length
+                )
+              }}</span
+            > -->
+
             <p class="details-bg  mt-4">
               {{ DetailArticle.details }}
             </p>
-            <div class="text-center mt-4 mb-4">
+            <div class="text-center mt-4 mb-4 unlimited">
               <h5 class="details"><strong>get unlimited access</strong></h5>
               <p class="details">
                 You've read all of your free stories this month. Become a member
@@ -242,6 +257,10 @@ export default {
 </script>
 
 <style  scoped>
+/* .detail-post {
+  background: black;
+} */
+
 hr {
   border: 1px solid black;
 }
@@ -259,16 +278,17 @@ hr {
   font-family: "Roboto", sans-serif;
 }
 .details-bg {
-  padding: 10px;
-  background-image: url("~assets/user/detailPage/detailsBg.png");
+  background: -webkit-linear-gradient(#333, #eee);
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
   font-size: 1.125rem;
-  color: #333745;
+  color: #1b1e21;
   line-height: 1.7;
   font-family: "Roboto", sans-serif;
 }
 .custom-card-text-title {
   margin-top: 0px !important;
-  color: rgb(27, 30, 33);
+  color: #1b1e21;
   font-weight: 400;
   font-size: 18px;
   line-height: 1.4;
