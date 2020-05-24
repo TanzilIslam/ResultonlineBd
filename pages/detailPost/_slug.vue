@@ -33,6 +33,33 @@
             DetailArticle.title
           }}</b-card-text>
           <div v-if="details.length >= DetailArticle.contentlenth">
+            <div class="paragraph">
+              <p class="details">
+                {{
+                  DetailArticle.details.slice(
+                    0,
+                    (DetailArticle.details.length * DetailArticle.Persentase) /
+                      100
+                  )
+                }}
+              </p>
+              <p class="details-bg">
+                {{
+                  DetailArticle.details.slice(
+                    0,
+                    (DetailArticle.details.length * DetailArticle.Persentase) /
+                      100
+                  )
+                }}
+              </p>
+            </div>
+
+            <!-- <p class="details">{{
+              DetailArticle.details.slice(
+                0,
+                (DetailArticle.details.length * 80) / 100
+              )
+            }}</p> -->
             <!-- <span class="details">{{
               DetailArticle.details.slice(
                 0,
@@ -48,9 +75,9 @@
               }}</span
             > -->
 
-            <p class="details-bg  mt-4">
+            <!-- <p class="details-bg  mt-4">
               {{ DetailArticle.details }}
-            </p>
+            </p> -->
             <div class="text-center mt-4 mb-4 unlimited">
               <h5 class="details"><strong>get unlimited access</strong></h5>
               <p class="details">
@@ -260,7 +287,10 @@ export default {
 /* .detail-post {
   background: black;
 } */
-
+.paragraph,
+p {
+  display: inline;
+}
 hr {
   border: 1px solid black;
 }
