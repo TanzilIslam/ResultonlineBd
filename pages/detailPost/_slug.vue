@@ -16,7 +16,7 @@
             img-height="479"
           ></b-card>
           <span style="font-size:18px" class="text-muted">
-            {{ DetailArticle.channel.channelname }} |
+            {{ DetailArticle.contentowners.authorsname }} |
             {{ DetailArticle.release_date }}
           </span>
           <div class="d-flex float-right mb-4">
@@ -32,25 +32,29 @@
           <b-card-text class="mt-4" text-tag="h4">{{
             DetailArticle.title
           }}</b-card-text>
-          <p class="details mt-4">
+          <div v-if="details.length >= DetailArticle.contentlenth">
+            <p class="details mt-4">
+              {{ DetailArticle.details }}
+            </p>
+            <p class="premimum-details">
+              For Further information please click and visit the site.There you
+              will find a lot of in formation.Thank You for Staying with us.Good
+              Luck!!!
+            </p>
+            <div class="text-center mt-4 mb-4">
+              <h5 class="details"><strong>get unlimited access</strong></h5>
+              <p class="details">
+                You've read all of your free stories this month. Become a member
+                to keep reading.simple
+              </p>
+              <b-button variant="success" :href="DetailArticle.contentlink">
+                <span>Get Full Article</span>
+              </b-button>
+            </div>
+          </div>
+          <p class="details mt-4" v-else>
             {{ DetailArticle.details }}
           </p>
-          <p class="premimum-details">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Debitis
-            ullam maxime, soluta dolor aspernatur ipsa commodi laboriosam
-            obcaecati quae quia consequuntur ad, delectus id nam. Unde explicabo
-            illo sed necessitatibus.
-          </p>
-          <div class="text-center mt-4 mb-4">
-            <h5 class="details"><strong>get unlimited access</strong></h5>
-            <p class="details">
-              You've read all of your free stories this month. Become a member
-              to keep reading.simple
-            </p>
-            <b-button variant="success">
-              <span> Load More</span>
-            </b-button>
-          </div>
         </div>
         <!-- <div class="d-flex">
           <h5 class="mr-4 mt-3">Please Rate us:</h5>
@@ -214,7 +218,8 @@ export default {
       );
   },
   computed: mapState({
-    DetailArticle: state => state.detailPage.DetailArticle
+    DetailArticle: state => state.detailPage.DetailArticle,
+    details: state => state.detailPage.DetailArticle.details.replace(/\s/g, "")
   }),
   methods: {
     setRating(rating) {
@@ -240,7 +245,6 @@ export default {
   }
 };
 </script>
-
 
 <style  scoped>
 hr {

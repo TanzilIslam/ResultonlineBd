@@ -1,5 +1,5 @@
 <template>
-  <div class="sideBar">
+  <div class="sideBar mb-4">
     <h5 class="text-center chanel">Channel</h5>
     <b-list-group class="list">
       <b-list-group-item to="/channel/programming" class="mylist">
