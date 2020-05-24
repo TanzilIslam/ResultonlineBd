@@ -43,7 +43,7 @@
                   )
                 }}
               </p>
-              <p class="details-bg">
+              <p class="noselect details-bg">
                 {{
                   DetailArticle.details.slice(
                     0,
@@ -294,6 +294,15 @@ p {
 hr {
   border: 1px solid black;
 }
+.noselect {
+  -webkit-touch-callout: none; /* iOS Safari */
+  -webkit-user-select: none; /* Safari */
+  -khtml-user-select: none; /* Konqueror HTML */
+  -moz-user-select: none; /* Old versions of Firefox */
+  -ms-user-select: none; /* Internet Explorer/Edge */
+  user-select: none; /* Non-prefixed version, currently
+                                  supported by Chrome, Edge, Opera and Firefox */
+}
 .premimum-details {
   font-size: 1.125rem;
   color: #333745;
@@ -308,7 +317,7 @@ hr {
   font-family: "Roboto", sans-serif;
 }
 .details-bg {
-  background: -webkit-linear-gradient(#333, #eee);
+  background: -webkit-linear-gradient(#e0dfdf, #eee);
   background-clip: text;
   -webkit-text-fill-color: transparent;
   font-size: 1.125rem;
