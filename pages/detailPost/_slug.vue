@@ -75,7 +75,7 @@
             </div>
           </div>
         </div>
-        <!-- <div class="d-flex">
+        <div class="d-flex mt-4 mb-4">
           <h5 class="mr-4 mt-3">Please Rate us:</h5>
           <client-only>
             <star-rating
@@ -85,7 +85,7 @@
               :glow="2"
             ></star-rating>
           </client-only>
-        </div> -->
+        </div>
       </b-col>
       <b-col cols="12" sm="12" md="3" lg="3" xl="3">
         <div class="ml-2 latest-home-card">
@@ -113,6 +113,67 @@
         </div>
       </b-col>
     </b-row>
+    <div>
+      <!--Tab start -->
+      <b-tabs :no-nav-style="true" content-class="mt-0 mb-0">
+        <b-tab title="All" title-link-class="text-dark" active @click="goAll"
+          ><div class="all-under-line"></div>
+        </b-tab>
+        <b-tab title="Top" title-link-class="text-dark" @click="goTop">
+          <div class="top-under-line"></div>
+        </b-tab>
+        <b-tab
+          title="High Rated"
+          title-link-class="text-dark"
+          @click="goHighRated"
+        >
+          <div class="high-rated-under-line"></div>
+        </b-tab>
+        <hr class="line" />
+      </b-tabs>
+      <!--Tab End -->
+    </div>
+    <div class="all" v-show="showAllDiv">
+      <b-row v-if="$fetchState.pending">
+        <b-col cols="12" sm="12" md="5" lg="5" xl="5"> <VclHomeCard /></b-col
+      ></b-row>
+
+      <h4 v-else-if="$fetchState.error">
+        Error while fetching posts: {{ $fetchState.error.message }}
+      </h4>
+      <b-row v-else>
+        <b-col cols="12" sm="12" md="5" lg="5" xl="5">
+          <HomeCard
+            v-for="(article, index) in HomeArticles"
+            :key="index"
+            :article="article"
+            :data-index="index"
+          /> </b-col
+      ></b-row>
+    </div>
+    <div class="top" v-show="showTopDiv">
+      <VclChannelCommonCard v-if="$fetchState.pending" />
+      <h4 v-else-if="$fetchState.error">
+        Error while fetching posts: {{ $fetchState.error.message }}
+      </h4>
+      <div v-else>
+        <b-row>
+          <b-col
+            sm="6"
+            md="4"
+            lg="4"
+            xl="4"
+            v-for="(article, index) in TopArticles"
+            :key="index"
+          >
+            <nuxt-link prefetch :to="`/detailPost/${article.slug}`">
+              <ChannelCommonCard :article="article" :data-index="index" />
+            </nuxt-link>
+          </b-col>
+        </b-row>
+      </div>
+    </div>
+    <div class="high-rated" v-show="showHighRatedDiv">High Rated</div>
     <!-- <b-row>
       <b-col md="6" lg="6" xl="6" sm="12" xs="12">
         <VclDetailCard v-if="$fetchState.pending" />
@@ -199,6 +260,21 @@
         </b-row>
       </b-col>
     </b-row> -->
+    <!-- pagination Start -->
+    <div class="myPagination">
+      <div class="text-center mt-5 mb-3">
+        <span v-if="!loaded"
+          ><b-spinner
+            style="width: 2rem; height: 2rem;"
+            label="Loading..."
+          ></b-spinner
+        ></span>
+        <b-button v-else-if="loaded" variant="dark" @click="loadData">
+          <span> Load More</span>
+        </b-button>
+      </div>
+    </div>
+    <!-- pagination End -->
   </div>
 </template>
 
@@ -209,7 +285,11 @@ export default {
   data() {
     return {
       rating: 0,
-      Loading: false
+      Loading: false,
+      showAllDiv: true,
+      showTopDiv: false,
+      showHighRatedDiv: false,
+      loaded: true
     };
   },
   head() {
@@ -237,6 +317,16 @@ export default {
       .then(posts =>
         this.$store.dispatch("detailPage/FetchDetailArticle", posts)
       );
+    await this.$axios
+      .$get(process.env.baseUrl)
+      .then(posts =>
+        this.$store.dispatch("home/FetchHomeArticles", posts.results)
+      );
+    await this.$axios
+      .$get(process.env.baseUrl + `/TopContent`)
+      .then(posts =>
+        this.$store.dispatch("top/FetchTopArticles", posts.results)
+      );
   },
   computed: mapState({
     DetailArticle: state => state.detailPage.DetailArticle,
@@ -245,7 +335,9 @@ export default {
         .replace(/(^\s*)|(\s*$)/gi, "")
         .replace(/[ ]{2,}/gi, " ")
         .replace(/\n /, "\n")
-        .split(" ")
+        .split(" "),
+    HomeArticles: state => state.home.HomeArticles,
+    TopArticles: state => state.top.TopArticles
   }),
   methods: {
     setRating(rating) {
@@ -260,6 +352,33 @@ export default {
         alert("Very Good");
       } else if (rating == 5) {
         alert("This is awsome");
+      }
+    },
+    goAll() {
+      var self = this;
+      self.showAllDiv = true;
+      self.showTopDiv = false;
+      self.showHighRatedDiv = false;
+    },
+    goTop() {
+      var self = this;
+      self.showAllDiv = false;
+      self.showTopDiv = true;
+      self.showHighRatedDiv = false;
+    },
+    goHighRated() {
+      var self = this;
+      self.showAllDiv = false;
+      self.showTopDiv = false;
+      self.showHighRatedDiv = true;
+    },
+    loadData() {
+      if (this.showAllDiv == true) {
+        alert("All");
+      } else if (this.showTopDiv == true) {
+        alert("Top");
+      } else if (this.showHighRatedDiv == true) {
+        alert("High Rated");
       }
     }
   },
@@ -276,13 +395,17 @@ export default {
 /* .secreat {
   visibility: hidden;
 } */
+a {
+  color: black !important;
+  text-decoration: none;
+}
 .paragraph,
 p {
   display: inline;
 }
-hr {
+/* hr {
   border: 1px solid black;
-}
+} */
 .noselect {
   -webkit-touch-callout: none; /* iOS Safari */
   -webkit-user-select: none; /* Safari */
@@ -347,4 +470,28 @@ hr {
     0 0 0 1px rgba(0, 0, 0, 0.05);
   border-radius: 5px; */
 /* } */
+
+/* Channel Tabs Start */
+.all-under-line {
+  height: 3px;
+  width: 51px;
+  background-color: black;
+}
+.top-under-line {
+  height: 3px;
+  width: 60px;
+  background-color: black;
+  margin-left: 49px;
+}
+.high-rated-under-line {
+  height: 3px;
+  width: 114px;
+  background-color: black;
+  margin-left: 107px;
+}
+.line {
+  margin-top: 0px;
+  padding-top: 0px;
+}
+/* Channel Tabs End */
 </style>
