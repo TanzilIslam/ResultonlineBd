@@ -34,7 +34,12 @@
           }}</b-card-text>
           <!-- <h1>{{ details.length }} || {{ DetailArticle.details.length }}</h1> -->
           <div class="secreat">
-            <div v-if="details.length >= DetailArticle.contentlenth">
+            <div v-if="!DetailArticle.contentlock">
+              <p class="details mt-4">
+                {{ DetailArticle.details }}
+              </p>
+            </div>
+            <div v-else-if="DetailArticle.contentlock">
               <div class="paragraph">
                 <p class="details">
                   {{
@@ -68,9 +73,6 @@
                 </b-button>
               </div>
             </div>
-            <p class="details mt-4" v-else>
-              {{ DetailArticle.details }}
-            </p>
           </div>
         </div>
         <!-- <div class="d-flex">
