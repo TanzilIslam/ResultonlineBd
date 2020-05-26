@@ -32,66 +32,46 @@
           <b-card-text class="mt-4" text-tag="h4">{{
             DetailArticle.title
           }}</b-card-text>
-          <div v-if="details.length >= DetailArticle.contentlenth">
-            <div class="paragraph">
-              <p class="details">
-                {{
-                  DetailArticle.details.slice(
-                    0,
-                    (DetailArticle.details.length * DetailArticle.Persentase) /
-                      100
-                  )
-                }}
-              </p>
-              <p class="noselect details-bg">
-                {{
-                  DetailArticle.details.slice(
-                    0,
-                    (DetailArticle.details.length * DetailArticle.Persentase) /
-                      100
-                  )
-                }}
-              </p>
+          <!-- <h1>{{ details.length }} || {{ DetailArticle.details.length }}</h1> -->
+          <div class="secreat">
+            <div v-if="details.length >= DetailArticle.contentlenth">
+              <div class="paragraph">
+                <p class="details">
+                  {{
+                    DetailArticle.details.slice(
+                      0,
+                      (DetailArticle.details.length *
+                        DetailArticle.Persentase) /
+                        100
+                    )
+                  }}
+                </p>
+                <p class="noselect details-bg">
+                  {{
+                    DetailArticle.details.slice(
+                      (DetailArticle.details.length *
+                        DetailArticle.Persentase) /
+                        100,
+                      DetailArticle.details.length
+                    )
+                  }}
+                </p>
+              </div>
+              <div class="text-center mt-4 mb-4 unlimited">
+                <h5 class="details"><strong>get unlimited access</strong></h5>
+                <p class="details">
+                  You've read all of your free stories this month. Become a
+                  member to keep reading.simple
+                </p>
+                <b-button variant="success" :href="DetailArticle.contentlink">
+                  <span>Get Full Article</span>
+                </b-button>
+              </div>
             </div>
-
-            <!-- <p class="details">{{
-              DetailArticle.details.slice(
-                0,
-                (DetailArticle.details.length * 80) / 100
-              )
-            }}</p> -->
-            <!-- <span class="details">{{
-              DetailArticle.details.slice(
-                0,
-                (DetailArticle.details.length * 80) / 100
-              )
-            }}</span>
-            <span class="details-bg">
-              {{
-                DetailArticle.details.slice(
-                  (DetailArticle.details.length * 80) / 100,
-                  DetailArticle.details.length
-                )
-              }}</span
-            > -->
-
-            <!-- <p class="details-bg  mt-4">
+            <p class="details mt-4" v-else>
               {{ DetailArticle.details }}
-            </p> -->
-            <div class="text-center mt-4 mb-4 unlimited">
-              <h5 class="details"><strong>get unlimited access</strong></h5>
-              <p class="details">
-                You've read all of your free stories this month. Become a member
-                to keep reading.simple
-              </p>
-              <b-button variant="success" :href="DetailArticle.contentlink">
-                <span>Get Full Article</span>
-              </b-button>
-            </div>
+            </p>
           </div>
-          <p class="details mt-4" v-else>
-            {{ DetailArticle.details }}
-          </p>
         </div>
         <!-- <div class="d-flex">
           <h5 class="mr-4 mt-3">Please Rate us:</h5>
@@ -120,8 +100,10 @@
                   <p class="mb-2">
                     <strong> This is a common title of details page</strong>
                   </p>
-                  <span class="float-left">Technology |</span>
-                  <span class="mr-2 float-right text-muted">2010-11-22</span>
+                  <div class="mt-2">
+                    <span>Technology |</span>
+                    <span class="text-muted">2010-11-22</span>
+                  </div>
                 </div>
               </div>
             </b-list-group-item>
@@ -256,7 +238,12 @@ export default {
   },
   computed: mapState({
     DetailArticle: state => state.detailPage.DetailArticle,
-    details: state => state.detailPage.DetailArticle.details.replace(/\s/g, "")
+    details: state =>
+      state.detailPage.DetailArticle.details
+        .replace(/(^\s*)|(\s*$)/gi, "")
+        .replace(/[ ]{2,}/gi, " ")
+        .replace(/\n /, "\n")
+        .split(" ")
   }),
   methods: {
     setRating(rating) {
@@ -284,8 +271,8 @@ export default {
 </script>
 
 <style  scoped>
-/* .detail-post {
-  background: black;
+/* .secreat {
+  visibility: hidden;
 } */
 .paragraph,
 p {
