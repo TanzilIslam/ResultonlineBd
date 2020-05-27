@@ -116,7 +116,16 @@
     </b-row>
     <hr />
     <div class="all">
-      <h5 style="color:#222;" class="ml-3"><strong>All</strong></h5>
+      <div class="d-flex ml-3 mb-3">
+        <b-img
+          height="48"
+          width="48"
+          class="rounded"
+          :src="require('~/assets/user/detailPage/1.png')"
+        >
+        </b-img>
+        <h5 style="color:#222;" class="ml-2 mt-2"><strong>All</strong></h5>
+      </div>
       <VclChannelCommonCard v-if="$fetchState.pending" />
       <h4 v-else-if="$fetchState.error">
         Error while fetching posts: {{ $fetchState.error.message }}
@@ -160,7 +169,16 @@
     </div>
     <hr />
     <div class="top">
-      <h5 style="color:#222;" class="ml-3"><strong>Top</strong></h5>
+      <div class="d-flex ml-3 mb-3">
+        <b-img
+          height="48"
+          width="48"
+          class="rounded"
+          :src="require('~/assets/user/detailPage/3.png')"
+        >
+        </b-img>
+        <h5 style="color:#222;" class="ml-2 mt-2"><strong>Top</strong></h5>
+      </div>
       <VclChannelCommonCard v-if="$fetchState.pending" />
       <h4 v-else-if="$fetchState.error">
         Error while fetching posts: {{ $fetchState.error.message }}
@@ -204,7 +222,18 @@
     </div>
     <hr />
     <div class="high-rated">
-      <h5 style="color:#222;" class="ml-3"><strong>High Rated</strong></h5>
+      <div class="d-flex ml-3 mb-3">
+        <b-img
+          height="48"
+          width="48"
+          class="rounded"
+          :src="require('~/assets/user/detailPage/2.png')"
+        >
+        </b-img>
+        <h5 style="color:#222;" class="ml-2 mt-2">
+          <strong>High Rated</strong>
+        </h5>
+      </div>
       <VclChannelCommonCard v-if="$fetchState.pending" />
       <h4 v-else-if="$fetchState.error">
         Error while fetching posts: {{ $fetchState.error.message }}
