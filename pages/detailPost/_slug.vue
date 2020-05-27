@@ -152,7 +152,7 @@
             style="width: 80px;border-radious:10px;"
             @click="loadDataAll"
           >
-            <b-icon icon="arrow-right" scale="2"></b-icon>
+            More
           </b-button>
         </div>
       </div>
@@ -196,7 +196,7 @@
             style="width: 80px;border-radious:10px;"
             @click="loadDataTop"
           >
-            <b-icon icon="arrow-right" scale="2"></b-icon>
+            More
           </b-button>
         </div>
       </div>
@@ -240,7 +240,7 @@
             style="width: 80px;border-radious:10px;"
             @click="loadDataHighRated"
           >
-            <b-icon icon="arrow-right" scale="2"></b-icon>
+            More
           </b-button>
         </div>
       </div>
