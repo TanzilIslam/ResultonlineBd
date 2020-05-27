@@ -108,50 +108,59 @@
                   </div>
                 </div>
               </div>
+              <hr />
             </b-list-group-item>
           </b-list-group>
         </div>
       </b-col>
     </b-row>
-    <div>
-      <!--Tab start -->
-      <b-tabs :no-nav-style="true" content-class="mt-0 mb-0">
-        <b-tab title="All" title-link-class="text-dark" active @click="goAll"
-          ><div class="all-under-line"></div>
-        </b-tab>
-        <b-tab title="Top" title-link-class="text-dark" @click="goTop">
-          <div class="top-under-line"></div>
-        </b-tab>
-        <b-tab
-          title="High Rated"
-          title-link-class="text-dark"
-          @click="goHighRated"
-        >
-          <div class="high-rated-under-line"></div>
-        </b-tab>
-        <hr class="line" />
-      </b-tabs>
-      <!--Tab End -->
-    </div>
-    <div class="all" v-show="showAllDiv">
-      <b-row v-if="$fetchState.pending">
-        <b-col cols="12" sm="12" md="5" lg="5" xl="5"> <VclHomeCard /></b-col
-      ></b-row>
-
+    <hr />
+    <div class="all">
+      <h5 style="color:#222;" class="ml-3"><strong>All</strong></h5>
+      <VclChannelCommonCard v-if="$fetchState.pending" />
       <h4 v-else-if="$fetchState.error">
         Error while fetching posts: {{ $fetchState.error.message }}
       </h4>
-      <b-row v-else>
-        <b-col cols="12" sm="12" md="5" lg="5" xl="5">
-          <HomeCard
+      <div v-else>
+        <b-row>
+          <b-col
+            sm="6"
+            md="4"
+            lg="4"
+            xl="4"
             v-for="(article, index) in HomeArticles"
             :key="index"
-            :article="article"
-            :data-index="index"
-          /> </b-col
-      ></b-row>
+          >
+            <nuxt-link prefetch :to="`/detailPost/${article.slug}`">
+              <ChannelCommonCard :article="article" :data-index="index" />
+            </nuxt-link>
+          </b-col>
+        </b-row>
+      </div>
+      <!-- pagination Start -->
+      <div class="myPagination">
+        <div class="text-center mt-2 mb-2">
+          <span v-if="!loadedAll"
+            ><b-spinner
+              style="width: 2rem; height: 2rem;"
+              label="Loading..."
+            ></b-spinner
+          ></span>
+          <b-button
+            v-else-if="loadedAll"
+            variant="dark"
+            style="width: 80px;border-radious:10px;"
+            @click="loadDataAll"
+          >
+            <b-icon icon="arrow-right" scale="2"></b-icon>
+          </b-button>
+        </div>
+      </div>
+      <!-- pagination End -->
     </div>
-    <div class="top" v-show="showTopDiv">
+    <hr />
+    <div class="top">
+      <h5 style="color:#222;" class="ml-3"><strong>Top</strong></h5>
       <VclChannelCommonCard v-if="$fetchState.pending" />
       <h4 v-else-if="$fetchState.error">
         Error while fetching posts: {{ $fetchState.error.message }}
@@ -172,109 +181,72 @@
           </b-col>
         </b-row>
       </div>
+      <!-- pagination Start -->
+      <div class="myPagination">
+        <div class="text-center mt-2 mb-2">
+          <span v-if="!loadedTop"
+            ><b-spinner
+              style="width: 2rem; height: 2rem;"
+              label="Loading..."
+            ></b-spinner
+          ></span>
+          <b-button
+            v-else-if="loadedTop"
+            variant="dark"
+            style="width: 80px;border-radious:10px;"
+            @click="loadDataTop"
+          >
+            <b-icon icon="arrow-right" scale="2"></b-icon>
+          </b-button>
+        </div>
+      </div>
+      <!-- pagination End -->
     </div>
-    <div class="high-rated" v-show="showHighRatedDiv">High Rated</div>
-    <!-- <b-row>
-      <b-col md="6" lg="6" xl="6" sm="12" xs="12">
-        <VclDetailCard v-if="$fetchState.pending" />
-        <h4 v-else-if="$fetchState.error">
-          Error while fetching posts: {{ $fetchState.error.message }}
-        </h4>
-        <div v-else>
-          <b-card
-            no-body
-            :img-src="DetailArticle.photo"
-            img-alt="card Image"
-            text-variant="white"
-            img-height="370"
-          ></b-card>
-          <b-card-text
-            style="font-size:18px"
-            text-tag="p"
-            class="text-muted mt-3"
-          >
-            {{ DetailArticle.channel.channelname }} |
-            {{ DetailArticle.release_date }}</b-card-text
-          >
-          <b-card-text text-tag="h4">{{ DetailArticle.title }}</b-card-text>
-          <b-card-text text-tag="p" class="details mt-4">
-            {{ DetailArticle.details }}</b-card-text
-          >
-        </div>
-        <div class="d-flex">
-          <h5 class="mr-4 mt-3">Please Rate us:</h5>
-          <client-only>
-            <star-rating
-              :show-rating="false"
-              v-model="rating"
-              @rating-selected="setRating"
-              :glow="2"
-            ></star-rating>
-          </client-only>
-        </div>
-      </b-col>
-      <b-col sm="12" md="6" lg="6" xl="6">
-        <b-row v-for="i in 2" :key="i">
-          <b-card no-body class="mb-3" style="max-width: 540px;">
-            <b-row no-gutters>
-              <b-col md="6">
-                <b-card-img
-                  height="173"
-                  width="170"
-                  :src="require('~/assets/user/dummyImages/1.jpg')"
-                  alt="Image"
-                  class="rounded-0"
-                ></b-card-img>
-              </b-col>
-              <b-col md="6">
-                <b-card-body title="Beautifull Bangladesh">
-                  <b-card-text>
-                    This is a wider card with supporting text as a natural
-                  </b-card-text>
-                </b-card-body>
-              </b-col>
-            </b-row>
-          </b-card>
-        </b-row>
-      </b-col>
-      <b-col sm="12" md="9" lg="9" xl="9">
-        <hr />
+    <hr />
+    <div class="high-rated">
+      <h5 style="color:#222;" class="ml-3"><strong>High Rated</strong></h5>
+      <VclChannelCommonCard v-if="$fetchState.pending" />
+      <h4 v-else-if="$fetchState.error">
+        Error while fetching posts: {{ $fetchState.error.message }}
+      </h4>
+      <div v-else>
         <b-row>
-          <b-col sm="12" md="3" lg="3" xl="3" v-for="i in 3" :key="i">
-            <b-card no-body>
-              <b-card-img
-                :src="require('~/assets/user/dummyImages/1.jpg')"
-                top
-                height="165"
-                width=" 205"
-                style="border-radius: 10px;"
-              ></b-card-img>
-              <b-card-text class="text-muted mt-3 ml-2" text-tag="p"
-                >12-2-2020</b-card-text
-              >
-              <b-card-text class="custom-card-text-title ml-2"
-                >This is a common Title</b-card-text
-              >
-            </b-card>
+          <b-col
+            sm="6"
+            md="4"
+            lg="4"
+            xl="4"
+            v-for="(article, index) in TopArticles"
+            :key="index"
+          >
+            <nuxt-link prefetch :to="`/detailPost/${article.slug}`">
+              <ChannelCommonCard :article="article" :data-index="index" />
+            </nuxt-link>
           </b-col>
         </b-row>
-      </b-col>
-    </b-row> -->
-    <!-- pagination Start -->
-    <div class="myPagination">
-      <div class="text-center mt-5 mb-3">
-        <span v-if="!loaded"
-          ><b-spinner
-            style="width: 2rem; height: 2rem;"
-            label="Loading..."
-          ></b-spinner
-        ></span>
-        <b-button v-else-if="loaded" variant="dark" @click="loadData">
-          <span> Load More</span>
-        </b-button>
       </div>
+      <!-- pagination Start -->
+      <div class="myPagination">
+        <div class="text-center mt-2 mb-2">
+          <span v-if="!loadedHighRated"
+            ><b-spinner
+              style="width: 2rem; height: 2rem;"
+              label="Loading..."
+            ></b-spinner
+          ></span>
+          <b-button
+            v-else-if="loadedHighRated"
+            variant="dark"
+            style="width: 80px;border-radious:10px;"
+            @click="loadDataHighRated"
+          >
+            <b-icon icon="arrow-right" scale="2"></b-icon>
+          </b-button>
+        </div>
+      </div>
+      <!-- pagination End -->
     </div>
-    <!-- pagination End -->
+    <hr />
   </div>
 </template>
 
@@ -285,11 +257,9 @@ export default {
   data() {
     return {
       rating: 0,
-      Loading: false,
-      showAllDiv: true,
-      showTopDiv: false,
-      showHighRatedDiv: false,
-      loaded: true
+      loadedAll: true,
+      loadedTop: true,
+      loadedHighRated: true
     };
   },
   head() {
@@ -354,44 +324,26 @@ export default {
         alert("This is awsome");
       }
     },
-    goAll() {
-      var self = this;
-      self.showAllDiv = true;
-      self.showTopDiv = false;
-      self.showHighRatedDiv = false;
-    },
-    goTop() {
-      var self = this;
-      self.showAllDiv = false;
-      self.showTopDiv = true;
-      self.showHighRatedDiv = false;
-    },
-    goHighRated() {
-      var self = this;
-      self.showAllDiv = false;
-      self.showTopDiv = false;
-      self.showHighRatedDiv = true;
-    },
-    async loadData() {
-      if (this.showAllDiv == true) {
-        this.loaded = false;
-        try {
-          await this.$store.dispatch("detailPage/FetchMoreHomeArticles");
-        } catch (e) {
-          alert("No more data" + e);
-        }
-        this.loaded = true;
-      } else if (this.showTopDiv == true) {
-        this.loaded = false;
-        try {
-          await this.$store.dispatch("detailPage/FetchMoreTopArticles");
-        } catch (e) {
-          alert("No more data" + e);
-        }
-        this.loaded = true;
-      } else if (this.showHighRatedDiv == true) {
-        alert("High Rated");
+    async loadDataAll() {
+      this.loadedAll = false;
+      try {
+        await this.$store.dispatch("detailPage/FetchMoreHomeArticles");
+      } catch (e) {
+        alert("No more data" + e);
       }
+      this.loadedAll = true;
+    },
+    async loadDataTop() {
+      this.loadedTop = false;
+      try {
+        await this.$store.dispatch("detailPage/FetchMoreTopArticles");
+      } catch (e) {
+        alert("No more data" + e);
+      }
+      this.loadedTop = true;
+    },
+    async loadDataHighRated() {
+      alert("High Rated");
     }
   },
   mounted() {
@@ -466,7 +418,7 @@ p {
 }
 .custom-list-item {
   border: none !important;
-  margin-bottom: 53px;
+  margin-bottom: 15px;
   cursor: pointer;
   padding: 0px !important;
 }

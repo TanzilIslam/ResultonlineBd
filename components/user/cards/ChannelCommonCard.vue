@@ -38,7 +38,7 @@ export default {
 .custom-channel-common-card {
   border: none !important;
   cursor: pointer;
-  background-color: rgb(255, 255, 255);
+  background-color: #fafafa;
   margin-bottom: 30px;
 }
 .custom-card-text-date {
