@@ -320,12 +320,12 @@ export default {
     await this.$axios
       .$get(process.env.baseUrl)
       .then(posts =>
-        this.$store.dispatch("home/FetchHomeArticles", posts.results)
+        this.$store.dispatch("detailPage/FetchHomeArticles", posts.results)
       );
     await this.$axios
       .$get(process.env.baseUrl + `/TopContent`)
       .then(posts =>
-        this.$store.dispatch("top/FetchTopArticles", posts.results)
+        this.$store.dispatch("detailPage/FetchTopArticles", posts.results)
       );
   },
   computed: mapState({
@@ -336,8 +336,8 @@ export default {
         .replace(/[ ]{2,}/gi, " ")
         .replace(/\n /, "\n")
         .split(" "),
-    HomeArticles: state => state.home.HomeArticles,
-    TopArticles: state => state.top.TopArticles
+    HomeArticles: state => state.detailPage.HomeArticles,
+    TopArticles: state => state.detailPage.TopArticles
   }),
   methods: {
     setRating(rating) {
@@ -372,11 +372,23 @@ export default {
       self.showTopDiv = false;
       self.showHighRatedDiv = true;
     },
-    loadData() {
+    async loadData() {
       if (this.showAllDiv == true) {
-        alert("All");
+        this.loaded = false;
+        try {
+          await this.$store.dispatch("detailPage/FetchMoreHomeArticles");
+        } catch (e) {
+          alert("No more data" + e);
+        }
+        this.loaded = true;
       } else if (this.showTopDiv == true) {
-        alert("Top");
+        this.loaded = false;
+        try {
+          await this.$store.dispatch("detailPage/FetchMoreTopArticles");
+        } catch (e) {
+          alert("No more data" + e);
+        }
+        this.loaded = true;
       } else if (this.showHighRatedDiv == true) {
         alert("High Rated");
       }
