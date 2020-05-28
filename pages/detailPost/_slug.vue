@@ -69,7 +69,7 @@
                   member to keep reading.simple
                 </p>
                 <b-button variant="success" :href="DetailArticle.contentlink">
-                  <span>Get Full Article</span>
+                  Get Full Article
                 </b-button>
               </div>
             </div>
@@ -115,66 +115,14 @@
       </b-col>
     </b-row>
     <hr />
-    <div class="all">
-      <div class="d-flex ml-3 mb-3">
-        <b-img
-          height="48"
-          width="48"
-          class="rounded"
-          :src="require('~/assets/user/detailPage/1.png')"
-        >
-        </b-img>
-        <h5 style="color:#222;" class="ml-2 mt-2"><strong>All</strong></h5>
-      </div>
-      <VclChannelCommonCard v-if="$fetchState.pending" />
-      <h4 v-else-if="$fetchState.error">
-        Error while fetching posts: {{ $fetchState.error.message }}
-      </h4>
-      <div v-else>
-        <b-row>
-          <b-col
-            sm="6"
-            md="4"
-            lg="4"
-            xl="4"
-            v-for="(article, index) in HomeArticles"
-            :key="index"
-          >
-            <nuxt-link prefetch :to="`/detailPost/${article.slug}`">
-              <ChannelCommonCard :article="article" :data-index="index" />
-            </nuxt-link>
-          </b-col>
-        </b-row>
-      </div>
-      <!-- pagination Start -->
-      <div class="myPagination">
-        <div class="text-center mt-2 mb-2">
-          <span v-if="!loadedAll"
-            ><b-spinner
-              style="width: 2rem; height: 2rem;"
-              label="Loading..."
-            ></b-spinner
-          ></span>
-          <b-button
-            v-else-if="loadedAll"
-            variant="dark"
-            style="width: 80px;border-radious:10px;"
-            @click="loadDataAll"
-          >
-            More
-          </b-button>
-        </div>
-      </div>
-      <!-- pagination End -->
-    </div>
-    <hr />
     <div class="top">
       <div class="d-flex ml-3 mb-3">
         <b-img
-          height="48"
-          width="48"
+          style="background-color: #343a40; padding:5px"
+          height="53"
+          width="53"
           class="rounded"
-          :src="require('~/assets/user/detailPage/3.png')"
+          :src="require('~/assets/user/detailPage/1.png')"
         >
         </b-img>
         <h5 style="color:#222;" class="ml-2 mt-2"><strong>Top</strong></h5>
@@ -186,10 +134,11 @@
       <div v-else>
         <b-row>
           <b-col
+            cols="12"
             sm="6"
-            md="4"
-            lg="4"
-            xl="4"
+            md="3"
+            lg="3"
+            xl="3"
             v-for="(article, index) in TopArticles"
             :key="index"
           >
@@ -208,14 +157,14 @@
               label="Loading..."
             ></b-spinner
           ></span>
-          <b-button
-            v-else-if="loadedTop"
-            variant="dark"
-            style="width: 80px;border-radious:10px;"
-            @click="loadDataTop"
-          >
+          <div v-else-if="loadedTop" @click="loadDataTop" class="more-button">
+            <b-icon
+              icon="arrow-right"
+              variant="light"
+              class="more-button-icon"
+            ></b-icon>
             More
-          </b-button>
+          </div>
         </div>
       </div>
       <!-- pagination End -->
@@ -224,8 +173,9 @@
     <div class="high-rated">
       <div class="d-flex ml-3 mb-3">
         <b-img
-          height="48"
-          width="48"
+          style="background-color: #343a40; padding:5px"
+          height="53"
+          width="53"
           class="rounded"
           :src="require('~/assets/user/detailPage/2.png')"
         >
@@ -241,10 +191,11 @@
       <div v-else>
         <b-row>
           <b-col
+            cols="12"
             sm="6"
-            md="4"
-            lg="4"
-            xl="4"
+            md="3"
+            lg="3"
+            xl="3"
             v-for="(article, index) in TopArticles"
             :key="index"
           >
@@ -263,19 +214,22 @@
               label="Loading..."
             ></b-spinner
           ></span>
-          <b-button
-            v-else-if="loadedHighRated"
-            variant="dark"
-            style="width: 80px;border-radious:10px;"
+          <div
+            v-else-if="loadedTop"
             @click="loadDataHighRated"
+            class="more-button"
           >
+            <b-icon
+              icon="arrow-right"
+              variant="light"
+              class="more-button-icon"
+            ></b-icon>
             More
-          </b-button>
+          </div>
         </div>
       </div>
       <!-- pagination End -->
     </div>
-    <hr />
   </div>
 </template>
 
@@ -286,7 +240,6 @@ export default {
   data() {
     return {
       rating: 0,
-      loadedAll: true,
       loadedTop: true,
       loadedHighRated: true
     };
@@ -317,11 +270,6 @@ export default {
         this.$store.dispatch("detailPage/FetchDetailArticle", posts)
       );
     await this.$axios
-      .$get(process.env.baseUrl)
-      .then(posts =>
-        this.$store.dispatch("detailPage/FetchHomeArticles", posts.results)
-      );
-    await this.$axios
       .$get(process.env.baseUrl + `/TopContent`)
       .then(posts =>
         this.$store.dispatch("detailPage/FetchTopArticles", posts.results)
@@ -335,7 +283,6 @@ export default {
         .replace(/[ ]{2,}/gi, " ")
         .replace(/\n /, "\n")
         .split(" "),
-    HomeArticles: state => state.detailPage.HomeArticles,
     TopArticles: state => state.detailPage.TopArticles
   }),
   methods: {
@@ -352,15 +299,6 @@ export default {
       } else if (rating == 5) {
         alert("This is awsome");
       }
-    },
-    async loadDataAll() {
-      this.loadedAll = false;
-      try {
-        await this.$store.dispatch("detailPage/FetchMoreHomeArticles");
-      } catch (e) {
-        alert("No more data" + e);
-      }
-      this.loadedAll = true;
     },
     async loadDataTop() {
       this.loadedTop = false;
@@ -388,6 +326,30 @@ export default {
 /* .secreat {
   visibility: hidden;
 } */
+.more-button {
+  background-color: #343a40;
+  color: #eee;
+  box-sizing: border-box;
+  cursor: pointer;
+  display: inline-block;
+  font-size: 14px;
+  height: 36px;
+  line-height: 20px;
+  padding: 7px 11px;
+  position: relative;
+  text-align: center;
+  width: 200px;
+  border-radius: 18px;
+}
+.more-button-icon {
+  left: 12px;
+  margin-top: 0;
+  position: absolute;
+  height: 20px;
+  width: 20px;
+  margin-right: 8px;
+  float: left;
+}
 a {
   color: black !important;
   text-decoration: none;
