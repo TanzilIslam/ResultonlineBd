@@ -4,7 +4,7 @@
       <b-row no-gutters>
         <b-col cols="12" sm="12" md="3" lg="3" xl="3">
           <div
-            class="d-flex justify-content-md-start  justify-content-center  first-section  mt-4"
+            class="d-flex   justify-content-center justify-content-md-start justify-content-lg-start justify-content-xl-start first-section  mt-4"
           >
             <b-img
               height="25"
@@ -33,7 +33,9 @@
           </div>
         </b-col>
         <b-col cols="12" sm="12" md="5" lg="5" xl="5">
-          <div class="d-flex justify-content-end last-section mt-4">
+          <div
+            class="d-flex justify-content-center justify-content-md-end justify-content-lg-end justify-content-xl-end last-section mt-4"
+          >
             <h5>Terms</h5>
             <h5>Privacy</h5>
             <h5>Get In Touch</h5>
