@@ -90,24 +90,40 @@
       <b-col cols="12" sm="12" md="3" lg="3" xl="3">
         <div class="ml-2 latest-home-card">
           <b-list-group>
-            <b-list-group-item class="custom-list-item" v-for="i in 4" :key="i">
-              <div class="d-flex">
-                <div>
-                  <b-img
-                    class="custom-latest-image"
-                    :src="require('~/assets/user/dummyImages/1.jpg')"
-                  ></b-img>
-                </div>
-                <div class="custom-latest-text">
-                  <p class="mb-2">
-                    <strong> This is a common title of details page</strong>
-                  </p>
-                  <div class="mt-2">
-                    <span>Technology |</span>
-                    <span class="text-muted">2010-11-22</span>
+            <div v-if="$fetchState.pending" class="text-center">
+              <b-list-group-item>
+                <b-spinner label="Loading..."></b-spinner>
+              </b-list-group-item>
+            </div>
+
+            <b-list-group-item
+              v-else
+              v-for="(i, index) in RelatedArticles"
+              :key="index"
+              class="custom-list-item"
+            >
+              <nuxt-link prefetch :to="`/detailPost/${i.slug}`">
+                <div class="d-flex">
+                  <div>
+                    <b-img class="custom-latest-image" :src="i.photo"></b-img>
+                  </div>
+                  <div class="custom-latest-text">
+                    <p class="mb-2">
+                      <strong>
+                        {{
+                          i.title.length > 22
+                            ? i.title.substr(0, 20) + " .."
+                            : i.title
+                        }}</strong
+                      >
+                    </p>
+                    <div class="mt-2">
+                      <span>{{ i.channel.channelname }} |</span>
+                      <span class="text-muted">{{ i.release_date }}</span>
+                    </div>
                   </div>
                 </div>
-              </div>
+              </nuxt-link>
               <hr />
             </b-list-group-item>
           </b-list-group>
@@ -273,6 +289,12 @@ export default {
       .then(posts =>
         this.$store.dispatch("detailPage/FetchTopArticles", posts.results)
       );
+
+    await this.$axios
+      .$get(process.env.baseUrl + `/Releted_Data`)
+      .then(posts =>
+        this.$store.dispatch("detailPage/FetchRelatedArticles", posts)
+      );
   },
   computed: mapState({
     DetailArticle: state => state.detailPage.DetailArticle,
@@ -282,7 +304,8 @@ export default {
         .replace(/[ ]{2,}/gi, " ")
         .replace(/\n /, "\n")
         .split(" "),
-    TopArticles: state => state.detailPage.TopArticles
+    TopArticles: state => state.detailPage.TopArticles,
+    RelatedArticles: state => state.detailPage.RelatedArticles
   }),
   methods: {
     setRating(rating) {

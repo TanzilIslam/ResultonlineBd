@@ -2,27 +2,21 @@ import ApiService from '~/services/ApiService.js'
 export const namespaced = true
 export const state = () => ({
     DetailArticle: {},
-    PageNumberHome: 2,
+    PageNumber: 2,
     PageNumberTop: 2,
-    HomeArticles: [],
+    RelatedArticles: [],
     TopArticles: []
 })
 
 export const mutations = {
-    SET_HOME_ARTICLES(state, payload) {
-        state.HomeArticles = payload
-    },
-    SET_MORE_HOME_ARTICLES(state, payload) {
-        state.HomeArticles.push(payload)
+    SET_RELATED_ARTICLES(state, payload) {
+        state.RelatedArticles = payload
     },
     SET_TOP_ARTICLES(state, payload) {
         state.TopArticles = payload
     },
     SET_MORE_TOP_ARTICLES(state, payload) {
         state.TopArticles.push(payload)
-    },
-    INCREASE_PAGE_NUMBER_HOME(state) {
-        state.PageNumberHome++;
     },
     INCREASE_PAGE_NUMBER_TOP(state) {
         state.PageNumberTop++;
@@ -42,17 +36,8 @@ export const actions = {
     //     })
     // },
 
-    FetchHomeArticles({ commit }, posts) {
-        commit('SET_HOME_ARTICLES', posts)
-    },
-
-    FetchMoreHomeArticles({ commit, rootState }) {
-        return ApiService.GetMoreHomeArticles(rootState.detailPage.PageNumberHome).then(response => {
-            response.data.results.forEach(element => {
-                commit('SET_MORE_HOME_ARTICLES', element)
-            });
-            commit('INCREASE_PAGE_NUMBER_HOME')
-        })
+    FetchRelatedArticles({ commit }, posts) {
+        commit('SET_RELATED_ARTICLES', posts)
     },
     FetchTopArticles({ commit }, posts) {
         commit('SET_TOP_ARTICLES', posts)

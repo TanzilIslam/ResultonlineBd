@@ -1,12 +1,13 @@
 <template>
   <div class="channel-common-card">
     <b-card no-body class="custom-channel-common-card">
-      <b-card-img
+      <b-card-img-lazy
+        blank-color="#e8eef0"
         :src="article.photo"
         top
         height="165"
         style="border-radius: 10px;"
-      ></b-card-img>
+      ></b-card-img-lazy>
       <b-card-text class="text-muted custom-card-text-date" text-tag="p">{{
         article.release_date
       }}</b-card-text>
