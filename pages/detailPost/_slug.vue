@@ -159,7 +159,7 @@
           ></span>
           <div v-else-if="loadedTop" @click="loadDataTop" class="more-button">
             <b-icon
-              icon="arrow-right"
+              icon="chevron-down"
               variant="dark"
               class="more-button-icon"
             ></b-icon>
@@ -219,7 +219,7 @@
             class="more-button"
           >
             <b-icon
-              icon="arrow-right"
+              icon="chevron-down"
               variant="dark"
               class="more-button-icon"
             ></b-icon>
