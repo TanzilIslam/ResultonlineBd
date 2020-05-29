@@ -90,6 +90,7 @@ export default {
   background: none;
 }
 .b-button {
+  margin-bottom: 5px;
   border-radius: 15px;
   font-size: 14px;
   height: 30px;

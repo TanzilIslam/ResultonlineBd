@@ -20,8 +20,8 @@ export default {
 </script>
 
 <style scoped>
-.channel-cover {
-}
+/* .channel-cover {
+} */
 
 .channel-cover-title {
   text-align: center !important;

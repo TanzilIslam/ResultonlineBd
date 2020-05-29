@@ -76,7 +76,7 @@
           </div>
         </div>
         <div class="d-flex mt-4 mb-4">
-          <h5 class="mr-4 mt-3">Please Rate us:</h5>
+          <h5 class="mr-2 mt-3">Please Rate us:</h5>
           <client-only>
             <star-rating
               :show-rating="false"
@@ -116,11 +116,11 @@
     </b-row>
     <hr />
     <div class="top">
-      <div class="d-flex ml-3 mb-3">
+      <div class="d-flex  mb-3">
         <b-img
           style="background-color: #343a40; padding:5px"
-          height="53"
-          width="53"
+          height="48"
+          width="48"
           class="rounded"
           :src="require('~/assets/user/detailPage/1.png')"
         >
@@ -160,22 +160,21 @@
           <div v-else-if="loadedTop" @click="loadDataTop" class="more-button">
             <b-icon
               icon="arrow-right"
-              variant="light"
+              variant="dark"
               class="more-button-icon"
             ></b-icon>
-            More
           </div>
         </div>
       </div>
       <!-- pagination End -->
     </div>
     <hr />
-    <div class="high-rated">
-      <div class="d-flex ml-3 mb-3">
+    <div class="high-rated mb-4">
+      <div class="d-flex  mb-3">
         <b-img
           style="background-color: #343a40; padding:5px"
-          height="53"
-          width="53"
+          height="48"
+          width="48"
           class="rounded"
           :src="require('~/assets/user/detailPage/2.png')"
         >
@@ -221,10 +220,9 @@
           >
             <b-icon
               icon="arrow-right"
-              variant="light"
+              variant="dark"
               class="more-button-icon"
             ></b-icon>
-            More
           </div>
         </div>
       </div>
@@ -236,6 +234,7 @@
 <script>
 import { mapState } from "vuex";
 export default {
+  layout: "detail",
   components: {},
   data() {
     return {
@@ -327,8 +326,8 @@ export default {
   visibility: hidden;
 } */
 .more-button {
-  background-color: #343a40;
-  color: #eee;
+  /* background: white; */
+  border: 1px solid #dadce0;
   box-sizing: border-box;
   cursor: pointer;
   display: inline-block;
@@ -338,17 +337,20 @@ export default {
   padding: 7px 11px;
   position: relative;
   text-align: center;
-  width: 200px;
+  width: 100px;
   border-radius: 18px;
+  background: #fff;
+  box-shadow: 0 5px 0.9rem -0.8rem rgba(0, 0, 0, 0.8),
+    0 0 0 1px rgba(0, 0, 0, 0.05);
 }
 .more-button-icon {
   left: 12px;
   margin-top: 0;
-  position: absolute;
+
   height: 20px;
   width: 20px;
-  margin-right: 8px;
-  float: left;
+
+  align-self: center;
 }
 a {
   color: black !important;
