@@ -2,7 +2,7 @@
   <div class="channel-common-card">
     <b-card no-body class="custom-channel-common-card">
       <b-card-img-lazy
-        blank-color="#e8eef0"
+        blank-color="#bbb"
         :src="article.photo"
         top
         height="165"

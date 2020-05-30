@@ -1,7 +1,7 @@
 <template>
   <div class="detail-post">
     <b-row no-gutters>
-      <b-col cols="12" sm="12" md="9" lg="9" xl="9">
+      <b-col cols="12" sm="12" md="8" lg="8" xl="8">
         <VclDetailCard v-if="$fetchState.pending" />
         <h4 v-else-if="$fetchState.error">
           Error while fetching posts: {{ $fetchState.error.message }}
@@ -87,7 +87,7 @@
           </client-only>
         </div>
       </b-col>
-      <b-col cols="12" sm="12" md="3" lg="3" xl="3">
+      <b-col cols="12" sm="12" md="4" lg="4" xl="4">
         <div class="ml-2 latest-home-card">
           <b-list-group>
             <div v-if="$fetchState.pending" class="text-center">
@@ -107,12 +107,12 @@
                   <div>
                     <b-img class="custom-latest-image" :src="i.photo"></b-img>
                   </div>
-                  <div class="custom-latest-text">
-                    <p class="mb-2">
+                  <div class="mt-2 custom-latest-text">
+                    <p>
                       <strong>
                         {{
-                          i.title.length > 22
-                            ? i.title.substr(0, 20) + " .."
+                          i.title.length > 40
+                            ? i.title.substr(0, 39) + " .."
                             : i.title
                         }}</strong
                       >
@@ -124,7 +124,7 @@
                   </div>
                 </div>
               </nuxt-link>
-              <hr />
+              <hr class="mt-2" />
             </b-list-group-item>
           </b-list-group>
         </div>
@@ -295,6 +295,29 @@ export default {
       .then(posts =>
         this.$store.dispatch("detailPage/FetchRelatedArticles", posts)
       );
+    // code for translate
+    // await this.$axios
+    //   .$post(
+    //     `https://google-translate1.p.rapidapi.com/language/translate/v2`,
+    //     {
+    //       source: "en",
+    //       q: "Hello, world!",
+    //       target: "es"
+    //     },
+    //     {
+    //       "content-type": "application/x-www-form-urlencoded",
+    //       "x-rapidapi-host": "google-translate1.p.rapidapi.com",
+    //       "x-rapidapi-key": "Api-Key",
+    //       "accept-encoding": "application/gzip",
+    //       useQueryString: true
+    //     }
+    //   )
+    //   .then(response => {
+    //     console.log(response);
+    //   })
+    //   .catch(error => {
+    //     console.log(error);
+    //   });
   },
   computed: mapState({
     DetailArticle: state => state.detailPage.DetailArticle,
@@ -427,14 +450,14 @@ p {
 }
 
 .custom-latest-image {
-  width: 80px;
-  height: 80px;
+  width: 100px;
+  height: 100px;
   margin-left: 2px;
   border-radius: 5px;
 }
 .custom-list-item {
   border: none !important;
-  margin-bottom: 15px;
+  /* margin-bottom: 1px; */
   cursor: pointer;
   padding: 0px !important;
 }

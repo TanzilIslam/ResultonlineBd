@@ -1,5 +1,6 @@
 import Vue from 'vue'
 
+
 // common components start
 import NavBar from '~/components/user/NavBar'
 import Carousel from '~/components/user/Carousel'
