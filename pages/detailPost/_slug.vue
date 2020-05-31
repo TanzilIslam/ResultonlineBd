@@ -131,7 +131,7 @@
       </b-col>
     </b-row>
     <hr />
-    <div class="top">
+    <div class="recommended">
       <div class="d-flex  mb-3">
         <b-img
           style="background-color: #343a40; padding:5px"
@@ -141,7 +141,9 @@
           :src="require('~/assets/user/detailPage/1.png')"
         >
         </b-img>
-        <h5 style="color:#222;" class="ml-2 mt-2"><strong>Top</strong></h5>
+        <h5 style="color:#222;" class="ml-2 mt-2">
+          <strong>Recommended</strong>
+        </h5>
       </div>
       <VclChannelCommonCard v-if="$fetchState.pending" />
       <h4 v-else-if="$fetchState.error">
@@ -155,7 +157,7 @@
             md="3"
             lg="3"
             xl="3"
-            v-for="(article, index) in TopArticles"
+            v-for="(article, index) in RecommendedArticles"
             :key="index"
           >
             <nuxt-link prefetch :to="`/detailPost/${article.slug}`">
@@ -167,13 +169,17 @@
       <!-- pagination Start -->
       <div class="myPagination">
         <div class="text-center mt-2 mb-2">
-          <span v-if="!loadedTop"
+          <span v-if="!loadedRecommended"
             ><b-spinner
               style="width: 2rem; height: 2rem;"
               label="Loading..."
             ></b-spinner
           ></span>
-          <div v-else-if="loadedTop" @click="loadDataTop" class="more-button">
+          <div
+            v-else-if="loadedRecommended"
+            @click="loadDataRecommended"
+            class="more-button"
+          >
             <b-icon
               icon="chevron-down"
               variant="dark"
@@ -211,7 +217,7 @@
             md="3"
             lg="3"
             xl="3"
-            v-for="(article, index) in TopArticles"
+            v-for="(article, index) in HighRatedArticles"
             :key="index"
           >
             <nuxt-link prefetch :to="`/detailPost/${article.slug}`">
@@ -230,7 +236,7 @@
             ></b-spinner
           ></span>
           <div
-            v-else-if="loadedTop"
+            v-else-if="loadedHighRated"
             @click="loadDataHighRated"
             class="more-button"
           >
@@ -255,7 +261,7 @@ export default {
   data() {
     return {
       rating: 0,
-      loadedTop: true,
+      loadedRecommended: true,
       loadedHighRated: true
     };
   },
@@ -284,10 +290,19 @@ export default {
       .then(posts =>
         this.$store.dispatch("detailPage/FetchDetailArticle", posts)
       );
+
     await this.$axios
-      .$get(process.env.baseUrl + `/TopContent`)
+      .$get(process.env.baseUrl + `/recommended_data`)
       .then(posts =>
-        this.$store.dispatch("detailPage/FetchTopArticles", posts.results)
+        this.$store.dispatch(
+          "detailPage/FetchRecommendedArticles",
+          posts.results
+        )
+      );
+    await this.$axios
+      .$get(process.env.baseUrl + `/high_ratetd`)
+      .then(posts =>
+        this.$store.dispatch("detailPage/FetchHighRatedArticles", posts.results)
       );
 
     await this.$axios
@@ -296,6 +311,32 @@ export default {
         this.$store.dispatch("detailPage/FetchRelatedArticles", posts)
       );
     // code for translate
+    // this.$axios.setHeader("Content-Type", "application/x-www-form-urlencoded", [
+    //   "post"
+    // ]);
+    // await this.$axios({
+    //   method: "POST",
+    //   url: "https://google-translate1.p.rapidapi.com/language/translate/v2",
+    //   // headers: {
+    //   "content-type": "application/x-www-form-urlencoded",
+    //   "x-rapidapi-host": "google-translate1.p.rapidapi.com",
+    //   "x-rapidapi-key": "5b2201df96mshfeee16372bdbe7bp1366cbjsnc71f0c228f94",
+    //   "accept-encoding": "application/gzip",
+    //   useQueryString: true
+    // },
+    //   data: {
+    //     source: "en",
+    //     q: "Hello, world!",
+    //     target: "es"
+    //   }
+    // })
+    //   .then(response => {
+    //     console.log(response);
+    //   })
+    //   .catch(error => {
+    //     console.log(error);
+    //   });
+    // this.$axios.setToken("5b2201df96mshfeee16372bdbe7bp1366cbjsnc71f0c228f94");
     // await this.$axios
     //   .$post(
     //     `https://google-translate1.p.rapidapi.com/language/translate/v2`,
@@ -307,7 +348,8 @@ export default {
     //     {
     //       "content-type": "application/x-www-form-urlencoded",
     //       "x-rapidapi-host": "google-translate1.p.rapidapi.com",
-    //       "x-rapidapi-key": "Api-Key",
+    //       "x-rapidapi-key":
+    //         "5b2201df96mshfeee16372bdbe7bp1366cbjsnc71f0c228f94",
     //       "accept-encoding": "application/gzip",
     //       useQueryString: true
     //     }
@@ -327,7 +369,8 @@ export default {
         .replace(/[ ]{2,}/gi, " ")
         .replace(/\n /, "\n")
         .split(" "),
-    TopArticles: state => state.detailPage.TopArticles,
+    RecommendedArticles: state => state.detailPage.RecommendedArticles,
+    HighRatedArticles: state => state.detailPage.HighRatedArticles,
     RelatedArticles: state => state.detailPage.RelatedArticles
   }),
   methods: {
@@ -345,17 +388,23 @@ export default {
         alert("This is awsome");
       }
     },
-    async loadDataTop() {
-      this.loadedTop = false;
+    async loadDataRecommended() {
+      this.loadedRecommended = false;
       try {
-        await this.$store.dispatch("detailPage/FetchMoreTopArticles");
+        await this.$store.dispatch("detailPage/FetchMoreRecommendedArticles");
       } catch (e) {
         alert("No more data" + e);
       }
-      this.loadedTop = true;
+      this.loadedRecommended = true;
     },
     async loadDataHighRated() {
-      alert("High Rated");
+      this.loadedHighRated = false;
+      try {
+        await this.$store.dispatch("detailPage/FetchMoreHighRatedArticles");
+      } catch (e) {
+        alert("No more data" + e);
+      }
+      this.loadedHighRated = true;
     }
   },
   mounted() {

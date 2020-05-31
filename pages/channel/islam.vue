@@ -122,7 +122,7 @@ export default {
   },
   async fetch() {
     await this.$axios
-      .$get(process.env.baseUrl + `/channeldel?search=Islam`)
+      .$get(process.env.channelUrl + `Islam`)
       .then(posts =>
         this.$store.dispatch("islam/FetchIslamArticles", posts.results)
       );

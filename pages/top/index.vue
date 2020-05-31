@@ -26,7 +26,15 @@
       <!-- Pagination Start End -->
       <div class="myPagination">
         <div class="text-center mt-5 mb-3">
-          <b-button variant="dark" @click="loadData">Load More</b-button>
+          <span v-if="!loaded"
+            ><b-spinner
+              style="width: 2rem; height: 2rem;"
+              label="Loading..."
+            ></b-spinner
+          ></span>
+          <b-button v-else-if="loaded" variant="dark" @click="loadData">
+            <span> Load More</span>
+          </b-button>
         </div>
       </div>
       <!-- Pagination End -->
@@ -39,6 +47,11 @@ import { mapState } from "vuex";
 
 export default {
   layout: "default",
+  data() {
+    return {
+      loaded: true
+    };
+  },
   head() {
     return {
       title: "Top Articles - ResultOnlineBd",
@@ -63,7 +76,9 @@ export default {
     TopArticles: state => state.top.TopArticles
   }),
   data() {
-    return {};
+    return {
+      loaded: true
+    };
   },
   methods: {
     async loadData() {

@@ -22,6 +22,8 @@ Vue.component('ChannelCommonCard', ChannelCommonCard)
 import HomeCard from '~/components/user/cards/HomeCard'
 import LatestCard from '~/components/user/cards/LatestCard'
 import VclHomeCard from '~/components/user/vue-content-loading-cards/VclHomeCard'
+import vuescroll from 'vuescroll';
+Vue.use(vuescroll)
 
 Vue.component('HomeCard', HomeCard)
 Vue.component('LatestCard', LatestCard)

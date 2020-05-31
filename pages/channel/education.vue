@@ -122,7 +122,7 @@ export default {
   },
   async fetch() {
     await this.$axios
-      .$get(process.env.baseUrl + `/channeldel?search=Education`)
+      .$get(process.env.channelUrl + `Education`)
       .then(posts =>
         this.$store.dispatch("education/FetchEducationArticles", posts.results)
       );

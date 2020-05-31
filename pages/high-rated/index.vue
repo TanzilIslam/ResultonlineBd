@@ -46,19 +46,15 @@ export default {
       ]
     };
   },
-  async fetch({ store, error }) {
-    try {
-      await store.dispatch("FetchHighRatedArticles");
-    } catch (e) {
-      error({
-        statusCode: 503,
-        message: "Unable to fetch data at this time.Please try again."
-      });
-    } finally {
-    }
+  async fetch() {
+    await this.$axios
+      .$get(process.env.baseUrl + `/high_ratetd`)
+      .then(posts =>
+        this.$store.dispatch("highRated/FetchHighRatedArticles", posts.results)
+      );
   },
   computed: mapState({
-    HighRatedArticles: state => state.HighRatedArticles
+    HighRatedArticles: state => state.highRated.HighRatedArticles
   }),
   data() {
     return {
@@ -68,18 +64,9 @@ export default {
   methods: {
     async loadData() {
       try {
-        let moreData = await this.$axios
-          .$get(
-            process.env.baseUrl + "/HighRatedArticles?page=" + this.currentPage
-          )
-          .then(item =>
-            item.results.forEach(element => {
-              this.$store.dispatch("FetchMoreHighRatedArticles", element);
-            })
-          );
-        this.currentPage = this.currentPage + 1;
+        await this.$store.dispatch("highRated/FetchMoreHighRatedArticles");
       } catch (e) {
-        alert("No more data");
+        alert("No more data" + e);
       }
     }
   }

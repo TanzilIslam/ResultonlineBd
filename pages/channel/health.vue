@@ -121,7 +121,7 @@ export default {
   },
   async fetch() {
     await this.$axios
-      .$get(process.env.baseUrl + `/channeldel?search=Health`)
+      .$get(process.env.channelUrl + `Health`)
       .then(posts =>
         this.$store.dispatch("health/FetchHealthArticles", posts.results)
       );

@@ -3,24 +3,36 @@ export const namespaced = true
 export const state = () => ({
     DetailArticle: {},
     PageNumber: 2,
-    PageNumberTop: 2,
+    PageNumberRecommended: 2,
+    PageNumberHighRated: 2,
     RelatedArticles: [],
-    TopArticles: []
+    RecommendedArticles: [],
+    HighRatedArticles: []
 })
 
 export const mutations = {
     SET_RELATED_ARTICLES(state, payload) {
         state.RelatedArticles = payload
     },
-    SET_TOP_ARTICLES(state, payload) {
-        state.TopArticles = payload
+    SET_RECOMMENDED_ARTICLES(state, payload) {
+        state.RecommendedArticles = payload
     },
-    SET_MORE_TOP_ARTICLES(state, payload) {
-        state.TopArticles.push(payload)
+    SET_HIGH_RATED_ARTICLES(state, payload) {
+        state.HighRatedArticles = payload
     },
-    INCREASE_PAGE_NUMBER_TOP(state) {
+    SET_MORE_RECOMMENDED_ARTICLES(state, payload) {
+        state.RecommendedArticles.push(payload)
+    },
+    SET_MORE_HIGH_RATED_ARTICLES(state, payload) {
+        state.HighRatedArticles.push(payload)
+    },
+    INCREASE_PAGE_NUMBER_RECOMMENDED(state) {
         state.PageNumberTop++;
     },
+    INCREASE_PAGE_NUMBER_HIGH_RATED(state) {
+        state.PageNumberHighRated++;
+    },
+
 
     SET_DETAIL_ARTICLE(state, payload) {
         state.DetailArticle = payload
@@ -39,15 +51,30 @@ export const actions = {
     FetchRelatedArticles({ commit }, posts) {
         commit('SET_RELATED_ARTICLES', posts)
     },
-    FetchTopArticles({ commit }, posts) {
-        commit('SET_TOP_ARTICLES', posts)
+
+    FetchRecommendedArticles({ commit }, posts) {
+        commit('SET_RECOMMENDED_ARTICLES', posts)
     },
-    FetchMoreTopArticles({ commit, rootState }) {
-        return ApiService.GetMoreTopArticles(rootState.detailPage.PageNumberTop).then(response => {
+
+    FetchHighRatedArticles({ commit }, posts) {
+        commit('SET_HIGH_RATED_ARTICLES', posts)
+    },
+
+    FetchMoreRecommendedArticles({ commit, rootState }) {
+        return ApiService.GetMoreRecommendedArticles(rootState.detailPage.PageNumberRecommended).then(response => {
             response.data.results.forEach(element => {
-                commit('SET_MORE_TOP_ARTICLES', element)
+                commit('SET_MORE_RECOMMENDED_ARTICLES', element)
             });
-            commit('INCREASE_PAGE_NUMBER_TOP')
+            commit('INCREASE_PAGE_NUMBER_RECOMMENDED')
+        })
+    },
+
+    FetchMoreHighRatedArticles({ commit, rootState }) {
+        return ApiService.GetMoreHighRatedArticles(rootState.detailPage.PageNumberHighRated).then(response => {
+            response.data.results.forEach(element => {
+                commit('SET_MORE_HIGH_RATED_ARTICLES', element)
+            });
+            commit('INCREASE_PAGE_NUMBER_HIGH_RATED')
         })
     },
     FetchDetailArticle({ commit }, posts) {
