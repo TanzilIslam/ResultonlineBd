@@ -4,10 +4,11 @@
       <b-card no-body style="max-width: 40rem;" class="mb-4">
         <div class="d-flex">
           <div class="ml-3 mt-3 mb-2">
-            <b-card-img
+            <b-card-img-lazy
+              blank-color="#bbb"
               class="rounded-circle p-1 img-logo"
               :src="article.contentowners.authorsprofilrimg"
-            ></b-card-img>
+            ></b-card-img-lazy>
           </div>
           <div class="mt-4 ml-3 mb-2">
             <nuxt-link
@@ -25,8 +26,14 @@
         </div>
         <h5 class="ml-4">{{ article.title }}</h5>
         <nuxt-link prefetch :to="`/detailPost/${article.slug}`">
-          <b-card-img :src="article.photo" bottom height="230" width="280">
-          </b-card-img>
+          <b-card-img-lazy
+            blank-color="#bbb"
+            :src="article.photo"
+            bottom
+            height="230"
+            width="280"
+          >
+          </b-card-img-lazy>
         </nuxt-link>
       </b-card>
     </div>

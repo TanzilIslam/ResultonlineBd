@@ -2,57 +2,58 @@
   <div class="home">
     <Carousel />
     <Breadcrumb :allActive="true" />
-    <div class="sticky">
-      <b-row>
-        <b-col cols="12" sm="12" md="3" lg="3" xl="3">
-          <SideBar />
-        </b-col>
-        <b-col
-          cols="12"
-          sm="12"
-          md="4"
-          lg="4"
-          xl="4"
-          class="order-md-last order-lg-last order-xl-last"
-        >
-          <div class="latest-home-card mb-4">
-            <h5 class="custom-latest-title">Latest</h5>
-            <b-list-group>
-              <moon-loader
-                v-if="$fetchState.pending"
-                color="#000000"
-                class="spinner"
-                :size="40"
-              ></moon-loader>
-              <h4 v-else-if="$fetchState.error">
-                Error while fetching posts: {{ $fetchState.error.message }}
-              </h4>
-              <b-list-group-item
-                v-else
-                v-for="(article, index) in LatestArticles"
-                :key="index"
-                :data-index="index"
-                class="custom-list-item"
-              >
-                <nuxt-link prefetch :to="`/detailPost/${article.slug}`">
-                  <div class="d-flex">
-                    <div>
-                      <b-img
-                        class="custom-latest-image"
-                        :src="article.photo"
-                      ></b-img>
-                    </div>
-                    <div class="custom-latest-text">
-                      {{ article.title }}
-                      <p class="mt-4 text-muted">{{ article.release_date }}</p>
-                    </div>
+
+    <b-row>
+      <b-col cols="12" sm="12" md="3" lg="3" xl="3">
+        <SideBar />
+      </b-col>
+      <b-col
+        cols="12"
+        sm="12"
+        md="4"
+        lg="4"
+        xl="4"
+        class="order-md-last order-lg-last order-xl-last"
+      >
+        <div class="latest-home-card mb-4">
+          <h5 class="custom-latest-title">Latest</h5>
+          <b-list-group>
+            <moon-loader
+              v-if="$fetchState.pending"
+              color="#000000"
+              class="spinner"
+              :size="40"
+            ></moon-loader>
+            <h4 v-else-if="$fetchState.error">
+              Error while fetching posts: {{ $fetchState.error.message }}
+            </h4>
+            <b-list-group-item
+              v-else
+              v-for="(article, index) in LatestArticles"
+              :key="index"
+              :data-index="index"
+              class="custom-list-item"
+            >
+              <nuxt-link prefetch :to="`/detailPost/${article.slug}`">
+                <div class="d-flex">
+                  <div>
+                    <b-img
+                      class="custom-latest-image"
+                      :src="article.photo"
+                    ></b-img>
                   </div>
-                </nuxt-link>
-              </b-list-group-item>
-            </b-list-group>
-          </div>
-        </b-col>
-        <b-col cols="12" sm="12" md="5" lg="5" xl="5">
+                  <div class="custom-latest-text">
+                    {{ article.title }}
+                    <p class="mt-4 text-muted">{{ article.release_date }}</p>
+                  </div>
+                </div>
+              </nuxt-link>
+            </b-list-group-item>
+          </b-list-group>
+        </div>
+      </b-col>
+      <b-col cols="12" sm="12" md="5" lg="5" xl="5">
+        <div class="sticky">
           <div class="home-cards">
             <VclHomeCard v-if="$fetchState.pending" />
             <h4 v-else-if="$fetchState.error">
@@ -65,12 +66,19 @@
               :article="article"
               :data-index="index"
             />
+            <moon-loader
+              v-if="!loaded"
+              color="#000000"
+              class="spinner-bottom"
+              :size="40"
+            ></moon-loader>
           </div>
-        </b-col>
-      </b-row>
-    </div>
-    <!-- pagination Start -->
-    <!-- <div class="myPagination">
+        </div>
+      </b-col>
+    </b-row>
+  </div>
+  <!-- pagination Start -->
+  <!-- <div class="myPagination">
       <div class="text-center mt-5 mb-3">
         <span v-if="!loaded"
           ><b-spinner
@@ -83,8 +91,7 @@
         </b-button>
       </div>
     </div> -->
-    <!-- pagination End -->
-  </div>
+  <!-- pagination End -->
 </template>
 
 <script>
@@ -140,7 +147,9 @@ export default {
           document.documentElement.offsetHeight;
 
         if (bottomOfWindow) {
-          this.loadData(); // replace it with your code
+          if (this.$route.path === "/") {
+            this.loadData();
+          }
         }
       };
     },
@@ -149,7 +158,7 @@ export default {
       try {
         await this.$store.dispatch("home/FetchMoreHomeArticles");
       } catch (e) {
-        alert("No more data" + e);
+        // alert("No more data" + e);
       }
       this.loaded = true;
     }
@@ -161,6 +170,9 @@ export default {
     });
     this.scroll();
   }
+  // destroyed() {
+  //   this.scroll();
+  // }
 };
 </script>
 
@@ -210,6 +222,10 @@ export default {
 .spinner {
   align-self: center;
   margin-bottom: 10px;
+}
+.spinner-bottom {
+  margin: 10px;
+  left: 37%;
 }
 a {
   color: black !important;

@@ -75,17 +75,29 @@
             </div>
           </div>
         </div>
-        <div class="d-flex mt-4 mb-4">
-          <h5 class="mr-2 mt-3">Please Rate us:</h5>
-          <client-only>
-            <star-rating
-              :show-rating="false"
-              v-model="rating"
-              @rating-selected="setRating"
-              :glow="2"
-            ></star-rating>
-          </client-only>
-        </div>
+      </b-col>
+      <b-col
+        cols="12"
+        sm="12"
+        md="6"
+        lg="6"
+        xl="6"
+        class="order-md-last order-lg-last order-xl-last"
+      >
+        <!-- <div class="">Please Rate us:</div> -->
+        <!-- <div class="float-right"> -->
+        <h3 class="mb-2  mt-4" style="color:#1b1e21">3.6</h3>
+        <client-only>
+          <star-rating
+            :show-rating="false"
+            v-model="rating"
+            @rating-selected="setRating"
+            :glow="2"
+          ></star-rating>
+        </client-only>
+
+        <h6 class="mb-4 mt-3">15 reviews</h6>
+        <!-- </div> -->
       </b-col>
       <b-col cols="12" sm="12" md="4" lg="4" xl="4">
         <div class="ml-2 latest-home-card">
@@ -105,14 +117,18 @@
               <nuxt-link prefetch :to="`/detailPost/${i.slug}`">
                 <div class="d-flex">
                   <div>
-                    <b-img class="custom-latest-image" :src="i.photo"></b-img>
+                    <b-img-lazy
+                      blank-color="#bbb"
+                      class="custom-latest-image"
+                      :src="i.photo"
+                    ></b-img-lazy>
                   </div>
-                  <div class="mt-2 custom-latest-text">
+                  <div class=" custom-latest-text">
                     <p>
                       <strong>
                         {{
-                          i.title.length > 40
-                            ? i.title.substr(0, 39) + " .."
+                          i.title.length > 30
+                            ? i.title.substr(0, 25) + " .."
                             : i.title
                         }}</strong
                       >
@@ -124,7 +140,7 @@
                   </div>
                 </div>
               </nuxt-link>
-              <hr class="mt-2" />
+              <hr />
             </b-list-group-item>
           </b-list-group>
         </div>
@@ -500,13 +516,13 @@ p {
 
 .custom-latest-image {
   width: 100px;
-  height: 100px;
+  height: 64px;
   margin-left: 2px;
   border-radius: 5px;
 }
 .custom-list-item {
   border: none !important;
-  /* margin-bottom: 1px; */
+  margin-bottom: 37px;
   cursor: pointer;
   padding: 0px !important;
 }

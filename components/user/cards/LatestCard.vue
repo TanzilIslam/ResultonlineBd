@@ -5,7 +5,11 @@
       <b-list-group-item class="custom-list-item">
         <div class="d-flex">
           <div>
-            <b-img class="custom-latest-image" :src="article.photo"></b-img>
+            <b-img-lazy
+              blank-color="#bbb"
+              class="custom-latest-image"
+              :src="article.photo"
+            ></b-img-lazy>
           </div>
           <div class="custom-latest-text">
             {{ article.title }}

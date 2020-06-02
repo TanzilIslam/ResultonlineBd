@@ -1,12 +1,13 @@
 <template>
   <div class="author-small-card">
     <b-card no-body style="width:260px;" class="custom-author-small-card">
-      <b-card-img
+      <b-card-img-lazy
         :src="ArticleCover"
+        blank-color="#bbb"
         top
         height="165"
         style="border-radius: 10px;"
-      ></b-card-img>
+      ></b-card-img-lazy>
       <b-card-text class="text-muted custom-card-text-date" text-tag="p">{{
         ArticlePublish
       }}</b-card-text>

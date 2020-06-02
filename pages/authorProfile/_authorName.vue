@@ -6,10 +6,11 @@
           <b-row>
             <b-col sm="6" md="6" lg="6" xl="6" class="mt-4 mx-auto">
               <div class="d-flex ml-4 mt-4">
-                <b-img
+                <b-img-lazy
+                  blank-color="#bbb"
                   class="custom-author-logo mt-4"
                   :src="AuthorArticles.authorsprofilrimg"
-                ></b-img>
+                ></b-img-lazy>
                 <div class="vl mt-4"></div>
                 <div class="custom-text mt-4 ml-3">
                   <!-- <h4>Content Amount</h4> -->
