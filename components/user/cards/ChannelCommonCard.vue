@@ -12,9 +12,7 @@
         article.release_date
       }}</b-card-text>
       <b-card-text text-tag="h6" class="custom-card-text-title">{{
-        article.title.length > 25
-          ? article.title.substr(0, 23) + " .."
-          : article.title
+        article.title
       }}</b-card-text>
     </b-card>
   </div>

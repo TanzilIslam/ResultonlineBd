@@ -12,10 +12,11 @@
         ArticlePublish
       }}</b-card-text>
       <b-card-text text-tag="h6" class="custom-card-text-title">{{
-        ArticleTitle.length > 25
-          ? ArticleTitle.substr(0, 25) + " .."
-          : ArticleTitle
+        ArticleTitle
       }}</b-card-text>
+      <!-- <div>ArticleTitle.length > 25
+          ? ArticleTitle.substr(0, 25) + " .."
+          : ArticleTitle </div> -->
     </b-card>
   </div>
 </template>

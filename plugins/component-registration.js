@@ -44,8 +44,10 @@ Vue.component('AuthorVclCard', AuthorVclCard);
 import VclDetailCard from '~/components/user/vue-content-loading-cards/VclDetailCard'
 import StarRating from 'vue-star-rating'
 import BottomFooter from '~/components/user/BottomFooter'
-Vue.component('BottomFooter', BottomFooter)
+import VclRelatedCard from '~/components/user/vue-content-loading-cards/VclRelatedCard'
+Vue.component('VclRelatedCard', VclRelatedCard)
 
+Vue.component('BottomFooter', BottomFooter)
 Vue.component('VclDetailCard', VclDetailCard)
 Vue.component('star-rating', StarRating);
 // Detail end 

@@ -68,11 +68,16 @@
                   You've read all of your free stories this month. Become a
                   member to keep reading.simple
                 </p>
-                <b-button variant="success" :href="DetailArticle.contentlink">
+                <b-button
+                  style="color:white;"
+                  variant="success"
+                  :href="DetailArticle.contentlink"
+                >
                   Get Full Article
                 </b-button>
               </div>
             </div>
+            <hr />
           </div>
         </div>
       </b-col>
@@ -84,12 +89,13 @@
         xl="6"
         class="order-md-last order-lg-last order-xl-last"
       >
-        <div class="d-flex mt-4 mb-4">
+        <div class="rate-section d-flex mt-4 mb-4">
           <div class="mt-5"><h5>Please Rate us:</h5></div>
           <div class="ml-3">
             <h3 class="mb-1 ml-2" style="color:#1b1e21">3.6</h3>
             <client-only>
               <star-rating
+                :star-size="45"
                 :show-rating="false"
                 v-model="rating"
                 @rating-selected="setRating"
@@ -98,28 +104,23 @@
             </client-only>
 
             <h6 class="mt-3">15 reviews</h6>
-            <div class="#tags mt-4">
-              <b-badge variant="primary">Primary</b-badge>
-              <b-badge variant="success">Success</b-badge>
-              <b-badge variant="danger">Danger</b-badge>
-              <b-badge variant="warning">Warning</b-badge>
-              <b-badge variant="info">Info</b-badge>
-              <b-badge variant="dark">Dark</b-badge>
-            </div>
           </div>
+        </div>
+        <div class="#tags mt-4">
+          <b-badge variant="primary">#Css3</b-badge>
+          <b-badge variant="success">#NodeJs</b-badge>
+          <b-badge variant="danger">#angular</b-badge>
+          <b-badge variant="warning">#JavaScript</b-badge>
+          <b-badge variant="info">#Django</b-badge>
+          <b-badge variant="dark">#Bitcoin</b-badge>
         </div>
       </b-col>
       <b-col cols="12" sm="12" md="4" lg="4" xl="4">
         <div class="ml-2 latest-home-card">
-          <b-list-group>
-            <div v-if="$fetchState.pending" class="text-center">
-              <b-list-group-item>
-                <b-spinner label="Loading..."></b-spinner>
-              </b-list-group-item>
-            </div>
-
+          <!-- <div>v-if="$fetchState.pending"  v-else </div> -->
+          <VclRelatedCard v-if="$fetchState.pending" />
+          <b-list-group v-else>
             <b-list-group-item
-              v-else
               v-for="(i, index) in RelatedArticles"
               :key="index"
               class="custom-list-item"
@@ -133,16 +134,14 @@
                       :src="i.photo"
                     ></b-img-lazy>
                   </div>
-                  <div class=" custom-latest-text">
-                    <p>
-                      <strong>
-                        {{
-                          i.title.length > 30
-                            ? i.title.substr(0, 25) + " .."
-                            : i.title
-                        }}</strong
-                      >
-                    </p>
+                  <div class="ml-2">
+                    <h5 class="related-card-title">
+                      {{
+                        i.title.length > 30
+                          ? i.title.slice(0, 25) + " .."
+                          : i.title
+                      }}
+                    </h5>
                     <div class="mt-2">
                       <span>{{ i.channel.channelname }} |</span>
                       <span class="text-muted">{{ i.release_date }}</span>
@@ -152,6 +151,38 @@
               </nuxt-link>
               <hr />
             </b-list-group-item>
+            <b-list-group-item
+              v-for="(i, index) in RelatedArticles.slice(0, 1)"
+              :key="index"
+              class="custom-list-item"
+            >
+              <nuxt-link prefetch :to="`/detailPost/${i.slug}`">
+                <div class="d-flex">
+                  <div>
+                    <b-img-lazy
+                      blank-color="#bbb"
+                      class="custom-latest-image"
+                      :src="i.photo"
+                    ></b-img-lazy>
+                  </div>
+                  <div class="ml-2">
+                    <h5 class="related-card-title">
+                      {{
+                        i.title.length > 30
+                          ? i.title.slice(0, 25) + " .."
+                          : i.title
+                      }}
+                    </h5>
+                    <div class="mt-2">
+                      <span>{{ i.channel.channelname }} |</span>
+                      <span class="text-muted">{{ i.release_date }}</span>
+                    </div>
+                  </div>
+                </div>
+              </nuxt-link>
+              <hr />
+            </b-list-group-item>
+            <!-- Demo -->
           </b-list-group>
         </div>
       </b-col>
@@ -400,18 +431,18 @@ export default {
     RelatedArticles: state => state.detailPage.RelatedArticles
   }),
   methods: {
-    getRandomColor() {
-      var letters = "0123456789ABCDEF";
-      var color = "#";
-      for (let index = 0; index < 6; index++) {
-        color += letters[Math.floor(Math.random() * 16)];
-      }
+    // getRandomColor() {
+    //   var letters = "0123456789ABCDEF";
+    //   var color = "#";
+    //   for (let index = 0; index < 6; index++) {
+    //     color += letters[Math.floor(Math.random() * 16)];
+    //   }
 
-      console.log(color);
-    },
-    getRndInteger() {
-      console.log(Math.floor(Math.random() * (10 - 0)) + 0);
-    },
+    //   console.log(color);
+    // },
+    // getRndInteger() {
+    //   console.log(Math.floor(Math.random() * (10 - 0)) + 0);
+    // },
     setRating(rating) {
       if (rating == 1) {
         alert("Good");
@@ -446,12 +477,6 @@ export default {
     }
   },
   mounted() {
-    this;
-    this.getRndInteger();
-    this.getRndInteger();
-    this.getRndInteger();
-    this.getRndInteger();
-
     this.$nextTick(() => {
       this.$nuxt.$loading.start();
       setTimeout(() => this.$nuxt.$loading.finish(), 1000);
@@ -481,6 +506,12 @@ export default {
   background: #fff;
   box-shadow: 0 5px 0.9rem -0.8rem rgba(0, 0, 0, 0.8),
     0 0 0 1px rgba(0, 0, 0, 0.05);
+}
+.rate-section {
+  font-size: 1.125rem;
+  color: #333745;
+  line-height: 1.7;
+  font-family: "Roboto", sans-serif;
 }
 .more-button-icon {
   left: 12px;
@@ -550,22 +581,30 @@ p {
 }
 .custom-list-item {
   border: none !important;
-  margin-bottom: 37px;
+  /* margin-bottom: 37px; */
   cursor: pointer;
   padding: 0px !important;
 }
 
-.custom-latest-text {
+/* .custom-latest-text {
   margin-left: 5px;
   text-align: left;
   font-size: 16px;
-}
+} */
 /* .latest-home-card { */
 /* background: #fff; */
 /* box-shadow: 0 5px 0.9rem -0.8rem rgba(0, 0, 0, 0.8),
     0 0 0 1px rgba(0, 0, 0, 0.05);
   border-radius: 5px; */
 /* } */
+.related-card-title {
+  color: rgb(27, 30, 33);
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 1.4;
+  letter-spacing: -0.5px;
+  font-family: "Roboto", sans-serif;
+}
 
 /* Channel Tabs Start */
 .all-under-line {
