@@ -84,20 +84,30 @@
         xl="6"
         class="order-md-last order-lg-last order-xl-last"
       >
-        <!-- <div class="">Please Rate us:</div> -->
-        <!-- <div class="float-right"> -->
-        <h3 class="mb-2  mt-4" style="color:#1b1e21">3.6</h3>
-        <client-only>
-          <star-rating
-            :show-rating="false"
-            v-model="rating"
-            @rating-selected="setRating"
-            :glow="2"
-          ></star-rating>
-        </client-only>
+        <div class="d-flex mt-4 mb-4">
+          <div class="mt-5"><h5>Please Rate us:</h5></div>
+          <div class="ml-3">
+            <h3 class="mb-1 ml-2" style="color:#1b1e21">3.6</h3>
+            <client-only>
+              <star-rating
+                :show-rating="false"
+                v-model="rating"
+                @rating-selected="setRating"
+                :glow="2"
+              ></star-rating>
+            </client-only>
 
-        <h6 class="mb-4 mt-3">15 reviews</h6>
-        <!-- </div> -->
+            <h6 class="mt-3">15 reviews</h6>
+            <div class="#tags mt-4">
+              <b-badge variant="primary">Primary</b-badge>
+              <b-badge variant="success">Success</b-badge>
+              <b-badge variant="danger">Danger</b-badge>
+              <b-badge variant="warning">Warning</b-badge>
+              <b-badge variant="info">Info</b-badge>
+              <b-badge variant="dark">Dark</b-badge>
+            </div>
+          </div>
+        </div>
       </b-col>
       <b-col cols="12" sm="12" md="4" lg="4" xl="4">
         <div class="ml-2 latest-home-card">
@@ -390,10 +400,21 @@ export default {
     RelatedArticles: state => state.detailPage.RelatedArticles
   }),
   methods: {
+    getRandomColor() {
+      var letters = "0123456789ABCDEF";
+      var color = "#";
+      for (let index = 0; index < 6; index++) {
+        color += letters[Math.floor(Math.random() * 16)];
+      }
+
+      console.log(color);
+    },
+    getRndInteger() {
+      console.log(Math.floor(Math.random() * (10 - 0)) + 0);
+    },
     setRating(rating) {
       if (rating == 1) {
         alert("Good");
-        this.rating = null;
       } else if (rating == 2) {
         alert("Better");
       } else if (rating == 3) {
@@ -403,6 +424,7 @@ export default {
       } else if (rating == 5) {
         alert("This is awsome");
       }
+      console.log(this.rating);
     },
     async loadDataRecommended() {
       this.loadedRecommended = false;
@@ -424,6 +446,12 @@ export default {
     }
   },
   mounted() {
+    this;
+    this.getRndInteger();
+    this.getRndInteger();
+    this.getRndInteger();
+    this.getRndInteger();
+
     this.$nextTick(() => {
       this.$nuxt.$loading.start();
       setTimeout(() => this.$nuxt.$loading.finish(), 1000);

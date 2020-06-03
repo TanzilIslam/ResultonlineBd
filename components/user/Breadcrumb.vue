@@ -11,7 +11,7 @@
           >
             <b-icon
               class="ml-2 mr-2"
-              icon="window"
+              icon="award-fill"
               scale="1"
               variant=" light ? dark "
             ></b-icon
@@ -39,7 +39,7 @@
           >
             <b-icon
               class="ml-2 mr-2"
-              icon="credit-card"
+              icon="bar-chart"
               scale="1"
               variant=" light ? dark "
             ></b-icon
