@@ -11,6 +11,12 @@ const apiClient = axios.create({
 
 
 export default {
+    SetView(slug) {
+        return apiClient.put(process.env.baseURL + '/count/' + slug, {
+            view: 1
+        })
+
+    },
 
     GetMoreHomeArticles(pageNumber) {
         return apiClient.get('/?page=' + pageNumber)

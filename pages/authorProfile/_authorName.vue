@@ -64,6 +64,8 @@
               :ArticleCover="'http://cdn.resultonlinebd.com' + a.photo"
               :ArticleTitle="a.title"
               :ArticlePublish="a.release_date"
+              :ArticleSlug="a.slug"
+              :ArticleView="a.view"
             />
           </nuxt-link>
         </b-col>

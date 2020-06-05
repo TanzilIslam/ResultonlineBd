@@ -1,5 +1,5 @@
 <template>
-  <div class="channel-common-card">
+  <div @click="setview" class="channel-common-card">
     <b-card no-body class="custom-channel-common-card">
       <b-card-img-lazy
         blank-color="#bbb"
@@ -25,6 +25,18 @@ export default {
     article: {
       type: Object,
       required: true
+    }
+  },
+  methods: {
+    setview() {
+      try {
+        this.$axios.$put(process.env.baseUrl + `/count/${this.article.slug}`, {
+          view: this.article.view + 1
+        });
+        // this.$store.dispatch("countView/setViewcount", this.article.slug);
+      } catch (e) {
+        alert("No more data" + e);
+      }
     }
   }
 };

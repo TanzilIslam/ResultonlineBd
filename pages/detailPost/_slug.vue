@@ -103,7 +103,7 @@
               ></star-rating>
             </client-only>
 
-            <h6 class="mt-3">15 reviews</h6>
+            <h6 class="mt-3">{{ DetailArticle.reviewcount }} reviews</h6>
           </div>
         </div>
         <div class="#tags mt-4">
@@ -126,7 +126,7 @@
               class="custom-list-item"
             >
               <nuxt-link prefetch :to="`/detailPost/${i.slug}`">
-                <div class="d-flex">
+                <div @click="setview(i)" class="d-flex">
                   <div>
                     <b-img-lazy
                       blank-color="#bbb"
@@ -151,38 +151,6 @@
               </nuxt-link>
               <hr />
             </b-list-group-item>
-            <b-list-group-item
-              v-for="(i, index) in RelatedArticles.slice(0, 1)"
-              :key="index"
-              class="custom-list-item"
-            >
-              <nuxt-link prefetch :to="`/detailPost/${i.slug}`">
-                <div class="d-flex">
-                  <div>
-                    <b-img-lazy
-                      blank-color="#bbb"
-                      class="custom-latest-image"
-                      :src="i.photo"
-                    ></b-img-lazy>
-                  </div>
-                  <div class="ml-2">
-                    <h5 class="related-card-title">
-                      {{
-                        i.title.length > 30
-                          ? i.title.slice(0, 25) + " .."
-                          : i.title
-                      }}
-                    </h5>
-                    <div class="mt-2">
-                      <span>{{ i.channel.channelname }} |</span>
-                      <span class="text-muted">{{ i.release_date }}</span>
-                    </div>
-                  </div>
-                </div>
-              </nuxt-link>
-              <hr />
-            </b-list-group-item>
-            <!-- Demo -->
           </b-list-group>
         </div>
       </b-col>
@@ -343,12 +311,6 @@ export default {
   },
   async fetch() {
     await this.$axios
-      .$get(process.env.baseUrl + `/details/${this.$route.params.slug}`)
-      .then(posts =>
-        this.$store.dispatch("detailPage/FetchDetailArticle", posts)
-      );
-
-    await this.$axios
       .$get(process.env.baseUrl + `/recommended_data`)
       .then(posts =>
         this.$store.dispatch(
@@ -367,6 +329,12 @@ export default {
       .then(posts =>
         this.$store.dispatch("detailPage/FetchRelatedArticles", posts)
       );
+    await this.$axios
+      .$get(process.env.baseUrl + `/count/${this.$route.params.slug}`)
+      .then(posts =>
+        this.$store.dispatch("detailPage/FetchDetailArticle", posts)
+      );
+
     // code for translate
     // this.$axios.setHeader("Content-Type", "application/x-www-form-urlencoded", [
     //   "post"
@@ -394,6 +362,36 @@ export default {
     //     console.log(error);
     //   });
     // this.$axios.setToken("5b2201df96mshfeee16372bdbe7bp1366cbjsnc71f0c228f94");
+    // this.$axios.setHeader(
+    //   "x-rapidapi-key",
+    //   "5b2201df96mshfeee16372bdbe7bp1366cbjsnc71f0c228f94"
+    // );
+    // this.$axios
+    //   .$post(
+    //     "https://google-translate1.p.rapidapi.com/language/translate/v2",
+    //     {
+    //       source: "en",
+    //       q: "Hello, world!",
+    //       target: "es"
+    //     },
+    //     {
+    //       headers: {
+    //         "content-type": "application/x-www-form-urlencoded",
+    //         "x-rapidapi-host": "google-translate1.p.rapidapi.com",
+    //         "x-rapidapi-key":
+    //           "5b2201df96mshfeee16372bdbe7bp1366cbjsnc71f0c228f94",
+    //         "accept-encoding": "application/gzip",
+    //         useQueryString: true
+    //       }
+    //     }
+    //   )
+    //   .then(response => {
+    //     console.log(response);
+    //   })
+    //   .catch(error => {
+    //     console.log(error);
+    //   });
+
     // await this.$axios
     //   .$post(
     //     `https://google-translate1.p.rapidapi.com/language/translate/v2`,
@@ -443,19 +441,45 @@ export default {
     // getRndInteger() {
     //   console.log(Math.floor(Math.random() * (10 - 0)) + 0);
     // },
-    setRating(rating) {
-      if (rating == 1) {
-        alert("Good");
-      } else if (rating == 2) {
-        alert("Better");
-      } else if (rating == 3) {
-        alert("Best");
-      } else if (rating == 4) {
-        alert("Very Good");
-      } else if (rating == 5) {
-        alert("This is awsome");
-      }
-      console.log(this.rating);
+    async setRating(rating) {
+      // console.log(process.env.baseUrl + this.rating);
+      await this.$axios
+        .$put(process.env.baseUrl + `/count/${this.$route.params.slug}`, {
+          reviewcount: this.DetailArticle.reviewcount + this.rating
+        })
+        .then(res => {
+          console.log(res);
+        })
+        .catch(error => {
+          console.log(error);
+        });
+
+      // await this.$axios
+      //   .$put("https://jsonplaceholder.typicode.com/posts/1", {
+      //     userId: 2,
+      //     id: 2,
+      //     title: "Tanzil",
+      //     body: "test put"
+      //   })
+      //   .then(res => {
+      //     console.log(res);
+      //   })
+      //   .catch(error => {
+      //     console.log(error);
+      //   });
+
+      // if (rating == 1) {
+      //   alert("Good");
+      // } else if (rating == 2) {
+      //   alert("Better");
+      // } else if (rating == 3) {
+      //   alert("Best");
+      // } else if (rating == 4) {
+      //   alert("Very Good");
+      // } else if (rating == 5) {
+      //   alert("This is awsome");
+      // }
+      // console.log(this.rating);
     },
     async loadDataRecommended() {
       this.loadedRecommended = false;
@@ -474,6 +498,16 @@ export default {
         alert("No more data" + e);
       }
       this.loadedHighRated = true;
+    },
+    async setview(article) {
+      try {
+        await this.$axios.$put(process.env.baseUrl + `/count/${article.slug}`, {
+          view: article.view + 1
+        });
+        // this.$store.dispatch("countView/setViewcount", this.article.slug);
+      } catch (e) {
+        alert("No more data" + e);
+      }
     }
   },
   mounted() {
@@ -482,6 +516,15 @@ export default {
       setTimeout(() => this.$nuxt.$loading.finish(), 1000);
     });
   }
+  // beforeRouteEnter(to, from, next) {
+  //   next(vm => {
+  //     vm.$axios
+  //       .$put(process.env.baseUrl + `/count/${vm.$route.params.slug}`, {
+  //         view: vm.DetailArticle.view + 1
+  //       })
+  //       .then(res => {})
+  //       .catch(error => {});});
+  // }
 };
 </script>
 

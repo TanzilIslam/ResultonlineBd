@@ -26,14 +26,16 @@
         </div>
         <h5 class="ml-4">{{ article.title }}</h5>
         <nuxt-link prefetch :to="`/detailPost/${article.slug}`">
-          <b-card-img-lazy
-            blank-color="#bbb"
-            :src="article.photo"
-            bottom
-            height="230"
-            width="280"
-          >
-          </b-card-img-lazy>
+          <div @click="setview">
+            <b-card-img-lazy
+              blank-color="#bbb"
+              :src="article.photo"
+              bottom
+              height="230"
+              width="280"
+            >
+            </b-card-img-lazy>
+          </div>
         </nuxt-link>
       </b-card>
     </div>
@@ -45,6 +47,18 @@ export default {
     article: {
       type: Object,
       required: true
+    }
+  },
+  methods: {
+    setview() {
+      try {
+        this.$axios.$put(process.env.baseUrl + `/count/${this.article.slug}`, {
+          view: this.article.view + 1
+        });
+        // this.$store.dispatch("countView/setViewcount", this.article.slug);
+      } catch (e) {
+        alert("No more data" + e);
+      }
     }
   }
 };

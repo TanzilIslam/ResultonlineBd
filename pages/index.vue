@@ -35,7 +35,7 @@
               class="custom-list-item"
             >
               <nuxt-link prefetch :to="`/detailPost/${article.slug}`">
-                <div class="d-flex">
+                <div @click="setview(article)" class="d-flex">
                   <div>
                     <b-img
                       class="custom-latest-image"
@@ -161,6 +161,16 @@ export default {
         // alert("No more data" + e);
       }
       this.loaded = true;
+    },
+    setview(article) {
+      try {
+        this.$axios.$put(process.env.baseUrl + `/count/${article.slug}`, {
+          view: article.view + 1
+        });
+        // this.$store.dispatch("countView/setViewcount", this.article.slug);
+      } catch (e) {
+        alert("No more data" + e);
+      }
     }
   },
   mounted() {

@@ -1,5 +1,5 @@
 <template>
-  <div class="author-small-card">
+  <div @click="setview" class="author-small-card">
     <b-card no-body style="width:260px;" class="custom-author-small-card">
       <b-card-img-lazy
         :src="ArticleCover"
@@ -35,6 +35,24 @@ export default {
     ArticleTitle: {
       type: String,
       default: "This is the Title"
+    },
+    ArticleSlug: {
+      type: String
+    },
+    ArticleView: {
+      type: Number
+    }
+  },
+  methods: {
+    setview() {
+      try {
+        this.$axios.$put(process.env.baseUrl + `/count/${this.ArticleSlug}`, {
+          view: this.ArticleView + 1
+        });
+        // this.$store.dispatch("countView/setViewcount", this.article.slug);
+      } catch (e) {
+        alert("No more data" + e);
+      }
     }
   }
 };
