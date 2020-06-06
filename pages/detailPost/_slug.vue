@@ -13,7 +13,7 @@
             :img-src="DetailArticle.photo"
             img-alt="card Image"
             text-variant="white"
-            img-height="479"
+            img-height="375"
           ></b-card>
           <span style="font-size:18px" class="text-muted">
             {{ DetailArticle.contentowners.authorsname }} |
@@ -114,24 +114,58 @@
         xl="6"
         class="order-md-last order-lg-last order-xl-last"
       >
-        <div class="rate-section d-flex mb-4">
+        <div v-if="rated" class="rate-section d-flex mb-4">
           <div class="mt-3"><h6>Please Rate us:</h6></div>
           <div class="ml-3">
             <!-- <h3 class="mb-1 ml-2" style="color:#1b1e21">3.6</h3> -->
             <client-only>
-              <star-rating
-                :star-size="40"
-                :show-rating="false"
-                v-model="rating"
-                @rating-selected="setRating"
-                :glow="2"
-              ></star-rating>
+              <div @click="$bvToast.show('my-toast')">
+                <star-rating
+                  :star-size="40"
+                  :show-rating="false"
+                  v-model="rating"
+                  @rating-selected="setRating"
+                  :glow="2"
+                ></star-rating>
+              </div>
             </client-only>
 
             <h6 class="mt-3 ml-2">
               3.6 || {{ DetailArticle.reviewcount }} reviews
             </h6>
           </div>
+        </div>
+        <div v-else-if="!rated">
+          <b-alert class="detail" show variant="dark"
+            >Thanks for giving rating : {{ rating }}</b-alert
+          >
+          <div>
+            <!-- <b-button @click="$bvToast.show('my-toast')">Show toast</b-button> -->
+
+            <b-toast
+              id="my-toast"
+              toaster="b-toaster-bottom-center"
+              variant="warning"
+              solid
+              auto-hide-delay="3000"
+            >
+              <template v-slot:toast-title>
+                <div class="d-flex flex-grow-1  align-items-baseline">
+                  <b-img
+                    blank
+                    blank-color="#ff5555"
+                    class="mr-2"
+                    width="12"
+                    height="12"
+                  ></b-img>
+                  <strong class="mr-auto">Submitted!</strong>
+                  <small class="text-muted mr-2">3 seconds ago</small>
+                </div>
+              </template>
+              Reviwe Successfully Submitted!
+            </b-toast>
+          </div>
+          <!-- <h6></h6> -->
         </div>
         <div class="tags  mt-4">
           <b-badge variant="primary">#Css3</b-badge>
@@ -314,7 +348,8 @@ export default {
     return {
       rating: 0,
       loadedRecommended: true,
-      loadedHighRated: true
+      loadedHighRated: true,
+      rated: true
     };
   },
   head() {
@@ -469,6 +504,7 @@ export default {
     //   console.log(Math.floor(Math.random() * (10 - 0)) + 0);
     // },
     async setRating(rating) {
+      this.rated = false;
       // console.log(process.env.baseUrl + this.rating);
       await this.$axios
         .$put(process.env.baseUrl + `/count/${this.$route.params.slug}`, {
