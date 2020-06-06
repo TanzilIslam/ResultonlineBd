@@ -35,13 +35,27 @@
           <!-- <h1>{{ details.length }} || {{ DetailArticle.details.length }}</h1> -->
           <div class="secreat">
             <div v-if="!DetailArticle.contentlock">
-              <p class="details mt-4">
+              <div v-html="DetailArticle.details" class="details mt-4"></div>
+
+              <!-- <p class="details mt-4">
                 {{ DetailArticle.details }}
-              </p>
+              </p> -->
             </div>
             <div v-else-if="DetailArticle.contentlock">
               <div class="paragraph">
-                <p class="details">
+                <div
+                  class="details first"
+                  v-html="
+                    DetailArticle.details.slice(
+                      0,
+                      (DetailArticle.details.length *
+                        DetailArticle.Persentase) /
+                        100
+                    )
+                  "
+                ></div>
+
+                <!-- <p class="details">
                   {{
                     DetailArticle.details.slice(
                       0,
@@ -50,8 +64,19 @@
                         100
                     )
                   }}
-                </p>
-                <p class="noselect details-bg">
+                </p> -->
+                <div
+                  class="noselect details-bg second"
+                  v-html="
+                    DetailArticle.details.slice(
+                      (DetailArticle.details.length *
+                        DetailArticle.Persentase) /
+                        100,
+                      DetailArticle.details.length
+                    )
+                  "
+                ></div>
+                <!-- <p class="noselect details-bg">
                   {{
                     DetailArticle.details.slice(
                       (DetailArticle.details.length *
@@ -60,7 +85,7 @@
                       DetailArticle.details.length
                     )
                   }}
-                </p>
+                </p> -->
               </div>
               <div class="text-center mt-4 mb-4 unlimited">
                 <h5 class="details"><strong>get unlimited access</strong></h5>
@@ -69,7 +94,7 @@
                   member to keep reading.simple
                 </p>
                 <b-button
-                  style="color:white;"
+                  class="get-bytton"
                   variant="success"
                   :href="DetailArticle.contentlink"
                 >
@@ -89,13 +114,13 @@
         xl="6"
         class="order-md-last order-lg-last order-xl-last"
       >
-        <div class="rate-section d-flex mt-4 mb-4">
-          <div class="mt-5"><h5>Please Rate us:</h5></div>
+        <div class="rate-section d-flex mb-4">
+          <div class="mt-3"><h6>Please Rate us:</h6></div>
           <div class="ml-3">
-            <h3 class="mb-1 ml-2" style="color:#1b1e21">3.6</h3>
+            <!-- <h3 class="mb-1 ml-2" style="color:#1b1e21">3.6</h3> -->
             <client-only>
               <star-rating
-                :star-size="45"
+                :star-size="40"
                 :show-rating="false"
                 v-model="rating"
                 @rating-selected="setRating"
@@ -103,10 +128,12 @@
               ></star-rating>
             </client-only>
 
-            <h6 class="mt-3">{{ DetailArticle.reviewcount }} reviews</h6>
+            <h6 class="mt-3 ml-2">
+              3.6 || {{ DetailArticle.reviewcount }} reviews
+            </h6>
           </div>
         </div>
-        <div class="#tags mt-4">
+        <div class="tags  mt-4">
           <b-badge variant="primary">#Css3</b-badge>
           <b-badge variant="success">#NodeJs</b-badge>
           <b-badge variant="danger">#angular</b-badge>
@@ -532,6 +559,14 @@ export default {
 /* .secreat {
   visibility: hidden;
 } */
+
+.get-bytton {
+  color: #eee !important;
+}
+.tags {
+  font-size: 20px;
+  cursor: pointer;
+}
 .more-button {
   /* background: white; */
   border: 1px solid #dadce0;
@@ -571,6 +606,9 @@ a {
 }
 .paragraph,
 p {
+  display: inline;
+}
+.paragraph .first .second {
   display: inline;
 }
 /* hr {
