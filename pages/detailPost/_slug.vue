@@ -114,6 +114,14 @@
         xl="6"
         class="order-md-last order-lg-last order-xl-last"
       >
+        <div class="tags  mt-4 mb-3">
+          <b-badge variant="primary">#Css3</b-badge>
+          <b-badge variant="success">#NodeJs</b-badge>
+          <b-badge variant="danger">#angular</b-badge>
+          <b-badge variant="warning">#JavaScript</b-badge>
+          <b-badge variant="info">#Django</b-badge>
+          <b-badge variant="dark">#Bitcoin</b-badge>
+        </div>
         <div v-if="rated" class="rate-section d-flex mb-4">
           <div class="mt-3"><h6>Please Rate us:</h6></div>
           <div class="ml-3">
@@ -131,7 +139,7 @@
             </client-only>
 
             <h6 class="mt-3 ml-2">
-              3.6 || {{ DetailArticle.reviewcount }} reviews
+              3.6 | {{ DetailArticle.reviewcount }} reviews
             </h6>
           </div>
         </div>
@@ -167,14 +175,6 @@
           </div>
           <!-- <h6></h6> -->
         </div>
-        <div class="tags  mt-4">
-          <b-badge variant="primary">#Css3</b-badge>
-          <b-badge variant="success">#NodeJs</b-badge>
-          <b-badge variant="danger">#angular</b-badge>
-          <b-badge variant="warning">#JavaScript</b-badge>
-          <b-badge variant="info">#Django</b-badge>
-          <b-badge variant="dark">#Bitcoin</b-badge>
-        </div>
       </b-col>
       <b-col cols="12" sm="12" md="4" lg="4" xl="4">
         <div class="ml-2 latest-home-card">
@@ -199,11 +199,11 @@
                     <h5 class="related-card-title">
                       {{
                         i.title.length > 30
-                          ? i.title.slice(0, 25) + " .."
+                          ? i.title.slice(0, 26) + ".."
                           : i.title
                       }}
                     </h5>
-                    <div class="mt-2">
+                    <div class="mt-2 related-date-channel">
                       <span>{{ i.channel.channelname }} |</span>
                       <span class="text-muted">{{ i.release_date }}</span>
                     </div>
@@ -621,6 +621,9 @@ export default {
   box-shadow: 0 5px 0.9rem -0.8rem rgba(0, 0, 0, 0.8),
     0 0 0 1px rgba(0, 0, 0, 0.05);
 }
+.related-date-channel {
+  font-size: 14px;
+}
 .rate-section {
   font-size: 1.125rem;
   color: #333745;
@@ -698,7 +701,7 @@ p {
 }
 .custom-list-item {
   border: none !important;
-  /* margin-bottom: 37px; */
+  margin-bottom: 2px;
   cursor: pointer;
   padding: 0px !important;
 }
