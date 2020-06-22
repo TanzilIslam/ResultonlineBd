@@ -38,6 +38,24 @@
         <ChannelCover ChannelCoverTitle="Programming" />
         <!-- Cover End -->
 
+        <!-- Sub Tags Start -->
+        <b-row>
+          <b-col cols="12" sm="12" md="12" lg="12" xl="12">
+            <div class="d-flex justify-content-between flex-wrap mt-4 mb-2">
+              <p
+                v-for="(item, index) in subChildList"
+                :key="index"
+                @click="showSubChildPosts(item)"
+                class="bg-dark text-light mr-2 p-1"
+                style="cursor:pointer"
+              >
+                {{ item.tag_name }}
+              </p>
+            </div>
+          </b-col>
+        </b-row>
+        <!-- Sub Tags End -->
+
         <!--Tab start -->
         <b-tabs :no-nav-style="true" content-class="mt-0 mb-0">
           <b-tab
@@ -194,6 +212,16 @@ export default {
           posts.results
         )
       );
+
+    await this.$axios
+      .$get(process.env.baseUrl + "/Tag_creator?search=Programming")
+      .then(function(posts) {
+        self.subChildList = posts.results;
+      })
+      .catch(function(error) {
+        console.log("No Net" + error);
+      })
+      .finally(function() {});
   },
   computed: mapState({
     ProgrammingArticles: state => state.programming.ProgrammingArticles,
@@ -206,7 +234,11 @@ export default {
       subCatagoryList: [],
       tagManagerloaded: true,
       isActive: false,
-      catagorySelected: false
+      subChildList: [],
+
+      subChildSelected: false,
+      catagorySelected: false,
+      parentSelected: true
     };
   },
   methods: {
@@ -253,9 +285,10 @@ export default {
         .finally(function() {});
       this.tagManagerloaded = true;
       this.catagorySelected = true;
+      this.parentSelected = false;
     },
     async loadData() {
-      if (!this.catagorySelected) {
+      if (this.parentSelected) {
         try {
           await this.$store.dispatch(
             "programming/FetchMoreProgrammingArticles"
@@ -281,7 +314,45 @@ export default {
             })
             .finally(function() {});
         }
+      } else if (this.subChildSelected) {
+        if (this.SubArticles == null) {
+          alert("null");
+        } else {
+          var self = this;
+          await this.$axios
+            .$get(self.SubArticles)
+            .then(function(posts) {
+              posts.results.forEach(element => {
+                self.$store.dispatch("programming/SetSubMoreArticles", element);
+              });
+              self.$store.dispatch("programming/FetchSubArticles", posts.next);
+            })
+            .catch(function(error) {
+              console.log("No Net" + error);
+            })
+            .finally(function() {});
+        }
       }
+    },
+    async showSubChildPosts(item) {
+      this.tagManagerloaded = false;
+      var self = this;
+      await this.$axios
+        .$get(item.tag_target_link)
+        .then(function(posts) {
+          self.$store.dispatch(
+            "programming/FetchProgrammingArticles",
+            posts.results
+          );
+          self.$store.dispatch("programming/FetchSubArticles", posts.next);
+        })
+        .catch(function(error) {
+          console.log("No Net" + error);
+        })
+        .finally(function() {});
+      this.tagManagerloaded = true;
+      this.subChildSelected = true;
+      (this.parentSelected = false), (this.catagorySelected = false);
     }
   },
   mounted() {
