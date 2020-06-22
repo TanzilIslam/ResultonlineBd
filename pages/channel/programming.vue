@@ -1,15 +1,18 @@
 <template>
   <div class="programming-post">
     <b-row>
+      <!-- sideBar Start -->
       <b-col cols="12" sm="12" md="3" lg="3" xl="3">
         <div class="channel-side-bar mb-4">
-          <h5 class="text-center channel-side-bar-title">Programming</h5>
+          <h5 class="text-center channel-side-bar-title">
+            <b-icon class="mr-2" icon="code" scale="2"></b-icon> Programming
+          </h5>
           <b-list-group class="channel-side-bar-list-group">
             <b-list-group-item
               class="channel-side-bar-list-item"
-              v-for="(item, index) in tagManager.results"
+              v-for="(item, index) in subCatagoryList.results"
               :key="index"
-              @click="showTagManagerContent(item)"
+              @click="showSubData(item)"
             >
               <b-img
                 :src="item.tag_icon"
@@ -20,8 +23,16 @@
               }}</span>
             </b-list-group-item>
           </b-list-group>
+          <h6
+            @click="loadMoreSubCatagoryListItem"
+            style="text-decoration: underline;;cursor:pointer;"
+            class="ml-4 mt-4"
+          >
+            See More
+          </h6>
         </div>
       </b-col>
+      <!-- Side Bar End -->
       <b-col cols="12" sm="12" md="9" lg="9" xl="9">
         <!-- Cover Start -->
         <ChannelCover ChannelCoverTitle="Programming" />
@@ -65,6 +76,7 @@
                 label="Large Spinner"
               ></b-spinner>
             </b-col>
+
             <b-col
               v-else
               md="4"
@@ -161,9 +173,19 @@ export default {
     };
   },
   async fetch() {
+    var self = this;
+    // subCatagory List
     await this.$axios
-      .$get(process.env.channelTagManager + `programming`)
-      .then(posts => (this.tagManager = posts));
+      .$get(process.env.channelSubCatagoryList + `programming`)
+      .then(function(posts) {
+        self.subCatagoryList = posts;
+      })
+      .catch(function(error) {
+        console.log("No Net" + error);
+      })
+      .finally(function() {});
+
+    // channel home page
     await this.$axios
       .$get(process.env.channelUrl + `Programming`)
       .then(posts =>
@@ -174,14 +196,17 @@ export default {
       );
   },
   computed: mapState({
-    ProgrammingArticles: state => state.programming.ProgrammingArticles
+    ProgrammingArticles: state => state.programming.ProgrammingArticles,
+    SubArticles: state => state.programming.SubArticles
   }),
   data() {
     return {
       showLatestDiv: true,
       showAboutDiv: false,
-      tagManager: [],
-      tagManagerloaded: true
+      subCatagoryList: [],
+      tagManagerloaded: true,
+      isActive: false,
+      catagorySelected: false
     };
   },
   methods: {
@@ -195,24 +220,67 @@ export default {
       self.showLatestDiv = false;
       self.showAboutDiv = true;
     },
-    async showTagManagerContent(item) {
+    async loadMoreSubCatagoryListItem() {
+      var self = this;
+      await this.$axios
+        .$get(this.subCatagoryList.next)
+        .then(function(posts) {
+          posts.results.forEach(element => {
+            self.subCatagoryList.results.push(element);
+          });
+          self.subCatagoryList.next = posts.next;
+        })
+        .catch(function(error) {
+          console.log("No Net" + error);
+        })
+        .finally(function() {});
+    },
+    async showSubData(item) {
       this.tagManagerloaded = false;
-
+      var self = this;
       await this.$axios
         .$get(item.tag_content_link)
-        .then(posts =>
-          this.$store.dispatch(
+        .then(function(posts) {
+          self.$store.dispatch(
             "programming/FetchProgrammingArticles",
             posts.results
-          )
-        );
+          );
+          self.$store.dispatch("programming/FetchSubArticles", posts.next);
+        })
+        .catch(function(error) {
+          console.log("No Net" + error);
+        })
+        .finally(function() {});
       this.tagManagerloaded = true;
+      this.catagorySelected = true;
     },
     async loadData() {
-      try {
-        await this.$store.dispatch("programming/FetchMoreProgrammingArticles");
-      } catch (e) {
-        alert("No more data" + e);
+      if (!this.catagorySelected) {
+        try {
+          await this.$store.dispatch(
+            "programming/FetchMoreProgrammingArticles"
+          );
+        } catch (e) {
+          alert("No more data" + e);
+        }
+      } else if (this.catagorySelected) {
+        if (this.SubArticles == null) {
+          alert("null");
+        } else {
+          var self = this;
+          await this.$axios
+            .$get(self.SubArticles)
+            .then(function(posts) {
+              posts.results.forEach(element => {
+                self.$store.dispatch("programming/SetSubMoreArticles", element);
+              });
+              self.$store.dispatch("programming/FetchSubArticles", posts.next);
+            })
+            .catch(function(error) {
+              console.log("No Net" + error);
+            })
+            .finally(function() {});
+        }
       }
     }
   },
@@ -252,7 +320,7 @@ export default {
 .channel-side-bar-list-item {
   font-size: 16px;
   border: none !important;
-  margin-bottom: 5px;
+  margin-bottom: 0px;
   cursor: pointer;
 }
 .channel-side-bar-list-item-icon {
@@ -261,6 +329,8 @@ export default {
 }
 .channel-side-bar-list-item-name {
   margin-left: 15px;
+}
+.activeItem {
 }
 /* Side Bar end */
 a {

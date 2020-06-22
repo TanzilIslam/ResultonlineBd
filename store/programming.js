@@ -2,7 +2,8 @@ import ApiService from '~/services/ApiService.js'
 export const namespaced = true
 export const state = () => ({
     PageNumber: 2,
-    ProgrammingArticles: []
+    ProgrammingArticles: [],
+    SubArticles: []
 })
 
 export const mutations = {
@@ -12,8 +13,18 @@ export const mutations = {
     SET_MORE_PROGRAMMING_ARTICLES(state, payload) {
         state.ProgrammingArticles.push(payload)
     },
+
+    SET_SUB_ARTICLES(state, payload) {
+        state.SubArticles = payload
+    },
+    SET_MORE_SUB_ARTICLES(state, payload) {
+        state.SubArticles.push(payload)
+    },
     INCREASE_PAGE_NUMBER(state) {
         state.PageNumber++;
+    },
+    SET_SUB_MORE_ARTICLES(state, payload) {
+        state.ProgrammingArticles.push(payload)
     }
 }
 
@@ -30,4 +41,11 @@ export const actions = {
             commit('INCREASE_PAGE_NUMBER')
         })
     },
+
+    FetchSubArticles({ commit }, posts) {
+        commit('SET_SUB_ARTICLES', posts)
+    },
+    SetSubMoreArticles({ commit }, posts) {
+        commit('SET_SUB_MORE_ARTICLES', posts)
+    }
 }
