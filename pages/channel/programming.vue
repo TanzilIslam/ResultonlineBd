@@ -8,7 +8,7 @@
             <b-icon class="mr-2" icon="code" scale="2"></b-icon> Programming
           </h5>
           <b-list-group class="channel-side-bar-list-group">
-            <b-list-group-item
+            <!-- <b-list-group-item
               class="channel-side-bar-list-item"
               v-for="(item, index) in subCatagoryList.results"
               :key="index"
@@ -21,7 +21,20 @@
               <span class="channel-side-bar-list-item-name">{{
                 item.tag_name
               }}</span>
-            </b-list-group-item>
+            </b-list-group-item> -->
+            <b-button
+              variant="light"
+              class="channel-side-bar-list-item"
+              v-for="(item, index) in subCatagoryList.results"
+              :key="index"
+              @click="showSubData(item)"
+            >
+              <b-img
+                :src="item.tag_icon"
+                class="channel-side-bar-list-item-icon"
+              ></b-img>
+              {{ item.tag_name }}</b-button
+            >
           </b-list-group>
           <h6
             @click="loadMoreSubCatagoryListItem"
@@ -382,6 +395,7 @@ export default {
   font-size: 20px;
   background-color: #343a40;
   color: white;
+  margin-bottom: 0px;
 }
 .channel-side-bar-list-group {
   overflow: auto;
@@ -392,10 +406,14 @@ export default {
   border: none !important;
   margin-bottom: 0px;
   cursor: pointer;
+  text-align: left;
+  border-radius: 0px;
+  line-height: 40px;
 }
 .channel-side-bar-list-item-icon {
   height: 30px;
   width: 30px;
+  margin-left: 25px;
 }
 .channel-side-bar-list-item-name {
   margin-left: 15px;
