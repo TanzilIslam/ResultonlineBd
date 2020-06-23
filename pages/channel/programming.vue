@@ -46,8 +46,7 @@
                 v-for="(item, index) in subChildList"
                 :key="index"
                 @click="showSubChildPosts(item)"
-                class="bg-dark text-light mr-2 p-1"
-                style="cursor:pointer"
+                class="mr-2 sub-child-tag"
               >
                 {{ item.tag_name }}
               </p>
@@ -401,8 +400,19 @@ export default {
 .channel-side-bar-list-item-name {
   margin-left: 15px;
 }
-.activeItem {
+/* .activeItem {
+} */
+
+.sub-child-tag {
+  cursor: pointer;
+  background-color: rgba(0, 0, 0, 0.06);
+  border-radius: 2px;
+  text-align: center;
+  height: 32px;
+  line-height: 32px;
+  padding: 0 8px;
 }
+
 /* Side Bar end */
 a {
   color: black !important;
