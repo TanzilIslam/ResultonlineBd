@@ -5,8 +5,9 @@
       <b-col cols="12" sm="12" md="3" lg="3" xl="3">
         <div class="channel-side-bar mb-4">
           <h5 class="text-center channel-side-bar-title">
-            <b-icon class="mr-2" icon="code" scale="2"></b-icon> Programming
+            <b-icon class="mr-2 p-1" icon="code" scale="2"></b-icon> Programming
           </h5>
+
           <b-list-group class="channel-side-bar-list-group">
             <!-- <b-list-group-item
               class="channel-side-bar-list-item"
@@ -31,42 +32,35 @@
             >
               <b-img
                 :src="item.tag_icon"
-                class="channel-side-bar-list-item-icon"
+                class="shadow-sm channel-side-bar-list-item-icon"
               ></b-img>
               {{ item.tag_name }}</b-button
             >
           </b-list-group>
           <h6
+            v-if="subCatagoryList.next != null"
             @click="loadMoreSubCatagoryListItem"
             style="text-decoration: underline;;cursor:pointer;"
             class="ml-4 mt-4"
           >
             See More
           </h6>
+          <h6
+            v-else-if="subCatagoryList.previous != null"
+            @click="loadLessSubCatagoryListItem"
+            style="text-decoration: underline;;cursor:pointer;"
+            class="ml-4 mt-4"
+          >
+            See Less
+          </h6>
         </div>
       </b-col>
       <!-- Side Bar End -->
+
       <b-col cols="12" sm="12" md="9" lg="9" xl="9">
         <!-- Cover Start -->
         <ChannelCover ChannelCoverTitle="Programming" />
         <!-- Cover End -->
-
-        <!-- Sub Tags Start -->
-        <b-row>
-          <b-col cols="12" sm="12" md="12" lg="12" xl="12">
-            <div class="d-flex justify-content-between flex-wrap mt-4 mb-2">
-              <p
-                v-for="(item, index) in subChildList"
-                :key="index"
-                @click="showSubChildPosts(item)"
-                class="mr-2 sub-child-tag"
-              >
-                {{ item.tag_name }}
-              </p>
-            </div>
-          </b-col>
-        </b-row>
-        <!-- Sub Tags End -->
 
         <!--Tab start -->
         <b-tabs :no-nav-style="true" content-class="mt-0 mb-0">
@@ -85,8 +79,39 @@
         </b-tabs>
         <!--Tab End -->
 
+        <!-- <b-row>
+          <b-col cols="12" sm="12" md="12" lg="12" xl="12">
+            <div class="d-flex justify-content-between flex-wrap mt-2 mb-2">
+              <p
+                v-for="(item, index) in subChildList"
+                :key="index"
+                @click="showSubChildPosts(item)"
+                class="mr-2 sub-child-tag"
+              >
+                {{ item.tag_name }}
+              </p>
+            </div>
+          </b-col>
+        </b-row> -->
+
         <!-- Latest Div Start -->
         <div v-show="showLatestDiv">
+          <!-- Sub Tags Start -->
+          <div
+            class="d-flex justify-content-between justify-content-lg-between justify-content-xl-between  flex-wrap mt-2 mb-4"
+          >
+            <b-button
+              variant="light"
+              v-for="(item, index) in subChildList"
+              :key="index"
+              @click="showSubChildPosts(item)"
+              class="sub-child-tag"
+            >
+              {{ item.tag_name }}
+            </b-button>
+          </div>
+          <!-- Sub Tags End -->
+
           <VclChannelCommonCard v-if="$fetchState.pending" />
           <h4 v-else-if="$fetchState.error">
             Error while fetching posts: {{ $fetchState.error.message }}
@@ -273,6 +298,19 @@ export default {
             self.subCatagoryList.results.push(element);
           });
           self.subCatagoryList.next = posts.next;
+          self.subCatagoryList.previous = posts.previous;
+        })
+        .catch(function(error) {
+          console.log("No Net" + error);
+        })
+        .finally(function() {});
+    },
+    async loadLessSubCatagoryListItem() {
+      var self = this;
+      await self.$axios
+        .$get(self.subCatagoryList.previous)
+        .then(function(posts) {
+          self.subCatagoryList = posts;
         })
         .catch(function(error) {
           console.log("No Net" + error);
@@ -402,7 +440,7 @@ export default {
 }
 
 .channel-side-bar-list-item {
-  font-size: 16px;
+  font-size: 18px;
   border: none !important;
   margin-bottom: 0px;
   cursor: pointer;
@@ -413,7 +451,7 @@ export default {
 .channel-side-bar-list-item-icon {
   height: 30px;
   width: 30px;
-  margin-left: 25px;
+  margin-left: 35px;
 }
 .channel-side-bar-list-item-name {
   margin-left: 15px;
@@ -424,11 +462,11 @@ export default {
 .sub-child-tag {
   cursor: pointer;
   background-color: rgba(0, 0, 0, 0.06);
-  border-radius: 2px;
+  border-radius: 6px;
   text-align: center;
   height: 32px;
   line-height: 32px;
-  padding: 0 8px;
+  padding: 0 14px;
 }
 
 /* Side Bar end */
