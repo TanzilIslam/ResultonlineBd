@@ -6,23 +6,17 @@
         <div class="channel-side-bar mb-4">
           <h5 class="text-center channel-side-bar-title">
             <b-icon class="mr-2 p-1" icon="code" scale="2"></b-icon> Programming
+            <b-icon
+              v-b-toggle.sidebar-backdrop
+              class="ml-2 p-1"
+              scale="2"
+              style="cursor:pointer;"
+              icon=" list"
+            ></b-icon>
           </h5>
 
+          <FixedChannelSideBar id="sidebar-backdrop" />
           <b-list-group class="channel-side-bar-list-group">
-            <!-- <b-list-group-item
-              class="channel-side-bar-list-item"
-              v-for="(item, index) in subCatagoryList.results"
-              :key="index"
-              @click="showSubData(item)"
-            >
-              <b-img
-                :src="item.tag_icon"
-                class="channel-side-bar-list-item-icon"
-              ></b-img>
-              <span class="channel-side-bar-list-item-name">{{
-                item.tag_name
-              }}</span>
-            </b-list-group-item> -->
             <b-button
               variant="light"
               class="channel-side-bar-list-item"
@@ -425,8 +419,24 @@ export default {
   overflow: hidden;
   background: #fff;
   margin-bottom: 6px;
+  box-shadow: 0 5px 0.9rem -0.8rem rgba(0, 0, 0, 0.8),
+    0 0 0 1px rgba(0, 0, 0, 0.05);
+  border-radius: 5px;
+  padding: 5px;
+}
+.btn-light {
+  color: #212529;
+  background-color: white;
+  border-color: none !important;
 }
 
+.btn-light:focus,
+.btn-light.focus {
+  color: #212529;
+  background-color: #e2e6ea;
+  border-color: none;
+  box-shadow: 0 0 0 0.2rem rgba(216, 217, 219, 0.5);
+}
 .channel-side-bar-title {
   height: 40px;
   line-height: 40px;

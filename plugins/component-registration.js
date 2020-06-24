@@ -55,6 +55,11 @@ Vue.component('star-rating', StarRating);
 // Channel start
 import ChannelCover from '~/components/user/ChannelCover'
 Vue.component('ChannelCover', ChannelCover);
+
+import FixedChannelSideBar from '~/components/user/FixedChannelSideBar'
+Vue.component('FixedChannelSideBar', FixedChannelSideBar);
+
+
 // Channel End
 
 
