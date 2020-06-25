@@ -52,8 +52,8 @@ export default {
   font-size: 10px !important;
 }
 .logo {
-  height: 40px;
-  width: 45px;
+  height: 60px;
+  width: 60px;
   border-radius: 4px;
 }
 .item,

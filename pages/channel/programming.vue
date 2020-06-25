@@ -3,21 +3,20 @@
     <b-row>
       <!-- sideBar Start -->
       <b-col cols="12" sm="12" md="3" lg="3" xl="3">
-        <div class="channel-side-bar mb-4">
-          <h5 class="d-flex channel-side-bar-title">
-            <div class="p-0 m-0">
-              <b-icon
-                v-b-toggle.sidebar-backdrop
-                class="ml-2 mr-2 p-1 menu-logo"
-                scale="2"
-                style="cursor:pointer;"
-                icon=" list"
-              ></b-icon>
-            </div>
+        <div class=" channel-side-bar mb-4">
+          <h5 class=" text-center channel-side-bar-title">
+            <b-icon
+              v-b-toggle.sidebar-backdrop
+              class="mr-2 p-1 menu-logo"
+              scale="2"
+              style="cursor:pointer;"
+              icon=" list"
+            ></b-icon>
             Programming
           </h5>
+          <!--  -->
+          <FixedChannelSideBar />
 
-          <FixedChannelSideBar id="sidebar-backdrop" />
           <b-list-group class="channel-side-bar-list-group">
             <b-button
               variant="light"
@@ -33,22 +32,25 @@
               {{ item.tag_name }}</b-button
             >
           </b-list-group>
-          <h6
-            v-if="mainTagList.next != null"
-            @click="loadMoreMainTagListItem"
-            style="text-decoration: underline;;cursor:pointer;"
-            class="ml-2 mt-4"
-          >
-            See More
-          </h6>
-          <h6
-            v-else-if="mainTagList.previous != null"
-            @click="loadLessMainTagListItem"
-            style="text-decoration: underline;;cursor:pointer;"
-            class="ml-2 mt-4"
-          >
-            See Less
-          </h6>
+
+          <div class="text-center">
+            <h6
+              v-if="mainTagList.next != null"
+              @click="loadMoreMainTagListItem"
+              style="text-decoration: underline;;cursor:pointer;"
+              class="ml-2 mt-4"
+            >
+              See More
+            </h6>
+            <h6
+              v-else-if="mainTagList.previous != null"
+              @click="loadLessMainTagListItem"
+              style="text-decoration: underline;;cursor:pointer;"
+              class="ml-2 mt-4"
+            >
+              See Less
+            </h6>
+          </div>
         </div>
       </b-col>
       <!-- Side Bar End -->
