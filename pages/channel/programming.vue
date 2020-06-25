@@ -4,25 +4,27 @@
       <!-- sideBar Start -->
       <b-col cols="12" sm="12" md="3" lg="3" xl="3">
         <div class="channel-side-bar mb-4">
-          <h5 class="text-center channel-side-bar-title">
-            <b-icon class="mr-2 p-1" icon="code" scale="2"></b-icon> Programming
-            <b-icon
-              v-b-toggle.sidebar-backdrop
-              class="ml-2 p-1"
-              scale="2"
-              style="cursor:pointer;"
-              icon=" list"
-            ></b-icon>
+          <h5 class="d-flex channel-side-bar-title">
+            <div class="p-0 m-0">
+              <b-icon
+                v-b-toggle.sidebar-backdrop
+                class="ml-2 mr-2 p-1 menu-logo"
+                scale="2"
+                style="cursor:pointer;"
+                icon=" list"
+              ></b-icon>
+            </div>
+            Programming
           </h5>
 
           <FixedChannelSideBar id="sidebar-backdrop" />
           <b-list-group class="channel-side-bar-list-group">
             <b-button
               variant="light"
-              class="channel-side-bar-list-item"
-              v-for="(item, index) in subCatagoryList.results"
+              class="main-tag-button channel-side-bar-list-item"
+              v-for="(item, index) in mainTagList.results"
               :key="index"
-              @click="showSubData(item)"
+              @click="showMainTagPosts(item)"
             >
               <b-img
                 :src="item.tag_icon"
@@ -32,18 +34,18 @@
             >
           </b-list-group>
           <h6
-            v-if="subCatagoryList.next != null"
-            @click="loadMoreSubCatagoryListItem"
+            v-if="mainTagList.next != null"
+            @click="loadMoreMainTagListItem"
             style="text-decoration: underline;;cursor:pointer;"
-            class="ml-4 mt-4"
+            class="ml-2 mt-4"
           >
             See More
           </h6>
           <h6
-            v-else-if="subCatagoryList.previous != null"
-            @click="loadLessSubCatagoryListItem"
+            v-else-if="mainTagList.previous != null"
+            @click="loadLessMainTagListItem"
             style="text-decoration: underline;;cursor:pointer;"
-            class="ml-4 mt-4"
+            class="ml-2 mt-4"
           >
             See Less
           </h6>
@@ -73,21 +75,6 @@
         </b-tabs>
         <!--Tab End -->
 
-        <!-- <b-row>
-          <b-col cols="12" sm="12" md="12" lg="12" xl="12">
-            <div class="d-flex justify-content-between flex-wrap mt-2 mb-2">
-              <p
-                v-for="(item, index) in subChildList"
-                :key="index"
-                @click="showSubChildPosts(item)"
-                class="mr-2 sub-child-tag"
-              >
-                {{ item.tag_name }}
-              </p>
-            </div>
-          </b-col>
-        </b-row> -->
-
         <!-- Latest Div Start -->
         <div v-show="showLatestDiv">
           <!-- Sub Tags Start -->
@@ -96,10 +83,10 @@
           >
             <b-button
               variant="light"
-              v-for="(item, index) in subChildList"
+              v-for="(item, index) in subTagList"
               :key="index"
-              @click="showSubChildPosts(item)"
-              class="sub-child-tag"
+              @click="showSubTagPosts(item)"
+              class="sub-tag"
             >
               {{ item.tag_name }}
             </b-button>
@@ -112,7 +99,7 @@
           </h4>
           <b-row v-else>
             <b-col
-              v-if="!tagManagerloaded"
+              v-if="!dataLoading"
               cols="12"
               sm="12"
               md="12"
@@ -155,48 +142,6 @@
         <div v-show="showAboutDiv">
           <h3>this is abour apge of programming</h3>
           <h5 class="text-muted">Every body should know</h5>
-          <p>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Earum,
-            esse. Veniam nesciunt repellendus cupiditate! Voluptates rerum
-            debitis minima eius. Cum possimus ipsa adipisci, minus asperiores
-            molestiae odio molestias ea tempore!
-          </p>
-          <p>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Excepturi
-            aut nulla tenetur, quae qui, veritatis itaque perspiciatis inventore
-            aspernatur sed eius ad enim blanditiis. Placeat laboriosam mollitia
-            cum libero vitae.
-          </p>
-          <p>
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Libero a
-            esse harum sapiente obcaecati eveniet eum placeat repellat nulla!
-            Dolores, fuga harum. In dolorem aspernatur possimus dignissimos
-            culpa quam facilis.
-          </p>
-          <p>
-            Lorem ipsum dolor, sit amet consectetur adipisicing elit. Delectus
-            quaerat dolores possimus voluptatum vero voluptates animi aliquid
-            quis consequatur exercitationem fugit molestiae veniam ad eaque
-            libero, atque nobis ut quo.
-          </p>
-          <p>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Laudantium,
-            suscipit! Inventore rerum recusandae, incidunt ipsam esse totam quia
-            atque quisquam sed. Facilis, laboriosam reprehenderit in
-            necessitatibus voluptatibus aliquam maxime exercitationem?
-          </p>
-          <p>
-            Lorem, ipsum dolor sit amet consectetur adipisicing elit. Vero nobis
-            consectetur at? Saepe inventore consequuntur repellendus error?
-            Eaque, id mollitia. Nesciunt consequatur eius ex voluptates quaerat
-            provident autem non blanditiis.
-          </p>
-          <p>
-            Lorem ipsum dolor sit amet consectetur, adipisicing elit. Veniam
-            architecto eos amet, vel ipsa ea molestiae non enim similique quidem
-            numquam dolorem! Suscipit, explicabo in vero architecto beatae
-            soluta excepturi.
-          </p>
         </div>
         <!-- About Div End -->
       </b-col>
@@ -223,18 +168,30 @@ export default {
   },
   async fetch() {
     var self = this;
-    // subCatagory List
+
+    // Main Tag List Fetch
     await this.$axios
-      .$get(process.env.channelSubCatagoryList + `programming`)
+      .$get(process.env.channelMainTag + `programming`)
       .then(function(posts) {
-        self.subCatagoryList = posts;
+        self.mainTagList = posts;
       })
       .catch(function(error) {
         console.log("No Net" + error);
       })
       .finally(function() {});
 
-    // channel home page
+    // Sub Tag List Fetch
+    await this.$axios
+      .$get(process.env.baseUrl + "/Tag_creator?search=Programming")
+      .then(function(posts) {
+        self.subTagList = posts.results;
+      })
+      .catch(function(error) {
+        console.log("No Net" + error);
+      })
+      .finally(function() {});
+
+    // Channel Home Page Articles Fetch
     await this.$axios
       .$get(process.env.channelUrl + `Programming`)
       .then(posts =>
@@ -243,32 +200,20 @@ export default {
           posts.results
         )
       );
-
-    await this.$axios
-      .$get(process.env.baseUrl + "/Tag_creator?search=Programming")
-      .then(function(posts) {
-        self.subChildList = posts.results;
-      })
-      .catch(function(error) {
-        console.log("No Net" + error);
-      })
-      .finally(function() {});
   },
   computed: mapState({
     ProgrammingArticles: state => state.programming.ProgrammingArticles,
-    SubArticles: state => state.programming.SubArticles
+    TagArticlesNextLink: state => state.programming.TagArticlesNextLink
   }),
   data() {
     return {
+      mainTagList: [],
+      subTagList: [],
       showLatestDiv: true,
       showAboutDiv: false,
-      subCatagoryList: [],
-      tagManagerloaded: true,
-      isActive: false,
-      subChildList: [],
-
-      subChildSelected: false,
-      catagorySelected: false,
+      dataLoading: true,
+      subTagSelected: false,
+      mainTagSelected: false,
       parentSelected: true
     };
   },
@@ -283,36 +228,37 @@ export default {
       self.showLatestDiv = false;
       self.showAboutDiv = true;
     },
-    async loadMoreSubCatagoryListItem() {
+    async loadMoreMainTagListItem() {
       var self = this;
       await this.$axios
-        .$get(this.subCatagoryList.next)
+        .$get(this.mainTagList.next)
         .then(function(posts) {
           posts.results.forEach(element => {
-            self.subCatagoryList.results.push(element);
+            self.mainTagList.results.push(element);
           });
-          self.subCatagoryList.next = posts.next;
-          self.subCatagoryList.previous = posts.previous;
+          self.mainTagList.next = posts.next;
+          self.mainTagList.previous = posts.previous;
         })
         .catch(function(error) {
           console.log("No Net" + error);
         })
         .finally(function() {});
     },
-    async loadLessSubCatagoryListItem() {
+    async loadLessMainTagListItem() {
       var self = this;
       await self.$axios
-        .$get(self.subCatagoryList.previous)
+        .$get(self.mainTagList.previous)
         .then(function(posts) {
-          self.subCatagoryList = posts;
+          self.mainTagList = posts;
         })
         .catch(function(error) {
           console.log("No Net" + error);
         })
         .finally(function() {});
     },
-    async showSubData(item) {
-      this.tagManagerloaded = false;
+    // show Main tag articles
+    async showMainTagPosts(item) {
+      this.dataLoading = false;
       var self = this;
       await this.$axios
         .$get(item.tag_content_link)
@@ -321,65 +267,19 @@ export default {
             "programming/FetchProgrammingArticles",
             posts.results
           );
-          self.$store.dispatch("programming/FetchSubArticles", posts.next);
+          self.$store.dispatch("programming/SetTagNextDataLink", posts.next);
         })
         .catch(function(error) {
           console.log("No Net" + error);
         })
         .finally(function() {});
-      this.tagManagerloaded = true;
-      this.catagorySelected = true;
+      this.dataLoading = true;
+      this.mainTagSelected = true;
       this.parentSelected = false;
     },
-    async loadData() {
-      if (this.parentSelected) {
-        try {
-          await this.$store.dispatch(
-            "programming/FetchMoreProgrammingArticles"
-          );
-        } catch (e) {
-          alert("No more data" + e);
-        }
-      } else if (this.catagorySelected) {
-        if (this.SubArticles == null) {
-          alert("null");
-        } else {
-          var self = this;
-          await this.$axios
-            .$get(self.SubArticles)
-            .then(function(posts) {
-              posts.results.forEach(element => {
-                self.$store.dispatch("programming/SetSubMoreArticles", element);
-              });
-              self.$store.dispatch("programming/FetchSubArticles", posts.next);
-            })
-            .catch(function(error) {
-              console.log("No Net" + error);
-            })
-            .finally(function() {});
-        }
-      } else if (this.subChildSelected) {
-        if (this.SubArticles == null) {
-          alert("null");
-        } else {
-          var self = this;
-          await this.$axios
-            .$get(self.SubArticles)
-            .then(function(posts) {
-              posts.results.forEach(element => {
-                self.$store.dispatch("programming/SetSubMoreArticles", element);
-              });
-              self.$store.dispatch("programming/FetchSubArticles", posts.next);
-            })
-            .catch(function(error) {
-              console.log("No Net" + error);
-            })
-            .finally(function() {});
-        }
-      }
-    },
-    async showSubChildPosts(item) {
-      this.tagManagerloaded = false;
+    // show sub tag articles
+    async showSubTagPosts(item) {
+      this.dataLoading = false;
       var self = this;
       await this.$axios
         .$get(item.tag_target_link)
@@ -388,15 +288,74 @@ export default {
             "programming/FetchProgrammingArticles",
             posts.results
           );
-          self.$store.dispatch("programming/FetchSubArticles", posts.next);
+          self.$store.dispatch("programming/SetTagNextDataLink", posts.next);
         })
         .catch(function(error) {
           console.log("No Net" + error);
         })
         .finally(function() {});
-      this.tagManagerloaded = true;
-      this.subChildSelected = true;
-      (this.parentSelected = false), (this.catagorySelected = false);
+      this.dataLoading = true;
+      this.subTagSelected = true;
+      (this.parentSelected = false), (this.mainTagSelected = false);
+    },
+    async loadData() {
+      // load home Articles
+      if (this.parentSelected) {
+        try {
+          await this.$store.dispatch(
+            "programming/FetchMoreProgrammingArticles"
+          );
+        } catch (e) {
+          alert("No more data" + e);
+        }
+      }
+      // load main tag articles
+      else if (this.mainTagSelected) {
+        if (this.TagArticlesNextLink == null) {
+          alert("null");
+        } else {
+          var self = this;
+          await this.$axios
+            .$get(self.TagArticlesNextLink)
+            .then(function(posts) {
+              posts.results.forEach(element => {
+                self.$store.dispatch("programming/SetMoreTagArticles", element);
+              });
+              self.$store.dispatch(
+                "programming/SetTagNextDataLink",
+                posts.next
+              );
+            })
+            .catch(function(error) {
+              console.log("No Net" + error);
+            })
+            .finally(function() {});
+        }
+      }
+
+      // load sub tag articles
+      else if (this.subTagSelected) {
+        if (this.TagArticlesNextLink == null) {
+          alert("null");
+        } else {
+          var self = this;
+          await this.$axios
+            .$get(self.TagArticlesNextLink)
+            .then(function(posts) {
+              posts.results.forEach(element => {
+                self.$store.dispatch("programming/SetMoreTagArticles", element);
+              });
+              self.$store.dispatch(
+                "programming/SetTagNextDataLink",
+                posts.next
+              );
+            })
+            .catch(function(error) {
+              console.log("No Net" + error);
+            })
+            .finally(function() {});
+        }
+      }
     }
   },
   mounted() {
@@ -413,73 +372,6 @@ export default {
 
 } */
 
-/* sidebar start */
-
-.channel-side-bar {
-  overflow: hidden;
-  background: #fff;
-  margin-bottom: 6px;
-  box-shadow: 0 5px 0.9rem -0.8rem rgba(0, 0, 0, 0.8),
-    0 0 0 1px rgba(0, 0, 0, 0.05);
-  border-radius: 5px;
-  padding: 5px;
-}
-.btn-light {
-  color: #212529;
-  background-color: white;
-  border-color: none !important;
-}
-
-.btn-light:focus,
-.btn-light.focus {
-  color: #212529;
-  background-color: #e2e6ea;
-  border-color: none;
-  box-shadow: 0 0 0 0.2rem rgba(216, 217, 219, 0.5);
-}
-.channel-side-bar-title {
-  height: 40px;
-  line-height: 40px;
-  font-size: 20px;
-  background-color: #343a40;
-  color: white;
-  margin-bottom: 0px;
-}
-.channel-side-bar-list-group {
-  overflow: auto;
-}
-
-.channel-side-bar-list-item {
-  font-size: 18px;
-  border: none !important;
-  margin-bottom: 0px;
-  cursor: pointer;
-  text-align: left;
-  border-radius: 0px;
-  line-height: 40px;
-}
-.channel-side-bar-list-item-icon {
-  height: 30px;
-  width: 30px;
-  margin-left: 35px;
-}
-.channel-side-bar-list-item-name {
-  margin-left: 15px;
-}
-/* .activeItem {
-} */
-
-.sub-child-tag {
-  cursor: pointer;
-  background-color: rgba(0, 0, 0, 0.06);
-  border-radius: 6px;
-  text-align: center;
-  height: 32px;
-  line-height: 32px;
-  padding: 0 14px;
-}
-
-/* Side Bar end */
 a {
   color: black !important;
   text-decoration: none;

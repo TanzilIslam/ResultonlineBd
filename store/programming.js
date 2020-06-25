@@ -3,7 +3,7 @@ export const namespaced = true
 export const state = () => ({
     PageNumber: 2,
     ProgrammingArticles: [],
-    SubArticles: []
+    TagArticlesNextLink: []
 })
 
 export const mutations = {
@@ -13,17 +13,14 @@ export const mutations = {
     SET_MORE_PROGRAMMING_ARTICLES(state, payload) {
         state.ProgrammingArticles.push(payload)
     },
-
-    SET_SUB_ARTICLES(state, payload) {
-        state.SubArticles = payload
-    },
-    SET_MORE_SUB_ARTICLES(state, payload) {
-        state.SubArticles.push(payload)
-    },
     INCREASE_PAGE_NUMBER(state) {
         state.PageNumber++;
     },
-    SET_SUB_MORE_ARTICLES(state, payload) {
+
+    SET_TAG_NEXT_DATA_LINK(state, payload) {
+        state.TagArticlesNextLink = payload
+    },
+    SET_MORE_TAG_ARTICLES(state, payload) {
         state.ProgrammingArticles.push(payload)
     }
 }
@@ -42,10 +39,10 @@ export const actions = {
         })
     },
 
-    FetchSubArticles({ commit }, posts) {
-        commit('SET_SUB_ARTICLES', posts)
+    SetTagNextDataLink({ commit }, posts) {
+        commit('SET_TAG_NEXT_DATA_LINK', posts)
     },
-    SetSubMoreArticles({ commit }, posts) {
-        commit('SET_SUB_MORE_ARTICLES', posts)
+    SetMoreTagArticles({ commit }, posts) {
+        commit('SET_MORE_TAG_ARTICLES', posts)
     }
 }

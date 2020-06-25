@@ -2,7 +2,8 @@ import ApiService from '~/services/ApiService.js'
 export const namespaced = true
 export const state = () => ({
     PageNumber: 2,
-    CelebrityArticles: []
+    CelebrityArticles: [],
+    SubArticles: []
 })
 
 export const mutations = {

@@ -63,6 +63,6 @@ export default {
     baseUrl: process.env.BASE_URL || `http://cdn.resultonlinebd.com`,
     channelUrl: `http://cdn.resultonlinebd.com/channel_Dataapi?search=`,
     channelPagination: `http://cdn.resultonlinebd.com/channel_Dataapi?page=`,
-    channelSubCatagoryList: `http://cdn.resultonlinebd.com/tagmanager?search=`
+    channelMainTag: `http://cdn.resultonlinebd.com/tagmanager?search=`
   }
 }

@@ -1,10 +1,12 @@
+/* alawyes show scroll bar start */
 html {
     overflow-y:scroll;
 }
+ /* alawyes show scroll bar End */ 
 
-/* body{
-    background: #FAFAFA !important;
-  } */
+body{
+    background-color: #FAFAFA !important;
+  }
   /* Channel Tabs Start */
   .latest-under-line{
     height : 3px; 
@@ -22,6 +24,64 @@ html {
     padding-top: 0px;
   }
   /* Channel Tabs End */
-
   
- 
+  /* Channel sidebar,MainTag,SubTag  start */
+.channel-side-bar {
+  overflow: hidden;
+  background: #fff;
+  margin-bottom: 6px;
+  box-shadow: 0 5px 0.9rem -0.8rem rgba(0, 0, 0, 0.8),
+    0 0 0 1px rgba(0, 0, 0, 0.05);
+  border-radius: 5px;
+  padding: 5px;
+}
+.main-tag-button {
+  color: #212529;
+  background-color: white;
+  border-color: none !important;
+}
+
+.main-tag-button:focus,
+.main-tag-button.focus {
+  color: #212529;
+  background-color: #e2e6ea;
+  border-color: none;
+  box-shadow: 0 0 0 0.2rem rgba(216, 217, 219, 0.5);
+}
+.channel-side-bar-title {
+  height: 40px;
+  line-height: 40px;
+  font-size: 20px;
+  background-color: #343a40;
+  color: white;
+  margin-bottom: 0px;
+}
+.channel-side-bar-list-group {
+  overflow: auto;
+}
+
+.channel-side-bar-list-item {
+  font-size: 16px;
+  border: none !important;
+  margin-bottom: 0px;
+  cursor: pointer;
+  text-align: left;
+  border-radius: 0px;
+  line-height: 40px;
+}
+.channel-side-bar-list-item-icon {
+  height: 38px;
+  width: 42px;
+  margin-left: -8px;
+}
+.sub-tag {
+  cursor: pointer;
+  background-color: rgba(0, 0, 0, 0.06);
+  border-radius: 6px;
+  text-align: center;
+  height: 32px;
+  line-height: 32px;
+  padding: 0 14px;
+}
+
+/* Channel sidebar,MainTag,SubTag end */
