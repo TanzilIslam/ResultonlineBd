@@ -4,16 +4,18 @@
       <!-- sideBar Start -->
       <b-col cols="12" sm="12" md="3" lg="3" xl="3">
         <div class=" channel-side-bar mb-4">
-          <h5 class=" text-center channel-side-bar-title">
+          <div class="d-flex  channel-side-bar-title">
             <b-icon
               v-b-toggle.sidebar-backdrop
-              class="mr-2 p-1 menu-logo"
+              class="ml-2 p-1 mt-2 mr-2 menu-logo"
               scale="2"
               style="cursor:pointer;"
               icon=" list"
             ></b-icon>
-            Programming
-          </h5>
+            <h5 class="ml-4 mt-1">
+              Programming
+            </h5>
+          </div>
           <!--  -->
           <FixedChannelSideBar />
 

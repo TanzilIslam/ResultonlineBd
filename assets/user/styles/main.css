@@ -69,6 +69,11 @@ body{
   border-radius: 0px;
   line-height: 40px;
 }
+.menu-logo{
+  border: none!important;
+  outline: none !important;
+  outline-style: none !important;
+}
 .channel-side-bar-list-item-icon {
   height: 38px;
   width: 42px;
