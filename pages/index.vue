@@ -16,7 +16,8 @@
         class="order-md-last order-lg-last order-xl-last"
       >
         <div class="latest-home-card mb-4">
-          <h5 class="custom-latest-title">Latest</h5>
+          <h5 class="custom-latest-title ml-2">Latest</h5>
+          <hr class="custom-latest-hr" />
           <b-list-group>
             <moon-loader
               v-if="$fetchState.pending"
@@ -36,18 +37,19 @@
             >
               <nuxt-link prefetch :to="`/detailPost/${article.slug}`">
                 <div @click="setview(article)" class="d-flex">
-                  <div>
+                  <div class="custom-latest-text">
+                    {{ article.title }}
+                    <p class="mt-4 text-muted">{{ article.release_date }}</p>
+                  </div>
+                  <div class="ml-auto">
                     <b-img
                       class="custom-latest-image"
                       :src="article.photo"
                     ></b-img>
                   </div>
-                  <div class="custom-latest-text">
-                    {{ article.title }}
-                    <p class="mt-4 text-muted">{{ article.release_date }}</p>
-                  </div>
                 </div>
               </nuxt-link>
+              <hr class="custom-latest-item-hr" />
             </b-list-group-item>
           </b-list-group>
         </div>
@@ -208,7 +210,15 @@ export default {
   font-size: 20px;
   color: rgb(20, 23, 24);
   padding: 0 12px;
-  border-bottom: 1px solid #eee;
+  /* border-bottom: 1px solid #eee; */
+}
+.custom-latest-hr {
+  margin-top: 0px;
+  margin-left: 10px;
+  margin-right: 10px;
+}
+.custom-latest-item-hr {
+  margin: 0px;
 }
 .custom-list-item {
   border: none !important;

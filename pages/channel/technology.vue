@@ -7,12 +7,12 @@
           <div class="d-flex  channel-side-bar-title">
             <b-icon
               v-b-toggle.sidebar-backdrop
-              class="ml-2 p-1 mt-2 mr-2 menu-logo"
+              class="ml-2 p-1 mt-2 menu-logo"
               scale="2"
               style="cursor:pointer;"
               icon=" list"
             ></b-icon>
-            <h5 class="ml-4 mt-1">
+            <h5 class="mx-auto mt-1">
               Technology
             </h5>
           </div>
@@ -306,9 +306,7 @@ export default {
       // load home Articles
       if (this.parentSelected) {
         try {
-          await this.$store.dispatch(
-            "technology/FetchMoreTechnologyArticles"
-          );
+          await this.$store.dispatch("technology/FetchMoreTechnologyArticles");
         } catch (e) {
           alert("No more data" + e);
         }
@@ -325,10 +323,7 @@ export default {
               posts.results.forEach(element => {
                 self.$store.dispatch("technology/SetMoreTagArticles", element);
               });
-              self.$store.dispatch(
-                "technology/SetTagNextDataLink",
-                posts.next
-              );
+              self.$store.dispatch("technology/SetTagNextDataLink", posts.next);
             })
             .catch(function(error) {
               console.log("No Net" + error);
@@ -349,10 +344,7 @@ export default {
               posts.results.forEach(element => {
                 self.$store.dispatch("technology/SetMoreTagArticles", element);
               });
-              self.$store.dispatch(
-                "technology/SetTagNextDataLink",
-                posts.next
-              );
+              self.$store.dispatch("technology/SetTagNextDataLink", posts.next);
             })
             .catch(function(error) {
               console.log("No Net" + error);

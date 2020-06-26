@@ -62,6 +62,12 @@ a {
   color: white !important;
   font-size: 17px;
 }
+a {
+  border: none !important;
+  outline: none !important;
+
+  outline-style: none !important;
+}
 /* .custom-navbar {
 
 /* } */
