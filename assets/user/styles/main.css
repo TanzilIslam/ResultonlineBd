@@ -73,6 +73,7 @@ body{
   border: none!important;
   outline: none !important;
   outline-style: none !important;
+  margin-top: 7px;
 }
 .channel-side-bar-list-item-icon {
   height: 38px;

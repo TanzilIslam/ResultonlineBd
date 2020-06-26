@@ -1,105 +1,155 @@
 <template>
   <div class="islam-post">
-    <!-- Cover Start -->
-    <ChannelCover ChannelCoverTitle="Islam" />
-    <!-- Cover End -->
+    <b-row>
+      <!-- sideBar Start -->
+      <b-col cols="12" sm="12" md="3" lg="3" xl="3">
+        <div class=" channel-side-bar mb-4">
+          <div class="d-flex  channel-side-bar-title">
+            <b-icon
+              v-b-toggle.sidebar-backdrop
+              class="ml-2 p-1 mt-2 mr-2 menu-logo"
+              scale="2"
+              style="cursor:pointer;"
+              icon=" list"
+            ></b-icon>
+            <h5 class="ml-4 mt-1">
+              Islam
+            </h5>
+          </div>
+          <!--  -->
+          <FixedChannelSideBar />
 
-    <!--Tab start -->
-    <b-tabs :no-nav-style="true" content-class="mt-0 mb-0">
-      <b-tab
-        title="Latest"
-        title-link-class="text-dark"
-        active
-        @click="goLatest()"
-      >
-        <div class="latest-under-line"></div>
-      </b-tab>
-      <b-tab title="About" title-link-class="text-dark" @click="goAbout()">
-        <div class="about-under-line"></div>
-      </b-tab>
-      <hr class="line" />
-    </b-tabs>
-    <!--Tab End -->
+          <b-list-group class="channel-side-bar-list-group">
+            <b-button
+              variant="light"
+              class="main-tag-button channel-side-bar-list-item"
+              v-for="(item, index) in mainTagList.results"
+              :key="index"
+              @click="showMainTagPosts(item)"
+            >
+              <b-img
+                :src="item.tag_icon"
+                class="shadow-sm channel-side-bar-list-item-icon"
+              ></b-img>
+              {{ item.tag_name }}</b-button
+            >
+          </b-list-group>
 
-    <!-- Latest Div Start -->
-    <div v-show="showLatestDiv">
-      <VclChannelCommonCard v-if="$fetchState.pending" />
-      <h4 v-else-if="$fetchState.error">
-        Error while fetching posts: {{ $fetchState.error.message }}
-      </h4>
-      <b-row v-else>
-        <b-col
-          md="4"
-          lg="4"
-          xs="12"
-          sm="6"
-          xl="4"
-          v-for="(article, index) in IslamArticles"
-          :key="index"
-        >
-          <nuxt-link prefetch :to="`/detailPost/${article.slug}`">
-            <ChannelCommonCard :article="article" :data-index="index" />
-          </nuxt-link>
-        </b-col>
-      </b-row>
-      <!-- Pagination Start End -->
-      <div class="myPagination">
-        <div class="text-center mt-5 mb-3">
-          <b-button variant="dark" @click="loadData">Load More</b-button>
+          <div class="text-center">
+            <h6
+              v-if="mainTagList.next != null"
+              @click="loadMoreMainTagListItem"
+              style="text-decoration: underline;;cursor:pointer;"
+              class="ml-2 mt-4"
+            >
+              See More
+            </h6>
+            <h6
+              v-else-if="mainTagList.previous != null"
+              @click="loadLessMainTagListItem"
+              style="text-decoration: underline;;cursor:pointer;"
+              class="ml-2 mt-4"
+            >
+              See Less
+            </h6>
+          </div>
         </div>
-      </div>
-      <!-- Pagination End -->
-    </div>
-    <!-- Latest Div End -->
+      </b-col>
+      <!-- Side Bar End -->
 
-    <!-- About Div Start -->
-    <div v-show="showAboutDiv">
-      <h3>this is abour apge of Celebrity</h3>
-      <h5 class="text-muted">Every body should know</h5>
-      <p>
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Earum, esse.
-        Veniam nesciunt repellendus cupiditate! Voluptates rerum debitis minima
-        eius. Cum possimus ipsa adipisci, minus asperiores molestiae odio
-        molestias ea tempore!
-      </p>
-      <p>
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Excepturi aut
-        nulla tenetur, quae qui, veritatis itaque perspiciatis inventore
-        aspernatur sed eius ad enim blanditiis. Placeat laboriosam mollitia cum
-        libero vitae.
-      </p>
-      <p>
-        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Libero a esse
-        harum sapiente obcaecati eveniet eum placeat repellat nulla! Dolores,
-        fuga harum. In dolorem aspernatur possimus dignissimos culpa quam
-        facilis.
-      </p>
-      <p>
-        Lorem ipsum dolor, sit amet consectetur adipisicing elit. Delectus
-        quaerat dolores possimus voluptatum vero voluptates animi aliquid quis
-        consequatur exercitationem fugit molestiae veniam ad eaque libero, atque
-        nobis ut quo.
-      </p>
-      <p>
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Laudantium,
-        suscipit! Inventore rerum recusandae, incidunt ipsam esse totam quia
-        atque quisquam sed. Facilis, laboriosam reprehenderit in necessitatibus
-        voluptatibus aliquam maxime exercitationem?
-      </p>
-      <p>
-        Lorem, ipsum dolor sit amet consectetur adipisicing elit. Vero nobis
-        consectetur at? Saepe inventore consequuntur repellendus error? Eaque,
-        id mollitia. Nesciunt consequatur eius ex voluptates quaerat provident
-        autem non blanditiis.
-      </p>
-      <p>
-        Lorem ipsum dolor sit amet consectetur, adipisicing elit. Veniam
-        architecto eos amet, vel ipsa ea molestiae non enim similique quidem
-        numquam dolorem! Suscipit, explicabo in vero architecto beatae soluta
-        excepturi.
-      </p>
-    </div>
-    <!-- About Div End -->
+      <b-col cols="12" sm="12" md="9" lg="9" xl="9">
+        <!-- Cover Start -->
+        <ChannelCover ChannelCoverTitle="Islam" />
+        <!-- Cover End -->
+
+        <!--Tab start -->
+        <b-tabs :no-nav-style="true" content-class="mt-0 mb-0">
+          <b-tab
+            title="Latest"
+            title-link-class="text-dark"
+            active
+            @click="goLatest()"
+          >
+            <div class="latest-under-line"></div>
+          </b-tab>
+          <b-tab title="About" title-link-class="text-dark" @click="goAbout()">
+            <div class="about-under-line"></div>
+          </b-tab>
+          <hr class="line" />
+        </b-tabs>
+        <!--Tab End -->
+
+        <!-- Latest Div Start -->
+        <div v-show="showLatestDiv">
+          <!-- Sub Tags Start -->
+          <div
+            class="d-flex justify-content-between justify-content-lg-between justify-content-xl-between  flex-wrap mt-2 mb-4"
+          >
+            <b-button
+              variant="light"
+              v-for="(item, index) in subTagList"
+              :key="index"
+              @click="showSubTagPosts(item)"
+              class="sub-tag"
+            >
+              {{ item.tag_name }}
+            </b-button>
+          </div>
+          <!-- Sub Tags End -->
+
+          <VclChannelCommonCard v-if="$fetchState.pending" />
+          <h4 v-else-if="$fetchState.error">
+            Error while fetching posts: {{ $fetchState.error.message }}
+          </h4>
+          <b-row v-else>
+            <b-col
+              v-if="!dataLoading"
+              cols="12"
+              sm="12"
+              md="12"
+              lg="12"
+              xl="12"
+              class="text-center"
+            >
+              <b-spinner
+                style="width: 3rem; height: 3rem;"
+                label="Large Spinner"
+              ></b-spinner>
+            </b-col>
+
+            <b-col
+              v-else
+              md="4"
+              lg="4"
+              xs="12"
+              sm="6"
+              xl="4"
+              v-for="(article, index) in IslamArticles"
+              :key="index"
+            >
+              <nuxt-link prefetch :to="`/detailPost/${article.slug}`">
+                <ChannelCommonCard :article="article" :data-index="index" />
+              </nuxt-link>
+            </b-col>
+          </b-row>
+          <!-- Pagination Start End -->
+          <div class="myPagination">
+            <div class="text-center mt-5 mb-3">
+              <b-button variant="dark" @click="loadData">Load More</b-button>
+            </div>
+          </div>
+          <!-- Pagination End -->
+        </div>
+        <!-- Latest Div End -->
+
+        <!-- About Div Start -->
+        <div v-show="showAboutDiv">
+          <h3>this is abour apge of islam</h3>
+          <h5 class="text-muted">Every body should know</h5>
+        </div>
+        <!-- About Div End -->
+      </b-col>
+    </b-row>
   </div>
 </template>
 
@@ -115,12 +165,37 @@ export default {
           hid: "description",
           name: "description",
           content:
-            "Here you can find all the latest information about IslamArticles "
+            "Here you can find all the latest information about technology and different islam cool stuffs."
         }
       ]
     };
   },
   async fetch() {
+    var self = this;
+
+    // Main Tag List Fetch
+    await this.$axios
+      .$get(process.env.channelMainTag + `islam`)
+      .then(function(posts) {
+        self.mainTagList = posts;
+      })
+      .catch(function(error) {
+        console.log("No Net" + error);
+      })
+      .finally(function() {});
+
+    // Sub Tag List Fetch
+    await this.$axios
+      .$get(process.env.baseUrl + "/Tag_creator?search=Islam")
+      .then(function(posts) {
+        self.subTagList = posts.results;
+      })
+      .catch(function(error) {
+        console.log("No Net" + error);
+      })
+      .finally(function() {});
+
+    // Channel Home Page Articles Fetch
     await this.$axios
       .$get(process.env.channelUrl + `Islam`)
       .then(posts =>
@@ -128,13 +203,19 @@ export default {
       );
   },
   computed: mapState({
-    IslamArticles: state => state.islam.IslamArticles
+    IslamArticles: state => state.islam.IslamArticles,
+    TagArticlesNextLink: state => state.islam.TagArticlesNextLink
   }),
   data() {
     return {
+      mainTagList: [],
+      subTagList: [],
       showLatestDiv: true,
       showAboutDiv: false,
-      currentPage: 2
+      dataLoading: true,
+      subTagSelected: false,
+      mainTagSelected: false,
+      parentSelected: true
     };
   },
   methods: {
@@ -148,11 +229,119 @@ export default {
       self.showLatestDiv = false;
       self.showAboutDiv = true;
     },
+    async loadMoreMainTagListItem() {
+      var self = this;
+      await this.$axios
+        .$get(this.mainTagList.next)
+        .then(function(posts) {
+          posts.results.forEach(element => {
+            self.mainTagList.results.push(element);
+          });
+          self.mainTagList.next = posts.next;
+          self.mainTagList.previous = posts.previous;
+        })
+        .catch(function(error) {
+          console.log("No Net" + error);
+        })
+        .finally(function() {});
+    },
+    async loadLessMainTagListItem() {
+      var self = this;
+      await self.$axios
+        .$get(self.mainTagList.previous)
+        .then(function(posts) {
+          self.mainTagList = posts;
+        })
+        .catch(function(error) {
+          console.log("No Net" + error);
+        })
+        .finally(function() {});
+    },
+    // show Main tag articles
+    async showMainTagPosts(item) {
+      this.dataLoading = false;
+      var self = this;
+      await this.$axios
+        .$get(item.tag_content_link)
+        .then(function(posts) {
+          self.$store.dispatch("islam/FetchIslamArticles", posts.results);
+          self.$store.dispatch("islam/SetTagNextDataLink", posts.next);
+        })
+        .catch(function(error) {
+          console.log("No Net" + error);
+        })
+        .finally(function() {});
+      this.dataLoading = true;
+      this.mainTagSelected = true;
+      this.parentSelected = false;
+    },
+    // show sub tag articles
+    async showSubTagPosts(item) {
+      this.dataLoading = false;
+      var self = this;
+      await this.$axios
+        .$get(item.tag_target_link)
+        .then(function(posts) {
+          self.$store.dispatch("islam/FetchIslamArticles", posts.results);
+          self.$store.dispatch("islam/SetTagNextDataLink", posts.next);
+        })
+        .catch(function(error) {
+          console.log("No Net" + error);
+        })
+        .finally(function() {});
+      this.dataLoading = true;
+      this.subTagSelected = true;
+      (this.parentSelected = false), (this.mainTagSelected = false);
+    },
     async loadData() {
-      try {
-        await this.$store.dispatch("islam/FetchMoreIslamArticles");
-      } catch (e) {
-        alert("No more data" + e);
+      // load home Articles
+      if (this.parentSelected) {
+        try {
+          await this.$store.dispatch("islam/FetchMoreIslamArticles");
+        } catch (e) {
+          alert("No more data" + e);
+        }
+      }
+      // load main tag articles
+      else if (this.mainTagSelected) {
+        if (this.TagArticlesNextLink == null) {
+          alert("null");
+        } else {
+          var self = this;
+          await this.$axios
+            .$get(self.TagArticlesNextLink)
+            .then(function(posts) {
+              posts.results.forEach(element => {
+                self.$store.dispatch("islam/SetMoreTagArticles", element);
+              });
+              self.$store.dispatch("islam/SetTagNextDataLink", posts.next);
+            })
+            .catch(function(error) {
+              console.log("No Net" + error);
+            })
+            .finally(function() {});
+        }
+      }
+
+      // load sub tag articles
+      else if (this.subTagSelected) {
+        if (this.TagArticlesNextLink == null) {
+          alert("null");
+        } else {
+          var self = this;
+          await this.$axios
+            .$get(self.TagArticlesNextLink)
+            .then(function(posts) {
+              posts.results.forEach(element => {
+                self.$store.dispatch("islam/SetMoreTagArticles", element);
+              });
+              self.$store.dispatch("islam/SetTagNextDataLink", posts.next);
+            })
+            .catch(function(error) {
+              console.log("No Net" + error);
+            })
+            .finally(function() {});
+        }
       }
     }
   },
@@ -169,6 +358,7 @@ export default {
 /* .islam-post{
 
 } */
+
 a {
   color: black !important;
   text-decoration: none;

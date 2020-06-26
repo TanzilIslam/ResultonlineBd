@@ -2,7 +2,8 @@ import ApiService from '~/services/ApiService.js'
 export const namespaced = true
 export const state = () => ({
     PageNumber: 2,
-    EducationArticles: []
+    EducationArticles: [],
+    TagArticlesNextLink: []
 })
 
 export const mutations = {
@@ -14,6 +15,12 @@ export const mutations = {
     },
     INCREASE_PAGE_NUMBER(state) {
         state.PageNumber++;
+    },
+    SET_TAG_NEXT_DATA_LINK(state, payload) {
+        state.TagArticlesNextLink = payload
+    },
+    SET_MORE_TAG_ARTICLES(state, payload) {
+        state.EducationArticles.push(payload)
     }
 }
 export const actions = {
@@ -29,4 +36,10 @@ export const actions = {
             commit('INCREASE_PAGE_NUMBER')
         })
     },
+    SetTagNextDataLink({ commit }, posts) {
+        commit('SET_TAG_NEXT_DATA_LINK', posts)
+    },
+    SetMoreTagArticles({ commit }, posts) {
+        commit('SET_MORE_TAG_ARTICLES', posts)
+    }
 }
