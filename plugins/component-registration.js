@@ -58,7 +58,9 @@ Vue.component('ChannelCover', ChannelCover);
 
 import FixedChannelSideBar from '~/components/user/FixedChannelSideBar'
 Vue.component('FixedChannelSideBar', FixedChannelSideBar);
+// Mobile Start
 
+// Mobile End
 
 // Channel End
 

@@ -70,4 +70,7 @@ export default {
         return apiClient.get(process.env.channelPagination
             + pageNumber + `&search=Education`)
     },
+    GetMoreMobileArticles(pageNumber) {
+        return apiClient.get(process.env.channelPagination + pageNumber + `&search=Mobile+phone`)
+    }
 }

@@ -7,12 +7,12 @@
           <div class="d-flex  channel-side-bar-title">
             <b-icon
               v-b-toggle.sidebar-backdrop
-              class="ml-2 p-1 mt-2 menu-logo"
+              class="ml-2 p-1 my-auto menu-logo"
               scale="2"
               style="cursor:pointer;"
               icon=" list"
             ></b-icon>
-            <h5 class="mx-auto mt-1">
+            <h5 class="mx-auto my-auto">
               Technology
             </h5>
           </div>
@@ -65,7 +65,7 @@
         <!--Tab start -->
         <b-tabs :no-nav-style="true" content-class="mt-0 mb-0">
           <b-tab
-            title="Latest"
+            title="Fresh"
             title-link-class="text-dark"
             active
             @click="goLatest()"

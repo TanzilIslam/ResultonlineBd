@@ -16,7 +16,7 @@
         class="order-md-last order-lg-last order-xl-last"
       >
         <div class="latest-home-card mb-4">
-          <h5 class="custom-latest-title ml-2">Latest</h5>
+          <h5 class="custom-latest-title ml-2">Fresh</h5>
           <hr class="custom-latest-hr" />
           <b-list-group>
             <moon-loader
@@ -230,6 +230,7 @@ export default {
   height: 80px;
   left: 10px;
   top: 10px;
+  border-radius: 8px;
 }
 .custom-latest-text {
   margin-left: 20px;

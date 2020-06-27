@@ -31,7 +31,7 @@
       <b-col md="12">
         <b-tabs :no-nav-style="true" content-class="mt-0 mb-0">
           <b-tab
-            title="Latest"
+            title="Fresh"
             title-link-class="text-dark"
             active
             @click="goLatest()"
