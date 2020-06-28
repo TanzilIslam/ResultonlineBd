@@ -1,5 +1,5 @@
 <template>
-  <div class="education-post">
+  <div class="gaming-post">
     <b-row>
       <!-- sideBar Start -->
       <b-col cols="12" sm="12" md="3" lg="3" xl="3">
@@ -13,7 +13,7 @@
               icon=" list"
             ></b-icon>
             <h5 class="mx-auto my-auto">
-              Education
+              Gaming
             </h5>
           </div>
           <!--  -->
@@ -59,7 +59,7 @@
 
       <b-col cols="12" sm="12" md="9" lg="9" xl="9">
         <!-- Cover Start -->
-        <ChannelCover ChannelCoverTitle="Education" />
+        <ChannelCover ChannelCoverTitle="Gaming" />
         <!-- Cover End -->
 
         <!--Tab start -->
@@ -124,7 +124,7 @@
               xs="12"
               sm="6"
               xl="4"
-              v-for="(article, index) in EducationArticles"
+              v-for="(article, index) in GamingArticles"
               :key="index"
             >
               <nuxt-link prefetch :to="`/detailPost/${article.slug}`">
@@ -144,7 +144,7 @@
 
         <!-- About Div Start -->
         <div v-show="showAboutDiv">
-          <h3>this is abour apge of education</h3>
+          <h3>this is abour apge of gaming</h3>
           <h5 class="text-muted">Every body should know</h5>
         </div>
         <!-- About Div End -->
@@ -159,13 +159,13 @@ export default {
   layout: "channel",
   head() {
     return {
-      title: "Education page - ResultOnlineBd",
+      title: "Gaming page - ResultOnlineBd",
       meta: [
         {
           hid: "description",
           name: "description",
           content:
-            "Here you can find all the latest information about technology and different education cool stuffs."
+            "Here you can find all the latest information about technology and different gaming cool stuffs."
         }
       ]
     };
@@ -175,7 +175,7 @@ export default {
 
     // Main Tag List Fetch
     await this.$axios
-      .$get(process.env.channelMainTag + `education`)
+      .$get(process.env.channelMainTag + `gaming`)
       .then(function(posts) {
         self.mainTagList = posts;
       })
@@ -186,7 +186,7 @@ export default {
 
     // Sub Tag List Fetch
     await this.$axios
-      .$get(process.env.baseUrl + "/Tag_creator?search=Education")
+      .$get(process.env.baseUrl + "/Tag_creator?search=Gaming")
       .then(function(posts) {
         self.subTagList = posts.results;
       })
@@ -197,14 +197,14 @@ export default {
 
     // Channel Home Page Articles Fetch
     await this.$axios
-      .$get(process.env.channelUrl + `education`)
+      .$get(process.env.channelUrl + `Gaming`)
       .then(posts =>
-        this.$store.dispatch("education/FetchEducationArticles", posts.results)
+        this.$store.dispatch("gaming/FetchGamingArticles", posts.results)
       );
   },
   computed: mapState({
-    EducationArticles: state => state.education.EducationArticles,
-    TagArticlesNextLink: state => state.education.TagArticlesNextLink
+    GamingArticles: state => state.gaming.GamingArticles,
+    TagArticlesNextLink: state => state.gaming.TagArticlesNextLink
   }),
   data() {
     return {
@@ -264,11 +264,8 @@ export default {
       await this.$axios
         .$get(item.tag_content_link)
         .then(function(posts) {
-          self.$store.dispatch(
-            "education/FetchEducationArticles",
-            posts.results
-          );
-          self.$store.dispatch("education/SetTagNextDataLink", posts.next);
+          self.$store.dispatch("gaming/FetchGamingArticles", posts.results);
+          self.$store.dispatch("gaming/SetTagNextDataLink", posts.next);
         })
         .catch(function(error) {
           console.log("No Net" + error);
@@ -285,11 +282,8 @@ export default {
       await this.$axios
         .$get(item.tag_target_link)
         .then(function(posts) {
-          self.$store.dispatch(
-            "education/FetchEducationArticles",
-            posts.results
-          );
-          self.$store.dispatch("education/SetTagNextDataLink", posts.next);
+          self.$store.dispatch("gaming/FetchGamingArticles", posts.results);
+          self.$store.dispatch("gaming/SetTagNextDataLink", posts.next);
         })
         .catch(function(error) {
           console.log("No Net" + error);
@@ -303,7 +297,7 @@ export default {
       // load home Articles
       if (this.parentSelected) {
         try {
-          await this.$store.dispatch("education/FetchMoreEducationArticles");
+          await this.$store.dispatch("gaming/FetchMoreGamingArticles");
         } catch (e) {
           alert("No more data" + e);
         }
@@ -318,9 +312,9 @@ export default {
             .$get(self.TagArticlesNextLink)
             .then(function(posts) {
               posts.results.forEach(element => {
-                self.$store.dispatch("education/SetMoreTagArticles", element);
+                self.$store.dispatch("gaming/SetMoreTagArticles", element);
               });
-              self.$store.dispatch("education/SetTagNextDataLink", posts.next);
+              self.$store.dispatch("gaming/SetTagNextDataLink", posts.next);
             })
             .catch(function(error) {
               console.log("No Net" + error);
@@ -339,9 +333,9 @@ export default {
             .$get(self.TagArticlesNextLink)
             .then(function(posts) {
               posts.results.forEach(element => {
-                self.$store.dispatch("education/SetMoreTagArticles", element);
+                self.$store.dispatch("gaming/SetMoreTagArticles", element);
               });
-              self.$store.dispatch("education/SetTagNextDataLink", posts.next);
+              self.$store.dispatch("gaming/SetTagNextDataLink", posts.next);
             })
             .catch(function(error) {
               console.log("No Net" + error);
@@ -361,7 +355,7 @@ export default {
 </script>
 
 <style scoped>
-/* .education-post{
+/* .gaming-post{
 
 } */
 

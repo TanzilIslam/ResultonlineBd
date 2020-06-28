@@ -13,12 +13,12 @@
 
       <b-list-group-item to="/channel/celebrity" class="mylist">
         <b-icon icon="camera-video-fill" scale="2"></b-icon>
-        <span style="margin-left:15px">Celebrity</span>
+        <span style="margin-left:15px">Celebrity & Movie</span>
       </b-list-group-item>
 
-      <b-list-group-item to="/channel/islam" class="mylist">
-        <b-icon icon="calendar" scale="2"></b-icon>
-        <span style="margin-left:15px">Islam</span>
+      <b-list-group-item to="/channel/gaming" class="mylist">
+        <b-icon icon="controller" scale="2"></b-icon>
+        <span style="margin-left:15px">Gaming</span>
       </b-list-group-item>
 
       <b-list-group-item to="/channel/history" class="mylist">
@@ -36,9 +36,9 @@
         <span style="margin-left:15px">Technology</span>
       </b-list-group-item>
 
-      <b-list-group-item to="/channel/education" class="mylist">
+      <b-list-group-item to="/channel/designlibrary" class="mylist">
         <b-icon icon="book-half" scale="2"></b-icon>
-        <span style="margin-left:15px">Education</span>
+        <span style="margin-left:15px">Design Library</span>
       </b-list-group-item>
     </b-list-group>
   </div>

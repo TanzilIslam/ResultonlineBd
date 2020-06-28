@@ -13,7 +13,7 @@
               icon=" list"
             ></b-icon>
             <h5 class="mx-auto my-auto">
-              Celebrity
+              Celebrity & Movie
             </h5>
           </div>
           <!--  -->
@@ -59,7 +59,7 @@
 
       <b-col cols="12" sm="12" md="9" lg="9" xl="9">
         <!-- Cover Start -->
-        <ChannelCover ChannelCoverTitle="Celebrity" />
+        <ChannelCover ChannelCoverTitle="Celebrity & Movie" />
         <!-- Cover End -->
 
         <!--Tab start -->

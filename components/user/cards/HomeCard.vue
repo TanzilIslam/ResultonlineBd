@@ -2,7 +2,7 @@
   <div class="home-card">
     <div class="custom-home-card rounded">
       <b-card no-body style="max-width: 40rem;" class="mb-4">
-        <div class="d-flex">
+        <div class="d-inline-flex">
           <div class="ml-3 mt-3 mb-2">
             <b-card-img-lazy
               blank-color="#bbb"
@@ -10,20 +10,36 @@
               :src="article.contentowners.authorsprofilrimg"
             ></b-card-img-lazy>
           </div>
+
           <div class="mt-4 ml-3 mb-2">
-            <nuxt-link
-              prefetch
-              :to="`/authorProfile/${article.contentowners.authorsname}`"
-            >
-              <b-card-text text-tag="h5" class="custome-home-card-title">
-                {{ article.contentowners.authorsname }}</b-card-text
-              >
-            </nuxt-link>
-            <b-card-text text-tag="p" class="text-muted">{{
-              article.release_date
-            }}</b-card-text>
+            <div class="d-flex">
+              <div class="">
+                <nuxt-link
+                  prefetch
+                  :to="`/authorProfile/${article.contentowners.authorsname}`"
+                >
+                  <h5>
+                    {{ article.contentowners.authorsname }}
+                  </h5>
+                </nuxt-link>
+              </div>
+
+              <div class="ml-auto">
+                <b-icon icon="reply"></b-icon>
+              </div>
+            </div>
+            <!-- <b-card-text text-tag="h5" class="custome-home-card-title">
+                {{ article.contentowners.authorsname }}
+                <b-icon class="ml-auto" icon="reply"></b-icon>
+              </b-card-text> -->
+
+            <b-card-text text-tag="p" class="text-muted"
+              >{{ article.release_date }}
+              <b-icon icon="clock-fill" variant="gray"></b-icon>
+            </b-card-text>
           </div>
         </div>
+
         <h5 class="ml-4">{{ article.title }}</h5>
         <nuxt-link prefetch :to="`/detailPost/${article.slug}`">
           <div @click="setview">

@@ -48,9 +48,9 @@ export default {
         return apiClient.get(process.env.channelPagination
             + pageNumber + `&search=Celebrity`)
     },
-    GetMoreIslamArticles(pageNumber) {
+    GetMoreGamingArticles(pageNumber) {
         return apiClient.get(process.env.channelPagination
-            + pageNumber + `&search=Islam`)
+            + pageNumber + `&search=Gaming`)
     },
     GetMoreHistoryArticles(pageNumber) {
         return apiClient.get(process.env.channelPagination
@@ -66,9 +66,9 @@ export default {
             + pageNumber + `&search=Technology`)
     },
 
-    GetMoreEducationArticles(pageNumber) {
+    GetMoreDesignLibraryArticles(pageNumber) {
         return apiClient.get(process.env.channelPagination
-            + pageNumber + `&search=Education`)
+            + pageNumber + `&search=Design+library`)
     },
     GetMoreMobileArticles(pageNumber) {
         return apiClient.get(process.env.channelPagination + pageNumber + `&search=Mobile+phone`)

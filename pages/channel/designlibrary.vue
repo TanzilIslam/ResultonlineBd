@@ -1,5 +1,5 @@
 <template>
-  <div class="islam-post">
+  <div class="design-library-post">
     <b-row>
       <!-- sideBar Start -->
       <b-col cols="12" sm="12" md="3" lg="3" xl="3">
@@ -13,7 +13,7 @@
               icon=" list"
             ></b-icon>
             <h5 class="mx-auto my-auto">
-              Islam
+              Design Library
             </h5>
           </div>
           <!--  -->
@@ -59,7 +59,7 @@
 
       <b-col cols="12" sm="12" md="9" lg="9" xl="9">
         <!-- Cover Start -->
-        <ChannelCover ChannelCoverTitle="Islam" />
+        <ChannelCover ChannelCoverTitle="Design Library" />
         <!-- Cover End -->
 
         <!--Tab start -->
@@ -124,7 +124,7 @@
               xs="12"
               sm="6"
               xl="4"
-              v-for="(article, index) in IslamArticles"
+              v-for="(article, index) in DesignLibraryArticles"
               :key="index"
             >
               <nuxt-link prefetch :to="`/detailPost/${article.slug}`">
@@ -144,7 +144,7 @@
 
         <!-- About Div Start -->
         <div v-show="showAboutDiv">
-          <h3>this is abour apge of islam</h3>
+          <h3>this is abour apge of DesignLibrary</h3>
           <h5 class="text-muted">Every body should know</h5>
         </div>
         <!-- About Div End -->
@@ -159,13 +159,13 @@ export default {
   layout: "channel",
   head() {
     return {
-      title: "Islam page - ResultOnlineBd",
+      title: "DesignLibrary page - ResultOnlineBd",
       meta: [
         {
           hid: "description",
           name: "description",
           content:
-            "Here you can find all the latest information about technology and different islam cool stuffs."
+            "Here you can find all the latest information about technology and different DesignLibrary cool stuffs."
         }
       ]
     };
@@ -175,7 +175,7 @@ export default {
 
     // Main Tag List Fetch
     await this.$axios
-      .$get(process.env.channelMainTag + `islam`)
+      .$get(process.env.channelMainTag + `design library`)
       .then(function(posts) {
         self.mainTagList = posts;
       })
@@ -186,7 +186,7 @@ export default {
 
     // Sub Tag List Fetch
     await this.$axios
-      .$get(process.env.baseUrl + "/Tag_creator?search=Islam")
+      .$get(process.env.baseUrl + "/Tag_creator?search=DesignLibrary")
       .then(function(posts) {
         self.subTagList = posts.results;
       })
@@ -197,14 +197,17 @@ export default {
 
     // Channel Home Page Articles Fetch
     await this.$axios
-      .$get(process.env.channelUrl + `Islam`)
+      .$get(process.env.channelUrl + `Design library`)
       .then(posts =>
-        this.$store.dispatch("islam/FetchIslamArticles", posts.results)
+        this.$store.dispatch(
+          "designlibrary/FetchDesignLibraryArticles",
+          posts.results
+        )
       );
   },
   computed: mapState({
-    IslamArticles: state => state.islam.IslamArticles,
-    TagArticlesNextLink: state => state.islam.TagArticlesNextLink
+    DesignLibraryArticles: state => state.designlibrary.DesignLibraryArticles,
+    TagArticlesNextLink: state => state.designlibrary.TagArticlesNextLink
   }),
   data() {
     return {
@@ -264,8 +267,11 @@ export default {
       await this.$axios
         .$get(item.tag_content_link)
         .then(function(posts) {
-          self.$store.dispatch("islam/FetchIslamArticles", posts.results);
-          self.$store.dispatch("islam/SetTagNextDataLink", posts.next);
+          self.$store.dispatch(
+            "designlibrary/FetchDesignLibraryArticles",
+            posts.results
+          );
+          self.$store.dispatch("designlibrary/SetTagNextDataLink", posts.next);
         })
         .catch(function(error) {
           console.log("No Net" + error);
@@ -282,8 +288,11 @@ export default {
       await this.$axios
         .$get(item.tag_target_link)
         .then(function(posts) {
-          self.$store.dispatch("islam/FetchIslamArticles", posts.results);
-          self.$store.dispatch("islam/SetTagNextDataLink", posts.next);
+          self.$store.dispatch(
+            "designlibrary/FetchDesignLibraryArticles",
+            posts.results
+          );
+          self.$store.dispatch("designlibrary/SetTagNextDataLink", posts.next);
         })
         .catch(function(error) {
           console.log("No Net" + error);
@@ -297,7 +306,9 @@ export default {
       // load home Articles
       if (this.parentSelected) {
         try {
-          await this.$store.dispatch("islam/FetchMoreIslamArticles");
+          await this.$store.dispatch(
+            "designlibrary/FetchMoreDesignLibraryArticles"
+          );
         } catch (e) {
           alert("No more data" + e);
         }
@@ -312,9 +323,15 @@ export default {
             .$get(self.TagArticlesNextLink)
             .then(function(posts) {
               posts.results.forEach(element => {
-                self.$store.dispatch("islam/SetMoreTagArticles", element);
+                self.$store.dispatch(
+                  "designlibrary/SetMoreTagArticles",
+                  element
+                );
               });
-              self.$store.dispatch("islam/SetTagNextDataLink", posts.next);
+              self.$store.dispatch(
+                "designlibrary/SetTagNextDataLink",
+                posts.next
+              );
             })
             .catch(function(error) {
               console.log("No Net" + error);
@@ -333,9 +350,15 @@ export default {
             .$get(self.TagArticlesNextLink)
             .then(function(posts) {
               posts.results.forEach(element => {
-                self.$store.dispatch("islam/SetMoreTagArticles", element);
+                self.$store.dispatch(
+                  "designlibrary/SetMoreTagArticles",
+                  element
+                );
               });
-              self.$store.dispatch("islam/SetTagNextDataLink", posts.next);
+              self.$store.dispatch(
+                "designlibrary/SetTagNextDataLink",
+                posts.next
+              );
             })
             .catch(function(error) {
               console.log("No Net" + error);
@@ -355,7 +378,7 @@ export default {
 </script>
 
 <style scoped>
-/* .islam-post{
+/* .design-library-post{
 
 } */
 
