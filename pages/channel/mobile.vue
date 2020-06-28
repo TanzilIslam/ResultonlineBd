@@ -64,15 +64,24 @@
 
         <!--Tab start -->
         <b-tabs :no-nav-style="true" content-class="mt-0 mb-0">
-          <b-tab
-            title="Fresh"
-            title-link-class="text-dark"
-            active
-            @click="goLatest()"
-          >
+          <b-tab title-link-class="text-dark" active @click="goLatest()">
+            <template v-slot:title>
+              <b-img
+                src="~/assets/user/tabs/r.png"
+                style="height:50px;width:50px;"
+              ></b-img>
+              Fresh
+            </template>
             <div class="latest-under-line"></div>
           </b-tab>
-          <b-tab title="About" title-link-class="text-dark" @click="goAbout()">
+          <b-tab title-link-class="text-dark" @click="goAbout()">
+            <template v-slot:title>
+              <b-img
+                src="~/assets/user/tabs/a.png"
+                style="height:50px;width:50px;"
+              ></b-img>
+              About
+            </template>
             <div class="about-under-line"></div>
           </b-tab>
           <hr class="line" />
@@ -98,14 +107,14 @@
                 <b-list-group horizontal>
                   <b-list-group-item
                     class="brand-list"
-                    v-for="i in subTagList"
-                    :key="i.id"
+                    v-for="(item, index) in subTagList"
+                    :key="index"
                   >
                     <b-img
-                      :src="i.Brand_profile"
+                      :src="item.Brand_profile"
                       class="logo shadow"
                       alt="Kitten"
-                      @click="showSubTagPosts(i)"
+                      @click="showSubTagPosts(item)"
                     ></b-img>
                   </b-list-group-item>
                 </b-list-group>
@@ -114,157 +123,151 @@
           </b-row>
           <!-- Mobile Brand Logo List End -->
 
-          <!-- small mobile card start -->
-          <b-row class="mt-4 mb-4">
-            <VclChannelCommonCard v-if="$fetchState.pending" />
-            <b-col
-              v-else
-              v-for="(article, index) in MobileArticles.slice(0, 1)"
-              :key="index"
-              cols="12"
-              sm="6"
-              md="4"
-              lg="4"
-              xl="4"
-              class="mb-1"
-            >
-              <nuxt-link prefetch :to="`/detailPost/${article.slug}`">
-                <ChannelCommonCard :article="article" :data-index="index" />
-              </nuxt-link>
-            </b-col>
-          </b-row>
-          <!-- small mobile card end -->
-
-          <!-- big mobile card start -->
-          <b-row class="mb-4">
-            <b-col
-              cols="12"
-              sm="12"
-              md="12"
-              lg="12"
-              xl="12"
-              v-for="(article, index) in MobileArticles.slice(1, 2)"
-              :key="index"
-            >
-              <div>
+          <!-- showing tag data start -->
+          <div v-if="mainTagSelected">
+            <b-row class="mt-4">
+              <b-col
+                v-if="!dataLoading"
+                cols="12"
+                sm="12"
+                md="12"
+                lg="12"
+                xl="12"
+                class="text-center"
+              >
+                <b-spinner
+                  style="width: 3rem; height: 3rem;"
+                  label="Large Spinner"
+                ></b-spinner>
+              </b-col>
+              <b-col
+                v-else
+                cols="12"
+                sm="6"
+                md="4"
+                lg="4"
+                xl="4"
+                class="mb-1"
+                v-for="(article, index) in MobileArticles"
+                :key="index"
+              >
                 <nuxt-link prefetch :to="`/detailPost/${article.slug}`">
-                  <b-card
-                    img-height="300"
-                    overlay
-                    :img-src="article.photo"
-                    img-alt="card Image"
-                    text-variant="white"
-                    img-fluid
-                  >
-                    <b-card-text
-                      style="margin-top:200px;"
-                      text-tag="h4"
-                      class="text"
-                      >{{ article.title }}</b-card-text
-                    >
-                  </b-card>
+                  <ChannelCommonCard :article="article" :data-index="index" />
                 </nuxt-link>
-              </div>
-            </b-col>
-          </b-row>
-          <!-- big Mobile Card End -->
+              </b-col>
+            </b-row>
+          </div>
+          <!-- showing tag data end -->
 
-          <!-- medium mobile card start -->
-          <b-row>
-            <b-col
-              class="mb-3"
-              v-for="(article, index) in MobileArticles"
-              :key="index"
-              cols="12"
-              sm="12"
-              md="12"
-              lg="12"
-              xl="12"
-            >
-              <b-row>
-                <b-col md="6" lg="6">
-                  <b-img
-                    class="image"
-                    height="200"
-                    :src="article.photo"
-                    style="width:inherit;"
-                  ></b-img>
-                </b-col>
-                <b-col md="6" lg="6" class="mx-auto mt-5">
-                  <h6>{{ article.release_date }}</h6>
-                  <h5>{{ article.title }}</h5>
+          <!-- showing BrandList Data start -->
+          <div v-else-if="subTagSelected">
+            <b-row class="mt-4">
+              <b-col
+                cols="12"
+                sm="6"
+                md="4"
+                lg="4"
+                xl="4"
+                class="mb-1"
+                v-for="(article, index) in MobileArticles"
+                :key="index"
+              >
+                <nuxt-link prefetch :to="`/detailPost/${article.slug}`">
+                  <ChannelCommonCard :article="article" :data-index="index" />
+                </nuxt-link>
+              </b-col>
+            </b-row>
+          </div>
+          <!-- showing Brand List Data End -->
+
+          <!-- showing home page data start -->
+          <div v-else-if="parentSelected">
+            <div v-if="$fetchState.pending">
+              <VclChannelCommonCard />
+            </div>
+
+            <div v-else>
+              <!-- small mobile card start -->
+              <b-row class="mt-4 mb-4">
+                <b-col
+                  v-for="(article, index) in TopCards"
+                  :key="index"
+                  cols="12"
+                  sm="6"
+                  md="4"
+                  lg="4"
+                  xl="4"
+                  class="mb-1"
+                >
+                  <nuxt-link prefetch :to="`/detailPost/${article.slug}`">
+                    <ChannelCommonCard :article="article" :data-index="index" />
+                  </nuxt-link>
                 </b-col>
               </b-row>
-            </b-col>
-          </b-row>
-          <!-- medium mobile card end -->
+              <!-- small mobile card end -->
+
+              <!-- big mobile card start -->
+              <b-row class="mb-4">
+                <b-col
+                  cols="12"
+                  sm="12"
+                  md="12"
+                  lg="12"
+                  xl="12"
+                  v-for="(article, index) in BigCard"
+                  :key="index"
+                >
+                  <div>
+                    <nuxt-link prefetch :to="`/detailPost/${article.slug}`">
+                      <b-card
+                        img-height="300"
+                        overlay
+                        :img-src="article.photo"
+                        img-alt="card Image"
+                        text-variant="black"
+                        img-fluid
+                      >
+                        <b-card-text
+                          style="margin-top:200px;"
+                          text-tag="h4"
+                          class="text"
+                          >{{ article.title }}</b-card-text
+                        >
+                      </b-card>
+                    </nuxt-link>
+                  </div>
+                </b-col>
+              </b-row>
+              <!-- big Mobile Card End -->
+
+              <!-- bottom mobile card start -->
+              <b-row>
+                <b-col
+                  class="mb-1"
+                  v-for="(article, index) in MobileArticles"
+                  :key="index"
+                  cols="12"
+                  sm="6"
+                  md="4"
+                  lg="4"
+                  xl="4"
+                >
+                  <nuxt-link prefetch :to="`/detailPost/${article.slug}`">
+                    <ChannelCommonCard :article="article" :data-index="index" />
+                  </nuxt-link>
+                </b-col>
+              </b-row>
+              <!-- medium mobile card end -->
+            </div>
+          </div>
+          <!-- showing home page data end -->
 
           <!-- pagination start -->
           <div class="myPagination">
-            <div class="text-center mt-5 mb-3">
+            <div class="text-center mt-4 mb-3">
               <b-button variant="dark" @click="loadData">Load More</b-button>
             </div>
           </div>
-          <!-- pagination end -->
-
-          <!-- Sub Tags Start -->
-          <!-- <div
-            class="d-flex justify-content-between justify-content-lg-between justify-content-xl-between  flex-wrap mt-2 mb-4"
-          >
-            <b-button
-              variant="light"
-              v-for="(item, index) in subTagList"
-              :key="index"
-              @click="showSubTagPosts(item)"
-              class="sub-tag"
-            >
-              {{ item.Channel }}
-            </b-button>
-          </div> -->
-          <!-- Sub Tags End -->
-
-          <!-- <VclChannelCommonCard v-if="$fetchState.pending" />
-          <h4 v-else-if="$fetchState.error">
-            Error while fetching posts: {{ $fetchState.error.message }}
-          </h4>
-          <b-row v-else>
-            <b-col
-              v-if="!dataLoading"
-              cols="12"
-              sm="12"
-              md="12"
-              lg="12"
-              xl="12"
-              class="text-center"
-            >
-              <b-spinner
-                style="width: 3rem; height: 3rem;"
-                label="Large Spinner"
-              ></b-spinner>
-            </b-col>
-
-            <b-col
-              v-else
-              md="4"
-              lg="4"
-              xs="12"
-              sm="6"
-              xl="4"
-              v-for="(article, index) in MobileArticles"
-              :key="index"
-            >
-              <nuxt-link prefetch :to="`/detailPost/${article.slug}`">
-                <ChannelCommonCard :article="article" :data-index="index" />
-              </nuxt-link>
-            </b-col>
-          </b-row> -->
-          <!-- Pagination Start -->
-          <!-- <div class="myPagination">
-            <div class="text-center mt-5 mb-3">
-              <b-button variant="dark" @click="loadData">Load More</b-button>
-            </div>
-          </div> -->
-          <!-- Pagination End -->
         </div>
         <!-- Latest Div End -->
 
@@ -281,6 +284,7 @@
 
 <script>
 import { mapState } from "vuex";
+import { state } from "../../store/authorProfile";
 export default {
   layout: "channel",
   head() {
@@ -363,6 +367,8 @@ export default {
       );
   },
   computed: mapState({
+    TopCards: state => state.mobile.MobileArticles.slice(0, 2),
+    BigCard: state => state.mobile.MobileArticles.slice(2, 3),
     MobileArticles: state => state.mobile.MobileArticles,
     TagArticlesNextLink: state => state.mobile.TagArticlesNextLink
   }),
@@ -408,6 +414,8 @@ export default {
     },
     // show Main tag articles
     async showMainTagPosts(item) {
+      this.parentSelected = false;
+      this.mainTagSelected = true;
       this.dataLoading = false;
       var self = this;
       await this.$axios
@@ -421,16 +429,17 @@ export default {
         })
         .finally(function() {});
       this.dataLoading = true;
-      this.mainTagSelected = true;
-      this.parentSelected = false;
     },
     // show sub tag articles
     async showSubTagPosts(item) {
+      this.subTagSelected = true;
       this.dataLoading = false;
       var self = this;
       await this.$axios
         .$get(item.ChannelDataUrl)
         .then(function(posts) {
+          console.log(posts.results);
+
           self.$store.dispatch("mobile/FetchMobileArticles", posts.results);
           self.$store.dispatch("mobile/SetTagNextDataLink", posts.next);
         })
@@ -439,7 +448,6 @@ export default {
         })
         .finally(function() {});
       this.dataLoading = true;
-      this.subTagSelected = true;
       (this.parentSelected = false), (this.mainTagSelected = false);
     },
     async loadData() {
@@ -518,8 +526,8 @@ export default {
   border: none !important;
 }
 .logo {
-  height: 80px;
-  width: 120px;
+  height: 49px;
+  width: 72px;
   cursor: pointer;
 }
 a {
