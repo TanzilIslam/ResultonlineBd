@@ -68,7 +68,7 @@
             <template v-slot:title>
               <b-img
                 src="~/assets/user/tabs/r.png"
-                style="height:50px;width:50px;"
+                style="height:30px;width:30px;"
               ></b-img>
               Fresh
             </template>
@@ -78,7 +78,7 @@
             <template v-slot:title>
               <b-img
                 src="~/assets/user/tabs/a.png"
-                style="height:50px;width:50px;"
+                style="height:30px;width:30px;"
               ></b-img>
               About
             </template>

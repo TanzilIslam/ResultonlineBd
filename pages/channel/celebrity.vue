@@ -64,21 +64,29 @@
 
         <!--Tab start -->
         <b-tabs :no-nav-style="true" content-class="mt-0 mb-0">
-          <b-tab
-            title="Fresh"
-            title-link-class="text-dark"
-            active
-            @click="goLatest()"
-          >
+          <b-tab title-link-class="text-dark" active @click="goLatest()">
+            <template v-slot:title>
+              <b-img
+                src="~/assets/user/tabs/r.png"
+                style="height:30px;width:30px;"
+              ></b-img>
+              Fresh
+            </template>
             <div class="latest-under-line"></div>
           </b-tab>
-          <b-tab title="About" title-link-class="text-dark" @click="goAbout()">
+          <b-tab title-link-class="text-dark" @click="goAbout()">
+            <template v-slot:title>
+              <b-img
+                src="~/assets/user/tabs/a.png"
+                style="height:30px;width:30px;"
+              ></b-img>
+              About
+            </template>
             <div class="about-under-line"></div>
           </b-tab>
           <hr class="line" />
         </b-tabs>
         <!--Tab End -->
-
         <!-- Latest Div Start -->
         <div v-show="showLatestDiv">
           <!-- Sub Tags Start -->

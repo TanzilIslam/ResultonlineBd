@@ -28,13 +28,23 @@ export const actions = {
     },
     FetchMoreHomeArticles({ commit, rootState }) {
         return ApiService.GetMoreHomeArticles(rootState.home.PageNumber).then(response => {
-            response.data.results.forEach(element => {
-                commit('SET_MORE_HOME_ARTICLES', element)
-            });
-            commit('INCREASE_PAGE_NUMBER')
+            if (response.data.next != null) {
+                response.data.results.forEach(element => {
+                    commit('SET_MORE_HOME_ARTICLES', element)
+                });
+                commit('INCREASE_PAGE_NUMBER')
+            }
+            else {
+                console.log('no more data');
+
+            }
         })
     },
     FetchLatestArticles({ commit }, posts) {
         commit('SET_LATEST_ARTICLES', posts)
+    },
+    More({ commit }, posts) {
+        commit('SET_MORE_HOME_ARTICLES', posts)
+
     }
 }

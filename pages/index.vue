@@ -119,15 +119,23 @@ export default {
   data() {
     return {
       loading: false,
-      loaded: true
+      loaded: true,
+      nextUrl: ""
     };
   },
   async fetch() {
+    var self = this;
     await this.$axios
       .$get(process.env.baseUrl)
-      .then(posts =>
-        this.$store.dispatch("home/FetchHomeArticles", posts.results)
-      );
+      .then(function(posts) {
+        self.$store.dispatch("home/FetchHomeArticles", posts.results);
+        self.nextUrl = posts.next;
+      })
+      .catch(function(error) {
+        console.log("No Net" + error);
+      })
+      .finally(function() {});
+
     await this.$axios
       .$get(process.env.baseUrl + `/latestdata`)
       .then(posts => this.$store.dispatch("home/FetchLatestArticles", posts));
@@ -156,13 +164,37 @@ export default {
       };
     },
     async loadData() {
-      this.loaded = false;
-      try {
-        await this.$store.dispatch("home/FetchMoreHomeArticles");
-      } catch (e) {
-        // alert("No more data" + e);
+      if (this.nextUrl != null) {
+        this.loaded = false;
+        var self = this;
+        await this.$axios
+          .$get(self.nextUrl)
+          .then(function(posts) {
+            posts.results.forEach(element => {
+              self.$store.dispatch("home/More", element);
+            });
+            self.nextUrl = posts.next;
+            self.loaded = true;
+          })
+          .catch(function(error) {
+            console.log("No Net" + error);
+          })
+          .finally(function() {});
+      } else {
+        this.$bvToast.toast("No more data are available", {
+          title: "Go Back",
+          autoHideDelay: 5000,
+          appendToast: true,
+          toaster: "b-toaster-bottom-center",
+          solid: true
+        });
       }
-      this.loaded = true;
+
+      // try {
+      //   await this.$store.dispatch("home/FetchMoreHomeArticles");
+      // } catch (e) {
+      //   alert("No more data" + e);
+      // }
     },
     setview(article) {
       try {
@@ -191,7 +223,7 @@ export default {
 <style scoped>
 .sticky {
   position: sticky;
-  margin-bottom: 30px;
+  top: 0px;
 }
 /* .home{
 

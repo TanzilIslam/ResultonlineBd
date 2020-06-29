@@ -58,6 +58,10 @@ Vue.component('ChannelCover', ChannelCover);
 
 import FixedChannelSideBar from '~/components/user/FixedChannelSideBar'
 Vue.component('FixedChannelSideBar', FixedChannelSideBar);
+
+import Tab from '~/components/user/Tab.vue'
+Vue.component('Tab', Tab);
+
 // Mobile Start
 
 // Mobile End
