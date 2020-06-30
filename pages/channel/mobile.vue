@@ -438,8 +438,6 @@ export default {
       await this.$axios
         .$get(item.ChannelDataUrl)
         .then(function(posts) {
-          console.log(posts.results);
-
           self.$store.dispatch("mobile/FetchMobileArticles", posts.results);
           self.$store.dispatch("mobile/SetTagNextDataLink", posts.next);
         })

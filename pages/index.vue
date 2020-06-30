@@ -78,6 +78,27 @@
         </div>
       </b-col>
     </b-row>
+    <b-toast
+      toaster="b-toaster-bottom-center"
+      id="my-toast"
+      variant="dark"
+      solid
+    >
+      <template v-slot:toast-title>
+        <div class="d-flex flex-grow-1 align-items-baseline">
+          <b-img
+            blank
+            blank-color="black"
+            class="mr-2"
+            width="12"
+            height="12"
+          ></b-img>
+          <strong class="mr-auto">End!</strong>
+          <!-- <small class="text-muted mr-2">42 seconds ago</small> -->
+        </div>
+      </template>
+      No more data are available
+    </b-toast>
   </div>
   <!-- pagination Start -->
   <!-- <div class="myPagination">
@@ -181,13 +202,16 @@ export default {
           })
           .finally(function() {});
       } else {
-        this.$bvToast.toast("No more data are available", {
-          title: "Go Back",
-          autoHideDelay: 5000,
-          appendToast: true,
-          toaster: "b-toaster-bottom-center",
-          solid: true
-        });
+        this.$bvToast.show("my-toast");
+
+        // this.$bvToast.toast("No more data are available", {
+        //   title: "Opps",
+        //   autoHideDelay: 5000,
+        //   appendToast: false,
+        //   toaster: "b-toaster-bottom-center",
+        //   solid: true,
+        //   static: true
+        // });
       }
 
       // try {
