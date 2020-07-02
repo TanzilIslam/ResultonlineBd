@@ -98,9 +98,9 @@
             class="card-image-bottom"
           ></b-card-img>
           <b-card-text text-tag="p" class="card-title-small mt-4">
-            <strong>Beyond Hollywood</strong>
+            Beyond Hollywood
           </b-card-text>
-          <b-card-text text-tag="h5" class="card-des">
+          <b-card-text text-tag="p" class="des">
             Travel to Pakistan, Scandinavia, Ghana and Hong Kong through the
             cultural meaning of film
           </b-card-text>
@@ -167,12 +167,14 @@ export default {};
   font-family: ProximaNova-Bold, helvetica, Arial, sans-serif;
   margin: 5px 0px 0px;
   line-height: 1.29;
+  font-weight: bold;
 }
-.card-des {
-  color: rgb(18, 20, 22);
+.des {
+  color: rgb(79, 70, 70) !important;
   font-size: 14px;
   line-height: 18px;
   margin: 0px;
   padding-right: 10px;
+  font-weight: normal !important;
 }
 </style>
