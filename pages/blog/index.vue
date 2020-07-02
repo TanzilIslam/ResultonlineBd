@@ -10,7 +10,7 @@
           img-height="400"
           class="cover-card"
         >
-          <b-card-text class="cover-title">
+          <b-card-text text-tag="p" class="cover-title">
             Some quick example text to build on the card and make up the bulk of
             the card's content.
           </b-card-text>
@@ -20,6 +20,9 @@
     <b-row class="mt-4">
       <b-col cols="12" class="mt-4 mb-3">
         <h5><strong>The ResultOnlineBd Blog</strong></h5>
+        <h5 class="mb-3">
+          Understand the impact of the outbreak on your travel plans
+        </h5>
       </b-col>
       <b-col cols="12" sm="12" md="4" lg="4" xl="4" v-for="i in 2" :key="i">
         <b-card
@@ -58,10 +61,19 @@
         </div>
       </b-col>
     </b-row>
-    <b-row class="mt-4">
-      <b-col cols="12" class="mb-2 bottom-section-titile"
-        ><h5><strong>Culture Trip Original Series</strong></h5></b-col
+    <b-row no-gutters class="mt-4">
+      <b-col
+        cols="12"
+        md="12"
+        lg="12"
+        xl="12"
+        class="mb-2 mt-4 bottom-section-title"
+        ><h5><strong>Culture Trip Original Series</strong></h5>
+        <h6 class="mb-3" style="font-size:20px;">
+          Top travel stories from around the world
+        </h6></b-col
       >
+
       <b-col
         class="mb-4"
         cols="12"
@@ -72,7 +84,13 @@
         v-for="i in 6"
         :key="i"
       >
-        <b-card class="cover-card-two" no-body img-src="" img-top>
+        <b-card
+          style="margin-bottom:50px;"
+          class="cover-card-two"
+          no-body
+          img-src=""
+          img-top
+        >
           <b-card-img
             width="390"
             height="260"
@@ -104,6 +122,8 @@ export default {};
   font-size: 24px;
   position: absolute;
   bottom: 5px;
+  font-family: "Cambay";
+  font-weight: 700;
 }
 .cover-card {
   border-radius: 0px !important;
@@ -112,9 +132,10 @@ export default {};
 .card-title-one {
   color: rgb(18, 20, 22);
   font-size: 18px;
-  /* font-family: ProximaNova-Bold, helvetica, Arial, sans-serif; */
+  font-family: ProximaNova-Bold, helvetica, Arial, sans-serif;
   margin: 5px 0px 0px;
   line-height: 1.22;
+  font-weight: bold;
 }
 .img-card {
   width: 100% !important;
@@ -135,6 +156,7 @@ export default {};
 }
 .cover-card-two {
   border: none;
+  width: 93% !important;
 }
 .card-image-bottom {
   border-radius: 10px !important;
