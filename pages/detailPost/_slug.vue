@@ -391,6 +391,7 @@ export default {
       .then(posts =>
         this.$store.dispatch("detailPage/FetchRelatedArticles", posts)
       );
+      
     await this.$axios
       .$get(process.env.baseUrl + `/count/${this.$route.params.slug}`)
       .then(posts =>
