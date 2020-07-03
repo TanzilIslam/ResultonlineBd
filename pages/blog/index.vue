@@ -1,68 +1,85 @@
 <template>
   <div class="blog-page">
-    <div class="text-center pt-4" v-if="$fetchState.pending">
-      Loading...
+    <div class="text-center pt-2" v-if="$fetchState.pending">
+      <VclChannelCommonCard />
     </div>
     <div v-else>
+      <!-- cover -->
       <b-row no-gutters class="mt-2 mb-4">
-        <b-col cols="12" sm="6" md="3" lg="3" xl="3" v-for="i in 4" :key="i">
-          <b-card
-            overlay
-            img-src="https://demo.mythemeshop.com/wordx/files/2014/03/war-desert-guns-gunshow-163523-292x400.jpeg"
-            img-alt="Card Image"
-            text-variant="white"
-            img-height="400"
-            class="cover-card"
-          >
-            <b-card-text text-tag="p" class="cover-title">
-              Some quick example text to build on the card and make up the bulk
-              of the card's content.
-            </b-card-text>
-          </b-card>
+        <b-col
+          cols="12"
+          sm="6"
+          md="3"
+          lg="3"
+          xl="3"
+          v-for="(i, index) in cover"
+          :key="index"
+        >
+          <nuxt-link :to="`/blogDetail/${i.blog_slug}`">
+            <b-card
+              overlay
+              :img-src="i.post_img"
+              img-alt="Card Image"
+              text-variant="white"
+              img-height="400"
+              class="cover-card"
+            >
+              <b-card-text text-tag="p" class="cover-title">
+                {{ i.title }}
+              </b-card-text>
+            </b-card>
+          </nuxt-link>
         </b-col>
       </b-row>
       <div style="margin-top:70px;">
         <b-row>
           <b-col cols="12" class="mt-4 mb-3">
-            <h5><strong>The ResultOnlineBd Blog</strong></h5>
+            <div class="d-flex align-self-center mb-2">
+              <b-img
+                src="~/assets/user/tabs/r.png"
+                style="height:35px;width:35px;"
+              ></b-img>
+              <h5 class="ml-2 mt-1"><strong>Fresh</strong></h5>
+            </div>
             <h5 class="mb-3">
-              Understand the impact of the outbreak on your travel plans
+              If you love to read articles,this place is just for you.
             </h5>
           </b-col>
-          <b-col cols="12" sm="12" md="4" lg="4" xl="4" v-for="i in 2" :key="i">
-            <b-card
-              class="cover-card"
-              no-body
-              img-src="https://img.theculturetrip.com/450x300/wp-content/uploads/2020/05/chinatown_4.gif"
-              img-top
-            >
-              <b-card-text class="card-title-one">
-                Some quick example text to build on the card and make up the
-                bulk of the card's content.
-              </b-card-text>
-            </b-card>
+          <b-col
+            cols="12"
+            sm="12"
+            md="4"
+            lg="4"
+            xl="4"
+            v-for="(i, index) in home.slice(0, 2)"
+            :key="index"
+          >
+            <nuxt-link :to="`/blogDetail/${i.blog_slug}`">
+              <b-card class="cover-card" no-body :img-src="i.post_img" img-top>
+                <b-card-text class="card-title-one">
+                  {{ i.title }}
+                </b-card-text>
+              </b-card>
+            </nuxt-link>
           </b-col>
           <b-col cols="12" sm="12" md="4" lg="4" xl="4">
-            <div class="mb-3" v-for="i in 2" :key="i">
-              <div class="d-flex">
-                <div class="img-card">
-                  <b-card
-                    no-body
-                    img-src="https://img.theculturetrip.com/320x213/wp-content/uploads/2020/06/dfmpgk-1.jpg"
-                    img-height="136"
-                    img-width="205"
-                    class="cover-card"
-                  ></b-card>
+            <div
+              class="mb-3"
+              v-for="(i, index) in home.slice(2, 5)"
+              :key="index"
+            >
+              <nuxt-link :to="`/blogDetail/${i.blog_slug}`">
+                <div class="d-flex justify-content-between">
+                  <div class="">
+                    <b-img height="136" width="205" :src="i.post_img"></b-img>
+                  </div>
+                  <div class="card-title-two ml-2">
+                    <h6>
+                      <strong>{{ i.title }}</strong>
+                    </h6>
+                  </div>
                 </div>
-                <div class="card-title-two ml-2">
-                  <h6>
-                    <strong
-                      >Understanding the Meaning of Ubuntu: A Proudly South
-                      African Philosophy</strong
-                    >
-                  </h6>
-                </div>
-              </div>
+              </nuxt-link>
             </div>
           </b-col>
         </b-row>
@@ -100,7 +117,7 @@
             lg="4"
             xl="4"
           >
-            <nuxt-link prefetch :to="`/detailPost/${i.blog_slug}`">
+            <nuxt-link :to="`/blogDetail/${i.blog_slug}`">
               <b-card class="cover-card-two" no-body img-top>
                 <b-card-img
                   width="436"
@@ -134,7 +151,9 @@ export default {
   data() {
     return {
       bottomCards: {},
-      nextDataLink: ""
+      nextDataLink: "",
+      cover: [],
+      home: []
     };
   },
   async fetch() {
@@ -147,6 +166,25 @@ export default {
         // console.log(posts.results);
         self.bottomCards = posts.results;
         self.nextDataLink = posts.next;
+      })
+      .catch(function(error) {
+        console.log("No Net" + error);
+      })
+      .finally(function() {});
+
+    await self.$axios
+      .$get(process.env.baseUrl + "/blog/api/v1/cover")
+      .then(function(posts) {
+        self.cover = posts;
+      })
+      .catch(function(error) {
+        console.log("No Net" + error);
+      })
+      .finally(function() {});
+    await self.$axios
+      .$get(process.env.baseUrl + "/blog/api/v1/blog_home")
+      .then(function(posts) {
+        self.home = posts;
       })
       .catch(function(error) {
         console.log("No Net" + error);
@@ -182,12 +220,27 @@ export default {
 
 } */
 .cover-title {
+  padding-left: 10px !important;
+  padding-bottom: 10px;
   line-height: 1.2;
   font-size: 24px;
   position: absolute;
-  bottom: 5px;
+  bottom: 0px;
+  left: 0px;
   font-family: "Cambay";
-  font-weight: 700;
+  font-weight: 500;
+  /* background: -webkit-gradient(
+    linear,
+    left top,
+    left bottom,
+    from(rgba(0, 0, 0, 0)),
+    to(rgba(0, 0, 0, 0.9))
+  ); */
+  background: linear-gradient(
+    to bottom,
+    rgba(0, 0, 0, 0) 0%,
+    rgba(0, 0, 0, 0.9) 100%
+  );
 }
 .cover-card {
   border-radius: 0px !important;
