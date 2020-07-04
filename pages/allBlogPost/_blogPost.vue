@@ -16,7 +16,7 @@
           v-for="(i, index) in allBlogPost"
           :key="index"
         >
-          <nuxt-link prefetch :to="`/detailPost/${i.blog_slug}`">
+          <nuxt-link prefetch :to="`/blogDetail/${i.blog_slug}`">
             <b-card class="cover-card-two" no-body img-top>
               <b-card-img
                 width="436"

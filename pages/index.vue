@@ -203,22 +203,7 @@ export default {
           .finally(function() {});
       } else {
         this.$bvToast.show("my-toast");
-
-        // this.$bvToast.toast("No more data are available", {
-        //   title: "Opps",
-        //   autoHideDelay: 5000,
-        //   appendToast: false,
-        //   toaster: "b-toaster-bottom-center",
-        //   solid: true,
-        //   static: true
-        // });
       }
-
-      // try {
-      //   await this.$store.dispatch("home/FetchMoreHomeArticles");
-      // } catch (e) {
-      //   alert("No more data" + e);
-      // }
     },
     setview(article) {
       try {
