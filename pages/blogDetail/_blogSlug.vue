@@ -7,19 +7,20 @@
           Error while fetching posts: {{ $fetchState.error.message }}
         </h4>
         <div v-else>
-          <!-- <b-card
+          <b-card
             class="mb-2"
             no-body
-            :img-src="DetailArticle.photo"
+            :img-src="DetailArticle.post_img"
             img-alt="card Image"
             text-variant="white"
             img-height="375"
           ></b-card>
           <span style="font-size:18px" class="text-muted">
-            {{ DetailArticle.contentowners.authorsname }} |
-            {{ DetailArticle.release_date }}
+            {{ DetailArticle.catagry_select.cat_name }}
+            <!-- |
+            {{ DetailArticle.release_date }} -->
           </span>
-          <div class="d-flex float-right mb-4">
+          <!-- <div class="d-flex float-right mb-4">
             <b-img
               class=""
               style="width:20px;height:20px;"
@@ -28,12 +29,12 @@
             <b-card-text text-tag="p" class="text-muted ">{{
               DetailArticle.view
             }}</b-card-text>
-          </div>
+          </div> -->
           <b-card-text class="mt-4" text-tag="h4">{{
             DetailArticle.title
           }}</b-card-text>
 
-          <div v-html="asasa" class="mt-5"></div> -->
+          <div v-html="DetailArticle.decribe_post" class="mt-3 details"></div>
         </div>
       </b-col>
       <b-col
@@ -195,9 +196,12 @@ export default {
   async fetch() {
     var self = this;
     // details data
-    // await self.$axios
-    //   .$get(process.env.baseUrl + `/count/${self.$route.params.blogSlug}`)
-    //   .then(posts => (self.DetailArticle = posts));
+    await self.$axios
+      .$get(
+        process.env.baseUrl +
+          `/blog/api/v1/details/${self.$route.params.blogSlug}`
+      )
+      .then(posts => (self.DetailArticle = posts));
 
     // related data
     await self.$axios
@@ -322,6 +326,7 @@ export default {
   line-height: 1.7;
   font-family: "Roboto", sans-serif;
 }
+
 .more-button-icon {
   left: 12px;
   margin-top: 0;

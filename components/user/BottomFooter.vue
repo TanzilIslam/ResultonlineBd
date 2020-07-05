@@ -1,5 +1,5 @@
 <template>
-  <div class="footer" style="background-color:#fafafa;">
+  <div class="footer" style="background-color:rgb(243, 244, 242);">
     <b-container>
       <b-row no-gutters>
         <b-col cols="12" sm="12" md="3" lg="3" xl="3">

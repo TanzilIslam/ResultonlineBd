@@ -49,7 +49,7 @@ export default {
 .custom-channel-common-card {
   border: none !important;
   cursor: pointer;
-  background-color: #fafafa;
+  background-color: #ffffff;
   margin-bottom: 30px;
 }
 .custom-card-text-date {
