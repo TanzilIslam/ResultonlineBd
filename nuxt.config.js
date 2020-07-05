@@ -64,5 +64,6 @@ export default {
     channelUrl: `http://cdn.resultonlinebd.com/channel_Dataapi?search=`,
     channelPagination: `http://cdn.resultonlinebd.com/channel_Dataapi?page=`,
     channelMainTag: `http://cdn.resultonlinebd.com/tagmanager?search=`
-  }
+  },
+
 }

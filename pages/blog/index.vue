@@ -41,21 +41,25 @@
               ></b-img>
               <h5 class="ml-2 mt-1"><strong>Fresh</strong></h5>
             </div>
-            <h5 class="mb-3">
-              If you love to read articles,this place is just for you.
-            </h5>
           </b-col>
           <b-col
             cols="12"
-            sm="12"
+            sm="6"
             md="4"
             lg="4"
             xl="4"
+            class="mb-5"
             v-for="(i, index) in home.slice(0, 2)"
             :key="index"
           >
             <nuxt-link :to="`/blogDetail/${i.blog_slug}`">
-              <b-card class="cover-card" no-body :img-src="i.post_img" img-top>
+              <b-card
+                class="cover-card"
+                img-height="280"
+                no-body
+                :img-src="i.post_img"
+                img-top
+              >
                 <b-card-text class="card-title-one">
                   {{ i.title }}
                 </b-card-text>
@@ -69,7 +73,7 @@
               :key="index"
             >
               <nuxt-link :to="`/blogDetail/${i.blog_slug}`">
-                <div class="d-flex justify-content-between">
+                <div class="d-flex">
                   <div class="">
                     <b-img height="136" width="205" :src="i.post_img"></b-img>
                   </div>
@@ -97,8 +101,15 @@
             lg="12"
             xl="12"
             class="mb-2 mt-4 bottom-section-title"
-            ><h5>
-              <nuxt-link prefetch :to="`/allBlogPost/${item.cat_name}`"
+          >
+            <h5>
+              <b-img
+                height="40"
+                width="40"
+                class="rounded shadow-sm"
+                :src="item.cat_icon"
+              ></b-img>
+              <nuxt-link prefetch :to="`/allBlogPost/${item.cat_slug}`"
                 ><strong>{{ item.cat_name }}</strong></nuxt-link
               >
             </h5>
@@ -161,9 +172,6 @@ export default {
     await self.$axios
       .$get(process.env.baseUrl + "/blog/api/v1/")
       .then(function(posts) {
-        // self.$store.dispatch("home/FetchHomeArticles", posts.results);
-        // self.nextUrl = posts.next;
-        // console.log(posts.results);
         self.bottomCards = posts.results;
         self.nextDataLink = posts.next;
       })

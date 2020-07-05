@@ -13,7 +13,7 @@
         <b-collapse id="nav-collapse" is-nav> -->
         <b-navbar-nav class="item">
           <b-nav-item to="/" href="#">Home</b-nav-item>
-          <b-nav-item to="/QandA" href="#">Q&A</b-nav-item>
+          <b-nav-item to="/qAnda" href="#">Q&A</b-nav-item>
           <b-nav-item to="/blog" href="#">Blog</b-nav-item>
         </b-navbar-nav>
         <!-- Right aligned nav items -->

@@ -1,10 +1,13 @@
 <template>
   <div>
-    <div v-if="$fetchState.pending" class="text-center pt-4">
-      Loading...
+    <div v-if="$fetchState.pending" class="pt-2">
+      <VclChannelCommonCard />
     </div>
     <div v-else>
-      <h4 class="pt-2 mb-3">{{ $route.params.blogPost }}</h4>
+      <h4 class="pt-2 mb-3">
+        <b-img height="40" width="40" class="rounded" src="icon"></b-img
+        >{{ $route.params.blogPost }}
+      </h4>
       <b-row>
         <b-col
           class="mb-2"
@@ -34,24 +37,75 @@
           </nuxt-link>
         </b-col>
       </b-row>
+      <!-- Pagination Start End -->
+      <div class="myPagination">
+        <div class="text-center mt-5 mb-3">
+          <b-button variant="dark" @click="loadData">Load More</b-button>
+        </div>
+      </div>
+      <!-- Pagination End -->
     </div>
   </div>
+  <!-- </div> -->
 </template>
 
 <script>
 export default {
   data() {
     return {
-      allBlogPost: []
+      allBlogPost: [],
+      nextDataLink: "",
+      icon: ""
     };
   },
   async fetch() {
-    await this.$axios
+    var self = this;
+    await self.$axios
       .$get(
         process.env.baseUrl +
           `/blog/api/v1/filter?search=${this.$route.params.blogPost}`
       )
-      .then(posts => (this.allBlogPost = posts.results));
+      .then(function(posts) {
+        // posts.results.forEach(element => {
+
+        //   element.catagry_select.forEach(elements => {
+        //     self.icon = elements.cat_icon;
+        //   });
+        // });
+
+        self.allBlogPost = posts.results;
+        self.nextDataLink = posts.next;
+      })
+      .catch(function(error) {
+        console.log("No Net" + error);
+      })
+      .finally(function() {});
+  },
+  methods: {
+    async loadData() {
+      if (this.nextDataLink != null) {
+        var self = this;
+        await self.$axios
+          .$get(self.nextDataLink)
+          .then(function(posts) {
+            posts.results.forEach(element => {
+              self.bottomCards.push(element);
+            });
+            self.nextDataLink = posts.next;
+          })
+          .catch(function(error) {
+            console.log("No Net" + error);
+          })
+          .finally(function() {});
+      } else {
+        alert("Null");
+      }
+    }
+  },
+  computed: {
+    // icon() {
+    //   return this.allBlogPost.catagry_select.cat_icon;
+    // }
   }
 };
 </script>
