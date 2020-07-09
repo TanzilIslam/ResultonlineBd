@@ -206,14 +206,14 @@ export default {
     // related data
     await self.$axios
       .$get(process.env.baseUrl + `/blog/api/v1/cover`)
-      .then(posts => (self.RelatedArticles = posts));
+      .then(posts => (self.RelatedArticles = posts.results));
 
     // recomanded data
 
     await self.$axios
       .$get(process.env.baseUrl + "/blog/api/v1/recommended")
       .then(function(posts) {
-        self.RecommendedArticles = posts;
+        self.RecommendedArticles = posts.results;
         // self.this.recommendedNextData = posts.next;
       })
       .catch(function(error) {

@@ -183,7 +183,7 @@ export default {
     await self.$axios
       .$get(process.env.baseUrl + "/blog/api/v1/cover")
       .then(function(posts) {
-        self.cover = posts;
+        self.cover = posts.results;
       })
       .catch(function(error) {
         console.log("No Net" + error);
@@ -192,7 +192,7 @@ export default {
     await self.$axios
       .$get(process.env.baseUrl + "/blog/api/v1/blog_home")
       .then(function(posts) {
-        self.home = posts;
+        self.home = posts.results;
       })
       .catch(function(error) {
         console.log("No Net" + error);
