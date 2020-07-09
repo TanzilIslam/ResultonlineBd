@@ -1,22 +1,21 @@
-import ApiService from '~/services/ApiService.js'
 export const namespaced = true
 export const state = () => ({
-    AuthorArticles: {},
+    AuthorArticles: [],
 })
 
 export const mutations = {
     SET_AUTHOR_ARTICLES(state, payload) {
         state.AuthorArticles = payload
+    },
+    SET_MORE_ARTICLES(state, payload) {
+        state.AuthorArticles.List.push(payload)
     }
 }
 
 export const actions = {
-    // FetchAuthorArticles({ commit }, authorName) {
-    //     return ApiService.GetAuthorArticles(authorName).then(response => {
-    //         commit('SET_AUTHOR_ARTICLES', response.data)
-    //     })
-
-    // }
+    AddMore({ commit }, posts) {
+        commit('SET_MORE_ARTICLES', posts)
+    },
     FetchAuthorArticles({ commit }, posts) {
         commit('SET_AUTHOR_ARTICLES', posts)
     }

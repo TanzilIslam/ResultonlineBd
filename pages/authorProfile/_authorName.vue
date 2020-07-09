@@ -9,7 +9,10 @@
                 <b-img-lazy
                   blank-color="#bbb"
                   class="custom-author-logo mt-4"
-                  :src="AuthorArticles.authorsprofilrimg"
+                  :src="
+                    'http://cdn.resultonlinebd.com/media/' +
+                      AuthorArticles.authorsprofilrimg
+                  "
                 ></b-img-lazy>
                 <div class="vl mt-4"></div>
                 <div class="custom-text mt-4 ml-3">
@@ -72,7 +75,7 @@
         >
           <nuxt-link prefetch :to="`/detailPost/${a.slug}`">
             <AuthorSmallCard
-              :ArticleCover="'http://cdn.resultonlinebd.com' + a.photo"
+              :ArticleCover="'http://cdn.resultonlinebd.com/media/' + a.photo"
               :ArticleTitle="a.title"
               :ArticlePublish="a.release_date"
               :ArticleSlug="a.slug"
@@ -81,6 +84,14 @@
           </nuxt-link>
         </b-col>
       </b-row>
+
+      <!-- Pagination Start End -->
+      <div class="myPagination">
+        <div class="text-center mt-5 mb-3">
+          <b-button variant="dark" @click="loadData">Load More</b-button>
+        </div>
+      </div>
+      <!-- Pagination End -->
     </div>
     <div v-show="showAboutDiv">
       <b-container>
@@ -109,26 +120,17 @@ export default {
     };
   },
   async fetch() {
-    await this.$axios
-      .$get(process.env.baseUrl + `/channel/${this.$route.params.authorName}`)
-      .then(posts =>
-        this.$store.dispatch("authorProfile/FetchAuthorArticles", posts)
-      );
+    var self = this;
+    await self.$axios
+      .$get(process.env.baseUrl + `/channel/${self.$route.params.authorName}`)
+      .then(function(posts) {
+        self.$store.dispatch(
+          "authorProfile/FetchAuthorArticles",
+          posts.results
+        );
+        self.nextLink = posts.next;
+      });
   },
-  // async fetch({ store, error, params }) {
-  //   try {
-  //     await store.dispatch(
-  //       "authorProfile/FetchAuthorArticles",
-  //       params.authorName
-  //     );
-  //   } catch (e) {
-  //     error({
-  //       statusCode: 503,
-  //       message: "Unable to fetch events at this time. Please try again."
-  //     });
-  //   } finally {
-  //   }
-  // },
   computed: mapState({
     AuthorArticles: state => state.authorProfile.AuthorArticles
   }),
@@ -137,7 +139,8 @@ export default {
     return {
       showLatestDiv: true,
       showAboutDiv: false,
-      Loading: false
+      Loading: false,
+      nextLink: ""
     };
   },
   methods: {
@@ -150,6 +153,20 @@ export default {
       var self = this;
       self.showLatestDiv = false;
       self.showAboutDiv = true;
+    },
+    async loadData() {
+      if (this.nextLink != null) {
+        var self = this;
+        await self.$axios.$get(self.nextLink).then(function(posts) {
+          posts.results.List.forEach(element => {
+            self.$store.dispatch("authorProfile/AddMore", element);
+          });
+
+          self.nextLink = posts.next;
+        });
+      } else {
+        alert("null");
+      }
     }
   },
   mounted() {
