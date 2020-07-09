@@ -5,8 +5,13 @@
     </div>
     <div v-else>
       <h4 class="pt-2 mb-3">
-        <b-img height="40" width="40" class="rounded" src="icon"></b-img
-        >{{ $route.params.blogPost }}
+        <b-img
+          height="40"
+          width="40"
+          class="rounded mr-2"
+          :src="'http://cdn.resultonlinebd.com/media/' + allBlogPost.cat_icon"
+        ></b-img
+        >{{ allBlogPost.cat_name }}
       </h4>
       <b-row>
         <b-col
@@ -16,7 +21,7 @@
           md="4"
           lg="4"
           xl="4"
-          v-for="(i, index) in allBlogPost"
+          v-for="(i, index) in allBlogPost.List"
           :key="index"
         >
           <nuxt-link prefetch :to="`/blogDetail/${i.blog_slug}`">
@@ -24,7 +29,7 @@
               <b-card-img
                 width="436"
                 height="280"
-                :src="i.post_img"
+                :src="'http://cdn.resultonlinebd.com/media/' + i.post_img"
                 class="card-image-bottom"
               ></b-card-img>
               <b-card-text text-tag="p" class="card-title-small mt-4">
@@ -63,7 +68,7 @@ export default {
     await self.$axios
       .$get(
         process.env.baseUrl +
-          `/blog/api/v1/filter?search=${this.$route.params.blogPost}`
+          `/blog/api/v1/blog_channel/${this.$route.params.blogPost}`
       )
       .then(function(posts) {
         // posts.results.forEach(element => {
@@ -88,8 +93,8 @@ export default {
         await self.$axios
           .$get(self.nextDataLink)
           .then(function(posts) {
-            posts.results.forEach(element => {
-              self.bottomCards.push(element);
+            posts.results.List.forEach(element => {
+              self.allBlogPost.List.push(element);
             });
             self.nextDataLink = posts.next;
           })
