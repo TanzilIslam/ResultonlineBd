@@ -389,9 +389,9 @@ export default {
     await this.$axios
       .$get(process.env.baseUrl + `/Releted_Data`)
       .then(posts =>
-        this.$store.dispatch("detailPage/FetchRelatedArticles", posts)
+        this.$store.dispatch("detailPage/FetchRelatedArticles", posts.results)
       );
-      
+
     await this.$axios
       .$get(process.env.baseUrl + `/count/${this.$route.params.slug}`)
       .then(posts =>
