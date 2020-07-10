@@ -139,9 +139,9 @@
                 <b-card-text text-tag="p" class="card-title-small mt-4">
                   {{ i.title }}
                 </b-card-text>
-                <b-card-text text-tag="p" class="des">
+                <!-- <b-card-text text-tag="p" class="des">
                   {{ i.decribe_post.slice(0, 80) }}
-                </b-card-text>
+                </b-card-text> -->
               </b-card>
             </nuxt-link>
           </b-col>

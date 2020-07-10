@@ -1,0 +1,136 @@
+<template>
+  <div>
+    <div class="cover mt-2 mb-3">
+      <b-card
+        overlay
+        img-height="190"
+        :img-src="require('~/assets/user/dummyImages/channelCover.jpg')"
+        text-variant="white"
+      >
+        <!-- <nuxt-link prefetch :to="`/allQandA/${i.q_slug}`"> -->
+        <b-card-text text-tag="h2" class="channel-cover-title">
+          <b-img
+            class="shawdo-sm rounded mr-2"
+            height="50"
+            width="50"
+            :src="'http://cdn.resultonlinebd.com/media/' + data.q_icon"
+          ></b-img>
+          {{ data.q_name }}</b-card-text
+        >
+        <!-- </nuxt-link> -->
+      </b-card>
+    </div>
+
+    <b-row>
+      <b-col
+        v-for="(j, index) in data.List"
+        :key="index"
+        cols="12"
+        sm="10"
+        md="10"
+        lg="10"
+        xl="10"
+        class="mb-3"
+      >
+        <nuxt-link prefetch :to="`/qandADetail/${j.q_slug}`">
+          <b-card no-body class="card-body">
+            <div class="d-flex ">
+              <div>
+                <h4>
+                  <strong>{{ j.qname }}</strong>
+                </h4>
+                <p class="text-muted">
+                  {{ j.created_at }}
+                  <b-icon icon="clock-fill" class="ml-1"></b-icon>
+                </p>
+                <p>
+                  {{ j.decribe_post.slice(0, 40) }}
+                </p>
+              </div>
+              <div class="ml-auto">
+                <b-img
+                  :src="'http://cdn.resultonlinebd.com/media/' + j.post_img"
+                  class="rounded"
+                  height="100"
+                  width="100"
+                ></b-img>
+              </div>
+            </div>
+          </b-card>
+        </nuxt-link>
+      </b-col>
+    </b-row>
+    <!-- Pagination Start End -->
+    <div class="myPagination">
+      <div class="text-center mt-5 mb-3">
+        <b-button variant="dark" @click="loadData">Load More</b-button>
+      </div>
+    </div>
+    <!-- Pagination End -->
+  </div>
+</template>
+
+<script>
+export default {
+  data() {
+    return {
+      data: [],
+      next: ""
+    };
+  },
+  async fetch() {
+    var self = this;
+    await self.$axios
+      .$get(
+        process.env.baseUrl +
+          `/q&a/api/v1/q_channel/${self.$route.params.qaSlug}`
+      )
+      .then(function(posts) {
+        console.log(self.data);
+
+        self.data = posts.results;
+        self.next = posts.next;
+      })
+      .catch(function(error) {
+        console.log(error);
+      })
+      .finally(function() {});
+  },
+  methods: {
+    async loadData() {
+      if (this.next != null) {
+        var self = this;
+        await self.$axios
+          .$get(self.next)
+          .then(function(posts) {
+            posts.results.List.forEach(element => {
+              self.data.List.push(element);
+            });
+            self.next = posts.next;
+          })
+          .catch(function(error) {
+            console.log("No Net" + error);
+          })
+          .finally(function() {});
+      } else {
+        alert("Null");
+      }
+    }
+  }
+};
+</script>
+
+<style scoped>
+.channel-cover-title {
+  margin-top: 50px;
+  text-align: center !important;
+  color: white !important;
+}
+a {
+  color: black !important;
+  text-decoration: none !important;
+}
+.card-body {
+  border-radius: 8px;
+}
+</style>
