@@ -372,6 +372,22 @@ export default {
     };
   },
   async fetch() {
+    var self = this;
+    await this.$axios
+      .$get(process.env.baseUrl + `/count/${this.$route.params.slug}`)
+      .then(function(posts) {
+        self.$store.dispatch("detailPage/FetchDetailArticle", posts);
+      });
+
+    await this.$axios
+      .$get(
+        process.env.baseUrl +
+          `/dtl_rlt?search=${this.DetailArticle.channel.channelname}`
+      )
+      .then(posts =>
+        this.$store.dispatch("detailPage/FetchRelatedArticles", posts.results)
+      );
+
     await this.$axios
       .$get(process.env.baseUrl + `/recommended_data`)
       .then(posts =>
@@ -386,18 +402,6 @@ export default {
         this.$store.dispatch("detailPage/FetchHighRatedArticles", posts.results)
       );
 
-    await this.$axios
-      .$get(process.env.baseUrl + `/Releted_Data`)
-      .then(posts =>
-        this.$store.dispatch("detailPage/FetchRelatedArticles", posts.results)
-      );
-
-    await this.$axios
-      .$get(process.env.baseUrl + `/count/${this.$route.params.slug}`)
-      .then(posts =>
-        this.$store.dispatch("detailPage/FetchDetailArticle", posts)
-      );
-
     // code for translate
     // this.$axios.setHeader("Content-Type", "application/x-www-form-urlencoded", [
     //   "post"
@@ -405,13 +409,14 @@ export default {
     // await this.$axios({
     //   method: "POST",
     //   url: "https://google-translate1.p.rapidapi.com/language/translate/v2",
-    //   // headers: {
-    //   "content-type": "application/x-www-form-urlencoded",
-    //   "x-rapidapi-host": "google-translate1.p.rapidapi.com",
-    //   "x-rapidapi-key": "5b2201df96mshfeee16372bdbe7bp1366cbjsnc71f0c228f94",
-    //   "accept-encoding": "application/gzip",
-    //   useQueryString: true
-    // },
+    //   headers: {
+    //     "content-type": "application/x-www-form-urlencoded",
+    //     "x-rapidapi-host": "google-translate1.p.rapidapi.com",
+    //     "x-rapidapi-key": "5b2201df96mshfeee16372bdbe7bp1366cbjsnc71f0c228f94",
+    //     "accept-encoding": "application/gzip",
+    //     useQueryString: true,
+    //     Authorizationtion: "5b2201df96mshfeee16372bdbe7bp1366cbjsnc71f0c228f94"
+    //   },
     //   data: {
     //     source: "en",
     //     q: "Hello, world!",
@@ -454,7 +459,10 @@ export default {
     //   .catch(error => {
     //     console.log(error);
     //   });
-
+    // this.$axios.setHeader(
+    //   "Authorization",
+    //   "Bearer 5b2201df96mshfeee16372bdbe7bp1366cbjsnc71f0c228f94"
+    // );
     // await this.$axios
     //   .$post(
     //     `https://google-translate1.p.rapidapi.com/language/translate/v2`,
@@ -469,7 +477,9 @@ export default {
     //       "x-rapidapi-key":
     //         "5b2201df96mshfeee16372bdbe7bp1366cbjsnc71f0c228f94",
     //       "accept-encoding": "application/gzip",
-    //       useQueryString: true
+    //       useQueryString: true,
+    //       Authorizationtion:
+    //         "Bearer 5b2201df96mshfeee16372bdbe7bp1366cbjsnc71f0c228f94"
     //     }
     //   )
     //   .then(response => {
