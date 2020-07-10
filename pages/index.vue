@@ -159,9 +159,7 @@ export default {
 
     await this.$axios
       .$get(process.env.baseUrl + `/latestdata`)
-      .then(posts =>
-        this.$store.dispatch("home/FetchLatestArticles", posts.results)
-      );
+      .then(posts => this.$store.dispatch("home/FetchLatestArticles", posts));
   },
   computed: mapState({
     HomeArticles: state => state.home.HomeArticles,

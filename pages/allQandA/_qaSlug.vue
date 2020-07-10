@@ -3,7 +3,7 @@
     <div class="cover mt-2 mb-3">
       <b-card
         overlay
-        img-height="190"
+        img-height="160"
         :img-src="require('~/assets/user/dummyImages/channelCover.jpg')"
         text-variant="white"
       >

@@ -2,12 +2,7 @@
   <div class="question-and-answere">
     <div v-for="(i, index) in data" :key="index">
       <div class="cover mt-2 mb-3">
-        <b-card
-          overlay
-          img-height="190"
-          :img-src="require('~/assets/user/dummyImages/channelCover.jpg')"
-          text-variant="white"
-        >
+        <b-card img-height="160" text-variant="black" class="latest-home-card">
           <nuxt-link prefetch :to="`/allQandA/${i.q_slug}`">
             <b-card-text text-tag="h2" class="channel-cover-title">
               <b-img
@@ -122,9 +117,9 @@ export default {
 
 } */
 .channel-cover-title {
-  margin-top: 50px;
+  margin-top: 10px;
   text-align: center !important;
-  color: white !important;
+  color: black !important;
 }
 a {
   color: black !important;
@@ -132,5 +127,11 @@ a {
 }
 .card-body {
   border-radius: 8px;
+}
+.latest-home-card {
+  background: #fff;
+  box-shadow: 0 5px 0.9rem -0.8rem rgba(0, 0, 0, 0.8),
+    0 0 0 1px rgba(0, 0, 0, 0.05);
+  border-radius: 5px;
 }
 </style>
