@@ -1,7 +1,7 @@
 <template>
   <div class="question-and-answere">
     <div class="tags flex-warp d-flex justify-content-between pt-1">
-      <b-button
+      <div
         variant="light"
         v-for="(item, index) in subTagList"
         :key="index"
@@ -9,7 +9,7 @@
         class="qa-tags"
       >
         {{ item.shot_list_name }}
-      </b-button>
+      </div>
     </div>
     <div v-for="(i, index) in data" :key="index">
       <div class="cover mt-2 mb-3">
@@ -169,11 +169,9 @@ a {
 }
 .qa-tags {
   cursor: pointer;
-  background-color: rgba(0, 0, 0, 0.06);
+  background-color: #ebebeb;
   border-radius: 6px;
-  text-align: center;
-  height: 32px;
-  line-height: 32px;
-  padding: 0 30px;
+  height: 40px;
+  padding: 7px 30px;
 }
 </style>
