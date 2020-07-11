@@ -1,16 +1,11 @@
 <template>
   <div>
     <div class="cover mt-2 mb-3">
-      <b-card
-        overlay
-        img-height="160"
-        :img-src="require('~/assets/user/dummyImages/channelCover.jpg')"
-        text-variant="white"
-      >
+      <b-card class="latest-home-card">
         <!-- <nuxt-link prefetch :to="`/allQandA/${i.q_slug}`"> -->
         <b-card-text text-tag="h2" class="channel-cover-title">
           <b-img
-            class="shawdo-sm rounded mr-2"
+            class="shawdo-sm rounded mr-1"
             height="50"
             width="50"
             :src="'http://cdn.resultonlinebd.com/media/' + data.q_icon"
@@ -26,10 +21,10 @@
         v-for="(j, index) in data.List"
         :key="index"
         cols="12"
-        sm="10"
-        md="10"
-        lg="10"
-        xl="10"
+        sm="6"
+        md="6"
+        lg="6"
+        xl="6"
         class="mb-3"
       >
         <nuxt-link prefetch :to="`/qandADetail/${j.q_slug}`">
@@ -47,14 +42,14 @@
                   {{ j.decribe_post.slice(0, 40) }}
                 </p>
               </div>
-              <div class="ml-auto">
+              <!-- <div class="ml-auto">
                 <b-img
                   :src="'http://cdn.resultonlinebd.com/media/' + j.post_img"
                   class="rounded"
                   height="100"
                   width="100"
                 ></b-img>
-              </div>
+              </div> -->
             </div>
           </b-card>
         </nuxt-link>
@@ -122,9 +117,9 @@ export default {
 
 <style scoped>
 .channel-cover-title {
-  margin-top: 50px;
+  margin-top: 20px;
   text-align: center !important;
-  color: white !important;
+  color: rgb(0, 0, 0) !important;
 }
 a {
   color: black !important;
@@ -132,5 +127,12 @@ a {
 }
 .card-body {
   border-radius: 8px;
+}
+.latest-home-card {
+  background: #fff;
+  box-shadow: 0 5px 0.9rem -0.8rem rgba(0, 0, 0, 0.8),
+    0 0 0 1px rgba(0, 0, 0, 0.05);
+  border-radius: 5px;
+  height: 160px;
 }
 </style>

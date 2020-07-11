@@ -1,12 +1,23 @@
 <template>
   <div class="question-and-answere">
+    <div class="tags flex-warp d-flex justify-content-between pt-1">
+      <b-button
+        variant="light"
+        v-for="(item, index) in subTagList"
+        :key="index"
+        @click="showSubTagPosts(item)"
+        class="qa-tags"
+      >
+        {{ item.shot_list_name }}
+      </b-button>
+    </div>
     <div v-for="(i, index) in data" :key="index">
       <div class="cover mt-2 mb-3">
-        <b-card img-height="160" text-variant="black" class="latest-home-card">
+        <b-card class="latest-home-card">
           <nuxt-link prefetch :to="`/allQandA/${i.q_slug}`">
             <b-card-text text-tag="h2" class="channel-cover-title">
               <b-img
-                class="shawdo-sm rounded mr-2"
+                class="shawdo-sm rounded mr-1"
                 height="50"
                 width="50"
                 :src="i.q_icon"
@@ -21,10 +32,10 @@
           v-for="(j, index) in i.List"
           :key="index"
           cols="12"
-          sm="10"
-          md="10"
-          lg="10"
-          xl="10"
+          sm="6"
+          md="6"
+          lg="6"
+          xl="6"
           class="mb-3"
         >
           <nuxt-link prefetch :to="`/qandADetail/${j.q_slug}`">
@@ -42,14 +53,14 @@
                     {{ j.decribe_post.slice(0, 40) }}
                   </p>
                 </div>
-                <div class="ml-auto">
+                <!-- <div class="ml-auto">
                   <b-img
                     :src="'http://cdn.resultonlinebd.com' + j.post_img"
                     class="rounded"
                     height="100"
                     width="100"
                   ></b-img>
-                </div>
+                </div> -->
               </div>
             </b-card>
           </nuxt-link>
@@ -72,11 +83,21 @@ export default {
   data() {
     return {
       data: [],
-      next: ""
+      next: "",
+      subTagList: []
     };
   },
   async fetch() {
     var self = this;
+    await self.$axios
+      .$get(process.env.baseUrl + "/q&a/api/v1/short_list")
+      .then(function(posts) {
+        self.subTagList = posts.results;
+      })
+      .catch(function(error) {
+        console.log(error);
+      });
+
     await self.$axios
       .$get(process.env.baseUrl + "/q&a/api/v1/")
       .then(function(posts) {
@@ -85,8 +106,7 @@ export default {
       })
       .catch(function(error) {
         console.log(error);
-      })
-      .finally(function() {});
+      });
   },
   methods: {
     async loadData() {
@@ -107,6 +127,17 @@ export default {
       } else {
         alert("Null");
       }
+    },
+    async showSubTagPosts(item) {
+      await this.$axios
+        .$get(item.shot_list_data)
+        .then(function(posts) {
+          self.data = posts.results;
+          self.next = posts.next;
+        })
+        .catch(function(error) {
+          console.log("No Net" + error);
+        });
     }
   }
 };
@@ -117,7 +148,8 @@ export default {
 
 } */
 .channel-cover-title {
-  margin-top: 10px;
+  /* margin: auto; */
+  margin-top: 20px;
   text-align: center !important;
   color: black !important;
 }
@@ -133,5 +165,15 @@ a {
   box-shadow: 0 5px 0.9rem -0.8rem rgba(0, 0, 0, 0.8),
     0 0 0 1px rgba(0, 0, 0, 0.05);
   border-radius: 5px;
+  height: 140px;
+}
+.qa-tags {
+  cursor: pointer;
+  background-color: rgba(0, 0, 0, 0.06);
+  border-radius: 6px;
+  text-align: center;
+  height: 32px;
+  line-height: 32px;
+  padding: 0 30px;
 }
 </style>
