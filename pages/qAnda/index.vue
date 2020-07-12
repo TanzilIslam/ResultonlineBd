@@ -1,6 +1,6 @@
 <template>
   <div class="question-and-answere">
-    <div class="tags flex-warp d-flex justify-content-between pt-1">
+    <div class="tags flex-wrap d-flex justify-content-between pt-1">
       <div
         variant="light"
         v-for="(item, index) in subTagList"

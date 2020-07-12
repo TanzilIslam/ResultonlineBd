@@ -121,6 +121,7 @@
 import { mapState } from "vuex";
 import { MoonLoader } from "@saeris/vue-spinners";
 import vuescroll from "vuescroll";
+import axios from "axios";
 export default {
   layout: "default",
   components: { MoonLoader, vuescroll },
@@ -146,8 +147,21 @@ export default {
   },
   async fetch() {
     var self = this;
-    await this.$axios
-      .$get(process.env.baseUrl)
+    self.$axios.setHeader(
+      "Authorization",
+      "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJrZXkiOiJjdXN0b21fdmFsdWUifQ.Gn4_F3IujZkyYR3gygA0TZuVeprhDDiDCWE1LvvCKsY"
+    );
+    // var tokenStr =
+    //   "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJrZXkiOiJjdXN0b21fdmFsdWUifQ.Gn4_F3IujZkyYR3gygA0TZuVeprhDDiDCWE1LvvCKsY";
+    await self.$axios
+      .$get(
+        process.env.baseUrl
+        // , {
+        //   headers: {
+        //     Authorization: `${tokenStr}`
+        //   }
+        // }
+      )
       .then(function(posts) {
         self.$store.dispatch("home/FetchHomeArticles", posts.results);
         self.nextUrl = posts.next;
@@ -156,6 +170,24 @@ export default {
         console.log("No Net" + error);
       })
       .finally(function() {});
+    // var tokenStr =
+    //   "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJrZXkiOiJjdXN0b21fdmFsdWUifQ.Gn4_F3IujZkyYR3gygA0TZuVeprhDDiDCWE1LvvCKsY";
+    // var self = this;
+    // axios
+    //   .get(process.env.baseUrl, {
+    //     headers: {
+    //       Authorization: `${tokenStr}`
+    //     }
+    //   })
+    //   .then(function(posts) {
+    //     console.log(posts.results);
+
+    // self.$store.dispatch("home/FetchHomeArticles", posts.results);
+    // self.nextUrl = posts.next;
+    // })
+    // .catch(function(error) {
+    //   console.log("No Net" + error);
+    // });
 
     await this.$axios
       .$get(process.env.baseUrl + `/latestdata`)
@@ -188,6 +220,10 @@ export default {
       if (this.nextUrl != null) {
         this.loaded = false;
         var self = this;
+        self.$axios.setHeader(
+          "Authorization",
+          "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJrZXkiOiJjdXN0b21fdmFsdWUifQ.Gn4_F3IujZkyYR3gygA0TZuVeprhDDiDCWE1LvvCKsY"
+        );
         await this.$axios
           .$get(self.nextUrl)
           .then(function(posts) {
@@ -223,9 +259,6 @@ export default {
     });
     this.scroll();
   }
-  // destroyed() {
-  //   this.scroll();
-  // }
 };
 </script>
 

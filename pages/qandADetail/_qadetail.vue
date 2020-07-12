@@ -1,6 +1,9 @@
 <template>
   <div class="qa-details">
-    <b-row class="pt-4">
+    <div class="text-center pt-4" v-if="$fetchState.pending">
+      <h4>Loading...</h4>
+    </div>
+    <b-row v-else class="pt-4">
       <b-col class="mb-3" cols="12" sm="12" md="9" lg="9" xl="9">
         <div>
           <div class="question mb-4">
@@ -10,7 +13,7 @@
                   <strong>{{ data.qname }}</strong>
                 </h4>
                 <p class="text-muted">
-                  {{ data.catagry_select.q_name }}
+                  {{ data.catagry.publisher }}
                 </p>
                 <p>{{ data.decribe_post }}</p>
               </div>
