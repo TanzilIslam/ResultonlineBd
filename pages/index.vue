@@ -147,21 +147,13 @@ export default {
   },
   async fetch() {
     var self = this;
+    // token
     self.$axios.setHeader(
       "Authorization",
       "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJrZXkiOiJjdXN0b21fdmFsdWUifQ.Gn4_F3IujZkyYR3gygA0TZuVeprhDDiDCWE1LvvCKsY"
     );
-    // var tokenStr =
-    //   "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJrZXkiOiJjdXN0b21fdmFsdWUifQ.Gn4_F3IujZkyYR3gygA0TZuVeprhDDiDCWE1LvvCKsY";
     await self.$axios
-      .$get(
-        process.env.baseUrl
-        // , {
-        //   headers: {
-        //     Authorization: `${tokenStr}`
-        //   }
-        // }
-      )
+      .$get(process.env.baseUrl)
       .then(function(posts) {
         self.$store.dispatch("home/FetchHomeArticles", posts.results);
         self.nextUrl = posts.next;
@@ -170,25 +162,6 @@ export default {
         console.log("No Net" + error);
       })
       .finally(function() {});
-    // var tokenStr =
-    //   "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJrZXkiOiJjdXN0b21fdmFsdWUifQ.Gn4_F3IujZkyYR3gygA0TZuVeprhDDiDCWE1LvvCKsY";
-    // var self = this;
-    // axios
-    //   .get(process.env.baseUrl, {
-    //     headers: {
-    //       Authorization: `${tokenStr}`
-    //     }
-    //   })
-    //   .then(function(posts) {
-    //     console.log(posts.results);
-
-    // self.$store.dispatch("home/FetchHomeArticles", posts.results);
-    // self.nextUrl = posts.next;
-    // })
-    // .catch(function(error) {
-    //   console.log("No Net" + error);
-    // });
-
     await this.$axios
       .$get(process.env.baseUrl + `/latestdata`)
       .then(posts => this.$store.dispatch("home/FetchLatestArticles", posts));
