@@ -1,5 +1,6 @@
 <template>
   <div class="question-and-answere">
+    <!-- tags -->
     <div class="tags flex-wrap d-flex justify-content-between pt-1">
       <div
         variant="light"
@@ -11,6 +12,7 @@
         {{ item.shot_list_name }}
       </div>
     </div>
+
     <div v-for="(i, index) in data" :key="index">
       <div class="cover mt-2 mb-3">
         <b-card class="latest-home-card">
@@ -22,7 +24,7 @@
                 width="50"
                 :src="i.q_icon"
               ></b-img>
-              {{ i.q_name }}</b-card-text
+              {{ i.publisher }}</b-card-text
             >
           </nuxt-link>
         </b-card>
@@ -40,27 +42,17 @@
         >
           <nuxt-link prefetch :to="`/qandADetail/${j.q_slug}`">
             <b-card no-body class="card-body">
-              <div class="d-flex ">
-                <div>
-                  <h4>
-                    <strong>{{ j.qname }}</strong>
-                  </h4>
-                  <p class="text-muted">
-                    {{ j.created_at }}
-                    <b-icon icon="clock-fill" class="ml-1"></b-icon>
-                  </p>
-                  <p>
-                    {{ j.decribe_post.slice(0, 40) }}
-                  </p>
-                </div>
-                <!-- <div class="ml-auto">
-                  <b-img
-                    :src="'http://cdn.resultonlinebd.com' + j.post_img"
-                    class="rounded"
-                    height="100"
-                    width="100"
-                  ></b-img>
-                </div> -->
+              <div @click="setView(j.post_views, j.q_slug)">
+                <h4>
+                  <strong>{{ j.qname }}</strong>
+                </h4>
+                <p class="text-muted">
+                  {{ j.created_at }}
+                  <b-icon icon="clock-fill" class="ml-1"></b-icon>
+                </p>
+                <p>
+                  {{ j.decribe_post.slice(0, 40) }}
+                </p>
               </div>
             </b-card>
           </nuxt-link>
@@ -137,6 +129,16 @@ export default {
         })
         .catch(function(error) {
           console.log("No Net" + error);
+        });
+    },
+    async setView(view, slug) {
+      this.$axios
+        .$put(process.env.baseUrl + `/q&a/api/v1/dtls/${slug}`, {
+          post_views: view + 1
+        })
+        .then(function(response) {})
+        .catch(function(e) {
+          console.log(e);
         });
     }
   }

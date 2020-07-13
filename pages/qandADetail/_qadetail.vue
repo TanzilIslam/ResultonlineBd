@@ -9,9 +9,21 @@
           <div class="question mb-4">
             <b-card no-body>
               <div class="m-4">
-                <h4>
-                  <strong>{{ data.qname }}</strong>
-                </h4>
+                <div class="d-flex w-100">
+                  <div>
+                    <h4>
+                      <strong>{{ data.qname }}</strong>
+                    </h4>
+                  </div>
+
+                  <div class="ml-auto">
+                    <div class="d-flex">
+                      <b-icon icon="eye-fill" class="mt-1 ml-2 mr-1"></b-icon>
+                      {{ data.post_views }}
+                      <b-icon icon="reply" class="mt-1 ml-4"></b-icon>
+                    </div>
+                  </div>
+                </div>
                 <p class="text-muted">
                   {{ data.catagry.publisher }}
                 </p>
