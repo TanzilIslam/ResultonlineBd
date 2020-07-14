@@ -204,7 +204,7 @@
                       }}
                     </h5>
                     <div class="mt-2 related-date-channel">
-                      <span>{{ i.channel.channelname }} |</span>
+                      <span>{{ i.contentowners.authorsname }} |</span>
                       <span class="text-muted">{{ i.release_date }}</span>
                     </div>
                   </div>
