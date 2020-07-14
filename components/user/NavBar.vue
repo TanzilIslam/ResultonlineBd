@@ -11,8 +11,8 @@
         </b-navbar-brand>
         <b-navbar-nav class="item ml-4">
           <b-nav-item to="/" href="#">Home</b-nav-item>
-          <b-nav-item to="/qAnda" class="ml-4" href="#">Q&A</b-nav-item>
-          <b-nav-item to="/blog" class="ml-4" href="#">Blog</b-nav-item>
+          <b-nav-item to="/qAnda" class="ml-1" href="#">Q&A</b-nav-item>
+          <b-nav-item to="/blog" class="ml-1" href="#">Blog</b-nav-item>
         </b-navbar-nav>
         <!-- Right aligned nav items -->
         <b-navbar-nav class="ml-auto">

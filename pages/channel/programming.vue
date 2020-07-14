@@ -1,9 +1,9 @@
 <template>
   <div class="programming-post">
-    <b-row>
+    <b-row no-gutters>
       <!-- sideBar Start -->
-      <b-col cols="12" sm="12" md="3" lg="3" xl="3">
-        <div class=" channel-side-bar mb-4">
+      <b-col class="pr-2" cols="12" sm="12" md="3" lg="3" xl="3">
+        <div class="channel-side-bar mb-4">
           <div class="d-flex  channel-side-bar-title">
             <b-icon
               v-b-toggle.sidebar-backdrop
