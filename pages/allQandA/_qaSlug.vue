@@ -67,8 +67,7 @@ export default {
     var self = this;
     await self.$axios
       .$get(
-        process.env.baseUrl +
-          `/q&a/api/v1/q_channel/${self.$route.params.qaSlug}`
+        process.env.baseUrl + `/q&a/api/v1/channel/${self.$route.params.qaSlug}`
       )
       .then(function(posts) {
         console.log(self.data);

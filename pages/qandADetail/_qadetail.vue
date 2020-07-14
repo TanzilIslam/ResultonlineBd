@@ -54,8 +54,14 @@
             <h5 class="mb-3 pt-3 ml-3" style="color:#71839f;">
               Suggested Topics
             </h5>
-            <b-list-group-item class="qa-list-item" v-for="i in 10" :key="i">
-              Multi tasking for software engineers, good or evil?
+            <b-list-group-item
+              class="qa-list-item"
+              v-for="(i, index) in relatedData"
+              :key="index"
+            >
+              <nuxt-link prefetch :to="`/qandADetail/${i.q_slug}`">
+                {{ i.qname }}
+              </nuxt-link>
             </b-list-group-item>
           </b-list-group>
         </b-card>
@@ -69,7 +75,7 @@ export default {
   data() {
     return {
       data: {},
-      suggested: []
+      relatedData: []
     };
   },
   async fetch() {
@@ -84,18 +90,36 @@ export default {
       .catch(function(e) {
         console.log(e);
       });
+
+    await self.$axios
+      .$get(
+        process.env.baseUrl +
+          `/q&a/api/v1/q_related_data/${self.data.catagry.publisher}`
+      )
+      .then(function(posts) {
+        self.relatedData = posts;
+      })
+      .catch(function(e) {
+        console.log(e);
+      });
   }
 };
 </script>
 
 <style scoped>
+@import url("https://fonts.googleapis.com/css2?family=Inter&display=swap");
+
 .qa-list-item {
   border: none;
   font-size: 0.875rem;
   line-height: 1.25;
   font-weight: 500;
 }
+a {
+  color: black;
+  text-decoration: none;
+}
 .qa-details {
-  font-family: "Roboto", sans-serif;
+  font-family: "Inter", sans-serif;
 }
 </style>
