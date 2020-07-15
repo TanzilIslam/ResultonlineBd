@@ -13,6 +13,10 @@ export default {
     ],
     link: [
       { rel: 'png', type: 'image/x-icon', href: '/favicon.ico' },
+      // {
+      //   rel: "stylesheet",
+      //   href: "https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.0.0/animate.min.css"
+      // }
       // { rel: 'stylesheet', href: "https://fonts.googleapis.com/css2?family=Roboto:ital@1&display=swap" }
     ]
   },

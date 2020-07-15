@@ -29,28 +29,29 @@
               </b-button>
             </b-input-group-append>
           </b-input-group>
-
-          <div class="ml-4" v-if="showDropdown">
-            <div class="d-flex w-100">
-              <div class="c-dropdown">
-                <b-form-select
-                  class="my-select"
-                  v-model="selected"
-                  :options="options"
-                ></b-form-select>
-              </div>
-              <div class="ml-3 clos-icon">
-                <b-icon
-                  icon="x"
-                  @click="showDropdown = false"
-                  variant="light"
-                  scale="2"
-                  class="mt-2"
-                  style="cursor:pointer;"
-                ></b-icon>
+          <transition name="fade">
+            <div class="ml-4 dp-section" v-if="showDropdown">
+              <div class="d-flex w-100">
+                <div class="c-dropdown">
+                  <b-form-select
+                    class="my-select"
+                    v-model="selected"
+                    :options="options"
+                  ></b-form-select>
+                </div>
+                <div class="ml-3 clos-icon">
+                  <b-icon
+                    icon="x"
+                    @click="showDropdown = false"
+                    variant="light"
+                    scale="2"
+                    class="mt-2"
+                    style="cursor:pointer;"
+                  ></b-icon>
+                </div>
               </div>
             </div>
-          </div>
+          </transition>
           <!-- </b-nav-form> -->
         </b-navbar-nav>
         <!-- </b-collapse> -->
@@ -119,4 +120,15 @@ a {
 /* .search-bar{
 
 }  */
+/* .dp-section {
+  animation: fadeInDown;
+  animation-duration: 1s;
+} */
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.5s;
+}
+.fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
+  opacity: 0;
+}
 </style>
