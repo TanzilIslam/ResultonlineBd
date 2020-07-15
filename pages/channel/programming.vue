@@ -7,10 +7,10 @@
           <div class="d-flex  channel-side-bar-title">
             <b-icon
               v-b-toggle.sidebar-backdrop
-              class="ml-2 p-1 my-auto  menu-logo"
+              class="ml-3 p-1 my-auto  menu-logo"
               scale="2"
               style="cursor:pointer;"
-              icon=" list"
+              icon="chevron-right"
             ></b-icon>
             <h5 class="mx-auto my-auto">
               Programming
