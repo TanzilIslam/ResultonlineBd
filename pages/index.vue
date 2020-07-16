@@ -4,9 +4,49 @@
     <Breadcrumb :allActive="true" />
 
     <b-row>
+      <!-- Channel start -->
       <b-col cols="12" sm="12" md="3" lg="3" xl="3">
         <SideBar />
+        <div class="pt-4 mb-3">
+          <b-row class="m-1" style="background-color:#f5f7fa;">
+            <b-col
+              class="pt-1"
+              cols="3"
+              sm="3"
+              md="6"
+              lg="6"
+              xl="6"
+              v-for="(i, index) in footerList"
+              :key="index"
+            >
+              <nuxt-link :to="i.link">
+                <div class="mb-4">{{ i.name }}</div></nuxt-link
+              >
+            </b-col>
+            <b-col class="pt-2 pb-3" cols="12" sm="12" md="12" lg="12" xl="12">
+              <div class="d-flex justify-content-around social-icon">
+                <b-img
+                  class="social-icons"
+                  :src="require('~/assets/user/footer/facebook.png')"
+                ></b-img>
+
+                <b-img
+                  class="social-icons"
+                  :src="require('~/assets/user/footer/instagram.png')"
+                ></b-img>
+                <b-img
+                  class="social-icons"
+                  :src="require('~/assets/user/footer/twitter.png')"
+                ></b-img>
+              </div>
+              <div class="pt-2 text-center">© 2020 · NuxtIt</div>
+            </b-col>
+          </b-row>
+        </div>
       </b-col>
+      <!-- channel end -->
+
+      <!-- latest start -->
       <b-col
         cols="12"
         sm="12"
@@ -53,7 +93,63 @@
             </b-list-group-item>
           </b-list-group>
         </div>
+
+        <div class="blog pt-3">
+          <div class="mb-3" v-for="(i, index) in blog" :key="index">
+            <nuxt-link :to="`/blogDetail/${i.blog_slug}`">
+              <b-card no-body style="border:none">
+                <b-card-img
+                  height="160"
+                  :src="i.post_img"
+                  style="border-radius: 10px;"
+                ></b-card-img>
+
+                <b-card-text text-tag="p" class="text-muted">
+                  {{ i.created_at }}
+                </b-card-text>
+                <b-card-text text-tag="p" class="custom-card-text-title mt-2">
+                  {{ i.title }}
+                </b-card-text>
+              </b-card>
+            </nuxt-link>
+          </div>
+        </div>
+
+        <div class="qanda pt-3">
+          <b-row no-gutters>
+            <b-col
+              class=""
+              cols="6"
+              sm="6"
+              md="6"
+              lg="6"
+              xl="6"
+              v-for="(j, index) in qandA"
+              :key="index"
+            >
+              <nuxt-link prefetch :to="`/qandADetail/${j.q_slug}`">
+                <b-card class="p-1" no-body style="border-radius: 8px;">
+                  <div @click="setViewQandA(j.post_views, j.q_slug)">
+                    <h4>
+                      <strong>{{ j.qname }}</strong>
+                    </h4>
+                    <p class="text-muted">
+                      {{ j.created_at }}
+                      <b-icon icon="clock-fill" class="ml-1"></b-icon>
+                    </p>
+                    <p>
+                      {{ j.decribe_post.slice(0, 40) }}
+                    </p>
+                  </div>
+                </b-card>
+              </nuxt-link>
+            </b-col>
+          </b-row>
+        </div>
       </b-col>
+      <!-- latest end -->
+
+      <!-- home card start -->
       <b-col cols="12" sm="12" md="5" lg="5" xl="5">
         <div class="sticky">
           <div class="home-cards">
@@ -77,28 +173,33 @@
           </div>
         </div>
       </b-col>
+      <!-- home card end -->
     </b-row>
-    <b-toast
-      toaster="b-toaster-bottom-center"
-      id="my-toast"
-      variant="dark"
-      solid
-    >
-      <template v-slot:toast-title>
-        <div class="d-flex flex-grow-1 align-items-baseline">
-          <b-img
-            blank
-            blank-color="black"
-            class="mr-2"
-            width="12"
-            height="12"
-          ></b-img>
-          <strong class="mr-auto">End!</strong>
-          <!-- <small class="text-muted mr-2">42 seconds ago</small> -->
-        </div>
-      </template>
-      No more data are available
-    </b-toast>
+    <div>
+      <!-- toast start -->
+      <b-toast
+        toaster="b-toaster-bottom-center"
+        id="my-toast"
+        variant="dark"
+        solid
+      >
+        <template v-slot:toast-title>
+          <div class="d-flex flex-grow-1 align-items-baseline">
+            <b-img
+              blank
+              blank-color="black"
+              class="mr-2"
+              width="12"
+              height="12"
+            ></b-img>
+            <strong class="mr-auto">End!</strong>
+            <!-- <small class="text-muted mr-2">42 seconds ago</small> -->
+          </div>
+        </template>
+        No more data are available
+      </b-toast>
+      <!-- tost end -->
+    </div>
   </div>
   <!-- pagination Start -->
   <!-- <div class="myPagination">
@@ -142,21 +243,45 @@ export default {
     return {
       loading: false,
       loaded: true,
-      nextUrl: ""
+      nextUrl: "",
+      footerList: [
+        {
+          name: "Terms",
+          link: ""
+        },
+        {
+          name: "Privacy",
+          link: ""
+        },
+        {
+          name: "Get In Touch",
+          link: ""
+        },
+        {
+          name: "About Us",
+          link: ""
+        }
+      ],
+      blog: [],
+      qandA: []
     };
   },
   async fetch() {
     var self = this;
     var tokenStr1 =
       "dhhdofhofhwefieo90zSeheoip.Nwwuhehewuheo#ddofhh$$iohdoishNb<annsiasias>abssbuis<snosoiasnios>";
-    var tokenStr2 =
-      "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJrZXkiOiJjdXN0b21fdmFsdWUifQ.Gn4_F3IujZkyYR3gygA0TZuVeprhDDiDCWE1LvvCKsY";
-    self.$axios.setHeader(
-      "Authorization",
-      `Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJrZXkiOiJjdXN0b21fdmFsdWUifQ.Gn4_F3IujZkyYR3gygA0TZuVeprhDDiDCWE1LvvCKsY${tokenStr1}`
-    );
+    // var tokenStr2 =
+    //   "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJrZXkiOiJjdXN0b21fdmFsdWUifQ.Gn4_F3IujZkyYR3gygA0TZuVeprhDDiDCWE1LvvCKsY";
+    // self.$axios.setHeader(
+    //   "Authorization",
+    //   `Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJrZXkiOiJjdXN0b21fdmFsdWUifQ.Gn4_F3IujZkyYR3gygA0TZuVeprhDDiDCWE1LvvCKsY${tokenStr1}`
+    // );
     await self.$axios
-      .$get(process.env.baseUrl)
+      .$get(process.env.baseUrl, {
+        headers: {
+          Authorization: `Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJrZXkiOiJjdXN0b21fdmFsdWUifQ.Gn4_F3IujZkyYR3gygA0TZuVeprhDDiDCWE1LvvCKsY`
+        }
+      })
       .then(function(posts) {
         self.$store.dispatch("home/FetchHomeArticles", posts.results);
         self.nextUrl = posts.next;
@@ -168,6 +293,16 @@ export default {
     await this.$axios
       .$get(process.env.baseUrl + `/latestdata`)
       .then(posts => this.$store.dispatch("home/FetchLatestArticles", posts));
+
+    // blog
+    await this.$axios
+      .$get(process.env.baseUrl + `/blog/api/v1/home_card`)
+      .then(posts => (this.blog = posts));
+
+    // qand a
+    await this.$axios
+      .$get(process.env.baseUrl + `/q&a/api/v1/qanda_home`)
+      .then(posts => (this.qandA = posts));
   },
   computed: mapState({
     HomeArticles: state => state.home.HomeArticles,
@@ -217,7 +352,7 @@ export default {
         this.$bvToast.show("my-toast");
       }
     },
-    setview(article) {
+    setviewqAndA(article) {
       try {
         this.$axios.$put(process.env.baseUrl + `/count/${article.slug}`, {
           view: article.view + 1
@@ -226,6 +361,16 @@ export default {
       } catch (e) {
         alert("No more data" + e);
       }
+    },
+    async setView(view, slug) {
+      this.$axios
+        .$put(process.env.baseUrl + `/q&a/api/v1/dtls/${slug}`, {
+          post_views: view + 1
+        })
+        .then(function(response) {})
+        .catch(function(e) {
+          console.log(e);
+        });
     }
   },
   mounted() {
@@ -301,5 +446,19 @@ export default {
 a {
   color: black !important;
   text-decoration: none !important;
+}
+.social-icons {
+  height: 25px;
+  width: 25px;
+  margin-right: 25px;
+  cursor: pointer;
+}
+.custom-card-text-title {
+  margin-top: 0px !important;
+  color: rgb(27, 30, 33);
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 1.4;
+  letter-spacing: -0.5px;
 }
 </style>
