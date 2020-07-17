@@ -1,7 +1,7 @@
 <template>
   <div class="home-card">
     <div class="custom-home-card rounded">
-      <b-card no-body style="max-width: 40rem;" class="mb-4">
+      <b-card no-body class="mb-4">
         <div class="d-inline-flex">
           <div class="ml-3 mt-3 mb-2">
             <b-card-img-lazy

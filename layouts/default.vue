@@ -1,7 +1,7 @@
 <template>
   <div>
     <NavBar />
-    <b-container class="container-fluid">
+    <b-container>
       <nuxt />
     </b-container>
   </div>
@@ -10,4 +10,9 @@
 export default {};
 </script>
 <style  scoped>
+/* @media (min-width: 992px) {
+  .custom-container {
+    width: 992px;
+  }
+} */
 </style>

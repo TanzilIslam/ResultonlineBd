@@ -29,7 +29,7 @@
               </b-button>
             </b-input-group-append>
           </b-input-group>
-          <transition name="fade">
+          <!-- <transition name="fade">
             <div class="ml-4 dp-section" v-if="showDropdown">
               <div class="d-flex w-100">
                 <div class="c-dropdown">
@@ -51,7 +51,7 @@
                 </div>
               </div>
             </div>
-          </transition>
+          </transition> -->
           <!-- </b-nav-form> -->
         </b-navbar-nav>
         <!-- </b-collapse> -->

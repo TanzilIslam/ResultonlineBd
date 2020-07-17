@@ -210,7 +210,7 @@
                   </div>
                 </div>
               </nuxt-link>
-              <hr />
+              <hr class=" mb-1" />
             </b-list-group-item>
           </b-list-group>
         </div>
@@ -712,7 +712,7 @@ p {
 }
 .custom-list-item {
   border: none !important;
-  margin-bottom: 2px;
+  margin-bottom: 9px;
   cursor: pointer;
   padding: 0px !important;
 }
@@ -722,12 +722,12 @@ p {
   text-align: left;
   font-size: 16px;
 } */
-/* .latest-home-card { */
-/* background: #fff; */
-/* box-shadow: 0 5px 0.9rem -0.8rem rgba(0, 0, 0, 0.8),
+.latest-home-card {
+  background: #fff;
+  box-shadow: 0 5px 0.9rem -0.8rem rgba(0, 0, 0, 0.8),
     0 0 0 1px rgba(0, 0, 0, 0.05);
-  border-radius: 5px; */
-/* } */
+  border-radius: 5px;
+}
 .related-card-title {
   color: rgb(27, 30, 33);
   font-weight: 400;

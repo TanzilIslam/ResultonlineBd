@@ -3,7 +3,7 @@
     <Carousel />
     <Breadcrumb :allActive="true" />
 
-    <b-row>
+    <b-row style="margin-right:0px;margin-left:0px;">
       <!-- Channel start -->
       <b-col cols="12" sm="12" md="3" lg="3" xl="3">
         <SideBar />
@@ -21,6 +21,7 @@
             >
               <!-- <nuxt-link :to="i.link"> -->
               <p class="mb-3 footer-name link-hover">{{ i.name }}</p>
+
               <!-- </nuxt-link -->
             </b-col>
             <b-col class="pt-1" cols="12" sm="12" md="12" lg="12" xl="12">
@@ -108,11 +109,12 @@
                   ></b-card-img>
                   <b-card-text
                     text-tag="p"
-                    class="custom-card-text-title pt-2 pl-1"
+                    class="custom-card-text-title pt-2 pb-4 pl-1"
                   >
                     {{ i.title }}
                   </b-card-text>
                 </b-card>
+                <hr class="mx-3 my-0" v-if="index == 0" />
               </nuxt-link>
             </div>
           </div>
@@ -123,16 +125,15 @@
           <hr class="custom-latest-hr" />
           <b-row>
             <b-col
-              class=""
-              cols="6"
-              sm="6"
-              md="6"
-              lg="6"
-              xl="6"
+              cols="12"
+              sm="12"
+              md="12"
+              lg="12"
+              xl="12"
               v-for="(j, index) in qandA"
               :key="index"
             >
-              <div class="pl-2 pr-2">
+              <div class="pl-2 pr-2 mb-3">
                 <nuxt-link prefetch :to="`/qandADetail/${j.q_slug}`">
                   <b-card class="pl-2 pt-2" no-body>
                     <div @click="setViewQandA(j.post_views, j.q_slug)">
@@ -411,7 +412,8 @@ export default {
   top: 0px;
 }
 
-.link-hover :hover {
+p.link-hover :hover {
+  display: none;
   background-color: #cfbebe !important;
   border-radius: 8px;
 }
