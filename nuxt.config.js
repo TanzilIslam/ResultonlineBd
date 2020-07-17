@@ -71,5 +71,8 @@ export default {
     channelPagination: `http://cdn.resultonlinebd.com/channel_Dataapi?page=`,
     channelMainTag: `http://cdn.resultonlinebd.com/tagmanager?search=`
   },
+  server: {
+    host: '0'
+  }
 
 }

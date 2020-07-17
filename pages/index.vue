@@ -20,26 +20,26 @@
               :key="index"
             >
               <!-- <nuxt-link :to="i.link"> -->
-              <p class="mb-4 footer-name link-hover">{{ i.name }}</p>
+              <p class="mb-3 footer-name link-hover">{{ i.name }}</p>
               <!-- </nuxt-link -->
             </b-col>
             <b-col class="pt-1" cols="12" sm="12" md="12" lg="12" xl="12">
               <div class="d-flex justify-content-start social-icon">
                 <b-img
                   class="footer-name social-icons"
-                  :src="require('~/assets/user/footer/facebook.png')"
+                  :src="require('~/assets/user/footer/facebook-circled.png')"
                 ></b-img>
 
                 <b-img
                   class="footer-name social-icons"
-                  :src="require('~/assets/user/footer/instagram.png')"
+                  :src="require('~/assets/user/footer/images.jpeg')"
                 ></b-img>
                 <b-img
                   class="footer-name social-icons"
-                  :src="require('~/assets/user/footer/twitter.png')"
+                  :src="require('~/assets/user/footer/download.png')"
                 ></b-img>
               </div>
-              <div class="pt-4 footer-name">© 2020 · NuxtIt</div>
+              <div class="pt-3 footer-name">© 2020 · NuxtIt</div>
             </b-col>
           </b-row>
         </div>
@@ -100,17 +100,16 @@
             <hr class="custom-latest-hr" />
             <div class="mb-4" v-for="(i, index) in blog" :key="index">
               <nuxt-link :to="`/blogDetail/${i.blog_slug}`">
-                <b-card no-body style="border:none">
+                <b-card class="pl-2 pr-2" no-body style="border:none">
                   <b-card-img
                     height="160"
                     :src="i.post_img"
                     style="border-radius: 10px;"
                   ></b-card-img>
-
-                  <b-card-text text-tag="p" class="text-muted">
-                    {{ i.created_at }}
-                  </b-card-text>
-                  <b-card-text text-tag="p" class="custom-card-text-title mt-2">
+                  <b-card-text
+                    text-tag="p"
+                    class="custom-card-text-title pt-2 pl-1"
+                  >
                     {{ i.title }}
                   </b-card-text>
                 </b-card>
@@ -119,7 +118,7 @@
           </div>
         </div>
 
-        <div class="qanda pt-4 latest-home-card">
+        <div class="qanda pt-4 mb-4 latest-home-card">
           <h5 class="custom-latest-title ml-2">Q and A</h5>
           <hr class="custom-latest-hr" />
           <b-row>
@@ -133,9 +132,9 @@
               v-for="(j, index) in qandA"
               :key="index"
             >
-              <div>
+              <div class="pl-2 pr-2">
                 <nuxt-link prefetch :to="`/qandADetail/${j.q_slug}`">
-                  <b-card class="pl-2" no-body style="border:none">
+                  <b-card class="pl-2 pt-2" no-body>
                     <div @click="setViewQandA(j.post_views, j.q_slug)">
                       <h6>
                         <strong>{{ j.qname }}</strong>
@@ -315,20 +314,21 @@ export default {
   methods: {
     scroll() {
       window.onscroll = () => {
-        let bottomOfWindow =
-          Math.max(
-            window.pageYOffset,
-            document.documentElement.scrollTop,
-            document.body.scrollTop
-          ) +
-            window.innerHeight ===
-          document.documentElement.offsetHeight;
+        this.lazyload();
+        // let bottomOfWindow =
+        //   Math.max(
+        //     window.pageYOffset,
+        //     document.documentElement.scrollTop,
+        //     document.body.scrollTop
+        //   ) +
+        //     window.innerHeight ===
+        //   document.documentElement.offsetHeight;
 
-        if (bottomOfWindow) {
-          if (this.$route.path === "/") {
-            this.loadData();
-          }
-        }
+        // if (bottomOfWindow) {
+        //   if (this.$route.path === "/") {
+        //     this.loadData();
+        //   }
+        // }
       };
     },
     async loadData() {
@@ -375,6 +375,16 @@ export default {
         .catch(function(e) {
           console.log(e);
         });
+    },
+    async lazyload() {
+      const scrollY = window.scrollY;
+      const visible = document.documentElement.clientHeight;
+      const pageHeight = document.documentElement.scrollHeight;
+      if (visible + scrollY >= pageHeight - 400) {
+        if (this.$route.path === "/") {
+          this.loadData();
+        }
+      }
     }
   },
   mounted() {
@@ -384,6 +394,12 @@ export default {
     });
     this.scroll();
   }
+  // async created() {
+  //   // this.dataLoad();
+  //   process.client.addEventListener("scroll", x => {
+  //     this.lazyload();
+  //   });
+  // }
 };
 </script>
 
@@ -403,6 +419,7 @@ export default {
   cursor: pointer;
   color: #757575;
   font-family: "Inter", sans-serif;
+  font-size: 0.875rem;
 }
 /* .home{
 
