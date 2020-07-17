@@ -7,8 +7,8 @@
       <!-- Channel start -->
       <b-col cols="12" sm="12" md="3" lg="3" xl="3">
         <SideBar />
-        <div class="pt-4 mb-3">
-          <b-row class="m-1" style="background-color:#f5f7fa;">
+        <div class="pt-2 mb-3">
+          <b-row class="m-1">
             <b-col
               class="pt-1"
               cols="3"
@@ -19,27 +19,27 @@
               v-for="(i, index) in footerList"
               :key="index"
             >
-              <nuxt-link :to="i.link">
-                <div class="mb-4">{{ i.name }}</div></nuxt-link
-              >
+              <!-- <nuxt-link :to="i.link"> -->
+              <p class="mb-4 footer-name link-hover">{{ i.name }}</p>
+              <!-- </nuxt-link -->
             </b-col>
-            <b-col class="pt-2 pb-3" cols="12" sm="12" md="12" lg="12" xl="12">
-              <div class="d-flex justify-content-around social-icon">
+            <b-col class="pt-1" cols="12" sm="12" md="12" lg="12" xl="12">
+              <div class="d-flex justify-content-start social-icon">
                 <b-img
-                  class="social-icons"
+                  class="footer-name social-icons"
                   :src="require('~/assets/user/footer/facebook.png')"
                 ></b-img>
 
                 <b-img
-                  class="social-icons"
+                  class="footer-name social-icons"
                   :src="require('~/assets/user/footer/instagram.png')"
                 ></b-img>
                 <b-img
-                  class="social-icons"
+                  class="footer-name social-icons"
                   :src="require('~/assets/user/footer/twitter.png')"
                 ></b-img>
               </div>
-              <div class="pt-2 text-center">© 2020 · NuxtIt</div>
+              <div class="pt-4 footer-name">© 2020 · NuxtIt</div>
             </b-col>
           </b-row>
         </div>
@@ -95,28 +95,34 @@
         </div>
 
         <div class="blog pt-3">
-          <div class="mb-3" v-for="(i, index) in blog" :key="index">
-            <nuxt-link :to="`/blogDetail/${i.blog_slug}`">
-              <b-card no-body style="border:none">
-                <b-card-img
-                  height="160"
-                  :src="i.post_img"
-                  style="border-radius: 10px;"
-                ></b-card-img>
+          <div class="latest-home-card">
+            <h5 class="custom-latest-title ml-2">Blog</h5>
+            <hr class="custom-latest-hr" />
+            <div class="mb-4" v-for="(i, index) in blog" :key="index">
+              <nuxt-link :to="`/blogDetail/${i.blog_slug}`">
+                <b-card no-body style="border:none">
+                  <b-card-img
+                    height="160"
+                    :src="i.post_img"
+                    style="border-radius: 10px;"
+                  ></b-card-img>
 
-                <b-card-text text-tag="p" class="text-muted">
-                  {{ i.created_at }}
-                </b-card-text>
-                <b-card-text text-tag="p" class="custom-card-text-title mt-2">
-                  {{ i.title }}
-                </b-card-text>
-              </b-card>
-            </nuxt-link>
+                  <b-card-text text-tag="p" class="text-muted">
+                    {{ i.created_at }}
+                  </b-card-text>
+                  <b-card-text text-tag="p" class="custom-card-text-title mt-2">
+                    {{ i.title }}
+                  </b-card-text>
+                </b-card>
+              </nuxt-link>
+            </div>
           </div>
         </div>
 
-        <div class="qanda pt-3">
-          <b-row no-gutters>
+        <div class="qanda pt-4 latest-home-card">
+          <h5 class="custom-latest-title ml-2">Q and A</h5>
+          <hr class="custom-latest-hr" />
+          <b-row>
             <b-col
               class=""
               cols="6"
@@ -127,22 +133,20 @@
               v-for="(j, index) in qandA"
               :key="index"
             >
-              <nuxt-link prefetch :to="`/qandADetail/${j.q_slug}`">
-                <b-card class="p-1" no-body style="border-radius: 8px;">
-                  <div @click="setViewQandA(j.post_views, j.q_slug)">
-                    <h4>
-                      <strong>{{ j.qname }}</strong>
-                    </h4>
-                    <p class="text-muted">
-                      {{ j.created_at }}
-                      <b-icon icon="clock-fill" class="ml-1"></b-icon>
-                    </p>
-                    <p>
-                      {{ j.decribe_post.slice(0, 40) }}
-                    </p>
-                  </div>
-                </b-card>
-              </nuxt-link>
+              <div>
+                <nuxt-link prefetch :to="`/qandADetail/${j.q_slug}`">
+                  <b-card class="pl-2" no-body style="border:none">
+                    <div @click="setViewQandA(j.post_views, j.q_slug)">
+                      <h6>
+                        <strong>{{ j.qname }}</strong>
+                      </h6>
+                      <p>
+                        {{ j.decribe_post.slice(0, 40) + "..." }}
+                      </p>
+                    </div>
+                  </b-card>
+                </nuxt-link>
+              </div>
             </b-col>
           </b-row>
         </div>
@@ -384,9 +388,21 @@ export default {
 </script>
 
 <style scoped>
+@import url("https://fonts.googleapis.com/css2?family=Inter&display=swap");
+
 .sticky {
   position: sticky;
   top: 0px;
+}
+
+.link-hover :hover {
+  background-color: #cfbebe !important;
+  border-radius: 8px;
+}
+.footer-name {
+  cursor: pointer;
+  color: #757575;
+  font-family: "Inter", sans-serif;
 }
 /* .home{
 
