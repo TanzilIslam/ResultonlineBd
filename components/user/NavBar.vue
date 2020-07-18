@@ -17,18 +17,20 @@
         <!-- Right aligned nav items -->
         <b-navbar-nav class="ml-auto">
           <!-- <b-nav-form> -->
-          <b-input-group class="search-bar">
-            <b-form-input
-              @click="showDropdown = true"
-              placeholder="Search Here..."
-            >
-            </b-form-input>
-            <b-input-group-append>
-              <b-button variant="dark" style="width:70px;" size="md">
-                <b-icon variant="light" scale="1" icon="search"></b-icon>
-              </b-button>
-            </b-input-group-append>
-          </b-input-group>
+          <div>
+            <b-input-group class="search-bar" size="sm">
+              <b-form-input
+                @click="showDropdown = true"
+                placeholder="Search Here..."
+              >
+              </b-form-input>
+              <b-input-group-append>
+                <b-button variant="dark" style="width:70px;" size="sm">
+                  <b-icon variant="light" scale="1" icon="search"></b-icon>
+                </b-button>
+              </b-input-group-append>
+            </b-input-group>
+          </div>
           <!-- <transition name="fade">
             <div class="ml-4 dp-section" v-if="showDropdown">
               <div class="d-flex w-100">

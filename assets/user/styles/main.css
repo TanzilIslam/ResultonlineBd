@@ -99,3 +99,30 @@ body{
 }
 
 /* Channel sidebar,MainTag,SubTag end */
+
+
+/* home page start */
+
+@media (max-width: 1350px) {
+  .container{
+    max-width: 1250px !important;
+  }
+  .home-sidebar{
+  padding-right: 27px;
+
+}
+.home-latest{
+  padding-left: 27px;
+
+}
+
+.index-home-card{
+  padding-left: 27px;
+  padding-right: 27px;
+
+}
+
+}
+
+
+/* home page end */

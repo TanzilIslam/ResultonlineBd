@@ -3,9 +3,9 @@
     <Carousel />
     <Breadcrumb :allActive="true" />
 
-    <b-row style="margin-right:0px;margin-left:0px;">
+    <b-row>
       <!-- Channel start -->
-      <b-col cols="12" sm="12" md="3" lg="3" xl="3">
+      <b-col class="home-sidebar" cols="12" sm="12" md="3" lg="3" xl="3">
         <SideBar />
         <div class="pt-2 mb-3">
           <b-row class="m-1">
@@ -54,7 +54,7 @@
         md="4"
         lg="4"
         xl="4"
-        class="order-md-last order-lg-last order-xl-last"
+        class="order-md-last order-lg-last order-xl-last home-latest"
       >
         <div class="latest-home-card mb-4">
           <h5 class="custom-latest-title ml-2">Fresh</h5>
@@ -154,7 +154,7 @@
       <!-- latest end -->
 
       <!-- home card start -->
-      <b-col cols="12" sm="12" md="5" lg="5" xl="5">
+      <b-col cols="12" sm="12" md="5" lg="5" class="index-home-card" xl="5">
         <div class="sticky">
           <div class="home-cards">
             <VclHomeCard v-if="$fetchState.pending" />
