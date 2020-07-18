@@ -1,7 +1,10 @@
 <template>
   <div class="question-and-answere">
     <!-- tags -->
-    <div class="tags flex-wrap d-flex justify-content-between pt-1">
+    <div
+      class="tags flex-wrap d-flex justify-content-between"
+      style="padding-top:35px;padding-bottom:35px;"
+    >
       <div
         variant="light"
         v-for="(item, index) in subTagList"
@@ -35,17 +38,17 @@
           :key="index"
           cols="12"
           sm="6"
-          md="6"
-          lg="6"
-          xl="6"
+          md="3"
+          lg="3"
+          xl="3"
           class="mb-3"
         >
           <nuxt-link prefetch :to="`/qandADetail/${j.q_slug}`">
             <b-card no-body class="card-body">
               <div @click="setView(j.post_views, j.q_slug)">
-                <h4>
+                <h6>
                   <strong>{{ j.qname }}</strong>
-                </h4>
+                </h6>
                 <p class="text-muted">
                   {{ j.created_at }}
                   <b-icon icon="clock-fill" class="ml-1"></b-icon>

@@ -18,14 +18,16 @@
         <b-navbar-nav class="ml-auto">
           <!-- <b-nav-form> -->
           <div>
-            <b-input-group class="search-bar" size="sm">
+            <b-input-group class="search-bar" size="md">
               <b-form-input
                 @click="showDropdown = true"
                 placeholder="Search Here..."
               >
               </b-form-input>
               <b-input-group-append>
-                <b-button variant="dark" style="width:70px;" size="sm">
+                <b-button
+                  style="width:70px;background-color: #636363; height:35px;"
+                >
                   <b-icon variant="light" scale="1" icon="search"></b-icon>
                 </b-button>
               </b-input-group-append>
@@ -115,7 +117,13 @@ a {
 .my-select {
   width: auto;
 }
-
+.input-group {
+  width: 402px !important;
+}
+.form-control {
+  background-color: #f5f8fb;
+  height: 35px;
+}
 /* .custom-navbar {
 
 /* } */
