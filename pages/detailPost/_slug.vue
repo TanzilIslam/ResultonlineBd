@@ -1,6 +1,6 @@
 <template>
   <div class="detail-post">
-    <b-row no-gutters>
+    <b-row>
       <b-col cols="12" sm="12" md="8" lg="8" xl="8">
         <VclDetailCard v-if="$fetchState.pending" />
         <h4 v-else-if="$fetchState.error">
@@ -8,7 +8,7 @@
         </h4>
         <div v-else>
           <b-card
-            class="mb-2"
+            class="mb-2 mr-2"
             no-body
             :img-src="DetailArticle.photo"
             img-alt="card Image"
@@ -177,7 +177,7 @@
         </div>
       </b-col>
       <b-col cols="12" sm="12" md="4" lg="4" xl="4">
-        <div class="ml-2 latest-home-card">
+        <div class="pl-2 latest-home-card">
           <!-- <div>v-if="$fetchState.pending"  v-else </div> -->
           <VclRelatedCard v-if="$fetchState.pending" />
           <b-list-group v-else>

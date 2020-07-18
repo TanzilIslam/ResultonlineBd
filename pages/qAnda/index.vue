@@ -2,7 +2,7 @@
   <div class="question-and-answere">
     <!-- tags -->
     <div
-      class="tags flex-wrap d-flex justify-content-between"
+      class="tags flex-wrap d-flex  justify-content-between"
       style="padding-top:35px;padding-bottom:35px;"
     >
       <div
@@ -16,25 +16,61 @@
       </div>
     </div>
 
-    <div v-for="(i, index) in data" :key="index">
-      <div class="cover mt-2 mb-3">
-        <b-card class="latest-home-card">
-          <nuxt-link prefetch :to="`/allQandA/${i.q_slug}`">
-            <b-card-text text-tag="h2" class="channel-cover-title">
-              <b-img
-                class="shawdo-sm rounded mr-1"
-                height="50"
-                width="50"
-                :src="i.q_icon"
-              ></b-img>
-              {{ i.publisher }}</b-card-text
-            >
-          </nuxt-link>
-        </b-card>
+    <!-- root data -->
+    <div v-if="!selectedData">
+      <div v-for="(i, index) in data" :key="index">
+        <div class="cover mt-2 mb-3">
+          <b-card class="latest-home-card">
+            <nuxt-link prefetch :to="`/allQandA/${i.q_slug}`">
+              <b-card-text text-tag="h2" class="channel-cover-title">
+                <b-img
+                  class="shawdo-sm rounded mr-1"
+                  height="50"
+                  width="50"
+                  :src="i.q_icon"
+                ></b-img>
+                {{ i.publisher }}</b-card-text
+              >
+            </nuxt-link>
+          </b-card>
+        </div>
+        <b-row>
+          <b-col
+            v-for="(j, index) in i.List"
+            :key="index"
+            cols="12"
+            sm="6"
+            md="3"
+            lg="3"
+            xl="3"
+            class="mb-3"
+          >
+            <nuxt-link prefetch :to="`/qandADetail/${j.q_slug}`">
+              <b-card no-body class="card-body">
+                <div @click="setView(j.post_views, j.q_slug)">
+                  <h6>
+                    <strong>{{ j.qname.slice(0, 40) + ".." }}</strong>
+                  </h6>
+                  <p class="text-muted">
+                    {{ j.created_at }}
+                    <b-icon icon="clock-fill" class="ml-1"></b-icon>
+                  </p>
+                  <p>
+                    {{ j.decribe_post.slice(0, 40) + ".." }}
+                  </p>
+                </div>
+              </b-card>
+            </nuxt-link>
+          </b-col>
+        </b-row>
       </div>
+    </div>
+
+    <!-- selected Data -->
+    <div v-else>
       <b-row>
         <b-col
-          v-for="(j, index) in i.List"
+          v-for="(j, index) in subTagData"
           :key="index"
           cols="12"
           sm="6"
@@ -47,14 +83,14 @@
             <b-card no-body class="card-body">
               <div @click="setView(j.post_views, j.q_slug)">
                 <h6>
-                  <strong>{{ j.qname }}</strong>
+                  <strong>{{ j.qname.slice(0, 40) + ".." }}</strong>
                 </h6>
                 <p class="text-muted">
                   {{ j.created_at }}
                   <b-icon icon="clock-fill" class="ml-1"></b-icon>
                 </p>
                 <p>
-                  {{ j.decribe_post.slice(0, 40) }}
+                  {{ j.decribe_post.slice(0, 40) + ".." }}
                 </p>
               </div>
             </b-card>
@@ -79,7 +115,9 @@ export default {
     return {
       data: [],
       next: "",
-      subTagList: []
+      subTagList: [],
+      selectedData: false,
+      subTagData: []
     };
   },
   async fetch() {
@@ -111,7 +149,11 @@ export default {
           .$get(self.next)
           .then(function(posts) {
             posts.results.forEach(element => {
-              self.data.push(element);
+              if (!self.selectedData) {
+                self.data.push(element);
+              } else {
+                self.subTagData.push(element);
+              }
             });
             self.next = posts.next;
           })
@@ -124,11 +166,15 @@ export default {
       }
     },
     async showSubTagPosts(item) {
-      await this.$axios
+      var self = this;
+      await self.$axios
         .$get(item.shot_list_data)
         .then(function(posts) {
-          self.data = posts.results;
+          // console.log(posts);
+          // self.data = "";
+          self.subTagData = posts.results;
           self.next = posts.next;
+          self.selectedData = true;
           // subtag
         })
         .catch(function(error) {

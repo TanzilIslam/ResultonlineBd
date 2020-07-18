@@ -357,9 +357,9 @@ export default {
         this.$bvToast.show("my-toast");
       }
     },
-    setviewqAndA(article) {
+    async setview(article) {
       try {
-        this.$axios.$put(process.env.baseUrl + `/count/${article.slug}`, {
+        await this.$axios.$put(process.env.baseUrl + `/count/${article.slug}`, {
           view: article.view + 1
         });
         // this.$store.dispatch("countView/setViewcount", this.article.slug);
@@ -367,8 +367,8 @@ export default {
         alert("No more data" + e);
       }
     },
-    async setView(view, slug) {
-      this.$axios
+    async setviewqAndA(view, slug) {
+      await this.$axios
         .$put(process.env.baseUrl + `/q&a/api/v1/dtls/${slug}`, {
           post_views: view + 1
         })
