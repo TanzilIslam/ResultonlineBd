@@ -129,6 +129,7 @@ export default {
         .then(function(posts) {
           self.data = posts.results;
           self.next = posts.next;
+          // subtag
         })
         .catch(function(error) {
           console.log("No Net" + error);
