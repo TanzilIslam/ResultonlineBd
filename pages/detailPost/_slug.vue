@@ -121,6 +121,7 @@
           <b-badge variant="info">#Django</b-badge>
           <b-badge variant="dark">#Bitcoin</b-badge>
         </div>
+
         <div v-if="showRateDiv" class="rate-section d-flex mb-4">
           <div class="mt-3"><h6>Please Rate us:</h6></div>
           <div class="ml-3">
@@ -414,11 +415,15 @@ export default {
   }),
   methods: {
     async setRating(rating) {
+      var self = this;
       await this.$axios
         .$put(process.env.baseUrl + `/count/${this.$route.params.slug}`, {
           reviewcount: this.DetailArticle.reviewcount + this.rating
         })
-        .then(res => {})
+        .then(function(res) {
+          self.showRateDiv = false;
+          self.showRateThanksDiv = true;
+        })
         .catch(error => {
           console.log(error);
         });
@@ -431,9 +436,6 @@ export default {
       }
 
       // localStorage
-
-      this.showRateDiv = false;
-      this.showRateThanksDiv = true;
     },
     async loadDataRecommended() {
       this.loadedRecommended = false;
@@ -472,29 +474,43 @@ export default {
       }
     },
     checkLocalStorage() {
-      // if (process.browser) {
-      if (localStorage.getItem("ReviewedArticles") == null) {
-        this.showRateDiv = true;
-      } else {
-        var existingArticles = localStorage.getItem("ReviewedArticles");
-        var arr = existingArticles.split(",");
-        arr.forEach(element => {
-          if (element == this.DetailArticle.slug) {
-            this.showRateDiv = false;
-            // this.showRateThanksDiv = true;
-          } else {
-            this.showRateDiv = true;
-            // this.showRateThanksDiv = false;
+      if (process.browser) {
+        if (localStorage.getItem("ReviewedArticles") == null) {
+          this.showRateDiv = true;
+        } else {
+          var existingArticles = localStorage.getItem("ReviewedArticles");
+          var arr = existingArticles.split(",");
+          // console.log(arr);
+          for (const iterator of arr) {
+            if (iterator == this.$route.params.slug) {
+              this.showRateDiv = false;
+              break;
+            }
           }
-        });
+
+          // arr.forEach(element => {
+          // if (element == this.$route.params.slug) {
+          // console.log("found");
+          // this.showRateDiv = false;
+          // this.showRateThanksDiv = true;
+          // } else {
+          // console.log("not found");
+          // this.showRateDiv = true;
+          // this.showRateThanksDiv = false;
+          // }
+          // });
+        }
       }
+      // if (process.browser) {
+
       // }
     }
   },
-  created() {
-    this.checkLocalStorage();
-  },
+  // created() {
+  //   this.checkLocalStorage();
+  // },
   mounted() {
+    this.checkLocalStorage();
     this.$nextTick(() => {
       this.$nuxt.$loading.start();
       setTimeout(() => this.$nuxt.$loading.finish(), 1000);
@@ -502,12 +518,8 @@ export default {
   }
   // beforeRouteEnter(to, from, next) {
   //   next(vm => {
-  //     vm.$axios
-  //       .$put(process.env.baseUrl + `/count/${vm.$route.params.slug}`, {
-  //         view: vm.DetailArticle.view + 1
-  //       })
-  //       .then(res => {})
-  //       .catch(error => {});});
+  //     vm.checkLocalStorage();
+  //   });
   // }
 };
 </script>
