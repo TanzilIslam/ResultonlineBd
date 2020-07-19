@@ -8,7 +8,7 @@
         </h4>
         <div v-else>
           <b-card
-            class="mb-2 mr-2"
+            class="mb-2 details-main-image"
             no-body
             :img-src="DetailArticle.photo"
             img-alt="card Image"
@@ -21,25 +21,24 @@
           </span>
           <div class="d-flex float-right mb-4">
             <b-img
+              alt="png"
               class=""
               style="width:20px;height:20px;"
               :src="require('~/assets/user/detailPage/fire.png')"
             ></b-img>
-            <b-card-text text-tag="p" class="text-muted ">{{
-              DetailArticle.view
-            }}</b-card-text>
+            <b-card-text
+              text-tag="p"
+              class="view-logo-detailpage text-muted "
+              >{{ DetailArticle.view }}</b-card-text
+            >
           </div>
           <b-card-text class="mt-4" text-tag="h4">{{
             DetailArticle.title
           }}</b-card-text>
-          <!-- <h1>{{ details.length }} || {{ DetailArticle.details.length }}</h1> -->
+
           <div class="secreat">
             <div v-if="!DetailArticle.contentlock">
               <div v-html="DetailArticle.details" class="details mt-4"></div>
-
-              <!-- <p class="details mt-4">
-                {{ DetailArticle.details }}
-              </p> -->
             </div>
             <div v-else-if="DetailArticle.contentlock">
               <div class="paragraph">
@@ -122,10 +121,9 @@
           <b-badge variant="info">#Django</b-badge>
           <b-badge variant="dark">#Bitcoin</b-badge>
         </div>
-        <div v-if="rated" class="rate-section d-flex mb-4">
+        <div v-if="showRateDiv" class="rate-section d-flex mb-4">
           <div class="mt-3"><h6>Please Rate us:</h6></div>
           <div class="ml-3">
-            <!-- <h3 class="mb-1 ml-2" style="color:#1b1e21">3.6</h3> -->
             <client-only>
               <div @click="$bvToast.show('my-toast')">
                 <star-rating
@@ -135,6 +133,30 @@
                   @rating-selected="setRating"
                   :glow="2"
                 ></star-rating>
+                <div>
+                  <b-toast
+                    id="my-toast"
+                    toaster="b-toaster-bottom-center"
+                    variant="warning"
+                    solid
+                    auto-hide-delay="3000"
+                  >
+                    <template v-slot:toast-title>
+                      <div class="d-flex flex-grow-1  align-items-baseline">
+                        <b-img
+                          blank
+                          blank-color="#ff5555"
+                          class="mr-2"
+                          width="12"
+                          height="12"
+                        ></b-img>
+                        <strong class="mr-auto">Submitted!</strong>
+                        <small class="text-muted mr-2">3 seconds ago</small>
+                      </div>
+                    </template>
+                    Reviwe Successfully Submitted!
+                  </b-toast>
+                </div>
               </div>
             </client-only>
 
@@ -143,41 +165,16 @@
             </h6>
           </div>
         </div>
-        <div v-else-if="!rated">
+        <div v-else-if="showRateThanksDiv">
           <b-alert class="detail" show variant="dark"
             >Thanks for giving rating : {{ rating }}</b-alert
           >
-          <div>
-            <!-- <b-button @click="$bvToast.show('my-toast')">Show toast</b-button> -->
 
-            <b-toast
-              id="my-toast"
-              toaster="b-toaster-bottom-center"
-              variant="warning"
-              solid
-              auto-hide-delay="3000"
-            >
-              <template v-slot:toast-title>
-                <div class="d-flex flex-grow-1  align-items-baseline">
-                  <b-img
-                    blank
-                    blank-color="#ff5555"
-                    class="mr-2"
-                    width="12"
-                    height="12"
-                  ></b-img>
-                  <strong class="mr-auto">Submitted!</strong>
-                  <small class="text-muted mr-2">3 seconds ago</small>
-                </div>
-              </template>
-              Reviwe Successfully Submitted!
-            </b-toast>
-          </div>
           <!-- <h6></h6> -->
         </div>
       </b-col>
       <b-col cols="12" sm="12" md="4" lg="4" xl="4">
-        <div class="pl-2 latest-home-card">
+        <div class="pl-2 pt-2 latest-home-card-detailpage">
           <!-- <div>v-if="$fetchState.pending"  v-else </div> -->
           <VclRelatedCard v-if="$fetchState.pending" />
           <b-list-group v-else>
@@ -210,7 +207,7 @@
                   </div>
                 </div>
               </nuxt-link>
-              <hr class=" mb-1" />
+              <hr v-if="index < 3" class=" mb-1" />
             </b-list-group-item>
           </b-list-group>
         </div>
@@ -349,7 +346,8 @@ export default {
       rating: 0,
       loadedRecommended: true,
       loadedHighRated: true,
-      rated: true
+      showRateDiv: true,
+      showRateThanksDiv: false
     };
   },
   head() {
@@ -401,93 +399,6 @@ export default {
       .then(posts =>
         this.$store.dispatch("detailPage/FetchHighRatedArticles", posts.results)
       );
-
-    // code for translate
-    // this.$axios.setHeader("Content-Type", "application/x-www-form-urlencoded", [
-    //   "post"
-    // ]);
-    // await this.$axios({
-    //   method: "POST",
-    //   url: "https://google-translate1.p.rapidapi.com/language/translate/v2",
-    //   headers: {
-    //     "content-type": "application/x-www-form-urlencoded",
-    //     "x-rapidapi-host": "google-translate1.p.rapidapi.com",
-    //     "x-rapidapi-key": "5b2201df96mshfeee16372bdbe7bp1366cbjsnc71f0c228f94",
-    //     "accept-encoding": "application/gzip",
-    //     useQueryString: true,
-    //     Authorizationtion: "5b2201df96mshfeee16372bdbe7bp1366cbjsnc71f0c228f94"
-    //   },
-    //   data: {
-    //     source: "en",
-    //     q: "Hello, world!",
-    //     target: "es"
-    //   }
-    // })
-    //   .then(response => {
-    //     console.log(response);
-    //   })
-    //   .catch(error => {
-    //     console.log(error);
-    //   });
-    // this.$axios.setToken("5b2201df96mshfeee16372bdbe7bp1366cbjsnc71f0c228f94");
-    // this.$axios.setHeader(
-    //   "x-rapidapi-key",
-    //   "5b2201df96mshfeee16372bdbe7bp1366cbjsnc71f0c228f94"
-    // );
-    // this.$axios
-    //   .$post(
-    //     "https://google-translate1.p.rapidapi.com/language/translate/v2",
-    //     {
-    //       source: "en",
-    //       q: "Hello, world!",
-    //       target: "es"
-    //     },
-    //     {
-    //       headers: {
-    //         "content-type": "application/x-www-form-urlencoded",
-    //         "x-rapidapi-host": "google-translate1.p.rapidapi.com",
-    //         "x-rapidapi-key":
-    //           "5b2201df96mshfeee16372bdbe7bp1366cbjsnc71f0c228f94",
-    //         "accept-encoding": "application/gzip",
-    //         useQueryString: true
-    //       }
-    //     }
-    //   )
-    //   .then(response => {
-    //     console.log(response);
-    //   })
-    //   .catch(error => {
-    //     console.log(error);
-    //   });
-    // this.$axios.setHeader(
-    //   "Authorization",
-    //   "Bearer 5b2201df96mshfeee16372bdbe7bp1366cbjsnc71f0c228f94"
-    // );
-    // await this.$axios
-    //   .$post(
-    //     `https://google-translate1.p.rapidapi.com/language/translate/v2`,
-    //     {
-    //       source: "en",
-    //       q: "Hello, world!",
-    //       target: "es"
-    //     },
-    //     {
-    //       "content-type": "application/x-www-form-urlencoded",
-    //       "x-rapidapi-host": "google-translate1.p.rapidapi.com",
-    //       "x-rapidapi-key":
-    //         "5b2201df96mshfeee16372bdbe7bp1366cbjsnc71f0c228f94",
-    //       "accept-encoding": "application/gzip",
-    //       useQueryString: true,
-    //       Authorizationtion:
-    //         "Bearer 5b2201df96mshfeee16372bdbe7bp1366cbjsnc71f0c228f94"
-    //     }
-    //   )
-    //   .then(response => {
-    //     console.log(response);
-    //   })
-    //   .catch(error => {
-    //     console.log(error);
-    //   });
   },
   computed: mapState({
     DetailArticle: state => state.detailPage.DetailArticle,
@@ -502,58 +413,27 @@ export default {
     RelatedArticles: state => state.detailPage.RelatedArticles
   }),
   methods: {
-    // getRandomColor() {
-    //   var letters = "0123456789ABCDEF";
-    //   var color = "#";
-    //   for (let index = 0; index < 6; index++) {
-    //     color += letters[Math.floor(Math.random() * 16)];
-    //   }
-
-    //   console.log(color);
-    // },
-    // getRndInteger() {
-    //   console.log(Math.floor(Math.random() * (10 - 0)) + 0);
-    // },
     async setRating(rating) {
-      this.rated = false;
-      // console.log(process.env.baseUrl + this.rating);
       await this.$axios
         .$put(process.env.baseUrl + `/count/${this.$route.params.slug}`, {
           reviewcount: this.DetailArticle.reviewcount + this.rating
         })
-        .then(res => {
-          console.log(res);
-        })
+        .then(res => {})
         .catch(error => {
           console.log(error);
         });
 
-      // await this.$axios
-      //   .$put("https://jsonplaceholder.typicode.com/posts/1", {
-      //     userId: 2,
-      //     id: 2,
-      //     title: "Tanzil",
-      //     body: "test put"
-      //   })
-      //   .then(res => {
-      //     console.log(res);
-      //   })
-      //   .catch(error => {
-      //     console.log(error);
-      //   });
+      if (process.browser) {
+        var existing = localStorage.getItem("ReviewedArticles");
+        existing = existing ? existing.split(",") : [];
+        existing.push(this.DetailArticle.slug);
+        localStorage.setItem("ReviewedArticles", existing.toString());
+      }
 
-      // if (rating == 1) {
-      //   alert("Good");
-      // } else if (rating == 2) {
-      //   alert("Better");
-      // } else if (rating == 3) {
-      //   alert("Best");
-      // } else if (rating == 4) {
-      //   alert("Very Good");
-      // } else if (rating == 5) {
-      //   alert("This is awsome");
-      // }
-      // console.log(this.rating);
+      // localStorage
+
+      this.showRateDiv = false;
+      this.showRateThanksDiv = true;
     },
     async loadDataRecommended() {
       this.loadedRecommended = false;
@@ -573,16 +453,46 @@ export default {
       }
       this.loadedHighRated = true;
     },
-    async setview(article) {
+    async setview(i) {
       try {
-        await this.$axios.$put(process.env.baseUrl + `/count/${article.slug}`, {
-          view: article.view + 1
-        });
+        await this.$axios.$put(
+          process.env.baseUrl + `/count/${i.slug}`,
+          {
+            view: i.view + 1
+          },
+          {
+            headers: {
+              Authorization: `Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJrZXkiOiJjdXN0b21fdmFsdWUifQ.Gn4_F3IujZkyYR3gygA0TZuVeprhDDiDCWE1LvvCKsY`
+            }
+          }
+        );
         // this.$store.dispatch("countView/setViewcount", this.article.slug);
       } catch (e) {
         alert("No more data" + e);
       }
+    },
+    checkLocalStorage() {
+      // if (process.browser) {
+      if (localStorage.getItem("ReviewedArticles") == null) {
+        this.showRateDiv = true;
+      } else {
+        var existingArticles = localStorage.getItem("ReviewedArticles");
+        var arr = existingArticles.split(",");
+        arr.forEach(element => {
+          if (element == this.DetailArticle.slug) {
+            this.showRateDiv = false;
+            // this.showRateThanksDiv = true;
+          } else {
+            this.showRateDiv = true;
+            // this.showRateThanksDiv = false;
+          }
+        });
+      }
+      // }
     }
+  },
+  created() {
+    this.checkLocalStorage();
   },
   mounted() {
     this.$nextTick(() => {
@@ -712,7 +622,7 @@ p {
 }
 .custom-list-item {
   border: none !important;
-  margin-bottom: 9px;
+  margin-bottom: 13px;
   cursor: pointer;
   padding: 0px !important;
 }
@@ -722,7 +632,7 @@ p {
   text-align: left;
   font-size: 16px;
 } */
-.latest-home-card {
+.latest-home-card-detailpage {
   background: #fff;
   box-shadow: 0 5px 0.9rem -0.8rem rgba(0, 0, 0, 0.8),
     0 0 0 1px rgba(0, 0, 0, 0.05);
