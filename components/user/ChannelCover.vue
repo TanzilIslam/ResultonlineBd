@@ -3,7 +3,7 @@
     <b-card
       overlay
       img-height="80"
-      :img-src="require('~/assets/user/dummyImages/channelCover.jpg')"
+      :img-src="require('~/assets/user/dummyImages/channelCover2.jpg')"
       text-variant="white"
     >
       <b-card-text text-tag="h2" class="channel-cover-title">
