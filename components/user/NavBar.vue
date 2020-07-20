@@ -16,7 +16,6 @@
         </b-navbar-nav>
         <!-- Right aligned nav items -->
         <b-navbar-nav class="ml-auto">
-          <!-- <b-nav-form> -->
           <div>
             <b-input-group class="search-bar" size="md">
               <b-form-input
@@ -33,6 +32,10 @@
               </b-input-group-append>
             </b-input-group>
           </div>
+          <b-nav-item class="ml-2" to="/favourite" href="#"
+            >Favourite</b-nav-item
+          >
+
           <!-- <transition name="fade">
             <div class="ml-4 dp-section" v-if="showDropdown">
               <div class="d-flex w-100">
@@ -119,6 +122,7 @@ a {
 }
 .input-group {
   width: 402px !important;
+  margin-top: 3px;
 }
 .form-control {
   background-color: #f5f8fb;

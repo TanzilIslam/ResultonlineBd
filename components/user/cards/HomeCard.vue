@@ -2,7 +2,7 @@
   <div class="home-card">
     <div class="custom-home-card rounded">
       <b-card no-body class="mb-4">
-        <div class="d-inline-flex">
+        <div class="d-flex">
           <div class="ml-3 mt-3 mb-2">
             <b-card-img-lazy
               blank-color="#bbb"
@@ -11,8 +11,8 @@
             ></b-card-img-lazy>
           </div>
 
-          <div class="mt-4 ml-3 mb-2">
-            <div class="d-flex">
+          <div class="mt-4 ml-3 mb-2 w-100">
+            <div class="d-flex ">
               <div class="">
                 <nuxt-link
                   prefetch
@@ -25,7 +25,12 @@
               </div>
 
               <div class="ml-auto">
-                <b-icon icon="reply"></b-icon>
+                <b-icon class="mr-2" icon="reply"></b-icon>
+                <b-icon
+                  class="mr-4"
+                  :icon="icon"
+                  @click="setFavourite()"
+                ></b-icon>
               </div>
             </div>
             <!-- <b-card-text text-tag="h5" class="custome-home-card-title">
@@ -59,13 +64,34 @@
 </template>
 <script>
 export default {
+  data() {
+    return {
+      icon: "star",
+      toogle: false
+    };
+  },
   props: {
     article: {
       type: Object,
       required: true
     }
   },
+  mounted() {
+    this.checkLocal();
+  },
   methods: {
+    checkLocal() {
+      for (let i = 0; i < localStorage.length; i++) {
+        let key = localStorage.key(i);
+        let value = localStorage.getItem(key);
+        if (key == this.article.slug) {
+          // console.log("found");
+          this.toogle = true;
+          this.icon = "star-fill";
+          break;
+        }
+      }
+    },
     setview() {
       try {
         this.$axios.$put(process.env.baseUrl + `/count/${this.article.slug}`, {
@@ -74,6 +100,54 @@ export default {
         // this.$store.dispatch("countView/setViewcount", this.article.slug);
       } catch (e) {
         alert("No more data" + e);
+      }
+    },
+    setFavourite() {
+      if (process.browser) {
+        this.toogle = !this.toogle;
+        if (this.toogle) {
+          // var addToLocalStorageObject = function(name, key, value) {
+          //   var existing = localStorage.getItem(name);
+          //   existing = existing ? JSON.parse(existing) : {};
+          //   existing[key] = value;
+          //   localStorage.setItem(name, JSON.stringify(existing));
+          // };
+          // addToLocalStorageObject(
+          //   "FavouriteArticles",
+          //   this.article.slug,
+          //   this.article
+          // );
+          localStorage.setItem(
+            this.article.slug,
+            JSON.stringify(this.article.title)
+          );
+          this.icon = "star-fill";
+        } else if (!this.toogle) {
+          // var existingTwo = localStorage.getItem("FavouriteArticles");
+          // var newVar = JSON.parse(existingTwo);
+          // // var ob = {};
+          // for (var key in newVar) {
+          //   if (newVar.hasOwnProperty(key)) {
+          //     var element = newVar[key];
+          //     if (element.slug === this.article.slug) {
+          //       element = "";
+          //       console.log(element);
+          //       break;
+          //     }
+          //   }
+          // }
+          for (let i = 0; i < localStorage.length; i++) {
+            let key = localStorage.key(i);
+            let value = localStorage.getItem(key);
+            if (key == this.article.slug) {
+              // console.log("found");
+              localStorage.removeItem(this.article.slug);
+              break;
+            }
+          }
+
+          this.icon = "star";
+        }
       }
     }
   }

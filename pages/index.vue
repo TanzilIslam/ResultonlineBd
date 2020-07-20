@@ -387,8 +387,10 @@ export default {
         }
       }
     }
+    // check() { }
   },
   mounted() {
+    // this.check();
     this.$nextTick(() => {
       this.$nuxt.$loading.start();
       setTimeout(() => this.$nuxt.$loading.finish(), 1000);
