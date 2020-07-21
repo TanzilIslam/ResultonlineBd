@@ -8,18 +8,17 @@
       indicators
       background="#fafafa"
       img-width="1024"
-      img-height="200"
       style="text-shadow: 1px 1px 2px #333; "
       @sliding-start="onSlideStart"
       @sliding-end="onSlideEnd"
     >
       <b-carousel-slide
-        class="cover-img rounded"
-        :img-src="i.Cover_img"
+        class="cover-img "
         img-alt="Blank image"
-        img-height="200"
         v-for="(i, index) in data"
         :key="index"
+        :img-src="i.Cover_img"
+        img-width="1024"
       >
       </b-carousel-slide>
     </b-carousel>
@@ -57,7 +56,9 @@ export default {
   margin-bottom: 10px;
 }
 .cover-img {
-  height: 300px;
-  border-radius: 10px !important;
+  border-radius: 10px;
 }
+/* .carousel-inner > .carousel-item > img {
+  border-radius: 10px !important;
+} */
 </style>

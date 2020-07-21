@@ -1,69 +1,49 @@
 <template>
   <div class="custom-navbar">
-    <b-navbar class="fixed-top custom-mynav">
+    <!-- <b-navbar class="fixed-top custom-mynav"> -->
+
+    <nav class="navbar fixed-top navbar-expand-sm custom-mynav">
       <b-container class="pl-2 pr-3">
-        <b-navbar-brand to="/">
-          <img
+        <b-navbar-brand class="" to="/">
+          <b-img
             :src="require('~/assets/user/navbar/r.png')"
             class="logo"
             alt="Kitten"
-          />
+          ></b-img>
         </b-navbar-brand>
-        <b-navbar-nav class="item ml-4">
-          <b-nav-item to="/" href="#">Home</b-nav-item>
-          <b-nav-item to="/qAnda" class="ml-1" href="#">Q&A</b-nav-item>
-          <b-nav-item to="/blog" class="ml-1" href="#">Blog</b-nav-item>
-        </b-navbar-nav>
-        <!-- Right aligned nav items -->
-        <b-navbar-nav class="ml-auto">
-          <div>
-            <b-input-group class="search-bar" size="md">
-              <b-form-input
-                @click="showDropdown = true"
-                placeholder="Search Here..."
-              >
-              </b-form-input>
-              <b-input-group-append>
-                <b-button
-                  style="width:70px;background-color: #636363; height:35px;"
-                >
-                  <b-icon variant="light" scale="1" icon="search"></b-icon>
-                </b-button>
-              </b-input-group-append>
-            </b-input-group>
-          </div>
-          <b-nav-item class="ml-2" to="/favourite" href="#"
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-toggle="collapse"
+          data-target="#navbar5"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="navbar-collapse collapse" id="navbar5">
+          <b-navbar-nav class="ml-4 mr-2 item">
+            <b-nav-item to="/" class="mt-1" href="#">Home</b-nav-item>
+            <b-nav-item to="/qAnda" class="mt-1 ml-1" href="#">Q&A</b-nav-item>
+            <b-nav-item to="/blog" class="ml-1 mt-1" href="#">Blog</b-nav-item>
+          </b-navbar-nav>
+
+          <form class="mx-2 d-inline w-100">
+            <div>
+              <b-input-group size="sm">
+                <b-form-input placeholder="Search Here..."></b-form-input>
+                <b-input-group-append>
+                  <b-button variant="light"
+                    ><b-icon icon="search"></b-icon
+                  ></b-button>
+                </b-input-group-append>
+              </b-input-group>
+            </div>
+          </form>
+          <b-nav-item class="ml-2 mt-1" to="/favourite" href="#"
             >Favourite</b-nav-item
           >
-
-          <!-- <transition name="fade">
-            <div class="ml-4 dp-section" v-if="showDropdown">
-              <div class="d-flex w-100">
-                <div class="c-dropdown">
-                  <b-form-select
-                    class="my-select"
-                    v-model="selected"
-                    :options="options"
-                  ></b-form-select>
-                </div>
-                <div class="ml-3 clos-icon">
-                  <b-icon
-                    icon="x"
-                    @click="showDropdown = false"
-                    variant="light"
-                    scale="2"
-                    class="mt-2"
-                    style="cursor:pointer;"
-                  ></b-icon>
-                </div>
-              </div>
-            </div>
-          </transition> -->
-          <!-- </b-nav-form> -->
-        </b-navbar-nav>
-        <!-- </b-collapse> -->
+        </div>
       </b-container>
-    </b-navbar>
+    </nav>
   </div>
 </template>
 
@@ -91,16 +71,22 @@ export default {
 </script>
 
 <style scoped>
+.navbar .container,
+.navbar .container-fluid,
+.navbar .container-sm,
+.navbar .container-md,
+.navbar .container-lg,
+.navbar .container-xl {
+  justify-content: flex-start;
+}
 .custom-mynav {
-  height: 49px;
-  background-color: black !important;
+  height: 50px;
+  background-color: #242729 !important;
 }
 .custom-navbar {
   margin-bottom: 55px;
 }
-.mysearch {
-  font-size: 10px !important;
-}
+
 .logo {
   height: 63px;
   width: 110px;
@@ -116,33 +102,5 @@ a {
   border: none !important;
   outline: none !important;
   outline-style: none !important;
-}
-.my-select {
-  width: auto;
-}
-.input-group {
-  width: 402px !important;
-  margin-top: 3px;
-}
-.form-control {
-  background-color: #f5f8fb;
-  height: 35px;
-}
-/* .custom-navbar {
-
-/* } */
-/* .search-bar{
-
-}  */
-/* .dp-section {
-  animation: fadeInDown;
-  animation-duration: 1s;
-} */
-.fade-enter-active,
-.fade-leave-active {
-  transition: opacity 0.5s;
-}
-.fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
-  opacity: 0;
 }
 </style>

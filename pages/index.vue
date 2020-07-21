@@ -155,7 +155,7 @@
 
       <!-- home card start -->
       <b-col cols="12" sm="12" md="5" lg="5" class="index-home-card" xl="5">
-        <div class="sticky">
+        <div id="myDIV" class="sticky">
           <div class="home-cards">
             <VclHomeCard v-if="$fetchState.pending" />
             <h4 v-else-if="$fetchState.error">
@@ -315,31 +315,40 @@ export default {
   methods: {
     scroll() {
       window.onscroll = () => {
-        this.lazyload();
-        // let bottomOfWindow =
-        //   Math.max(
-        //     window.pageYOffset,
-        //     document.documentElement.scrollTop,
-        //     document.body.scrollTop
-        //   ) +
-        //     window.innerHeight ===
-        //   document.documentElement.offsetHeight;
+        // this.lazyload();
+        let bottomOfWindow =
+          Math.max(
+            window.pageYOffset,
+            document.documentElement.scrollTop,
+            document.body.scrollTop
+          ) +
+            window.innerHeight ===
+          document.documentElement.offsetHeight;
 
-        // if (bottomOfWindow) {
-        //   if (this.$route.path === "/") {
-        //     this.loadData();
-        //   }
-        // }
+        let bottomOfWindowTwo =
+          window.innerHeight + document.documentElement.scrollTop >=
+          document.body.offsetHeight;
+
+        const scrollY = window.scrollY;
+        const visible = document.documentElement.clientHeight;
+        const pageHeight = document.documentElement.scrollHeight;
+
+        let bottomOfWindowThree = visible + scrollY >= pageHeight;
+        if (bottomOfWindow) {
+          if (this.$route.path === "/") {
+            this.loadData();
+          }
+        }
       };
     },
     async loadData() {
       if (this.nextUrl != null) {
-        this.loaded = false;
         var self = this;
         self.$axios.setHeader(
           "Authorization",
           "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJrZXkiOiJjdXN0b21fdmFsdWUifQ.Gn4_F3IujZkyYR3gygA0TZuVeprhDDiDCWE1LvvCKsY"
         );
+        self.loaded = false;
         await this.$axios
           .$get(self.nextUrl)
           .then(function(posts) {
@@ -377,25 +386,37 @@ export default {
           console.log(e);
         });
     },
-    async lazyload() {
-      const scrollY = window.scrollY;
-      const visible = document.documentElement.clientHeight;
-      const pageHeight = document.documentElement.scrollHeight;
-      if (visible + scrollY >= pageHeight - 400) {
+    lazyload() {
+      // const scrollY = window.scrollY;
+      // const visible = document.documentElement.clientHeight;
+      // const pageHeight = document.documentElement.scrollHeight;
+      if (window.innerHeight + window.scrollY >= document.body.offsetHeight) {
         if (this.$route.path === "/") {
+          // var element, name, arr;
+          // element = document.getElementById("myDIV");
+          // name = "mystyle";
+          // arr = element.className.split(" ");
+          // if (arr.indexOf(name) == -1) {
+          //   element.className += " " + name;
+          // }
           this.loadData();
         }
       }
+
+      // if (visible + scrollY >= pageHeight) {
+      // console.log("bottom");
+
+      // }
     }
     // check() { }
   },
   mounted() {
     // this.check();
+    this.scroll();
     this.$nextTick(() => {
       this.$nuxt.$loading.start();
       setTimeout(() => this.$nuxt.$loading.finish(), 1000);
     });
-    this.scroll();
   }
   // async created() {
   //   // this.dataLoad();
@@ -408,11 +429,14 @@ export default {
 
 <style scoped>
 @import url("https://fonts.googleapis.com/css2?family=Inter&display=swap");
-
-.sticky {
+/* .myDIV {
+  padding-bottom: 20px;
+} */
+/* .sticky {
   position: sticky;
   top: 0px;
-}
+  padding-bottom: 20px;
+} */
 
 p.link-hover :hover {
   display: none;
