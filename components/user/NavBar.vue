@@ -126,7 +126,7 @@ a {
     font-size: 17px;
   }
   .custom-navbar {
-    margin-bottom: 75px;
+    margin-bottom: 75px !important;
   }
 }
 a {
