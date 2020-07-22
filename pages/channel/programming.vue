@@ -59,7 +59,18 @@
 
       <b-col cols="12" sm="12" md="9" lg="9" xl="9">
         <!-- Cover Start -->
-        <ChannelCover ChannelCoverTitle="Programming" />
+        <div class="channel-cover">
+          <b-card
+            overlay
+            img-height="80"
+            img-src="~assets/user/ChannelCover/programming.jpg"
+            text-variant="white"
+          >
+            <b-card-text text-tag="h2" class="channel-cover-title">
+              Programming</b-card-text
+            >
+          </b-card>
+        </div>
         <!-- Cover End -->
 
         <!--Tab start -->

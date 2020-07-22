@@ -134,3 +134,9 @@ body{
 
 
 /* home page end */
+
+
+/* CHANNEL cover */
+.channel-cover-title {
+  text-align: center !important;
+}

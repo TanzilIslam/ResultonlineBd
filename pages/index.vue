@@ -78,7 +78,7 @@
             >
               <nuxt-link prefetch :to="`/detailPost/${article.slug}`">
                 <div @click="setview(article)" class="d-flex">
-                  <div class="custom-latest-text">
+                  <div class="custom-latest-text mr-3">
                     {{ article.title }}
                     <p class="mt-4 text-muted">{{ article.release_date }}</p>
                   </div>

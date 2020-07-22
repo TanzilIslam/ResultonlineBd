@@ -61,13 +61,14 @@
             <div>
               <b-input-group size="sm">
                 <b-form-input
+                  style="color:#e4e6e8;"
                   v-model="keyword"
                   @keyup.enter="search"
                   placeholder="Search Here..."
                 ></b-form-input>
                 <b-input-group-append>
-                  <b-button variant="light" @click="search">
-                    <b-icon icon="search" variant="dark"></b-icon>
+                  <b-button class="icon-button" @click="search">
+                    <b-icon icon="search" variant="light"></b-icon>
                   </b-button>
                 </b-input-group-append>
               </b-input-group>
@@ -135,5 +136,21 @@ a {
 }
 .custom-navbar {
   margin-bottom: 55px;
+}
+.form-control {
+  border-color: #3b4045;
+  background-color: #3b4045;
+  box-shadow: none;
+}
+.icon-button {
+  border-color: #3b4045;
+  background-color: #3b4045;
+  box-shadow: none;
+}
+
+.form-control::placeholder {
+  /* Chrome, Firefox, Opera, Safari 10.1+ */
+  color: #e4e6e8 !important;
+  opacity: 1; /* Firefox */
 }
 </style>

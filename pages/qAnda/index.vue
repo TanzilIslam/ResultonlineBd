@@ -3,7 +3,7 @@
     <!-- tags -->
     <div
       class="tags flex-wrap d-flex  justify-content-between"
-      style="padding-top:35px;padding-bottom:35px;"
+      style="padding-top:20px;padding-bottom:20px;"
     >
       <div
         variant="light"
@@ -17,87 +17,119 @@
     </div>
 
     <!-- root data -->
-    <div v-if="!selectedData">
-      <div v-for="(i, index) in data" :key="index">
-        <div class="cover mt-2 mb-3">
-          <b-card class="latest-home-card">
-            <nuxt-link prefetch :to="`/allQandA/${i.q_slug}`">
-              <b-card-text text-tag="h2" class="channel-cover-title">
-                <b-img
-                  class="shawdo-sm rounded mr-1"
-                  height="50"
-                  width="50"
-                  :src="i.q_icon"
-                ></b-img>
-                {{ i.publisher }}</b-card-text
-              >
-            </nuxt-link>
-          </b-card>
+    <b-row>
+      <b-col
+        class="order-md-last order-lg-last order-xl-last"
+        cols="12"
+        sm="12"
+        md="3"
+        lg="3"
+        xl="3"
+      >
+        <div style="background-color:#f8f9fa; padding:10px; margin-top: 7px;">
+          <h2 class="side-bar-title">Fast Check</h2>
+          <hr />
+          <b-list-group>
+            <b-list-group-item class="p-0 m-0 list-item mb-4">
+              <h4 class="list-title">
+                PCR inventor – who died in 2019 – did not say his test won't
+                work for COVID-19 infections
+              </h4>
+              <p class="text-muted sub-title">
+                Education – Australian Associated Press
+              </p>
+            </b-list-group-item>
+          </b-list-group>
         </div>
-        <b-row>
-          <b-col
-            v-for="(j, index) in i.List"
-            :key="index"
-            cols="12"
-            sm="6"
-            md="3"
-            lg="3"
-            xl="3"
-            class="mb-3"
-          >
-            <nuxt-link prefetch :to="`/qandADetail/${j.q_slug}`">
-              <b-card no-body class="card-body">
-                <div @click="setView(j.post_views, j.q_slug)">
-                  <h6>
-                    <strong>{{ j.qname.slice(0, 40) + ".." }}</strong>
-                  </h6>
-                  <p class="text-muted">
-                    {{ j.created_at }}
-                    <b-icon icon="clock-fill" class="ml-1"></b-icon>
-                  </p>
-                  <p>
-                    {{ j.decribe_post.slice(0, 40) + ".." }}
-                  </p>
-                </div>
+      </b-col>
+      <b-col cols="12" sm="12" md="9" lg="9" xl="9">
+        <div v-if="!selectedData">
+          <div v-for="(i, index) in data" :key="index">
+            <div class="cover mt-2 mb-3">
+              <!-- <b-row> -->
+              <!-- <b-col cols="12" sm="12" md="9" lg="9" xl="9"> -->
+              <b-card class="latest-home-card">
+                <nuxt-link prefetch :to="`/allQandA/${i.q_slug}`">
+                  <b-card-text text-tag="h2" class="channel-cover-title">
+                    <b-img
+                      class="shawdo-sm rounded mr-1"
+                      height="50"
+                      width="50"
+                      :src="i.q_icon"
+                    ></b-img>
+                    {{ i.publisher }}</b-card-text
+                  >
+                </nuxt-link>
               </b-card>
-            </nuxt-link>
-          </b-col>
-        </b-row>
-      </div>
-    </div>
+              <!-- </b-col> -->
+              <!-- </b-row> -->
+            </div>
+            <b-row>
+              <b-col
+                v-for="(j, index) in i.List"
+                :key="index"
+                cols="12"
+                sm="6"
+                md="3"
+                lg="3"
+                xl="3"
+                class="mb-3"
+              >
+                <nuxt-link prefetch :to="`/qandADetail/${j.q_slug}`">
+                  <b-card no-body class="card-body">
+                    <div @click="setView(j.post_views, j.q_slug)">
+                      <h6>
+                        <strong>{{ j.qname.slice(0, 20) + ".." }}</strong>
+                      </h6>
+                      <p class="text-muted">
+                        {{ j.created_at }}
+                        <b-icon icon="clock-fill" class="ml-1"></b-icon>
+                      </p>
+                      <p>
+                        {{ j.decribe_post.slice(0, 40) + ".." }}
+                      </p>
+                    </div>
+                  </b-card>
+                </nuxt-link>
+              </b-col>
+            </b-row>
+          </div>
+        </div>
 
-    <!-- selected Data -->
-    <div v-else>
-      <b-row>
-        <b-col
-          v-for="(j, index) in subTagData"
-          :key="index"
-          cols="12"
-          sm="6"
-          md="3"
-          lg="3"
-          xl="3"
-          class="mb-3"
-        >
-          <nuxt-link prefetch :to="`/qandADetail/${j.q_slug}`">
-            <b-card no-body class="card-body">
-              <div @click="setView(j.post_views, j.q_slug)">
-                <h6>
-                  <strong>{{ j.qname.slice(0, 40) + ".." }}</strong>
-                </h6>
-                <p class="text-muted">
-                  {{ j.created_at }}
-                  <b-icon icon="clock-fill" class="ml-1"></b-icon>
-                </p>
-                <p>
-                  {{ j.decribe_post.slice(0, 40) + ".." }}
-                </p>
-              </div>
-            </b-card>
-          </nuxt-link>
-        </b-col>
-      </b-row>
-    </div>
+        <!-- selected Data -->
+        <div v-else>
+          <b-row>
+            <b-col
+              v-for="(j, index) in subTagData"
+              :key="index"
+              cols="12"
+              sm="6"
+              md="3"
+              lg="3"
+              xl="3"
+              class="mb-3"
+            >
+              <nuxt-link prefetch :to="`/qandADetail/${j.q_slug}`">
+                <b-card no-body class="card-body">
+                  <div @click="setView(j.post_views, j.q_slug)">
+                    <h6>
+                      <strong>{{ j.qname.slice(0, 40) + ".." }}</strong>
+                    </h6>
+                    <p class="text-muted">
+                      {{ j.created_at }}
+                      <b-icon icon="clock-fill" class="ml-1"></b-icon>
+                    </p>
+                    <p>
+                      {{ j.decribe_post.slice(0, 40) + ".." }}
+                    </p>
+                  </div>
+                </b-card>
+              </nuxt-link>
+            </b-col>
+          </b-row>
+        </div>
+      </b-col>
+    </b-row>
 
     <!-- Pagination Start End -->
     <div class="myPagination">
@@ -199,9 +231,16 @@ export default {
 /* .question-and-answere{
 
 } */
+
+.side-bar-title {
+  font-size: 1rem;
+
+  font-weight: 500;
+  color: #856368;
+}
 .channel-cover-title {
   /* margin: auto; */
-  margin-top: 20px;
+  /* margin-top: 20px; */
   text-align: center !important;
   color: black !important;
 }
@@ -214,10 +253,10 @@ a {
 }
 .latest-home-card {
   background: #fff;
-  box-shadow: 0 5px 0.9rem -0.8rem rgba(0, 0, 0, 0.8),
-    0 0 0 1px rgba(0, 0, 0, 0.05);
+  /* box-shadow: 0 5px 0.9rem -0.8rem rgba(0, 0, 0, 0.8),
+    0 0 0 1px rgba(0, 0, 0, 0.05); */
   border-radius: 5px;
-  height: 140px;
+  height: 80px;
 }
 .qa-tags {
   cursor: pointer;
@@ -225,5 +264,19 @@ a {
   border-radius: 6px;
   height: 40px;
   padding: 7px 30px;
+}
+.list-title {
+  font-size: 0.875rem;
+  line-height: 1.4;
+  color: #202131;
+  font-family: Roboto, RobotoDraft, Helvetica, Arial, sans-serif;
+  font-weight: 600;
+}
+.sub-title {
+  font-size: 0.75rem;
+}
+.list-item {
+  background: transparent;
+  border: none;
 }
 </style>

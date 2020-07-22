@@ -45,7 +45,7 @@
           </div>
         </div>
 
-        <h5 class="ml-4">{{ article.title }}</h5>
+        <h5 class="ml-4 py-3">{{ article.title }}</h5>
         <nuxt-link prefetch :to="`/detailPost/${article.slug}`">
           <div @click="setview">
             <b-card-img-lazy

@@ -1,11 +1,6 @@
 <template>
   <div class="channel-cover">
-    <b-card
-      overlay
-      img-height="80"
-      :img-src="require('~/assets/user/dummyImages/channelCover2.jpg')"
-      text-variant="white"
-    >
+    <b-card overlay img-height="80" :img-src="image" text-variant="white">
       <b-card-text text-tag="h2" class="channel-cover-title">
         {{ ChannelCoverTitle }}</b-card-text
       >
@@ -15,7 +10,7 @@
 
 <script>
 export default {
-  props: ["ChannelCoverTitle"]
+  props: ["ChannelCoverTitle", "image"]
 };
 </script>
 

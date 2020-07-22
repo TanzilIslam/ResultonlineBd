@@ -61,6 +61,7 @@ span {
   font-size: 20px;
   background-color: #343a40;
   color: white;
+  border-radius: 7px;
 }
 .sideBar {
   overflow: hidden;
