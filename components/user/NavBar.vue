@@ -75,9 +75,11 @@
             </div>
           </form>
 
-          <b-nav-item class="mt-1" to="/favourite" href="#"
-            >Favourite</b-nav-item
-          >
+          <b-navbar-nav>
+            <b-nav-item class="mt-1" to="/favourite" href="#"
+              >Favourite</b-nav-item
+            >
+          </b-navbar-nav>
         </b-collapse>
       </b-container>
     </b-navbar>
@@ -94,7 +96,9 @@ export default {
   },
   methods: {
     search() {
-      console.log(this.keyword);
+      if (this.keyword != null && this.keyword != "") {
+        this.$router.push("/search/" + this.keyword);
+      }
     }
   }
 };

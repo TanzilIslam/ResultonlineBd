@@ -100,11 +100,11 @@
             <h5 class="custom-latest-title ml-2">Blog</h5>
             <hr class="custom-latest-hr" />
             <div class="mb-4" v-for="(i, index) in blog" :key="index">
-              <nuxt-link :to="`/blogDetail/${i.blog_slug}`">
+              <nuxt-link :to="`/blogDetail/${i.slug}`">
                 <b-card class="pl-2 pr-2" no-body style="border:none">
                   <b-card-img
                     height="160"
-                    :src="i.post_img"
+                    :src="i.photo"
                     style="border-radius: 10px;"
                   ></b-card-img>
                   <b-card-text
@@ -134,14 +134,14 @@
               :key="index"
             >
               <div class="pl-2 pr-2 mb-3">
-                <nuxt-link prefetch :to="`/qandADetail/${j.q_slug}`">
+                <nuxt-link prefetch :to="`/qandADetail/${j.slug}`">
                   <b-card class="pl-2 pt-2" no-body>
-                    <div @click="setViewQandA(j.post_views, j.q_slug)">
+                    <div @click="setViewQandA(j.view, j.slug)">
                       <h6>
-                        <strong>{{ j.qname }}</strong>
+                        <strong>{{ j.title }}</strong>
                       </h6>
                       <p>
-                        {{ j.decribe_post.slice(0, 40) + "..." }}
+                        {{ j.details.slice(0, 40) + "..." }}
                       </p>
                     </div>
                   </b-card>
@@ -379,7 +379,7 @@ export default {
     async setviewqAndA(view, slug) {
       await this.$axios
         .$put(process.env.baseUrl + `/q&a/api/v1/dtls/${slug}`, {
-          post_views: view + 1
+          view: view + 1
         })
         .then(function(response) {})
         .catch(function(e) {

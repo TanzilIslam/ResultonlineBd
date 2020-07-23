@@ -15,10 +15,10 @@
           v-for="(i, index) in cover"
           :key="index"
         >
-          <nuxt-link :to="`/blogDetail/${i.blog_slug}`">
+          <nuxt-link :to="`/blogDetail/${i.slug}`">
             <b-card
               overlay
-              :img-src="i.post_img"
+              :img-src="i.photo"
               img-alt="Card Image"
               text-variant="white"
               img-height="400"
@@ -52,12 +52,12 @@
             v-for="(i, index) in home.slice(0, 2)"
             :key="index"
           >
-            <nuxt-link :to="`/blogDetail/${i.blog_slug}`">
+            <nuxt-link :to="`/blogDetail/${i.slug}`">
               <b-card
                 class="cover-card"
                 img-height="280"
                 no-body
-                :img-src="i.post_img"
+                :img-src="i.photo"
                 img-top
               >
                 <b-card-text class="card-title-one">
@@ -72,10 +72,10 @@
               v-for="(i, index) in home.slice(2, 5)"
               :key="index"
             >
-              <nuxt-link :to="`/blogDetail/${i.blog_slug}`">
+              <nuxt-link :to="`/blogDetail/${i.slug}`">
                 <div class="d-flex">
                   <div class="">
-                    <b-img height="136" width="205" :src="i.post_img"></b-img>
+                    <b-img height="136" width="205" :src="i.photo"></b-img>
                   </div>
                   <div class="card-title-two ml-2">
                     <h6>
@@ -128,12 +128,12 @@
             lg="4"
             xl="4"
           >
-            <nuxt-link :to="`/blogDetail/${i.blog_slug}`">
+            <nuxt-link :to="`/blogDetail/${i.slug}`">
               <b-card class="cover-card-two" no-body img-top>
                 <b-card-img
                   width="436"
                   height="280"
-                  :src="'http://cdn.resultonlinebd.com' + i.post_img"
+                  :src="'http://cdn.resultonlinebd.com' + i.photo"
                   class="card-image-bottom"
                 ></b-card-img>
                 <b-card-text text-tag="p" class="card-title-small mt-4">

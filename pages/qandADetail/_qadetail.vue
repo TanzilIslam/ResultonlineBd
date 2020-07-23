@@ -12,14 +12,14 @@
                 <div class="d-flex w-100">
                   <div>
                     <h4>
-                      <strong>{{ data.qname }}</strong>
+                      <strong>{{ data.title }}</strong>
                     </h4>
                   </div>
 
                   <div class="ml-auto">
                     <div class="d-flex">
                       <b-icon icon="eye-fill" class="mt-1 ml-2 mr-1"></b-icon>
-                      {{ data.post_views }}
+                      {{ data.view }}
                       <b-icon icon="reply" class="mt-1 ml-4"></b-icon>
                     </div>
                   </div>
@@ -27,7 +27,7 @@
                 <p class="text-muted">
                   {{ data.catagry.publisher }}
                 </p>
-                <p>{{ data.decribe_post }}</p>
+                <p>{{ data.details }}</p>
               </div>
             </b-card>
           </div>
@@ -59,8 +59,10 @@
               v-for="(i, index) in relatedData"
               :key="index"
             >
-              <nuxt-link prefetch :to="`/qandADetail/${i.q_slug}`">
-                {{ i.qname }}
+              <nuxt-link prefetch :to="`/qandADetail/${i.slug}`">
+                <div @click="setView(i.view, i.slug)">
+                  {{ i.title }}
+                </div>
               </nuxt-link>
             </b-list-group-item>
           </b-list-group>
@@ -102,6 +104,18 @@ export default {
       .catch(function(e) {
         console.log(e);
       });
+  },
+  methods: {
+    async setView(view, slug) {
+      this.$axios
+        .$put(process.env.baseUrl + `/q&a/api/v1/dtls/${slug}`, {
+          view: view + 1
+        })
+        .then(function(response) {})
+        .catch(function(e) {
+          console.log(e);
+        });
+    }
   }
 };
 </script>

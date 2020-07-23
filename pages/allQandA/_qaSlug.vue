@@ -27,18 +27,18 @@
         xl="6"
         class="mb-3"
       >
-        <nuxt-link prefetch :to="`/qandADetail/${j.q_slug}`">
+        <nuxt-link prefetch :to="`/qandADetail/${j.slug}`">
           <b-card no-body class="card-body">
-            <div @click="setView(j.post_views, j.q_slug)">
+            <div @click="setView(j.view, j.slug)">
               <h4>
-                <strong>{{ j.qname }}</strong>
+                <strong>{{ j.title }}</strong>
               </h4>
               <p class="text-muted">
                 {{ j.created_at }}
                 <b-icon icon="clock-fill" class="ml-1"></b-icon>
               </p>
               <p>
-                {{ j.decribe_post.slice(0, 40) }}
+                {{ j.details.slice(0, 40) }}
               </p>
             </div>
           </b-card>
@@ -70,8 +70,6 @@ export default {
         process.env.baseUrl + `/q&a/api/v1/channel/${self.$route.params.qaSlug}`
       )
       .then(function(posts) {
-        console.log(self.data);
-
         self.data = posts.results;
         self.next = posts.next;
       })
@@ -103,7 +101,7 @@ export default {
     async setView(view, slug) {
       this.$axios
         .$put(process.env.baseUrl + `/q&a/api/v1/dtls/${slug}`, {
-          post_views: view + 1
+          view: view + 1
         })
         .then(function(response) {})
         .catch(function(e) {

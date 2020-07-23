@@ -8,33 +8,21 @@
         </h4>
         <div v-else>
           <b-card
-            class="mb-2"
+            class="mb-2 mr-2"
             no-body
-            :img-src="DetailArticle.post_img"
+            :img-src="DetailArticle.photo"
             img-alt="card Image"
             text-variant="white"
             img-height="375"
           ></b-card>
           <span style="font-size:18px" class="text-muted">
             {{ DetailArticle.catagry_select.cat_name }}
-            <!-- |
-            {{ DetailArticle.release_date }} -->
           </span>
-          <!-- <div class="d-flex float-right mb-4">
-            <b-img
-              class=""
-              style="width:20px;height:20px;"
-              :src="require('~/assets/user/detailPage/fire.png')"
-            ></b-img>
-            <b-card-text text-tag="p" class="text-muted ">{{
-              DetailArticle.view
-            }}</b-card-text>
-          </div> -->
           <b-card-text class="mt-4" text-tag="h4">{{
             DetailArticle.title
           }}</b-card-text>
 
-          <div v-html="DetailArticle.decribe_post" class="mt-3 details"></div>
+          <div v-html="DetailArticle.details" class="mt-3 details"></div>
         </div>
       </b-col>
       <b-col
@@ -50,19 +38,19 @@
         <div class="ml-2 latest-home-card">
           <!-- <div>v-if="$fetchState.pending"  v-else </div> -->
           <VclRelatedCard v-if="$fetchState.pending" />
-          <b-list-group v-else>
+          <b-list-group style="background-color:white;" v-else>
             <b-list-group-item
               v-for="(i, index) in RelatedArticles"
               :key="index"
               class="custom-list-item"
             >
-              <nuxt-link prefetch :to="`/blogDetail/${i.blog_slug}`">
+              <nuxt-link prefetch :to="`/blogDetail/${i.slug}`">
                 <div class="d-flex">
                   <div>
                     <b-img-lazy
                       blank-color="#bbb"
                       class="custom-latest-image"
-                      :src="i.post_img"
+                      :src="i.photo"
                     ></b-img-lazy>
                   </div>
                   <div class="ml-2">
@@ -80,7 +68,7 @@
                   </div>
                 </div>
               </nuxt-link>
-              <hr />
+              <hr class="p-0 m-0" v-if="index < 3" />
             </b-list-group-item>
           </b-list-group>
         </div>
@@ -116,12 +104,12 @@
             v-for="(article, index) in RecommendedArticles"
             :key="index"
           >
-            <nuxt-link prefetch :to="`/blogDetail/${article.blog_slug}`">
+            <nuxt-link prefetch :to="`/blogDetail/${article.slug}`">
               <div class="channel-common-card">
                 <b-card no-body class="custom-channel-common-card">
                   <b-card-img-lazy
                     blank-color="#bbb"
-                    :src="article.post_img"
+                    :src="article.photo"
                     top
                     height="165"
                     style="border-radius: 10px;"
@@ -221,18 +209,6 @@ export default {
       })
       .finally(function() {});
   },
-  // computed: mapState({
-  //   DetailArticle: state => state.detailPage.DetailArticle,
-  //   details: state =>
-  //     state.detailPage.DetailArticle.details
-  //       .replace(/(^\s*)|(\s*$)/gi, "")
-  //       .replace(/[ ]{2,}/gi, " ")
-  //       .replace(/\n /, "\n")
-  //       .split(" "),
-  //   RecommendedArticles: state => state.detailPage.RecommendedArticles,
-  //   HighRatedArticles: state => state.detailPage.HighRatedArticles,
-  //   RelatedArticles: state => state.detailPage.RelatedArticles
-  // }),
   methods: {
     async loadDataRecommended() {
       if (this.recommendedNextData != null) {
@@ -266,10 +242,6 @@ export default {
 </script>
 
 <style  scoped>
-/* .secreat {
-  visibility: hidden;
-} */
-
 .custom-channel-common-card {
   border: none !important;
   cursor: pointer;
@@ -398,22 +370,11 @@ p {
 }
 .custom-list-item {
   border: none !important;
-  margin-bottom: 2px;
+  margin-bottom: 5px;
   cursor: pointer;
-  padding: 0px !important;
+  /* padding: 0px !important; */
 }
 
-/* .custom-latest-text {
-  margin-left: 5px;
-  text-align: left;
-  font-size: 16px;
-} */
-/* .latest-home-card { */
-/* background: #fff; */
-/* box-shadow: 0 5px 0.9rem -0.8rem rgba(0, 0, 0, 0.8),
-    0 0 0 1px rgba(0, 0, 0, 0.05);
-  border-radius: 5px; */
-/* } */
 .related-card-title {
   color: rgb(27, 30, 33);
   font-weight: 400;
