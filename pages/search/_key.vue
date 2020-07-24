@@ -5,59 +5,27 @@
       <b-row>
         <b-col cols="12" sm="6" md="12" lg="12" xl="12">
           <b-list-group>
-            <b-list-group-item class="mb-4">
+            <b-list-group-item
+              v-for="(i, index) in searched"
+              :key="index"
+              class="mb-4"
+            >
               <div class="d-flex">
                 <div class="image-section mr-4">
                   <b-img
+                    v-if="i.photo"
                     height="102"
                     width="102"
                     class="rounded"
-                    src="~assets/user/dummyImages/1.jpg"
-                  ></b-img>
-                </div>
-                <div class="text-section">
-                  <h1 class="text-title pb-3 pt-1">
-                    Giggles Computer Funtime for Baby: My Musical World
-                  </h1>
-                  <p class="text-description">
-                    In Giggles Computer Funtime for Baby: My Musical World,
-                    share the joy of music, musical instruments, and music
-                    concepts with your little one! In Giggles Computer Funtime
-                    for Baby: My Musical World, share the joy of music, musical
-                    instruments, and music concepts with your little one! In
-                    Giggles Computer Funtime for Baby: My Musical World, share
-                    the joy of music, musical instruments, and music concepts
-                    with your little one! In Giggles Computer Funtime for Baby:
-                    My Musical World, share the joy of music, musical
-                    instruments, and music concepts with your little one!
-                  </p>
-                </div>
-              </div>
-            </b-list-group-item>
-
-            <b-list-group-item class="mb-4">
-              <div class="d-flex">
-                <div class="image-section mr-4">
-                  <b-img
-                    height="102"
-                    width="102"
-                    class="rounded"
-                    src="~assets/user/dummyImages/1.jpg"
+                    :src="i.photo"
                   ></b-img>
                 </div>
                 <div class="text-section">
                   <h1 class="text-title pb-3">
-                    Giggles Computer Funtime for Baby: My Musical World
+                    {{ i.title }}
                   </h1>
                   <p class="text-description">
-                    In Giggles Computer Funtime for Baby: My Musical World,
-                    share the joy of music, musical instruments, and music
-                    concepts with your little one! In Giggles Computer Funtime
-                    for Baby: My Musical World, share the joy of music, musical
-                    instruments, and music concepts with your little one! In
-                    Giggles Computer Funtime for Baby: My Musical World, share
-                    the joy of music, musical instruments, and music concepts
-                    with your little one!
+                    {{ i.details.slice(0, 30) }}
                   </p>
                 </div>
               </div>
@@ -71,7 +39,30 @@
 
 <script>
 export default {
-  async fetch() {}
+  data() {
+    return {
+      searched: [],
+      next: "",
+    };
+  },
+  async fetch() {
+    var self = this;
+    self.$axios
+      .$get(process.env.baseUrl + "/serach/" + self.$route.params.key)
+      .then(function (posts) {
+        // self.searched = posts.results;
+        // self.next = posts.next;
+
+        posts.results.forEach((element) => {
+          element[0].forEach((e) => {
+            console.log(e.title);
+          });
+        });
+      })
+      .catch(function (e) {
+        console.log(e);
+      });
+  },
 };
 </script>
 

@@ -15,7 +15,7 @@
             text-variant="white"
             img-height="375"
           ></b-card>
-          <span style="font-size:18px" class="text-muted">
+          <span style="font-size: 18px;" class="text-muted">
             {{ DetailArticle.contentowners.authorsname }} |
             {{ DetailArticle.release_date }}
           </span>
@@ -23,14 +23,12 @@
             <b-img
               alt="png"
               class=""
-              style="width:20px;height:20px;"
+              style="width: 20px; height: 20px;"
               :src="require('~/assets/user/detailPage/fire.png')"
             ></b-img>
-            <b-card-text
-              text-tag="p"
-              class="view-logo-detailpage text-muted "
-              >{{ DetailArticle.view }}</b-card-text
-            >
+            <b-card-text text-tag="p" class="view-logo-detailpage text-muted">{{
+              DetailArticle.view
+            }}</b-card-text>
           </div>
           <b-card-text class="mt-4" text-tag="h4">{{
             DetailArticle.title
@@ -113,13 +111,17 @@
         xl="6"
         class="order-md-last order-lg-last order-xl-last"
       >
-        <div class="tags  mt-4 mb-3">
-          <b-badge variant="primary">#Css3</b-badge>
-          <b-badge variant="success">#NodeJs</b-badge>
-          <b-badge variant="danger">#angular</b-badge>
-          <b-badge variant="warning">#JavaScript</b-badge>
-          <b-badge variant="info">#Django</b-badge>
-          <b-badge variant="dark">#Bitcoin</b-badge>
+        <div class="tags mt-4 mb-3">
+          <b-badge
+            class="m-1"
+            v-for="(i, index) in DetailArticle.tag_creator"
+            :key="index"
+            :variant="i.tagNameBG"
+          >
+            <nuxt-link :to="`/tagPage/${i.tagSlug}`">
+              {{ i.tag_name }}
+            </nuxt-link></b-badge
+          >
         </div>
 
         <div v-if="showRateDiv" class="rate-section d-flex mb-4">
@@ -143,7 +145,7 @@
                     auto-hide-delay="3000"
                   >
                     <template v-slot:toast-title>
-                      <div class="d-flex flex-grow-1  align-items-baseline">
+                      <div class="d-flex flex-grow-1 align-items-baseline">
                         <b-img
                           blank
                           blank-color="#ff5555"
@@ -208,7 +210,7 @@
                   </div>
                 </div>
               </nuxt-link>
-              <hr v-if="index < 3" class=" mb-1" />
+              <hr v-if="index < 3" class="mb-1" />
             </b-list-group-item>
           </b-list-group>
         </div>
@@ -216,16 +218,16 @@
     </b-row>
     <hr />
     <div class="recommended">
-      <div class="d-flex  mb-3">
+      <div class="d-flex mb-3">
         <b-img
-          style="background-color: #343a40; padding:5px"
+          style="background-color: #343a40; padding: 5px;"
           height="48"
           width="48"
           class="rounded"
           :src="require('~/assets/user/detailPage/1.png')"
         >
         </b-img>
-        <h5 style="color:#222;" class="ml-2 mt-2">
+        <h5 style="color: #222;" class="ml-2 mt-2">
           <strong>Recommended</strong>
         </h5>
       </div>
@@ -276,16 +278,16 @@
     </div>
     <hr />
     <div class="high-rated mb-4">
-      <div class="d-flex  mb-3">
+      <div class="d-flex mb-3">
         <b-img
-          style="background-color: #343a40; padding:5px"
+          style="background-color: #343a40; padding: 5px;"
           height="48"
           width="48"
           class="rounded"
           :src="require('~/assets/user/detailPage/2.png')"
         >
         </b-img>
-        <h5 style="color:#222;" class="ml-2 mt-2">
+        <h5 style="color: #222;" class="ml-2 mt-2">
           <strong>High Rated</strong>
         </h5>
       </div>
@@ -348,7 +350,7 @@ export default {
       loadedRecommended: true,
       loadedHighRated: true,
       showRateDiv: true,
-      showRateThanksDiv: false
+      showRateThanksDiv: false,
     };
   },
   head() {
@@ -358,9 +360,9 @@ export default {
         {
           hid: "description",
           name: "description",
-          content: this.DetailArticle.details
-        }
-      ]
+          content: this.DetailArticle.details,
+        },
+      ],
       // link: [
       //   {
       //     rel: "stylesheet",
@@ -374,7 +376,7 @@ export default {
     var self = this;
     await this.$axios
       .$get(process.env.baseUrl + `/count/${this.$route.params.slug}`)
-      .then(function(posts) {
+      .then(function (posts) {
         self.$store.dispatch("detailPage/FetchDetailArticle", posts);
       });
 
@@ -383,13 +385,13 @@ export default {
         process.env.baseUrl +
           `/dtl_rlt?search=${this.DetailArticle.channel.channelname}`
       )
-      .then(posts =>
+      .then((posts) =>
         this.$store.dispatch("detailPage/FetchRelatedArticles", posts.results)
       );
 
     await this.$axios
       .$get(process.env.baseUrl + `/recommended_data`)
-      .then(posts =>
+      .then((posts) =>
         this.$store.dispatch(
           "detailPage/FetchRecommendedArticles",
           posts.results
@@ -397,34 +399,34 @@ export default {
       );
     await this.$axios
       .$get(process.env.baseUrl + `/high_ratetd`)
-      .then(posts =>
+      .then((posts) =>
         this.$store.dispatch("detailPage/FetchHighRatedArticles", posts.results)
       );
   },
   computed: mapState({
-    DetailArticle: state => state.detailPage.DetailArticle,
-    details: state =>
+    DetailArticle: (state) => state.detailPage.DetailArticle,
+    details: (state) =>
       state.detailPage.DetailArticle.details
         .replace(/(^\s*)|(\s*$)/gi, "")
         .replace(/[ ]{2,}/gi, " ")
         .replace(/\n /, "\n")
         .split(" "),
-    RecommendedArticles: state => state.detailPage.RecommendedArticles,
-    HighRatedArticles: state => state.detailPage.HighRatedArticles,
-    RelatedArticles: state => state.detailPage.RelatedArticles
+    RecommendedArticles: (state) => state.detailPage.RecommendedArticles,
+    HighRatedArticles: (state) => state.detailPage.HighRatedArticles,
+    RelatedArticles: (state) => state.detailPage.RelatedArticles,
   }),
   methods: {
     async setRating(rating) {
       var self = this;
       await this.$axios
         .$put(process.env.baseUrl + `/count/${this.$route.params.slug}`, {
-          reviewcount: this.DetailArticle.reviewcount + this.rating
+          reviewcount: this.DetailArticle.reviewcount + this.rating,
         })
-        .then(function(res) {
+        .then(function (res) {
           self.showRateDiv = false;
           self.showRateThanksDiv = true;
         })
-        .catch(error => {
+        .catch((error) => {
           console.log(error);
         });
 
@@ -460,12 +462,12 @@ export default {
         await this.$axios.$put(
           process.env.baseUrl + `/count/${i.slug}`,
           {
-            view: i.view + 1
+            view: i.view + 1,
           },
           {
             headers: {
-              Authorization: `Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJrZXkiOiJjdXN0b21fdmFsdWUifQ.Gn4_F3IujZkyYR3gygA0TZuVeprhDDiDCWE1LvvCKsY`
-            }
+              Authorization: `Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJrZXkiOiJjdXN0b21fdmFsdWUifQ.Gn4_F3IujZkyYR3gygA0TZuVeprhDDiDCWE1LvvCKsY`,
+            },
           }
         );
         // this.$store.dispatch("countView/setViewcount", this.article.slug);
@@ -504,7 +506,7 @@ export default {
       // if (process.browser) {
 
       // }
-    }
+    },
   },
   // created() {
   //   this.checkLocalStorage();
@@ -515,7 +517,7 @@ export default {
       this.$nuxt.$loading.start();
       setTimeout(() => this.$nuxt.$loading.finish(), 1000);
     });
-  }
+  },
   // beforeRouteEnter(to, from, next) {
   //   next(vm => {
   //     vm.checkLocalStorage();
@@ -680,6 +682,11 @@ p {
 .line {
   margin-top: 0px;
   padding-top: 0px;
+}
+
+.tags,
+a {
+  color: white !important;
 }
 /* Channel Tabs End */
 </style>

@@ -1,6 +1,6 @@
 <template>
   <div @click="setview" class="author-small-card">
-    <b-card no-body style="width:260px;" class="custom-author-small-card">
+    <b-card no-body class="custom-author-small-card">
       <b-card-img-lazy
         :src="ArticleCover"
         blank-color="#bbb"
@@ -14,9 +14,6 @@
       <b-card-text text-tag="h6" class="custom-card-text-title">{{
         ArticleTitle
       }}</b-card-text>
-      <!-- <div>ArticleTitle.length > 25
-          ? ArticleTitle.substr(0, 25) + " .."
-          : ArticleTitle </div> -->
     </b-card>
   </div>
 </template>
@@ -26,35 +23,35 @@ export default {
   props: {
     ArticleCover: {
       type: String,
-      default: ""
+      default: "",
     },
     ArticlePublish: {
       type: String,
-      default: "2101-11-22"
+      default: "2101-11-22",
     },
     ArticleTitle: {
       type: String,
-      default: "This is the Title"
+      default: "This is the Title",
     },
     ArticleSlug: {
-      type: String
+      type: String,
     },
     ArticleView: {
-      type: Number
-    }
+      type: Number,
+    },
   },
   methods: {
     setview() {
       try {
         this.$axios.$put(process.env.baseUrl + `/count/${this.ArticleSlug}`, {
-          view: this.ArticleView + 1
+          view: this.ArticleView + 1,
         });
         // this.$store.dispatch("countView/setViewcount", this.article.slug);
       } catch (e) {
         alert("No more data" + e);
       }
-    }
-  }
+    },
+  },
 };
 </script>
 
@@ -82,8 +79,4 @@ export default {
   line-height: 1.4;
   letter-spacing: -0.5px;
 }
-/* .custom-channel-common-card img {
-  border-top-left-radius: 15px;
- border-top-right-radius: 15px;
-} */
 </style>

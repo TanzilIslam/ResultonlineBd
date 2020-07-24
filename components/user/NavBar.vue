@@ -31,7 +31,7 @@
               >
             </b-navbar-nav>
 
-            <form class=" d-inline w-100">
+            <form class="d-inline w-100">
               <div>
                 <b-input-group size="sm">
                   <b-form-input
@@ -57,13 +57,12 @@
             <b-nav-item to="/blog" class="ml-1 mt-1" href="#">Blog</b-nav-item>
           </b-navbar-nav>
 
-          <form class="mx-2 mr-2 d-inline w-100">
+          <form @submit.prevent="search" class="mx-2 mr-2 d-inline w-100">
             <div>
               <b-input-group size="sm">
                 <b-form-input
-                  style="color:#e4e6e8;"
+                  style="color: #e4e6e8;"
                   v-model="keyword"
-                  @keyup.enter="search"
                   placeholder="Search Here..."
                 ></b-form-input>
                 <b-input-group-append>
@@ -91,16 +90,16 @@ export default {
   name: "NavBar",
   data() {
     return {
-      keyword: ""
+      keyword: "",
     };
   },
   methods: {
-    search() {
-      if (this.keyword != null && this.keyword != "") {
+    async search() {
+      if (this.keyword != "") {
         this.$router.push("/search/" + this.keyword);
       }
-    }
-  }
+    },
+  },
 };
 </script>
 
