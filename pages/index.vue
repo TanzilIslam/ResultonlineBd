@@ -101,7 +101,7 @@
             <hr class="custom-latest-hr" />
             <div class="mb-4" v-for="(i, index) in blog" :key="index">
               <nuxt-link :to="`/blogDetail/${i.slug}`">
-                <b-card class="pl-2 pr-2" no-body style="border:none">
+                <b-card class="pl-2 pr-2" no-body style="border: none;">
                   <b-card-img
                     height="160"
                     :src="i.photo"
@@ -168,12 +168,13 @@
               :article="article"
               :data-index="index"
             />
-            <moon-loader
+            <VclHomeCard v-if="showCl" />
+            <!-- <moon-loader
               v-if="!loaded"
               color="#000000"
               class="spinner-bottom"
               :size="40"
-            ></moon-loader>
+            ></moon-loader> -->
           </div>
         </div>
       </b-col>
@@ -205,21 +206,6 @@
       <!-- tost end -->
     </div>
   </div>
-  <!-- pagination Start -->
-  <!-- <div class="myPagination">
-      <div class="text-center mt-5 mb-3">
-        <span v-if="!loaded"
-          ><b-spinner
-            style="width: 2rem; height: 2rem;"
-            label="Loading..."
-          ></b-spinner
-        ></span>
-        <b-button v-else-if="loaded" variant="dark" @click="loadData">
-          <span> Load More</span>
-        </b-button>
-      </div>
-    </div> -->
-  <!-- pagination End -->
 </template>
 
 <script>
@@ -238,36 +224,36 @@ export default {
           hid: "description",
           name: "description",
           content:
-            "Here you can find all the latest information about technology,mobile phones,educations etc."
-        }
-      ]
+            "Here you can find all the latest information about technology,mobile phones,educations etc.",
+        },
+      ],
     };
   },
   data() {
     return {
       loading: false,
-      loaded: true,
+      showCl: false,
       nextUrl: "",
       footerList: [
         {
           name: "Terms",
-          link: ""
+          link: "",
         },
         {
           name: "Privacy",
-          link: ""
+          link: "",
         },
         {
           name: "Get In Touch",
-          link: ""
+          link: "",
         },
         {
           name: "About Us",
-          link: ""
-        }
+          link: "",
+        },
       ],
       blog: [],
-      qandA: []
+      qandA: [],
     };
   },
   async fetch() {
@@ -283,34 +269,34 @@ export default {
     await self.$axios
       .$get(process.env.baseUrl, {
         headers: {
-          Authorization: `Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJrZXkiOiJjdXN0b21fdmFsdWUifQ.Gn4_F3IujZkyYR3gygA0TZuVeprhDDiDCWE1LvvCKsY`
-        }
+          Authorization: `Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJrZXkiOiJjdXN0b21fdmFsdWUifQ.Gn4_F3IujZkyYR3gygA0TZuVeprhDDiDCWE1LvvCKsY`,
+        },
       })
-      .then(function(posts) {
+      .then(function (posts) {
         self.$store.dispatch("home/FetchHomeArticles", posts.results);
         self.nextUrl = posts.next;
       })
-      .catch(function(error) {
+      .catch(function (error) {
         console.log("No Net" + error);
       })
-      .finally(function() {});
+      .finally(function () {});
     await this.$axios
       .$get(process.env.baseUrl + `/latestdata`)
-      .then(posts => this.$store.dispatch("home/FetchLatestArticles", posts));
+      .then((posts) => this.$store.dispatch("home/FetchLatestArticles", posts));
 
     // blog
     await this.$axios
       .$get(process.env.baseUrl + `/blog/api/v1/home_card`)
-      .then(posts => (this.blog = posts));
+      .then((posts) => (this.blog = posts));
 
     // qand a
     await this.$axios
       .$get(process.env.baseUrl + `/q&a/api/v1/qanda_home`)
-      .then(posts => (this.qandA = posts));
+      .then((posts) => (this.qandA = posts));
   },
   computed: mapState({
-    HomeArticles: state => state.home.HomeArticles,
-    LatestArticles: state => state.home.LatestArticles
+    HomeArticles: (state) => state.home.HomeArticles,
+    LatestArticles: (state) => state.home.LatestArticles,
   }),
   methods: {
     scroll() {
@@ -334,8 +320,9 @@ export default {
         const pageHeight = document.documentElement.scrollHeight;
 
         let bottomOfWindowThree = visible + scrollY >= pageHeight;
-        if (bottomOfWindow) {
+        if (bottomOfWindowTwo) {
           if (this.$route.path === "/") {
+            this.showCl = true;
             this.loadData();
           }
         }
@@ -348,28 +335,30 @@ export default {
           "Authorization",
           "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJrZXkiOiJjdXN0b21fdmFsdWUifQ.Gn4_F3IujZkyYR3gygA0TZuVeprhDDiDCWE1LvvCKsY"
         );
-        self.loaded = false;
         await this.$axios
           .$get(self.nextUrl)
-          .then(function(posts) {
-            posts.results.forEach(element => {
+          .then(function (posts) {
+            posts.results.forEach((element) => {
               self.$store.dispatch("home/More", element);
             });
             self.nextUrl = posts.next;
             self.loaded = true;
           })
-          .catch(function(error) {
+          .catch(function (error) {
             console.log("No Net" + error);
           })
-          .finally(function() {});
+          .finally(function () {});
+
+        self.showCl = false;
       } else {
         this.$bvToast.show("my-toast");
+        this.showCl = false;
       }
     },
     async setview(article) {
       try {
         await this.$axios.$put(process.env.baseUrl + `/count/${article.slug}`, {
-          view: article.view + 1
+          view: article.view + 1,
         });
         // this.$store.dispatch("countView/setViewcount", this.article.slug);
       } catch (e) {
@@ -379,36 +368,13 @@ export default {
     async setviewqAndA(view, slug) {
       await this.$axios
         .$put(process.env.baseUrl + `/q&a/api/v1/dtls/${slug}`, {
-          view: view + 1
+          view: view + 1,
         })
-        .then(function(response) {})
-        .catch(function(e) {
+        .then(function (response) {})
+        .catch(function (e) {
           console.log(e);
         });
     },
-    lazyload() {
-      // const scrollY = window.scrollY;
-      // const visible = document.documentElement.clientHeight;
-      // const pageHeight = document.documentElement.scrollHeight;
-      if (window.innerHeight + window.scrollY >= document.body.offsetHeight) {
-        if (this.$route.path === "/") {
-          // var element, name, arr;
-          // element = document.getElementById("myDIV");
-          // name = "mystyle";
-          // arr = element.className.split(" ");
-          // if (arr.indexOf(name) == -1) {
-          //   element.className += " " + name;
-          // }
-          this.loadData();
-        }
-      }
-
-      // if (visible + scrollY >= pageHeight) {
-      // console.log("bottom");
-
-      // }
-    }
-    // check() { }
   },
   mounted() {
     // this.check();
@@ -417,13 +383,7 @@ export default {
       this.$nuxt.$loading.start();
       setTimeout(() => this.$nuxt.$loading.finish(), 1000);
     });
-  }
-  // async created() {
-  //   // this.dataLoad();
-  //   process.client.addEventListener("scroll", x => {
-  //     this.lazyload();
-  //   });
-  // }
+  },
 };
 </script>
 
