@@ -52,12 +52,19 @@
 
         <b-collapse id="nav-collapse" is-nav>
           <b-navbar-nav class="ml-4 mr-2 item">
-            <b-nav-item to="/" class="mt-1" href="#">Home</b-nav-item>
-            <b-nav-item to="/qAnda" class="mt-1 ml-1" href="#">Q&A</b-nav-item>
-            <b-nav-item to="/blog" class="ml-1 mt-1" href="#">Blog</b-nav-item>
+            <b-nav-item to="/" class="my-auto" href="#">Home</b-nav-item>
+            <b-nav-item to="/qAnda" class="my-auto ml-1" href="#"
+              >Q&A</b-nav-item
+            >
+            <b-nav-item to="/blog" class="my-auto mt-1" href="#"
+              >Blog</b-nav-item
+            >
           </b-navbar-nav>
 
-          <form @submit.prevent="search" class="mx-2 mr-2 d-inline w-100">
+          <form
+            @submit.prevent="search"
+            class="mx-2 mr-2 my-auto d-inline w-100"
+          >
             <div>
               <b-input-group size="sm">
                 <b-form-input
@@ -75,7 +82,7 @@
           </form>
 
           <b-navbar-nav>
-            <b-nav-item class="mt-1" to="/favourite" href="#"
+            <b-nav-item class="my-auto" to="/favourite" href="#"
               >Favourite</b-nav-item
             >
           </b-navbar-nav>

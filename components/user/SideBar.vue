@@ -4,7 +4,6 @@
     <b-list-group class="list">
       <b-list-group-item to="/channel/programming" class="mylist">
         <b-img
-          style="color: red;"
           height="40"
           width="50"
           class="bg-dark"
