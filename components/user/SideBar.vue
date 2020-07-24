@@ -3,42 +3,48 @@
     <h5 class="text-center chanel">Channel</h5>
     <b-list-group class="list">
       <b-list-group-item to="/channel/programming" class="mylist">
-        <b-icon icon="code" scale="2"></b-icon>
-        <span style="margin-left:15px">Programming</span>
+        <b-img
+          style="color: red;"
+          height="40"
+          width="50"
+          class="bg-dark"
+          src="~/assets/user/sideBar/programming.svg"
+        ></b-img>
+        <span style="margin-left: 15px;">Programming</span>
       </b-list-group-item>
       <b-list-group-item to="/channel/mobile" class="mylist">
         <b-icon icon="phone" scale="2"></b-icon>
-        <span style="margin-left:15px">Mobile Phone</span>
+        <span style="margin-left: 15px;">Mobile Phone</span>
       </b-list-group-item>
 
       <b-list-group-item to="/channel/celebrity" class="mylist">
         <b-icon icon="camera-video-fill" scale="2"></b-icon>
-        <span style="margin-left:15px">Celebrity & Movie</span>
+        <span style="margin-left: 15px;">Celebrity & Movie</span>
       </b-list-group-item>
 
       <b-list-group-item to="/channel/gaming" class="mylist">
         <b-icon icon="controller" scale="2"></b-icon>
-        <span style="margin-left:15px">Gaming</span>
+        <span style="margin-left: 15px;">Gaming</span>
       </b-list-group-item>
 
       <b-list-group-item to="/channel/history" class="mylist">
         <b-icon icon="cone-striped" scale="2"></b-icon>
-        <span style="margin-left:15px">History</span>
+        <span style="margin-left: 15px;">History</span>
       </b-list-group-item>
 
       <b-list-group-item to="/channel/health" class="mylist">
         <b-icon icon="moon" scale="2"></b-icon>
-        <span style="margin-left:15px">Health</span>
+        <span style="margin-left: 15px;">Health</span>
       </b-list-group-item>
 
       <b-list-group-item to="/channel/technology" class="mylist">
         <b-icon icon="gear-wide-connected" scale="2"></b-icon>
-        <span style="margin-left:15px">Technology</span>
+        <span style="margin-left: 15px;">Technology</span>
       </b-list-group-item>
 
       <b-list-group-item to="/channel/designlibrary" class="mylist">
         <b-icon icon="book-half" scale="2"></b-icon>
-        <span style="margin-left:15px">Design Library</span>
+        <span style="margin-left: 15px;">Design Library</span>
       </b-list-group-item>
     </b-list-group>
   </div>
@@ -46,7 +52,7 @@
 
 <script>
 export default {
-  name: "SideBar"
+  name: "SideBar",
 };
 </script>
 
