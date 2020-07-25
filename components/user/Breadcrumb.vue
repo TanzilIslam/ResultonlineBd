@@ -9,13 +9,13 @@
             v-bind:class="{ active: allActive }"
             @click="loadAll()"
           >
-            <b-icon
-              class="ml-2 mr-2"
-              icon="award-fill"
-              scale="1"
-              variant=" light ? dark "
-            ></b-icon
-            ><span class="mr-2">ALL</span>
+            <b-img
+              class="rounded"
+              height="20"
+              width="20"
+              src="~assets/user/icons/all.svg"
+            ></b-img>
+            <span class="mr-2">ALL</span>
           </b-button>
           <b-button
             variant="outline-dark"
@@ -23,13 +23,13 @@
             v-bind:class="{ active: topActive }"
             @click="loadTop()"
           >
-            <b-icon
-              class="ml-2 mr-2"
-              icon="graph-up"
-              scale="1"
-              variant=" light ? dark "
-            ></b-icon
-            ><span class="mr-2">Top</span>
+            <b-img
+              class="rounded"
+              height="20"
+              width="20"
+              src="~assets/user/icons/top.svg"
+            ></b-img
+            ><span class="ml-1">Top</span>
           </b-button>
           <b-button
             variant="outline-dark"
@@ -37,13 +37,13 @@
             v-bind:class="{ active: highRatedActive }"
             @click="loadhighRated()"
           >
-            <b-icon
-              class="ml-2 mr-2"
-              icon="bar-chart"
-              scale="1"
-              variant=" light ? dark "
-            ></b-icon
-            ><span class="mr-2">High Rated</span>
+            <b-img
+              class="rounded"
+              height="20"
+              width="20"
+              src="~assets/user/icons/high-rated.svg"
+            ></b-img>
+            <span class="mr-2">High Rated</span>
           </b-button>
         </b-col>
       </b-row>
@@ -57,16 +57,16 @@ export default {
   props: {
     allActive: {
       type: Boolean,
-      default: false
+      default: false,
     },
     topActive: {
       type: Boolean,
-      default: false
+      default: false,
     },
     highRatedActive: {
       type: Boolean,
-      default: false
-    }
+      default: false,
+    },
   },
   data() {
     return {};
@@ -80,8 +80,8 @@ export default {
     },
     loadhighRated() {
       this.$router.push("/high-rated");
-    }
-  }
+    },
+  },
 };
 </script>
 
