@@ -81,23 +81,6 @@
                 >Favourite</b-nav-item
               >
             </b-navbar-nav>
-
-            <form class="d-inline w-100">
-              <div>
-                <b-input-group size="sm">
-                  <b-form-input
-                    v-model="keyword"
-                    @keyup.enter="search"
-                    placeholder="Search Here..."
-                  ></b-form-input>
-                  <b-input-group-append>
-                    <b-button @click="search" variant="dark"
-                      ><b-icon icon="search"></b-icon
-                    ></b-button>
-                  </b-input-group-append>
-                </b-input-group>
-              </div>
-            </form>
           </div>
         </b-sidebar>
 
@@ -204,8 +187,12 @@ a {
   .range {
     width: inherit !important;
   }
+
+  .navbar {
+    padding: 0px !important;
+  }
   .custom-mynav {
-    height: 70px;
+    height: 55px;
   }
   .Side-bar-item,
   a {
