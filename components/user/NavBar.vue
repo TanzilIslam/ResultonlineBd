@@ -7,13 +7,64 @@
       toggleable="sm"
     >
       <b-container class="pl-2 pr-3">
-        <b-navbar-brand to="/"
+        <b-navbar-brand to="/" class="brand-logo"
           ><b-img
             :src="require('~/assets/user/navbar/r.png')"
             class="logo"
           ></b-img>
         </b-navbar-brand>
-        <b-navbar-toggle target="sidebar-backdrop"></b-navbar-toggle>
+
+        <b-navbar-toggle
+          v-if="show"
+          target="sidebar-backdrop"
+        ></b-navbar-toggle>
+
+        <b-navbar-brand v-if="show" to="/" class="brand-logo-sm-device"
+          ><b-img
+            :src="require('~/assets/user/navbar/r.png')"
+            class="logo"
+          ></b-img>
+        </b-navbar-brand>
+
+        <b-navbar-brand
+          class="search-logo-sm-device"
+          v-bind:class="{ range: showSearch }"
+        >
+          <div v-if="!show" class="d-flex">
+            <form @submit.prevent="search" class="d-inline w-100">
+              <div>
+                <b-input-group size="sm">
+                  <b-form-input
+                    style="color: #e4e6e8;"
+                    v-model="keyword"
+                    placeholder="Search Here..."
+                  ></b-form-input>
+                  <b-input-group-append>
+                    <b-button class="icon-button" @click="search">
+                      <b-icon icon="search" variant="light"></b-icon>
+                    </b-button>
+                  </b-input-group-append>
+                </b-input-group>
+              </div>
+            </form>
+
+            <div class="pl-4">
+              <b-icon
+                variant="light"
+                scale="2"
+                icon="x"
+                @click="customMethod"
+              ></b-icon>
+            </div>
+          </div>
+
+          <b-icon
+            v-if="show"
+            icon="search"
+            variant="light"
+            @click="show = false"
+          ></b-icon>
+        </b-navbar-brand>
 
         <b-sidebar
           id="sidebar-backdrop"
@@ -21,7 +72,7 @@
           shadow
           backdrop-variant="light"
         >
-          <div class="px-3 py-2">
+          <div class="px-3">
             <b-navbar-nav class="Side-bar-item mb-2">
               <b-nav-item to="/" class="mt-1" href="#">Home</b-nav-item>
               <b-nav-item to="/qAnda" class="mt-1" href="#">Q&A</b-nav-item>
@@ -98,12 +149,26 @@ export default {
   data() {
     return {
       keyword: "",
+      show: true,
     };
   },
   methods: {
     async search() {
       if (this.keyword != "") {
         this.$router.push("/search/" + this.keyword);
+      }
+    },
+    customMethod() {
+      this.show = true;
+      this.showSearch = true;
+    },
+  },
+  computed: {
+    showSearch() {
+      if (this.show == false) {
+        return true;
+      } else {
+        return false;
       }
     },
   },
@@ -126,7 +191,19 @@ a {
   color: white !important;
   font-size: 17px;
 }
+
+@media (min-width: 576px) {
+  .brand-logo-sm-device {
+    display: none !important;
+  }
+  .search-logo-sm-device {
+    display: none !important;
+  }
+}
 @media (min-width: 0px) and (max-width: 575px) {
+  .range {
+    width: inherit !important;
+  }
   .custom-mynav {
     height: 70px;
   }
@@ -137,6 +214,14 @@ a {
   }
   .custom-navbar {
     margin-bottom: 75px !important;
+  }
+
+  .brand-logo {
+    display: none !important;
+  }
+  button:focus {
+    outline: none !important;
+    outline: none !important;
   }
 }
 a {
