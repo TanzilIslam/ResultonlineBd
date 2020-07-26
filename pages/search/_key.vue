@@ -3,7 +3,7 @@
     <div v-if="$fetchState.pending"></div>
     <div v-else>
       <b-row>
-        <b-col cols="12" sm="6" md="12" lg="12" xl="12">
+        <!-- <b-col cols="12" sm="6" md="12" lg="12" xl="12">
           <b-list-group>
             <b-list-group-item
               v-for="(i, index) in searched"
@@ -31,7 +31,7 @@
               </div>
             </b-list-group-item>
           </b-list-group>
-        </b-col>
+        </b-col> -->
       </b-row>
     </div>
   </div>
@@ -50,12 +50,12 @@ export default {
     self.$axios
       .$get(process.env.baseUrl + "/serach/" + self.$route.params.key)
       .then(function (posts) {
-        // self.searched = posts.results;
-        // self.next = posts.next;
+        self.searched = posts.results;
+        self.next = posts.next;
 
-        posts.results.forEach((element) => {
-          element[0].forEach((e) => {
-            console.log(e.title);
+        self.searched.forEach((element) => {
+          element.forEach((elements) => {
+            console.log(elements.url);
           });
         });
       })

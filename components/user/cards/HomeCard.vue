@@ -12,7 +12,7 @@
           </div>
 
           <div class="mt-4 ml-3 mb-2 w-100">
-            <div class="d-flex ">
+            <div class="d-flex">
               <div class="">
                 <nuxt-link
                   prefetch
@@ -33,15 +33,26 @@
                 ></b-icon>
               </div>
             </div>
-            <!-- <b-card-text text-tag="h5" class="custome-home-card-title">
-                {{ article.contentowners.authorsname }}
-                <b-icon class="ml-auto" icon="reply"></b-icon>
-              </b-card-text> -->
 
             <b-card-text text-tag="p" class="text-muted"
               >{{ article.release_date }}
               <b-icon icon="clock-fill" variant="gray"></b-icon>
             </b-card-text>
+
+            <div class="toast-warper">
+              <!-- toast start -->
+              <b-toast
+                :id="`favouriteToast${article.slug}`"
+                variant="light"
+                static
+                no-close-button
+                solid
+                auto-hide-delay="2000"
+              >
+                Added to favourite
+              </b-toast>
+              <!-- tost end -->
+            </div>
           </div>
         </div>
 
@@ -67,14 +78,14 @@ export default {
   data() {
     return {
       icon: "star",
-      toogle: false
+      toogle: false,
     };
   },
   props: {
     article: {
       type: Object,
-      required: true
-    }
+      required: true,
+    },
   },
   mounted() {
     this.checkLocal();
@@ -95,7 +106,7 @@ export default {
     setview() {
       try {
         this.$axios.$put(process.env.baseUrl + `/count/${this.article.slug}`, {
-          view: this.article.view + 1
+          view: this.article.view + 1,
         });
         // this.$store.dispatch("countView/setViewcount", this.article.slug);
       } catch (e) {
@@ -117,11 +128,13 @@ export default {
           //   this.article.slug,
           //   this.article
           // );
+
           localStorage.setItem(
             this.article.slug,
             JSON.stringify(this.article.title)
           );
           this.icon = "star-fill";
+          this.$bvToast.show(`favouriteToast${this.article.slug}`);
         } else if (!this.toogle) {
           // var existingTwo = localStorage.getItem("FavouriteArticles");
           // var newVar = JSON.parse(existingTwo);
@@ -149,8 +162,8 @@ export default {
           this.icon = "star";
         }
       }
-    }
-  }
+    },
+  },
 };
 </script>
 
@@ -158,6 +171,12 @@ export default {
 /* .home-card {
 
 } */
+
+.toast-warper {
+  position: absolute;
+  right: 2px;
+  top: 51px;
+}
 .custom-home-card {
   cursor: pointer;
 }

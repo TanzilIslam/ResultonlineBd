@@ -15,7 +15,7 @@
               width="20"
               src="~assets/user/icons/all.svg"
             ></b-img>
-            <span class="mr-2">ALL</span>
+            <span class="ml-2 mr-2">ALL</span>
           </b-button>
           <b-button
             variant="outline-dark"
