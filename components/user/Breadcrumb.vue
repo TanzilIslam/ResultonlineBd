@@ -15,7 +15,7 @@
               width="20"
               src="~assets/user/icons/all.svg"
             ></b-img>
-            <span class="ml-2 mr-2">ALL</span>
+            <span class="mx-2">ALL</span>
           </b-button>
           <b-button
             variant="outline-dark"
@@ -29,7 +29,7 @@
               width="20"
               src="~assets/user/icons/top.svg"
             ></b-img
-            ><span class="ml-1">Top</span>
+            ><span class="mx-2">Top</span>
           </b-button>
           <b-button
             variant="outline-dark"
@@ -43,7 +43,7 @@
               width="20"
               src="~assets/user/icons/high-rated.svg"
             ></b-img>
-            <span class="mr-2">High Rated</span>
+            <span class="mx-2">High Rated</span>
           </b-button>
         </b-col>
       </b-row>

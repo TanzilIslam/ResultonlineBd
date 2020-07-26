@@ -11,18 +11,15 @@
                   class="custom-author-logo mt-4"
                   :src="
                     'http://cdn.resultonlinebd.com/media/' +
-                      AuthorArticles.authorsprofilrimg
+                    AuthorArticles.authorsprofilrimg
                   "
                 ></b-img-lazy>
                 <div class="vl mt-4"></div>
-                <div class="custom-text mt-4 ml-3">
-                  <!-- <h4>Content Amount</h4> -->
+                <div class="custom-text mt-4 pl-3">
                   <h3 class="text-dark">
-                    Hello Everyone! I am {{ AuthorArticles.authorsname }}
+                    Hello Everyone! <br />
+                    I am {{ AuthorArticles.authorsname }}
                   </h3>
-                  <!-- <h3 class="text-dark">
-                    {{ AuthorArticles.authorsname }}
-                  </h3> -->
                 </div>
               </div>
             </b-col>
@@ -38,7 +35,7 @@
             <template v-slot:title>
               <b-img
                 src="~/assets/user/tabs/r.png"
-                style="height:30px;width:30px;"
+                style="height: 30px; width: 30px;"
               ></b-img>
               Fresh
             </template>
@@ -48,7 +45,7 @@
             <template v-slot:title>
               <b-img
                 src="~/assets/user/tabs/a.png"
-                style="height:30px;width:30px;"
+                style="height: 30px; width: 30px;"
               ></b-img>
               About
             </template>
@@ -73,15 +70,13 @@
           v-for="(a, index) in AuthorArticles.List"
           :key="index"
         >
-          <nuxt-link prefetch :to="`/detailPost/${a.slug}`">
-            <AuthorSmallCard
-              :ArticleCover="'http://cdn.resultonlinebd.com/media/' + a.photo"
-              :ArticleTitle="a.title"
-              :ArticlePublish="a.release_date"
-              :ArticleSlug="a.slug"
-              :ArticleView="a.view"
-            />
-          </nuxt-link>
+          <AuthorSmallCard
+            :ArticleCover="'http://cdn.resultonlinebd.com/media/' + a.photo"
+            :ArticleTitle="a.title"
+            :ArticlePublish="a.release_date"
+            :ArticleSlug="a.slug"
+            :ArticleView="a.view"
+          />
         </b-col>
       </b-row>
 
@@ -114,16 +109,16 @@ export default {
         {
           hid: "description",
           name: "description",
-          content: "what you need to know About  " + this.AuthorArticles.about
-        }
-      ]
+          content: "what you need to know About  " + this.AuthorArticles.about,
+        },
+      ],
     };
   },
   async fetch() {
     var self = this;
     await self.$axios
       .$get(process.env.baseUrl + `/channel/${self.$route.params.authorName}`)
-      .then(function(posts) {
+      .then(function (posts) {
         self.$store.dispatch(
           "authorProfile/FetchAuthorArticles",
           posts.results
@@ -132,7 +127,7 @@ export default {
       });
   },
   computed: mapState({
-    AuthorArticles: state => state.authorProfile.AuthorArticles
+    AuthorArticles: (state) => state.authorProfile.AuthorArticles,
   }),
 
   data() {
@@ -140,7 +135,7 @@ export default {
       showLatestDiv: true,
       showAboutDiv: false,
       Loading: false,
-      nextLink: ""
+      nextLink: "",
     };
   },
   methods: {
@@ -157,8 +152,8 @@ export default {
     async loadData() {
       if (this.nextLink != null) {
         var self = this;
-        await self.$axios.$get(self.nextLink).then(function(posts) {
-          posts.results.List.forEach(element => {
+        await self.$axios.$get(self.nextLink).then(function (posts) {
+          posts.results.List.forEach((element) => {
             self.$store.dispatch("authorProfile/AddMore", element);
           });
 
@@ -167,14 +162,14 @@ export default {
       } else {
         alert("null");
       }
-    }
+    },
   },
   mounted() {
     this.$nextTick(() => {
       this.$nuxt.$loading.start();
       setTimeout(() => this.$nuxt.$loading.finish(), 1000);
     });
-  }
+  },
 };
 </script>
 
@@ -189,7 +184,7 @@ export default {
 .vl {
   border-left: 3px solid rgb(230, 233, 230);
   height: 150px;
-  margin-left: 30px;
+  margin-left: 15px;
 }
 .custom-cover {
   background-image: linear-gradient(120deg, #d4fc79 0%, #96e6a1 100%);

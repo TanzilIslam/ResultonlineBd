@@ -246,9 +246,9 @@
             v-for="(article, index) in RecommendedArticles"
             :key="index"
           >
-            <nuxt-link prefetch :to="`/detailPost/${article.slug}`">
+            <!-- <nuxt-link prefetch :to="`/detailPost/${article.slug}`"> -->
               <ChannelCommonCard :article="article" :data-index="index" />
-            </nuxt-link>
+            <!-- </nuxt-link> -->
           </b-col>
         </b-row>
       </div>
@@ -306,9 +306,9 @@
             v-for="(article, index) in HighRatedArticles"
             :key="index"
           >
-            <nuxt-link prefetch :to="`/detailPost/${article.slug}`">
+            <!-- <nuxt-link prefetch :to="`/detailPost/${article.slug}`"> -->
               <ChannelCommonCard :article="article" :data-index="index" />
-            </nuxt-link>
+            <!-- </nuxt-link> -->
           </b-col>
         </b-row>
       </div>

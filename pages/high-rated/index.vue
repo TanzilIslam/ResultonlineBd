@@ -12,9 +12,9 @@
           v-for="(article, index) in HighRatedArticles"
           :key="index"
         >
-          <nuxt-link prefetch :to="`/detailPost/${article.slug}`">
-            <ChannelCommonCard :article="article" :data-index="index" />
-          </nuxt-link>
+          <!-- <nuxt-link prefetch :to="`/detailPost/${article.slug}`"> -->
+          <ChannelCommonCard :article="article" :data-index="index" />
+          <!-- </nuxt-link> -->
         </b-col>
       </b-row>
       <!-- Pagination Start End -->
@@ -41,24 +41,24 @@ export default {
           hid: "description",
           name: "description",
           content:
-            "Here you can find all the high rated articles  about technology,education,celebrity,history,islam and different programming cool stuffs."
-        }
-      ]
+            "Here you can find all the high rated articles  about technology,education,celebrity,history,islam and different programming cool stuffs.",
+        },
+      ],
     };
   },
   async fetch() {
     await this.$axios
       .$get(process.env.baseUrl + `/high_ratetd`)
-      .then(posts =>
+      .then((posts) =>
         this.$store.dispatch("highRated/FetchHighRatedArticles", posts.results)
       );
   },
   computed: mapState({
-    HighRatedArticles: state => state.highRated.HighRatedArticles
+    HighRatedArticles: (state) => state.highRated.HighRatedArticles,
   }),
   data() {
     return {
-      currentPage: 2
+      currentPage: 2,
     };
   },
   methods: {
@@ -68,8 +68,8 @@ export default {
       } catch (e) {
         alert("No more data" + e);
       }
-    }
-  }
+    },
+  },
 };
 </script>
 

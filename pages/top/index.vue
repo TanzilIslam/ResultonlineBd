@@ -17,9 +17,9 @@
             v-for="(article, index) in TopArticles"
             :key="index"
           >
-            <nuxt-link prefetch :to="`/detailPost/${article.slug}`">
-              <ChannelCommonCard :article="article" :data-index="index" />
-            </nuxt-link>
+            <!-- <nuxt-link prefetch :to="`/detailPost/${article.slug}`"> -->
+            <ChannelCommonCard :article="article" :data-index="index" />
+            <!-- </nuxt-link> -->
           </b-col>
         </b-row>
       </div>
@@ -49,7 +49,7 @@ export default {
   layout: "default",
   data() {
     return {
-      loaded: true
+      loaded: true,
     };
   },
   head() {
@@ -60,24 +60,24 @@ export default {
           hid: "description",
           name: "description",
           content:
-            "Here you can find all the top articles  about technology,education,celebrity,history,islam and different programming cool stuffs."
-        }
-      ]
+            "Here you can find all the top articles  about technology,education,celebrity,history,islam and different programming cool stuffs.",
+        },
+      ],
     };
   },
   async fetch() {
     await this.$axios
       .$get(process.env.baseUrl + `/TopContent`)
-      .then(posts =>
+      .then((posts) =>
         this.$store.dispatch("top/FetchTopArticles", posts.results)
       );
   },
   computed: mapState({
-    TopArticles: state => state.top.TopArticles
+    TopArticles: (state) => state.top.TopArticles,
   }),
   data() {
     return {
-      loaded: true
+      loaded: true,
     };
   },
   methods: {
@@ -87,14 +87,14 @@ export default {
       } catch (e) {
         alert("No more data" + e);
       }
-    }
+    },
   },
   mounted() {
     this.$nextTick(() => {
       this.$nuxt.$loading.start();
       setTimeout(() => this.$nuxt.$loading.finish(), 1000);
     });
-  }
+  },
 };
 </script>
 

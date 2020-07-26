@@ -3,13 +3,13 @@
     <b-row>
       <!-- sideBar Start -->
       <b-col cols="12" sm="12" md="3" lg="3" xl="3">
-        <div class=" channel-side-bar mb-4">
-          <div class="d-flex  channel-side-bar-title">
+        <div class="channel-side-bar mb-4">
+          <div class="d-flex channel-side-bar-title">
             <b-icon
               v-b-toggle.sidebar-backdrop
-              class="ml-2 p-1 my-auto  menu-logo"
+              class="ml-2 p-1 my-auto menu-logo"
               scale="2"
-              style="cursor:pointer;"
+              style="cursor: pointer;"
               icon=" list"
             ></b-icon>
             <h5 class="mx-auto my-auto">
@@ -39,7 +39,7 @@
             <h6
               v-if="mainTagList.next != null"
               @click="loadMoreMainTagListItem"
-              style="text-decoration: underline;;cursor:pointer;"
+              style="text-decoration: underline; cursor: pointer;"
               class="ml-2 mt-4"
             >
               See More
@@ -47,7 +47,7 @@
             <h6
               v-else-if="mainTagList.previous != null"
               @click="loadLessMainTagListItem"
-              style="text-decoration: underline;;cursor:pointer;"
+              style="text-decoration: underline; cursor: pointer;"
               class="ml-2 mt-4"
             >
               See Less
@@ -68,7 +68,7 @@
             <template v-slot:title>
               <b-img
                 src="~/assets/user/tabs/r.png"
-                style="height:30px;width:30px;"
+                style="height: 30px; width: 30px;"
               ></b-img>
               Fresh
             </template>
@@ -78,7 +78,7 @@
             <template v-slot:title>
               <b-img
                 src="~/assets/user/tabs/a.png"
-                style="height:30px;width:30px;"
+                style="height: 30px; width: 30px;"
               ></b-img>
               About
             </template>
@@ -92,7 +92,7 @@
         <div v-show="showLatestDiv">
           <!-- Sub Tags Start -->
           <div
-            class="d-flex justify-content-between justify-content-lg-between justify-content-xl-between  flex-wrap mt-2 mb-4"
+            class="d-flex justify-content-between justify-content-lg-between justify-content-xl-between flex-wrap mt-2 mb-4"
           >
             <b-button
               variant="light"
@@ -136,9 +136,9 @@
               v-for="(article, index) in GamingArticles"
               :key="index"
             >
-              <nuxt-link prefetch :to="`/detailPost/${article.slug}`">
-                <ChannelCommonCard :article="article" :data-index="index" />
-              </nuxt-link>
+              <!-- <nuxt-link prefetch :to="`/detailPost/${article.slug}`"> -->
+              <ChannelCommonCard :article="article" :data-index="index" />
+              <!-- </nuxt-link> -->
             </b-col>
           </b-row>
           <!-- Pagination Start End -->
@@ -174,9 +174,9 @@ export default {
           hid: "description",
           name: "description",
           content:
-            "Here you can find all the latest information about technology and different gaming cool stuffs."
-        }
-      ]
+            "Here you can find all the latest information about technology and different gaming cool stuffs.",
+        },
+      ],
     };
   },
   async fetch() {
@@ -185,35 +185,35 @@ export default {
     // Main Tag List Fetch
     await this.$axios
       .$get(process.env.channelMainTag + `gaming`)
-      .then(function(posts) {
+      .then(function (posts) {
         self.mainTagList = posts;
       })
-      .catch(function(error) {
+      .catch(function (error) {
         console.log("No Net" + error);
       })
-      .finally(function() {});
+      .finally(function () {});
 
     // Sub Tag List Fetch
     await this.$axios
       .$get(process.env.baseUrl + "/Tag_creator?search=Gaming")
-      .then(function(posts) {
+      .then(function (posts) {
         self.subTagList = posts.results;
       })
-      .catch(function(error) {
+      .catch(function (error) {
         console.log("No Net" + error);
       })
-      .finally(function() {});
+      .finally(function () {});
 
     // Channel Home Page Articles Fetch
     await this.$axios
       .$get(process.env.channelUrl + `Gaming`)
-      .then(posts =>
+      .then((posts) =>
         this.$store.dispatch("gaming/FetchGamingArticles", posts.results)
       );
   },
   computed: mapState({
-    GamingArticles: state => state.gaming.GamingArticles,
-    TagArticlesNextLink: state => state.gaming.TagArticlesNextLink
+    GamingArticles: (state) => state.gaming.GamingArticles,
+    TagArticlesNextLink: (state) => state.gaming.TagArticlesNextLink,
   }),
   data() {
     return {
@@ -224,7 +224,7 @@ export default {
       dataLoading: true,
       subTagSelected: false,
       mainTagSelected: false,
-      parentSelected: true
+      parentSelected: true,
     };
   },
   methods: {
@@ -242,29 +242,29 @@ export default {
       var self = this;
       await this.$axios
         .$get(this.mainTagList.next)
-        .then(function(posts) {
-          posts.results.forEach(element => {
+        .then(function (posts) {
+          posts.results.forEach((element) => {
             self.mainTagList.results.push(element);
           });
           self.mainTagList.next = posts.next;
           self.mainTagList.previous = posts.previous;
         })
-        .catch(function(error) {
+        .catch(function (error) {
           console.log("No Net" + error);
         })
-        .finally(function() {});
+        .finally(function () {});
     },
     async loadLessMainTagListItem() {
       var self = this;
       await self.$axios
         .$get(self.mainTagList.previous)
-        .then(function(posts) {
+        .then(function (posts) {
           self.mainTagList = posts;
         })
-        .catch(function(error) {
+        .catch(function (error) {
           console.log("No Net" + error);
         })
-        .finally(function() {});
+        .finally(function () {});
     },
     // show Main tag articles
     async showMainTagPosts(item) {
@@ -272,14 +272,14 @@ export default {
       var self = this;
       await this.$axios
         .$get(item.tag_content_link)
-        .then(function(posts) {
+        .then(function (posts) {
           self.$store.dispatch("gaming/FetchGamingArticles", posts.results);
           self.$store.dispatch("gaming/SetTagNextDataLink", posts.next);
         })
-        .catch(function(error) {
+        .catch(function (error) {
           console.log("No Net" + error);
         })
-        .finally(function() {});
+        .finally(function () {});
       this.dataLoading = true;
       this.mainTagSelected = true;
       this.parentSelected = false;
@@ -290,14 +290,14 @@ export default {
       var self = this;
       await this.$axios
         .$get(item.tag_target_link)
-        .then(function(posts) {
+        .then(function (posts) {
           self.$store.dispatch("gaming/FetchGamingArticles", posts.results);
           self.$store.dispatch("gaming/SetTagNextDataLink", posts.next);
         })
-        .catch(function(error) {
+        .catch(function (error) {
           console.log("No Net" + error);
         })
-        .finally(function() {});
+        .finally(function () {});
       this.dataLoading = true;
       this.subTagSelected = true;
       (this.parentSelected = false), (this.mainTagSelected = false);
@@ -319,16 +319,16 @@ export default {
           var self = this;
           await this.$axios
             .$get(self.TagArticlesNextLink)
-            .then(function(posts) {
-              posts.results.forEach(element => {
+            .then(function (posts) {
+              posts.results.forEach((element) => {
                 self.$store.dispatch("gaming/SetMoreTagArticles", element);
               });
               self.$store.dispatch("gaming/SetTagNextDataLink", posts.next);
             })
-            .catch(function(error) {
+            .catch(function (error) {
               console.log("No Net" + error);
             })
-            .finally(function() {});
+            .finally(function () {});
         }
       }
 
@@ -340,26 +340,26 @@ export default {
           var self = this;
           await this.$axios
             .$get(self.TagArticlesNextLink)
-            .then(function(posts) {
-              posts.results.forEach(element => {
+            .then(function (posts) {
+              posts.results.forEach((element) => {
                 self.$store.dispatch("gaming/SetMoreTagArticles", element);
               });
               self.$store.dispatch("gaming/SetTagNextDataLink", posts.next);
             })
-            .catch(function(error) {
+            .catch(function (error) {
               console.log("No Net" + error);
             })
-            .finally(function() {});
+            .finally(function () {});
         }
       }
-    }
+    },
   },
   mounted() {
     this.$nextTick(() => {
       this.$nuxt.$loading.start();
       setTimeout(() => this.$nuxt.$loading.finish(), 1000);
     });
-  }
+  },
 };
 </script>
 
