@@ -14,10 +14,7 @@
           ></b-img>
         </b-navbar-brand>
 
-        <b-navbar-toggle
-          v-if="show"
-          target="sidebar-backdrop"
-        ></b-navbar-toggle>
+        <b-navbar-toggle v-if="show" target="sidebar-forNav"></b-navbar-toggle>
 
         <b-navbar-brand v-if="show" to="/" class="brand-logo-sm-device"
           ><b-img
@@ -66,12 +63,7 @@
           ></b-icon>
         </b-navbar-brand>
 
-        <b-sidebar
-          id="sidebar-backdrop"
-          backdrop
-          shadow
-          backdrop-variant="light"
-        >
+        <b-sidebar id="sidebar-forNav" backdrop shadow backdrop-variant="light">
           <div class="px-3">
             <b-navbar-nav class="Side-bar-item mb-2">
               <b-nav-item to="/" class="mt-1" href="#">Home</b-nav-item>
