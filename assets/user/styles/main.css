@@ -140,3 +140,8 @@ body{
 .channel-cover-title {
   text-align: center !important;
 }
+a {
+  border: none !important;
+  outline: none !important;
+  outline-style: none !important;
+}
