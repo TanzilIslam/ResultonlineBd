@@ -1,6 +1,16 @@
 <template>
   <div>
+    <!-- <b-row>
+      <b-col cols="12" sm="12" md="12" lg="12" xl="12">
+        <b-list-group>
+          <b-list-group-item class="content-loading">
+            <vcl-facebook></vcl-facebook>
+          </b-list-group-item>
+        </b-list-group>
+      </b-col>
+    </b-row> -->
     <div v-if="$fetchState.pending"></div>
+
     <div v-else>
       <b-row>
         <b-col cols="12" sm="6" md="12" lg="12" xl="12">
@@ -8,7 +18,7 @@
             <b-list-group-item
               v-for="(i, index) in searched"
               :key="index"
-              class="mb-4"
+              class="mb-4 py-4"
             >
               <div v-if="i.targetUrl.url == 'count/'">
                 <nuxt-link :to="`${dGeneral}${i.slug}`">
@@ -100,7 +110,10 @@
 </template>
 
 <script>
+import { VclFacebook } from "vue-content-loading";
+
 export default {
+  components: { VclFacebook },
   data() {
     return {
       searched: [],
@@ -159,6 +172,9 @@ export default {
 </script>
 
 <style scoped>
+.list-group-item + .list-group-item {
+  border-top-width: 1px !important;
+}
 a {
   color: black;
   text-decoration: none;
@@ -172,5 +188,8 @@ a {
   font-size: 12px;
   line-height: 1.5;
   font-family: "ars-maquette-web", sans-serif;
+}
+.content-loading {
+  height: 150px;
 }
 </style>

@@ -2,11 +2,10 @@
   <div class="question-and-answere">
     <!-- tags -->
     <div
-      class="tags flex-wrap d-flex  justify-content-between"
-      style="padding-top:20px;padding-bottom:20px;"
+      class="tags flex-wrap d-flex justify-content-between"
+      style="padding-top: 20px; padding-bottom: 20px;"
     >
       <div
-        variant="light"
         v-for="(item, index) in subTagList"
         :key="index"
         @click="showSubTagPosts(item)"
@@ -26,7 +25,7 @@
         lg="3"
         xl="3"
       >
-        <div style="background-color:#f8f9fa; padding:10px; margin-top: 7px;">
+        <div style="background-color: #f8f9fa; padding: 10px; margin-top: 7px;">
           <h2 class="side-bar-title">Fast Check</h2>
           <hr />
           <b-list-group>
@@ -70,9 +69,9 @@
                 :key="index"
                 cols="12"
                 sm="6"
-                md="3"
-                lg="3"
-                xl="3"
+                md="4"
+                lg="4"
+                xl="4"
                 class="mb-3"
               >
                 <nuxt-link prefetch :to="`/qandADetail/${j.slug}`">
@@ -104,9 +103,9 @@
               :key="index"
               cols="12"
               sm="6"
-              md="3"
-              lg="3"
-              xl="3"
+              md="4"
+              lg="4"
+              xl="4"
               class="mb-3"
             >
               <nuxt-link prefetch :to="`/qandADetail/${j.slug}`">
@@ -149,27 +148,27 @@ export default {
       next: "",
       subTagList: [],
       selectedData: false,
-      subTagData: []
+      subTagData: [],
     };
   },
   async fetch() {
     var self = this;
     await self.$axios
       .$get(process.env.baseUrl + "/q&a/api/v1/short_list")
-      .then(function(posts) {
+      .then(function (posts) {
         self.subTagList = posts.results;
       })
-      .catch(function(error) {
+      .catch(function (error) {
         console.log(error);
       });
 
     await self.$axios
       .$get(process.env.baseUrl + "/q&a/api/v1/")
-      .then(function(posts) {
+      .then(function (posts) {
         self.data = posts.results;
         self.next = posts.next;
       })
-      .catch(function(error) {
+      .catch(function (error) {
         console.log(error);
       });
   },
@@ -179,8 +178,8 @@ export default {
         var self = this;
         await self.$axios
           .$get(self.next)
-          .then(function(posts) {
-            posts.results.forEach(element => {
+          .then(function (posts) {
+            posts.results.forEach((element) => {
               if (!self.selectedData) {
                 self.data.push(element);
               } else {
@@ -189,10 +188,10 @@ export default {
             });
             self.next = posts.next;
           })
-          .catch(function(error) {
+          .catch(function (error) {
             console.log("No Net" + error);
           })
-          .finally(function() {});
+          .finally(function () {});
       } else {
         alert("Null");
       }
@@ -201,7 +200,7 @@ export default {
       var self = this;
       await self.$axios
         .$get(item.shot_list_data)
-        .then(function(posts) {
+        .then(function (posts) {
           // console.log(posts);
           // self.data = "";
           self.subTagData = posts.results;
@@ -209,21 +208,21 @@ export default {
           self.selectedData = true;
           // subtag
         })
-        .catch(function(error) {
+        .catch(function (error) {
           console.log("No Net" + error);
         });
     },
     async setView(view, slug) {
       this.$axios
         .$put(process.env.baseUrl + `/q&a/api/v1/dtls/${slug}`, {
-          view: view + 1
+          view: view + 1,
         })
-        .then(function(response) {})
-        .catch(function(e) {
+        .then(function (response) {})
+        .catch(function (e) {
           console.log("setview " + e);
         });
-    }
-  }
+    },
+  },
 };
 </script>
 
@@ -260,10 +259,11 @@ a {
 }
 .qa-tags {
   cursor: pointer;
-  background-color: #ebebeb;
-  border-radius: 6px;
+  background-color: #ffffff;
+  border-radius: 8px;
   height: 40px;
   padding: 7px 30px;
+  box-shadow: rgba(0, 0, 0, 0.03) 0px 6px 8px, rgba(0, 0, 0, 0.3) 0px 1px 2px;
 }
 .list-title {
   font-size: 0.875rem;

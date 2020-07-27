@@ -39,6 +39,7 @@ body{
   color: #212529;
   background-color: white;
   border-color: none !important;
+  margin-bottom: 5px !important;
 }
 
 .main-tag-button:focus,
@@ -47,11 +48,14 @@ body{
   background-color: #e2e6ea;
   border-color: none;
   box-shadow: 0 0 0 0.2rem rgba(216, 217, 219, 0.5);
+  border-radius: 8px !important;
 }
 
-/* .main-tag-button:hover{
-  background-color: white;
-} */
+
+
+.main-tag-button:hover{
+  border-radius: 8px !important;
+}
 
 .channel-side-bar-title {
   height: 78px;
@@ -144,4 +148,34 @@ a {
   border: none !important;
   outline: none !important;
   outline-style: none !important;
+}
+
+
+.more-button {
+  /* background: white; */
+  border: 1px solid #dadce0;
+  box-sizing: border-box;
+  cursor: pointer;
+  display: inline-block;
+  font-size: 14px;
+  height: 36px;
+  line-height: 20px;
+  padding: 7px 11px;
+  position: relative;
+  text-align: center;
+  width: 100px;
+  border-radius: 18px;
+  background: #fff;
+  box-shadow: 0 5px 0.9rem -0.8rem rgba(0, 0, 0, 0.8),
+    0 0 0 1px rgba(0, 0, 0, 0.05);
+}
+
+.more-button-icon {
+  left: 12px;
+  margin-top: 0;
+
+  height: 20px;
+  width: 20px;
+
+  align-self: center;
 }

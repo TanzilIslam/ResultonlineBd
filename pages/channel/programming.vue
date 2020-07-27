@@ -29,29 +29,36 @@
             >
               <b-img
                 :src="item.tag_icon"
-                class="shadow-sm channel-side-bar-list-item-icon"
+                class="shadow channel-side-bar-list-item-icon"
               ></b-img>
               {{ item.tag_name }}</b-button
             >
           </b-list-group>
 
-          <div class="text-center">
-            <h6
+          <div class="text-center py-3">
+            <div
               v-if="mainTagList.next != null"
               @click="loadMoreMainTagListItem"
-              style="text-decoration: underline; cursor: pointer;"
-              class="ml-2 mt-4"
+              class="more-button"
             >
-              See More
-            </h6>
-            <h6
+              <b-icon
+                icon="chevron-down"
+                variant="dark"
+                class="more-button-icon"
+              ></b-icon>
+            </div>
+
+            <div
               v-else-if="mainTagList.previous != null"
               @click="loadLessMainTagListItem"
-              style="text-decoration: underline; cursor: pointer;"
-              class="ml-2 mt-4"
+              class="more-button"
             >
-              See Less
-            </h6>
+              <b-icon
+                icon="chevron-up"
+                variant="dark"
+                class="more-button-icon"
+              ></b-icon>
+            </div>
           </div>
         </div>
       </b-col>
@@ -79,7 +86,7 @@
             <template v-slot:title>
               <b-img
                 src="~assets/user/icons/fresh.svg"
-                style="height: 30px; width: 30px;"
+                style="height: 30px; width: 23px;"
               ></b-img>
               Fresh
             </template>
@@ -283,14 +290,15 @@ export default {
     async showMainTagPosts(item) {
       this.dataLoading = false;
       var self = this;
-      await this.$axios
+      await self.$axios
         .$get(item.tag_content_link)
         .then(function (posts) {
-          self.$store.dispatch(
-            "programming/FetchProgrammingArticles",
-            posts.results
-          );
-          self.$store.dispatch("programming/SetTagNextDataLink", posts.next);
+          console.log(posts);
+          // self.$store.dispatch(
+          //   "programming/FetchProgrammingArticles",
+          //   posts.results
+          // );
+          // self.$store.dispatch("programming/SetTagNextDataLink", posts.next);
         })
         .catch(function (error) {
           console.log("No Net" + error);

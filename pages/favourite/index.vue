@@ -13,7 +13,7 @@
         <strong>Favourite</strong>
       </h5>
     </div>
-    <VclChannelCommonCard v-if="$fetchState.pending" />
+    <VclChannelCommonCard v-if="pending" />
     <b-row v-else>
       <b-col
         cols="12"
@@ -43,8 +43,6 @@ export default {
   },
 
   async fetch() {
-    await this.getValue();
-    await this.getData();
     // this.pending = false;
     // console.log(this.data);
   },
@@ -74,9 +72,11 @@ export default {
       }
     },
   },
-  // mounted() {
-  //   this.getValue();
-  // }
+  async mounted() {
+    await this.getValue();
+    await this.getData();
+    this.pending = false;
+  },
 };
 </script>
 

@@ -31,13 +31,13 @@
           </nuxt-link>
         </b-col>
       </b-row>
-      <div style="margin-top:70px;">
+      <div style="margin-top: 40px;">
         <b-row>
           <b-col cols="12" class="mt-4 mb-3">
             <div class="d-flex align-self-center mb-2">
               <b-img
                 src="~/assets/user/tabs/r.png"
-                style="height:35px;width:35px;"
+                style="height: 35px; width: 35px;"
               ></b-img>
               <h5 class="ml-2 mt-1"><strong>Fresh</strong></h5>
             </div>
@@ -92,7 +92,7 @@
       <div
         v-for="(item, index) in bottomCards"
         :key="index"
-        style="margin-top:70px;"
+        style="margin-top: 30px;"
       >
         <b-row>
           <b-col
@@ -113,7 +113,7 @@
                 ><strong>{{ item.cat_name }}</strong></nuxt-link
               >
             </h5>
-            <h6 class="mb-3" style="font-size:20px;">
+            <h6 class="mb-3" style="font-size: 20px;">
               {{ item.cat_description }}
             </h6></b-col
           >
@@ -164,40 +164,40 @@ export default {
       bottomCards: {},
       nextDataLink: "",
       cover: [],
-      home: []
+      home: [],
     };
   },
   async fetch() {
     var self = this;
     await self.$axios
       .$get(process.env.baseUrl + "/blog/api/v1/")
-      .then(function(posts) {
+      .then(function (posts) {
         self.bottomCards = posts.results;
         self.nextDataLink = posts.next;
       })
-      .catch(function(error) {
+      .catch(function (error) {
         console.log("No Net" + error);
       })
-      .finally(function() {});
+      .finally(function () {});
 
     await self.$axios
       .$get(process.env.baseUrl + "/blog/api/v1/cover")
-      .then(function(posts) {
+      .then(function (posts) {
         self.cover = posts.results;
       })
-      .catch(function(error) {
+      .catch(function (error) {
         console.log("No Net" + error);
       })
-      .finally(function() {});
+      .finally(function () {});
     await self.$axios
       .$get(process.env.baseUrl + "/blog/api/v1/blog_home")
-      .then(function(posts) {
+      .then(function (posts) {
         self.home = posts.results;
       })
-      .catch(function(error) {
+      .catch(function (error) {
         console.log("No Net" + error);
       })
-      .finally(function() {});
+      .finally(function () {});
   },
   methods: {
     async loadData() {
@@ -205,21 +205,21 @@ export default {
         var self = this;
         await self.$axios
           .$get(self.nextDataLink)
-          .then(function(posts) {
-            posts.results.forEach(element => {
+          .then(function (posts) {
+            posts.results.forEach((element) => {
               self.bottomCards.push(element);
             });
             self.nextDataLink = posts.next;
           })
-          .catch(function(error) {
+          .catch(function (error) {
             console.log("No Net" + error);
           })
-          .finally(function() {});
+          .finally(function () {});
       } else {
         alert("Null");
       }
-    }
-  }
+    },
+  },
 };
 </script>
 

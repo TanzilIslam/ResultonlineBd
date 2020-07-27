@@ -11,9 +11,9 @@
         ></b-card-img-lazy>
       </nuxt-link>
       <div class="d-flex w-100">
-        <b-card-text class="text-muted custom-card-text-date" text-tag="p"
-          >{{ article.release_date }} |</b-card-text
-        >
+        <b-card-text class="text-muted custom-card-text-date" text-tag="p">{{
+          article.release_date
+        }}</b-card-text>
         <div class="ml-auto pt-2">
           <p>
             <b-icon :icon="icon" @click="setFavourite()" class="mr-2"></b-icon>

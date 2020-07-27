@@ -120,7 +120,7 @@
           </div>
         </div>
 
-        <div class="qanda pt-4 mb-4 latest-home-card">
+        <div class="qanda mb-4 latest-home-card">
           <h5 class="custom-latest-title ml-2">Q and A</h5>
           <hr class="custom-latest-hr" />
           <b-row>
