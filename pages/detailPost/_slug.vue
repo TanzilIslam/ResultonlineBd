@@ -204,7 +204,9 @@
                       }}
                     </h5>
                     <div class="mt-2 related-date-channel">
-                      <span>{{ i.contentowners.authorsname }} |</span>
+                      <span class="text-dark"
+                        >{{ i.contentowners.authorsname }} |</span
+                      >
                       <span class="text-muted">{{ i.release_date }}</span>
                     </div>
                   </div>
@@ -247,7 +249,7 @@
             :key="index"
           >
             <!-- <nuxt-link prefetch :to="`/detailPost/${article.slug}`"> -->
-              <ChannelCommonCard :article="article" :data-index="index" />
+            <ChannelCommonCard :article="article" :data-index="index" />
             <!-- </nuxt-link> -->
           </b-col>
         </b-row>
@@ -307,7 +309,7 @@
             :key="index"
           >
             <!-- <nuxt-link prefetch :to="`/detailPost/${article.slug}`"> -->
-              <ChannelCommonCard :article="article" :data-index="index" />
+            <ChannelCommonCard :article="article" :data-index="index" />
             <!-- </nuxt-link> -->
           </b-col>
         </b-row>

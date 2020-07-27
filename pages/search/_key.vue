@@ -3,37 +3,99 @@
     <div v-if="$fetchState.pending"></div>
     <div v-else>
       <b-row>
-        <!-- <b-col cols="12" sm="6" md="12" lg="12" xl="12">
+        <b-col cols="12" sm="6" md="12" lg="12" xl="12">
           <b-list-group>
             <b-list-group-item
               v-for="(i, index) in searched"
               :key="index"
               class="mb-4"
             >
-              <div class="d-flex">
-                <div class="image-section mr-4">
-                  <b-img
-                    v-if="i.photo"
-                    height="102"
-                    width="102"
-                    class="rounded"
-                    :src="i.photo"
-                  ></b-img>
-                </div>
-                <div class="text-section">
-                  <h1 class="text-title pb-3">
-                    {{ i.title }}
-                  </h1>
-                  <p class="text-description">
-                    {{ i.details.slice(0, 30) }}
-                  </p>
-                </div>
+              <div v-if="i.targetUrl.url == 'count/'">
+                <nuxt-link :to="`${dGeneral}${i.slug}`">
+                  <div
+                    @click="setView(i.view, i.targetUrl.url, i.slug)"
+                    class="d-flex"
+                  >
+                    <div class="image-section mr-4">
+                      <b-img
+                        height="102"
+                        width="102"
+                        class="rounded"
+                        :src="`http://cdn.resultonlinebd.com/media/${i.photo}`"
+                      ></b-img>
+                    </div>
+                    <div class="text-section">
+                      <h1 class="text-title pb-3">
+                        {{ i.title }}
+                      </h1>
+                      <p class="text-description">
+                        {{ i.details.slice(0, 30) }}
+                      </p>
+                    </div>
+                  </div>
+                </nuxt-link>
+              </div>
+              <div v-else-if="i.targetUrl.url == 'q&a/api/v1/dtls/'">
+                <nuxt-link :to="`${dQandA}${i.slug}`">
+                  <div
+                    @click="setView(i.view, i.targetUrl.url, i.slug)"
+                    class="d-flex"
+                  >
+                    <div class="image-section mr-4">
+                      <!-- <b-img
+                      height="102"
+                      width="102"
+                      class="rounded"
+                      :src="`http://cdn.resultonlinebd.com/media/${i.photo}`"
+                    ></b-img> -->
+                    </div>
+                    <div class="text-section">
+                      <h1 class="text-title pb-3">
+                        {{ i.title }}
+                      </h1>
+                      <p class="text-description">
+                        {{ i.details.slice(0, 30) }}
+                      </p>
+                    </div>
+                  </div>
+                </nuxt-link>
+              </div>
+
+              <div v-else-if="i.targetUrl.url == 'blog/api/v1/details/'">
+                <nuxt-link :to="`${dBlog}${i.slug}`">
+                  <div class="d-flex">
+                    <div class="image-section mr-4">
+                      <b-img
+                        height="102"
+                        width="102"
+                        class="rounded"
+                        :src="`http://cdn.resultonlinebd.com/media/${i.photo}`"
+                      ></b-img>
+                    </div>
+                    <div class="text-section">
+                      <h1 class="text-title pb-3">
+                        {{ i.title }}
+                      </h1>
+                      <p class="text-description">
+                        {{ i.details.slice(0, 30) }}
+                      </p>
+                    </div>
+                  </div>
+                </nuxt-link>
               </div>
             </b-list-group-item>
           </b-list-group>
-        </b-col> -->
+        </b-col>
       </b-row>
     </div>
+
+    <!-- Pagination Start End -->
+    <div class="myPagination">
+      <div class="text-center mt-5 mb-3">
+        <b-button variant="dark" @click="loadData">Load More</b-button>
+      </div>
+    </div>
+    <!-- Pagination End -->
   </div>
 </template>
 
@@ -43,30 +105,64 @@ export default {
     return {
       searched: [],
       next: "",
+      dGeneral: "/detailPost/",
+      dQandA: "/qandADetail/",
+      dBlog: "/blogDetail/",
     };
   },
   async fetch() {
     var self = this;
-    self.$axios
+    await self.$axios
       .$get(process.env.baseUrl + "/serach/" + self.$route.params.key)
       .then(function (posts) {
         self.searched = posts.results;
         self.next = posts.next;
-
-        self.searched.forEach((element) => {
-          element.forEach((elements) => {
-            console.log(elements.url);
-          });
-        });
       })
       .catch(function (e) {
         console.log(e);
       });
   },
+  computed: {},
+  methods: {
+    async loadData() {
+      if (this.next != null) {
+        var self = this;
+        await self.$axios
+          .$get(self.next)
+          .then(function (posts) {
+            posts.results.forEach((element) => {
+              self.searched.push(element);
+            });
+            self.next = posts.next;
+          })
+          .catch(function (error) {
+            console.log("No Net" + error);
+          })
+          .finally(function () {});
+      } else {
+        alert("no more data");
+      }
+    },
+
+    async setView(viwes, url, slug) {
+      await this.$axios
+        .$put(process.env.baseUrl + `/${url}${slug}`, {
+          view: viwes + 1,
+        })
+        .then(function (response) {})
+        .catch(function (e) {
+          console.log("setview " + e);
+        });
+    },
+  },
 };
 </script>
 
 <style scoped>
+a {
+  color: black;
+  text-decoration: none;
+}
 .text-title {
   font-size: 24px;
   font-weight: 900;

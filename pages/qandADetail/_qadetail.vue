@@ -36,7 +36,7 @@
               <b-icon
                 icon="award-fill"
                 class="mr-1"
-                style="height: 30px;width:30px;"
+                style="height: 30px; width: 30px;"
               ></b-icon>
               <strong>Solution</strong>
             </h4>
@@ -51,7 +51,7 @@
       <b-col cols="12" sm="12" md="3" lg="3" xl="3">
         <b-card no-body>
           <b-list-group>
-            <h5 class="mb-3 pt-3 ml-3" style="color:#71839f;">
+            <h5 class="mb-3 pt-3 ml-3" style="color: #71839f;">
               Suggested Topics
             </h5>
             <b-list-group-item
@@ -77,7 +77,7 @@ export default {
   data() {
     return {
       data: {},
-      relatedData: []
+      relatedData: [],
     };
   },
   async fetch() {
@@ -86,10 +86,10 @@ export default {
       .$get(
         process.env.baseUrl + `/q&a/api/v1/dtls/${self.$route.params.qadetail}`
       )
-      .then(function(posts) {
+      .then(function (posts) {
         self.data = posts;
       })
-      .catch(function(e) {
+      .catch(function (e) {
         console.log(e);
       });
 
@@ -98,10 +98,10 @@ export default {
         process.env.baseUrl +
           `/q&a/api/v1/q_related_data/${self.data.catagry.publisher}`
       )
-      .then(function(posts) {
-        self.relatedData = posts;
+      .then(function (posts) {
+        self.relatedData = posts.results;
       })
-      .catch(function(e) {
+      .catch(function (e) {
         console.log(e);
       });
   },
@@ -109,14 +109,14 @@ export default {
     async setView(view, slug) {
       this.$axios
         .$put(process.env.baseUrl + `/q&a/api/v1/dtls/${slug}`, {
-          view: view + 1
+          view: view + 1,
         })
-        .then(function(response) {})
-        .catch(function(e) {
+        .then(function (response) {})
+        .catch(function (e) {
           console.log(e);
         });
-    }
-  }
+    },
+  },
 };
 </script>
 
