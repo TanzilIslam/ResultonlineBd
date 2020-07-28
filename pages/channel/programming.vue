@@ -293,12 +293,12 @@ export default {
       await self.$axios
         .$get(item.tag_content_link)
         .then(function (posts) {
-          console.log(posts);
-          // self.$store.dispatch(
-          //   "programming/FetchProgrammingArticles",
-          //   posts.results
-          // );
-          // self.$store.dispatch("programming/SetTagNextDataLink", posts.next);
+          // console.log(posts);
+          self.$store.dispatch(
+            "programming/FetchProgrammingArticles",
+            posts.results
+          );
+          self.$store.dispatch("programming/SetTagNextDataLink", posts.next);
         })
         .catch(function (error) {
           console.log("No Net" + error);
