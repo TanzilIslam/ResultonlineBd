@@ -57,15 +57,18 @@
         class="order-md-last order-lg-last order-xl-last home-latest"
       >
         <div class="latest-home-card mb-4">
-          <h5 class="custom-latest-title ml-2">Fresh</h5>
+          <h5 class="custom-latest-title ml-2">
+            <b-img
+              height="30"
+              width="25"
+              class="ml-1 mr-2"
+              src="~assets/user/icons/fresh.svg"
+            ></b-img
+            >Fresh
+          </h5>
           <hr class="custom-latest-hr" />
           <b-list-group>
-            <moon-loader
-              v-if="$fetchState.pending"
-              color="#000000"
-              class="spinner"
-              :size="40"
-            ></moon-loader>
+            <div v-if="$fetchState.pending"></div>
             <h4 v-else-if="$fetchState.error">
               Error while fetching posts: {{ $fetchState.error.message }}
             </h4>
@@ -74,7 +77,7 @@
               v-for="(article, index) in LatestArticles"
               :key="index"
               :data-index="index"
-              class="custom-list-item"
+              class="custom-list-item px-2 py-1"
             >
               <nuxt-link prefetch :to="`/detailPost/${article.slug}`">
                 <div @click="setview(article)" class="d-flex">
@@ -90,7 +93,7 @@
                   </div>
                 </div>
               </nuxt-link>
-              <hr class="custom-latest-item-hr" />
+              <hr class="custom-latest-item-hr" v-if="index < 4" />
             </b-list-group-item>
           </b-list-group>
         </div>
@@ -438,7 +441,7 @@ p.link-hover :hover {
 }
 .custom-list-item {
   border: none !important;
-  margin-bottom: 5px;
+  /* padding: 0px !important; */
   cursor: pointer;
 }
 .custom-latest-image {

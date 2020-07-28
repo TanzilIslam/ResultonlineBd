@@ -1,15 +1,18 @@
 <template>
-  <div @click="setview" class="channel-common-card">
+  <div class="channel-common-card">
     <b-card no-body class="custom-channel-common-card">
-      <nuxt-link prefetch :to="`/detailPost/${article.slug}`">
-        <b-card-img-lazy
-          blank-color="#bbb"
-          :src="article.photo"
-          top
-          height="165"
-          style="border-radius: 10px;"
-        ></b-card-img-lazy>
-      </nuxt-link>
+      <div @click="setview">
+        <nuxt-link prefetch :to="`/detailPost/${article.slug}`">
+          <b-card-img-lazy
+            blank-color="#bbb"
+            :src="article.photo"
+            top
+            height="165"
+            style="border-radius: 10px;"
+          ></b-card-img-lazy>
+        </nuxt-link>
+      </div>
+
       <div class="d-flex w-100">
         <b-card-text class="text-muted custom-card-text-date" text-tag="p">{{
           article.release_date
@@ -36,11 +39,13 @@
         <!-- tost end -->
       </div>
 
-      <nuxt-link prefetch :to="`/detailPost/${article.slug}`">
-        <b-card-text text-tag="h6" class="custom-card-text-title">{{
-          article.title
-        }}</b-card-text>
-      </nuxt-link>
+      <div @click="setview">
+        <nuxt-link prefetch :to="`/detailPost/${article.slug}`">
+          <b-card-text text-tag="h6" class="custom-card-text-title">{{
+            article.title
+          }}</b-card-text>
+        </nuxt-link>
+      </div>
     </b-card>
   </div>
 </template>

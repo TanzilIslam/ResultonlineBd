@@ -112,8 +112,9 @@
         class="order-md-last order-lg-last order-xl-last"
       >
         <div class="tags mt-4 mb-3">
+          <span class="text-dark mr-2" style="font-size: 1rem;">Tags:</span>
           <b-badge
-            class="m-1"
+            class="ml-2"
             v-for="(i, index) in DetailArticle.tag_creator"
             :key="index"
             :variant="i.tagNameBG"
@@ -125,12 +126,12 @@
         </div>
 
         <div v-if="showRateDiv" class="rate-section d-flex mb-4">
-          <div class="mt-3"><h6>Please Rate us:</h6></div>
+          <div class="mt-2"><h6>Please Rate us:</h6></div>
           <div class="ml-3">
             <client-only>
               <div @click="$bvToast.show('my-toast')">
                 <star-rating
-                  :star-size="40"
+                  :star-size="35"
                   :show-rating="false"
                   v-model="rating"
                   @rating-selected="setRating"
@@ -139,7 +140,7 @@
                 <div>
                   <b-toast
                     id="my-toast"
-                    toaster="b-toaster-bottom-center"
+                    toaster="b-toaster-top-right"
                     variant="warning"
                     solid
                     auto-hide-delay="3000"
@@ -164,22 +165,22 @@
             </client-only>
 
             <h6 class="mt-3 ml-2">
-              3.6 | {{ DetailArticle.reviewcount }} reviews
+              Total Star : {{ DetailArticle.reviewcount }}
             </h6>
           </div>
         </div>
-        <div v-else-if="showRateThanksDiv">
+        <!-- <div v-else-if="showRateThanksDiv">
           <b-alert class="detail" show variant="dark"
             >Thanks for giving rating : {{ rating }}</b-alert
           >
-
-          <!-- <h6></h6> -->
-        </div>
+        </div> -->
       </b-col>
       <b-col cols="12" sm="12" md="4" lg="4" xl="4">
         <div class="pl-2 pt-2 latest-home-card-detailpage">
           <!-- <div>v-if="$fetchState.pending"  v-else </div> -->
-          <VclRelatedCard v-if="$fetchState.pending" />
+          <VclRelatedCard />
+          <!-- <div v-if="$fetchState.pending" ></div> -->
+          <!--           
           <b-list-group v-else>
             <b-list-group-item
               v-for="(i, index) in RelatedArticles"
@@ -214,7 +215,7 @@
               </nuxt-link>
               <hr v-if="index < 3" class="mb-1" />
             </b-list-group-item>
-          </b-list-group>
+          </b-list-group> -->
         </div>
       </b-col>
     </b-row>

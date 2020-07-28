@@ -7,8 +7,8 @@
         md="10"
         lg="10"
         xl="10"
-        offset-md="1"
         offset-lg="1"
+        offset-md="1"
         offset-xl="1"
       >
         <!-- Cover Start -->
@@ -24,41 +24,42 @@
           </b-card>
         </div>
         <!-- Cover End -->
-      </b-col>
-    </b-row>
 
-    <b-row>
-      <b-col
-        cols="12"
-        sm="6"
-        md="3"
-        lg="3"
-        xl="3"
-        v-for="(article, index) in datas.List"
-        :key="index"
-        class="py-3"
-      >
-        <nuxt-link prefetch :to="`/detailPost/${article.slug}`">
-          <div @click="setview(article.view, article.slug)">
-            <b-card no-body class="custom-author-small-card">
-              <b-card-img-lazy
-                :src="imgpath + article.photo"
-                blank-color="#bbb"
-                top
-                height="165"
-                style="border-radius: 10px;"
-              ></b-card-img-lazy>
-              <!-- <b-card-text class="text-muted custom-card-text-date" text-tag="p">{{
+        <b-row>
+          <b-col
+            cols="12"
+            sm="6"
+            md="3"
+            lg="3"
+            xl="3"
+            v-for="(article, index) in datas.List"
+            :key="index"
+            class="py-3"
+          >
+            <nuxt-link prefetch :to="`/detailPost/${article.slug}`">
+              <div @click="setview(article.view, article.slug)">
+                <b-card no-body class="custom-author-small-card">
+                  <b-card-img-lazy
+                    :src="imgpath + article.photo"
+                    blank-color="#bbb"
+                    top
+                    height="165"
+                    style="border-radius: 10px;"
+                  ></b-card-img-lazy>
+                  <!-- <b-card-text class="text-muted custom-card-text-date" text-tag="p">{{
         ArticlePublish
       }}</b-card-text> -->
-              <b-card-text text-tag="h6" class="custom-card-text-title">
-                {{ article.title }}
-              </b-card-text>
-            </b-card>
-          </div>
-        </nuxt-link>
+                  <b-card-text text-tag="h6" class="custom-card-text-title">
+                    {{ article.title }}
+                  </b-card-text>
+                </b-card>
+              </div>
+            </nuxt-link>
+          </b-col>
+        </b-row>
       </b-col>
     </b-row>
+    <b-container> </b-container>
 
     <!-- Pagination Start End -->
     <div class="myPagination">
@@ -144,7 +145,7 @@ export default {
   margin-top: 0px !important;
   color: rgb(27, 30, 33);
   font-weight: 400;
-  font-size: 18px;
+  font-size: 17px;
   line-height: 1.4;
   letter-spacing: -0.5px;
 }

@@ -1,7 +1,7 @@
 <template>
   <div class="sideBar mb-4">
     <h5 class="text-center chanel">Channel</h5>
-    <b-list-group class="list pb-2 px-2">
+    <b-list-group class="list pb-2 px-3">
       <b-list-group-item
         to="/channel/programming"
         class="d-flex align-items-center mylist"
@@ -106,9 +106,9 @@ export default {
 </script>
 
 <style scoped >
-.mylist,
-span {
-  font-size: 16px !important;
+.mylist:hover {
+  color: #212529 !important;
+  background-color: #e2e6ea !important;
 }
 .chanel {
   height: 40px;
@@ -121,9 +121,6 @@ span {
 .sideBar {
   overflow: hidden;
   background: #fff;
-  /* box-shadow: 0 5px 0.9rem -0.8rem rgba(0, 0, 0, 0.8),
-    0 0 0 1px rgba(0, 0, 0, 0.05);
-  border-radius: 5px; */
   margin-bottom: 5px;
 }
 
@@ -132,6 +129,9 @@ span {
 }
 .mylist {
   border: none !important;
+  font-size: 16px !important;
+  padding: 0px !important;
+  margin-top: 10px;
   /* margin-bottom: 5px; */
 }
 .image-holder {
@@ -141,11 +141,11 @@ span {
   background-color: #e4e6eb;
 }
 .item-holder {
-  margin: revert;
-  padding-left: inherit;
+  margin-left: 20px;
+  margin-top: 10px;
 }
 .image-logo {
-  height: 25px;
-  width: 25px;
+  height: 30px;
+  width: 30px;
 }
 </style>
