@@ -22,7 +22,7 @@ export default {
   components: { VclFacebook },
   props: {
     cWidth: {
-      type: Number,
+      type: String,
       default: "390",
     },
     alignVc: {

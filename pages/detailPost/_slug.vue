@@ -135,7 +135,7 @@
       </b-col>
       <b-col cols="12" sm="12" md="4" lg="4" xl="4">
         <div class="pt-2 pl-2 latest-home-card-detailpage">
-          <VclRelatedCard v-if="$fetchState.pending" />
+          <VclRelatedCard  v-if="$fetchState.pending" />
 
           <b-list-group v-else>
             <b-list-group-item

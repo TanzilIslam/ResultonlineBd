@@ -155,6 +155,7 @@
             >
               <!-- <nuxt-link prefetch :to="`/detailPost/${article.slug}`"> -->
               <ChannelCommonCard :article="article" :data-index="index" />
+
               <!-- </nuxt-link> -->
             </b-col>
           </b-row>
@@ -293,10 +294,12 @@ export default {
       await self.$axios
         .$get(process.env.baseUrl + `/tagPage_home/${item.tag_name}`)
         .then(function (posts) {
-          // console.log(posts);
+          posts.results.List.forEach((element) => {
+            element.photo = process.env.baseUrl + "/media/" + element.photo;
+          });
           self.$store.dispatch(
             "programming/FetchProgrammingArticles",
-            posts.results
+            posts.results.List
           );
           self.$store.dispatch("programming/SetTagNextDataLink", posts.next);
         })
@@ -349,7 +352,7 @@ export default {
           await this.$axios
             .$get(self.TagArticlesNextLink)
             .then(function (posts) {
-              posts.results.forEach((element) => {
+              posts.results.List.forEach((element) => {
                 self.$store.dispatch("programming/SetMoreTagArticles", element);
               });
               self.$store.dispatch(

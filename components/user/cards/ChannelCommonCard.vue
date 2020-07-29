@@ -24,20 +24,6 @@
           </p>
         </div>
       </div>
-      <div class="toast-warper">
-        <!-- toast start -->
-        <b-toast
-          :id="`favouriteToast${article.slug}`"
-          variant="light"
-          static
-          no-close-button
-          solid
-          auto-hide-delay="2000"
-        >
-          Added to favourite
-        </b-toast>
-        <!-- tost end -->
-      </div>
 
       <div @click="setview">
         <nuxt-link prefetch :to="`/detailPost/${article.slug}`">
@@ -100,7 +86,12 @@ export default {
             JSON.stringify(this.article.title)
           );
           this.icon = "star-fill";
-          this.$bvToast.show(`favouriteToast${this.article.slug}`);
+          this.$bvToast.toast(`Successfully added to Favourite!`, {
+            title: "Done",
+            autoHideDelay: 2000,
+            solid: true,
+            static: true,
+          });
         } else if (!this.toogle) {
           for (let i = 0; i < localStorage.length; i++) {
             let key = localStorage.key(i);

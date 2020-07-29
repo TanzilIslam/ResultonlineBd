@@ -38,21 +38,6 @@
               >{{ article.release_date }}
               <b-icon icon="clock-fill" variant="gray"></b-icon>
             </b-card-text>
-
-            <div class="toast-warper">
-              <!-- toast start -->
-              <b-toast
-                :id="`favouriteToast${article.slug}`"
-                variant="light"
-                static
-                no-close-button
-                solid
-                auto-hide-delay="2000"
-              >
-                Added to favourite
-              </b-toast>
-              <!-- tost end -->
-            </div>
           </div>
         </div>
 
@@ -134,7 +119,12 @@ export default {
             JSON.stringify(this.article.title)
           );
           this.icon = "star-fill";
-          this.$bvToast.show(`favouriteToast${this.article.slug}`);
+          this.$bvToast.toast(`Successfully added to Favourite!`, {
+            title: "Done",
+            autoHideDelay: 2000,
+            solid: true,
+            static: true,
+          });
         } else if (!this.toogle) {
           // var existingTwo = localStorage.getItem("FavouriteArticles");
           // var newVar = JSON.parse(existingTwo);

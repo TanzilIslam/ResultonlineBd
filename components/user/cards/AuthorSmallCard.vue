@@ -1,15 +1,17 @@
 <template>
-  <div @click="setview" class="author-small-card">
+  <div class="author-small-card">
     <b-card no-body class="custom-author-small-card">
-      <nuxt-link prefetch :to="`/detailPost/${ArticleSlug}`">
-        <b-card-img-lazy
-          :src="ArticleCover"
-          blank-color="#bbb"
-          top
-          height="165"
-          style="border-radius: 10px;"
-        ></b-card-img-lazy>
-      </nuxt-link>
+      <div @click="setview">
+        <nuxt-link prefetch :to="`/detailPost/${ArticleSlug}`">
+          <b-card-img-lazy
+            :src="ArticleCover"
+            blank-color="#bbb"
+            top
+            height="165"
+            style="border-radius: 10px;"
+          ></b-card-img-lazy>
+        </nuxt-link>
+      </div>
       <div class="d-flex w-100">
         <b-card-text class="text-muted custom-card-text-date" text-tag="p"
           >{{ ArticlePublish }} |</b-card-text
@@ -21,25 +23,13 @@
           </p>
         </div>
       </div>
-      <div class="toast-warper">
-        <!-- toast start -->
-        <b-toast
-          :id="`favouriteToast${ArticleSlug}`"
-          variant="light"
-          static
-          no-close-button
-          solid
-          auto-hide-delay="2000"
-        >
-          Added to favourite
-        </b-toast>
-        <!-- tost end -->
+      <div @click="setview">
+        <nuxt-link prefetch :to="`/detailPost/${ArticleSlug}`">
+          <b-card-text text-tag="h6" class="custom-card-text-title">{{
+            ArticleTitle
+          }}</b-card-text>
+        </nuxt-link>
       </div>
-      <nuxt-link prefetch :to="`/detailPost/${ArticleSlug}`">
-        <b-card-text text-tag="h6" class="custom-card-text-title">{{
-          ArticleTitle
-        }}</b-card-text>
-      </nuxt-link>
     </b-card>
   </div>
 </template>
@@ -104,7 +94,12 @@ export default {
             JSON.stringify(this.ArticleTitle)
           );
           this.icon = "star-fill";
-          this.$bvToast.show(`favouriteToast${this.ArticleSlug}`);
+          this.$bvToast.toast(`Successfully added to Favourite!`, {
+            title: "Done",
+            autoHideDelay: 2000,
+            solid: true,
+            static: true,
+          });
         } else if (!this.toogle) {
           for (let i = 0; i < localStorage.length; i++) {
             let key = localStorage.key(i);
