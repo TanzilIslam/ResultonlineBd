@@ -3,6 +3,7 @@
     <b-row>
       <b-col cols="12" sm="12" md="8" lg="8" xl="8">
         <VclDetailCard v-if="$fetchState.pending" />
+
         <h4 v-else-if="$fetchState.error">
           Error while fetching posts: {{ $fetchState.error.message }}
         </h4>
@@ -51,17 +52,6 @@
                     )
                   "
                 ></div>
-
-                <!-- <p class="details">
-                  {{
-                    DetailArticle.details.slice(
-                      0,
-                      (DetailArticle.details.length *
-                        DetailArticle.Persentase) /
-                        100
-                    )
-                  }}
-                </p> -->
                 <div
                   class="noselect details-bg second"
                   v-html="
@@ -73,16 +63,6 @@
                     )
                   "
                 ></div>
-                <!-- <p class="noselect details-bg">
-                  {{
-                    DetailArticle.details.slice(
-                      (DetailArticle.details.length *
-                        DetailArticle.Persentase) /
-                        100,
-                      DetailArticle.details.length
-                    )
-                  }}
-                </p> -->
               </div>
               <div class="text-center mt-4 mb-4 unlimited">
                 <h5 class="details"><strong>get unlimited access</strong></h5>
@@ -129,7 +109,7 @@
           <div class="mt-2"><h6>Please Rate us:</h6></div>
           <div class="ml-3">
             <client-only>
-              <div @click="$bvToast.show('my-toast')">
+              <div>
                 <star-rating
                   :star-size="35"
                   :show-rating="false"
@@ -137,30 +117,6 @@
                   @rating-selected="setRating"
                   :glow="2"
                 ></star-rating>
-                <div>
-                  <b-toast
-                    id="my-toast"
-                    toaster="b-toaster-top-right"
-                    variant="warning"
-                    solid
-                    auto-hide-delay="3000"
-                  >
-                    <template v-slot:toast-title>
-                      <div class="d-flex flex-grow-1 align-items-baseline">
-                        <b-img
-                          blank
-                          blank-color="#ff5555"
-                          class="mr-2"
-                          width="12"
-                          height="12"
-                        ></b-img>
-                        <strong class="mr-auto">Submitted!</strong>
-                        <small class="text-muted mr-2">3 seconds ago</small>
-                      </div>
-                    </template>
-                    Reviwe Successfully Submitted!
-                  </b-toast>
-                </div>
               </div>
             </client-only>
 
@@ -169,18 +125,18 @@
             </h6>
           </div>
         </div>
-        <!-- <div v-else-if="showRateThanksDiv">
-          <b-alert class="detail" show variant="dark"
-            >Thanks for giving rating : {{ rating }}</b-alert
-          >
-        </div> -->
+        <div v-if="reviewLoading" class="pt-3">
+          <b-row>
+            <b-col cols="12" sm="12" md="7" lg="7" xl="7">
+              <VclStar />
+            </b-col>
+          </b-row>
+        </div>
       </b-col>
       <b-col cols="12" sm="12" md="4" lg="4" xl="4">
-        <div class="pl-2 pt-2 latest-home-card-detailpage">
-          <!-- <div>v-if="$fetchState.pending"  v-else </div> -->
-          <VclRelatedCard />
-          <!-- <div v-if="$fetchState.pending" ></div> -->
-          <!--           
+        <div class="pt-2 pl-2 latest-home-card-detailpage">
+          <VclRelatedCard v-if="$fetchState.pending" />
+
           <b-list-group v-else>
             <b-list-group-item
               v-for="(i, index) in RelatedArticles"
@@ -215,7 +171,7 @@
               </nuxt-link>
               <hr v-if="index < 3" class="mb-1" />
             </b-list-group-item>
-          </b-list-group> -->
+          </b-list-group>
         </div>
       </b-col>
     </b-row>
@@ -339,14 +295,39 @@
       </div>
       <!-- pagination End -->
     </div>
+    <div>
+      <b-toast
+        id="my-toast-details"
+        toaster="b-toaster-top-right"
+        variant="warning"
+        solid
+        auto-hide-delay="3000"
+      >
+        <template v-slot:toast-title>
+          <div class="d-flex flex-grow-1 align-items-baseline">
+            <b-img
+              blank
+              blank-color="#ff5555"
+              class="mr-2"
+              width="12"
+              height="12"
+            ></b-img>
+            <strong class="mr-auto">Submitted!</strong>
+            <small class="text-muted mr-2">3 seconds ago</small>
+          </div>
+        </template>
+        Reviwe Successfully Submitted!
+      </b-toast>
+    </div>
   </div>
 </template>
 
 <script>
 import { mapState } from "vuex";
+import VclStar from "@/components/user/vue-content-loading-cards/VclStar.vue";
 export default {
   layout: "detail",
-  components: {},
+  components: { VclStar },
   data() {
     return {
       rating: 0,
@@ -354,6 +335,7 @@ export default {
       loadedHighRated: true,
       showRateDiv: true,
       showRateThanksDiv: false,
+      reviewLoading: false,
     };
   },
   head() {
@@ -421,17 +403,19 @@ export default {
   methods: {
     async setRating(rating) {
       var self = this;
+      self.showRateDiv = false;
+      self.reviewLoading = true;
       await this.$axios
         .$put(process.env.baseUrl + `/count/${this.$route.params.slug}`, {
           reviewcount: this.DetailArticle.reviewcount + this.rating,
         })
-        .then(function (res) {
-          self.showRateDiv = false;
-          self.showRateThanksDiv = true;
-        })
+        .then(function (res) {})
         .catch((error) => {
           console.log(error);
         });
+
+      self.$bvToast.show("my-toast-details");
+      self.reviewLoading = false;
 
       if (process.browser) {
         var existing = localStorage.getItem("ReviewedArticles");
@@ -492,23 +476,8 @@ export default {
               break;
             }
           }
-
-          // arr.forEach(element => {
-          // if (element == this.$route.params.slug) {
-          // console.log("found");
-          // this.showRateDiv = false;
-          // this.showRateThanksDiv = true;
-          // } else {
-          // console.log("not found");
-          // this.showRateDiv = true;
-          // this.showRateThanksDiv = false;
-          // }
-          // });
         }
       }
-      // if (process.browser) {
-
-      // }
     },
   },
   // created() {
@@ -521,11 +490,6 @@ export default {
       setTimeout(() => this.$nuxt.$loading.finish(), 1000);
     });
   },
-  // beforeRouteEnter(to, from, next) {
-  //   next(vm => {
-  //     vm.checkLocalStorage();
-  //   });
-  // }
 };
 </script>
 

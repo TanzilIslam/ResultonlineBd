@@ -67,8 +67,14 @@
             >Fresh
           </h5>
           <hr class="custom-latest-hr" />
+
           <b-list-group>
-            <div v-if="$fetchState.pending"></div>
+            <VclRelatedCard
+              class="px-2"
+              cWidth="360"
+              :alignVc="true"
+              v-if="$fetchState.pending"
+            />
             <h4 v-else-if="$fetchState.error">
               Error while fetching posts: {{ $fetchState.error.message }}
             </h4>

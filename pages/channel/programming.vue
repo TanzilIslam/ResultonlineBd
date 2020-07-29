@@ -291,7 +291,7 @@ export default {
       this.dataLoading = false;
       var self = this;
       await self.$axios
-        .$get(item.tag_content_link)
+        .$get(process.env.baseUrl + `/tagPage_home/${item.tag_name}`)
         .then(function (posts) {
           // console.log(posts);
           self.$store.dispatch(
