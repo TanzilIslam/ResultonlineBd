@@ -9,7 +9,14 @@
         </b-list-group>
       </b-col>
     </b-row> -->
-    <div v-if="$fetchState.pending"></div>
+    <div v-if="$fetchState.pending">
+      <div class="pt-2" style="margin-bottom: 200px; text-align: center;">
+        <b-spinner
+          style="width: 3rem; height: 3rem;"
+          label="Loading..."
+        ></b-spinner>
+      </div>
+    </div>
 
     <div v-else>
       <b-row>

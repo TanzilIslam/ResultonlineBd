@@ -172,6 +172,7 @@
         <!-- About Div Start -->
         <div v-show="showAboutDiv">
           <h3>this is abour apge of programming</h3>
+          <!-- <div class="about-text" v-html="AuthorArticles.about"></div> -->
           <h5 class="text-muted">Every body should know</h5>
         </div>
         <!-- About Div End -->
@@ -292,7 +293,7 @@ export default {
       this.dataLoading = false;
       var self = this;
       await self.$axios
-        .$get(process.env.baseUrl + `/tagPage_home/${item.tag_name}`)
+        .$get(process.env.baseUrl + `/tagPage_home/${item.query_slug}`)
         .then(function (posts) {
           posts.results.List.forEach((element) => {
             element.photo = process.env.baseUrl + "/media/" + element.photo;
@@ -318,9 +319,13 @@ export default {
       await this.$axios
         .$get(item.tag_target_link)
         .then(function (posts) {
+          posts.results.List.forEach((element) => {
+            element.photo = process.env.baseUrl + "/media/" + element.photo;
+          });
+
           self.$store.dispatch(
             "programming/FetchProgrammingArticles",
-            posts.results
+            posts.results.List
           );
           self.$store.dispatch("programming/SetTagNextDataLink", posts.next);
         })

@@ -119,11 +119,11 @@
                 ></star-rating>
               </div>
             </client-only>
-
-            <h6 class="mt-3 ml-2">
-              Total Star : {{ DetailArticle.reviewcount }}
-            </h6>
           </div>
+        </div>
+
+        <div>
+          <h6 class="mt-3">Total Star : {{ DetailArticle.reviewcount }}</h6>
         </div>
         <div v-if="reviewLoading" class="pt-3">
           <b-row>
@@ -135,7 +135,7 @@
       </b-col>
       <b-col cols="12" sm="12" md="4" lg="4" xl="4">
         <div class="pt-2 pl-2 latest-home-card-detailpage">
-          <VclRelatedCard  v-if="$fetchState.pending" />
+          <VclRelatedCard v-if="$fetchState.pending" />
 
           <b-list-group v-else>
             <b-list-group-item
@@ -415,7 +415,9 @@ export default {
         });
 
       self.$bvToast.show("my-toast-details");
-      self.reviewLoading = false;
+      setTimeout(function () {
+        self.reviewLoading = false;
+      }, 1000);
 
       if (process.browser) {
         var existing = localStorage.getItem("ReviewedArticles");

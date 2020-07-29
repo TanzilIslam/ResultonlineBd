@@ -109,6 +109,7 @@ export default {
 .mylist:hover {
   color: #212529 !important;
   background-color: #e2e6ea !important;
+  border-radius: 8px;
 }
 .chanel {
   height: 40px;
@@ -131,7 +132,7 @@ export default {
   border: none !important;
   font-size: 16px !important;
   padding: 0px !important;
-  margin-top: 10px;
+  margin-top: 15px;
   /* margin-bottom: 5px; */
 }
 .image-holder {

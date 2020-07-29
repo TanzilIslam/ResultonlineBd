@@ -29,14 +29,21 @@
           <h2 class="side-bar-title">Fast Check</h2>
           <hr />
           <b-list-group>
-            <b-list-group-item class="p-0 m-0 list-item mb-4">
-              <h4 class="list-title">
-                PCR inventor – who died in 2019 – did not say his test won't
-                work for COVID-19 infections
-              </h4>
-              <p class="text-muted sub-title">
-                Education – Australian Associated Press
-              </p>
+            <b-list-group-item
+              v-for="(i, index) in fastCheck"
+              :key="index"
+              class="p-0 m-0 list-item mb-4"
+            >
+              <nuxt-link prefetch :to="`/qandADetail/${i.slug}`">
+                <div @click="setView(i.view, i.slug)">
+                  <h4 class="list-title">
+                    {{ i.title }}
+                  </h4>
+                  <p class="text-muted sub-title">
+                    {{ i.catagry.publisher }}
+                  </p>
+                </div>
+              </nuxt-link>
             </b-list-group-item>
           </b-list-group>
         </div>
@@ -149,6 +156,7 @@ export default {
       subTagList: [],
       selectedData: false,
       subTagData: [],
+      fastCheck: [],
     };
   },
   async fetch() {
@@ -167,6 +175,15 @@ export default {
       .then(function (posts) {
         self.data = posts.results;
         self.next = posts.next;
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+
+    await self.$axios
+      .$get(process.env.baseUrl + "/q&a/api/v1/qna_fast_check")
+      .then(function (posts) {
+        self.fastCheck = posts;
       })
       .catch(function (error) {
         console.log(error);

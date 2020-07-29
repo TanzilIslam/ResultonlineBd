@@ -6,14 +6,21 @@
           <b-row>
             <b-col sm="6" md="6" lg="6" xl="6" class="mt-4 mx-auto">
               <div class="d-flex ml-4 mt-4">
-                <b-img-lazy
-                  blank-color="#bbb"
+                <b-img
+                  v-if="loadImg"
+                  blank="true"
+                  blank-color="#777"
+                  class="custom-author-logo mt-4"
+                ></b-img>
+
+                <b-img
+                  v-else
                   class="custom-author-logo mt-4"
                   :src="
                     'http://cdn.resultonlinebd.com/media/' +
                     AuthorArticles.authorsprofilrimg
                   "
-                ></b-img-lazy>
+                ></b-img>
                 <div class="vl mt-4"></div>
                 <div class="custom-text mt-4 pl-3">
                   <h3 class="text-dark">
@@ -34,8 +41,8 @@
           <b-tab title-link-class="text-dark" active @click="goLatest()">
             <template v-slot:title>
               <b-img
-                src="~/assets/user/tabs/r.png"
-                style="height: 30px; width: 30px;"
+                src="~assets/user/icons/fresh.svg"
+                style="height: 30px; width: 23px;"
               ></b-img>
               Fresh
             </template>
@@ -44,7 +51,7 @@
           <b-tab title-link-class="text-dark" @click="goAbout()">
             <template v-slot:title>
               <b-img
-                src="~/assets/user/tabs/a.png"
+                src="~assets/user/icons/about.svg"
                 style="height: 30px; width: 30px;"
               ></b-img>
               About
@@ -91,7 +98,7 @@
     <div v-show="showAboutDiv">
       <b-container>
         <h3>{{ AuthorArticles.authorsname }}</h3>
-        <p class="about-text">{{ AuthorArticles.about }}</p>
+        <div class="about-text" v-html="AuthorArticles.about"></div>
       </b-container>
     </div>
     <!-- </b-row> -->
@@ -102,6 +109,11 @@
 import { mapState } from "vuex";
 
 export default {
+  data() {
+    return {
+      loadImg: true,
+    };
+  },
   head() {
     return {
       title: "ResultOnlineBd " + this.AuthorArticles.authorsname,
@@ -125,6 +137,8 @@ export default {
         );
         self.nextLink = posts.next;
       });
+
+    self.loadImg = false;
   },
   computed: mapState({
     AuthorArticles: (state) => state.authorProfile.AuthorArticles,

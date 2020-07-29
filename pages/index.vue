@@ -8,22 +8,27 @@
       <b-col class="home-sidebar" cols="12" sm="12" md="3" lg="3" xl="3">
         <SideBar />
         <div class="pt-2 mb-3">
-          <b-row class="m-1">
-            <b-col
+          <b-row no-gutters class="m-1">
+            <!-- <b-col
               class="pt-1"
               cols="3"
               sm="3"
-              md="6"
-              lg="6"
-              xl="6"
+              md="2"
+              lg="2"
+              xl="2"
               v-for="(i, index) in footerList"
               :key="index"
-            >
-              <!-- <nuxt-link :to="i.link"> -->
-              <p class="mb-3 footer-name link-hover">{{ i.name }}</p>
+            > -->
+            <!-- <nuxt-link :to="i.link"> -->
+            <p class="mb-3 footer-name link-hover mr-2">
+              <span class="mr-2">Terms</span> <span>Privacy</span>
+            </p>
+            <p class="mb-3 footer-name link-hover">
+              <span class="mr-2">Get In Touch</span> <span>About Us</span>
+            </p>
 
-              <!-- </nuxt-link -->
-            </b-col>
+            <!-- </nuxt-link -->
+            <!-- </b-col> -->
             <b-col class="pt-1" cols="12" sm="12" md="12" lg="12" xl="12">
               <div class="d-flex justify-content-start social-icon">
                 <b-img
@@ -108,7 +113,23 @@
           <div class="latest-home-card">
             <h5 class="custom-latest-title ml-2">Blog</h5>
             <hr class="custom-latest-hr" />
-            <div class="mb-4" v-for="(i, index) in blog" :key="index">
+            <div v-if="$fetchState.pending">
+              <b-img
+                height="160"
+                blank="true"
+                blank-color="#bbb"
+                class="mb-3 px-2 w-100"
+                style="border-radius: 10px;"
+              ></b-img>
+              <b-img
+                blank="true"
+                blank-color="#bbb"
+                class="w-100 px-2"
+                height="160"
+                style="border-radius: 10px;"
+              ></b-img>
+            </div>
+            <div v-else class="mb-4" v-for="(i, index) in blog" :key="index">
               <nuxt-link :to="`/blogDetail/${i.slug}`">
                 <b-card class="pl-2 pr-2" no-body style="border: none;">
                   <b-card-img
@@ -214,7 +235,6 @@
       </b-toast>
       <!-- tost end -->
     </div>
-    
   </div>
 </template>
 
@@ -407,12 +427,12 @@ export default {
   top: 0px;
   padding-bottom: 20px;
 } */
-
+/* 
 p.link-hover :hover {
   display: none;
   background-color: #cfbebe !important;
   border-radius: 8px;
-}
+} */
 .footer-name {
   cursor: pointer;
   color: #757575;

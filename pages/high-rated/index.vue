@@ -6,9 +6,9 @@
       <b-row>
         <b-col
           sm="6"
-          md="4"
-          lg="4"
-          xl="4"
+          md="3"
+          lg="3"
+          xl="3"
           v-for="(article, index) in HighRatedArticles"
           :key="index"
         >
@@ -18,11 +18,11 @@
         </b-col>
       </b-row>
       <!-- Pagination Start End -->
-      <div class="myPagination">
+      <!-- <div class="myPagination">
         <div class="text-center mt-5 mb-3">
           <b-button variant="dark" @click="loadData">Load More</b-button>
         </div>
-      </div>
+      </div> -->
       <!-- Pagination End -->
     </div>
   </div>
@@ -77,10 +77,10 @@ export default {
 /* .top{
 
 } */
-.high-rated-container {
+/* .high-rated-container {
   margin-left: 30px;
   margin-right: 30px;
-}
+} */
 a {
   color: black !important;
   text-decoration: none;
