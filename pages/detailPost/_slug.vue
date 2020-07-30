@@ -65,10 +65,11 @@
                 ></div>
               </div>
               <div class="text-center mt-4 mb-4 unlimited">
-                <h5 class="details"><strong>get unlimited access</strong></h5>
+                <h5 class="details">
+                  <strong>Want to get full access?</strong>
+                </h5>
                 <p class="details">
-                  You've read all of your free stories this month. Become a
-                  member to keep reading.simple
+                  Then please visit the link below for full article
                 </p>
                 <b-button
                   class="get-bytton"

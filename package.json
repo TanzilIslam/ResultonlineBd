@@ -13,6 +13,7 @@
   "dependencies": {
     "@nuxtjs/axios": "^5.3.6",
     "@saeris/vue-spinners": "^1.0.8",
+    "@trevoreyre/autocomplete-vue": "^2.2.0",
     "axios": "^0.19.2",
     "bootstrap": "^4.5.0",
     "bootstrap-vue": "^2.15.0",

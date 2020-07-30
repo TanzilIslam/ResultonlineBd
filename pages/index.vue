@@ -116,13 +116,13 @@
             <div v-if="$fetchState.pending">
               <b-img
                 height="160"
-                blank="true"
+                :blank="true"
                 blank-color="#bbb"
                 class="mb-3 px-2 w-100"
                 style="border-radius: 10px;"
               ></b-img>
               <b-img
-                blank="true"
+                :blank="true"
                 blank-color="#bbb"
                 class="w-100 px-2"
                 height="160"
