@@ -25,7 +25,11 @@
               </div>
 
               <div class="ml-auto">
-                <b-icon class="mr-2" icon="reply"></b-icon>
+                <b-icon
+                  class="mr-2"
+                  @click="$bvModal.show(article.slug)"
+                  icon="reply"
+                ></b-icon>
                 <b-icon
                   class="mr-4"
                   :icon="icon"
@@ -55,6 +59,20 @@
           </div>
         </nuxt-link>
       </b-card>
+    </div>
+    <div>
+      <b-modal
+        :id="article.slug"
+        content-class="shadow"
+        title="BootstrapVue"
+        centered
+      >
+        <p class="my-2">
+          <!-- hide-backdrop -->
+          We've added the utility class <code>'shadow'</code>
+          to the modal content for added effect.
+        </p>
+      </b-modal>
     </div>
   </div>
 </template>

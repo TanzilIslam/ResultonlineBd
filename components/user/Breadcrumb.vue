@@ -3,9 +3,9 @@
     <b-container>
       <b-row>
         <b-col class="text-center">
-          <b-button
+          <div
             variant="outline-dark"
-            class="b-button"
+            class="b-button btn btn-outline-dark"
             v-bind:class="{ active: allActive }"
             @click="loadAll()"
           >
@@ -16,10 +16,9 @@
               src="~assets/user/icons/all.svg"
             ></b-img>
             <span class="mx-2">ALL</span>
-          </b-button>
-          <b-button
-            variant="outline-dark"
-            class="b-button ml-2"
+          </div>
+          <div
+            class="b-button ml-2 btn btn-outline-dark"
             v-bind:class="{ active: topActive }"
             @click="loadTop()"
           >
@@ -30,10 +29,9 @@
               src="~assets/user/icons/top.svg"
             ></b-img
             ><span class="mx-2">Top</span>
-          </b-button>
-          <b-button
-            variant="outline-dark"
-            class="b-button ml-2"
+          </div>
+          <div
+            class="b-button ml-2 btn btn-outline-dark"
             v-bind:class="{ active: highRatedActive }"
             @click="loadhighRated()"
           >
@@ -44,7 +42,7 @@
               src="~assets/user/icons/high-rated.svg"
             ></b-img>
             <span class="mx-2">High Rated</span>
-          </b-button>
+          </div>
         </b-col>
       </b-row>
     </b-container>
@@ -98,5 +96,14 @@ export default {
   font-weight: 400;
   line-height: 1.4;
   letter-spacing: -0.5px;
+}
+
+.b-button:focus,
+.b-button.focus {
+  /* color: #212529; */
+  /* background-color: #e2e6ea; */
+  border-color: none;
+  /* box-shadow: 0 0 0 0.2rem rgba(216, 217, 219, 0.5); */
+  /* border-radius: 8px !important; */
 }
 </style>

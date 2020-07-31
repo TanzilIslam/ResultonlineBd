@@ -6,6 +6,7 @@ html {
 
 body{
     background-color: #fafafa !important;
+    padding-right: 0px !important;
   }
   /* Channel Tabs Start */
   .latest-under-line{
@@ -40,17 +41,36 @@ body{
   background-color: white;
   border-color: none !important;
   margin-bottom: 5px !important;
+  transform: none !important;
+  transition: none!important;
+ 
 }
+
+
 
 .main-tag-button:focus,
 .main-tag-button.focus {
   color: #212529;
   background-color: #e2e6ea;
   border-color: none;
-  box-shadow: 0 0 0 0.2rem rgba(216, 217, 219, 0.5);
+  box-shadow: none;
+  /* box-shadow: 0 0 0 0.2rem rgba(216, 217, 219, 0.5); */
   border-radius: 8px !important;
+  outline: none !important;
+}
+.main-tag-button:active {
+    transform: none !important;
+    outline: none !important;
 }
 
+.b-button:focus,
+.b-button.focus {
+  /* color: #212529; */
+  /* background-color: #e2e6ea; */
+  border-color: none;
+  /* box-shadow: 0 0 0 0.2rem rgba(216, 217, 219, 0.5); */
+  /* border-radius: 8px !important; */
+}
 
 
 .main-tag-button:hover{
@@ -187,7 +207,7 @@ a {
   opacity: 1; /* Firefox */
 }
 .autocomplete-input {
-  padding-top: 5px;
+  
   padding-left: 5px;
   border-radius: 5px;
   border: 1px solid #3b4045;
@@ -203,7 +223,7 @@ a {
 
 .autocomplete-input:focus,
 .autocomplete-input[aria-expanded="true"] {
-  border: 1px solid #565b61;
+  /* border: 1px solid #565b61; */
   background-color: #3b4045;
   outline: none;
   color: #e4e6e8 !important;
@@ -294,4 +314,8 @@ a {
     color: black;
     font-size: 16px;
   }
+}
+
+.carousel-inner{
+  border-radius: 5px !important;
 }

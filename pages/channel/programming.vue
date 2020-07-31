@@ -20,19 +20,19 @@
           <FixedChannelSideBar />
 
           <b-list-group class="channel-side-bar channel-side-bar-list-group">
-            <b-button
-              variant="light"
-              class="main-tag-button channel-side-bar-list-item"
+            <button
+              class="main-tag-button channel-side-bar-list-item btn btn-light"
               v-for="(item, index) in mainTagList.results"
               :key="index"
               @click="showMainTagPosts(item)"
+              type="button"
             >
               <b-img
                 :src="item.tag_icon"
                 class="shadow channel-side-bar-list-item-icon"
               ></b-img>
-              {{ item.tag_name }}</b-button
-            >
+              {{ item.tag_name }}
+            </button>
           </b-list-group>
 
           <div class="text-center py-3">

@@ -6,8 +6,9 @@
     <b-row>
       <!-- Channel start -->
       <b-col class="home-sidebar" cols="12" sm="12" md="3" lg="3" xl="3">
-        <SideBar />
-        <div class="pt-2 mb-3">
+        <div class="side-bar-sticky"><SideBar /></div>
+
+        <div class="pt-2 mb-3 footer-sticky">
           <b-row no-gutters class="m-1">
             <!-- <b-col
               class="pt-1"
@@ -109,7 +110,7 @@
           </b-list-group>
         </div>
 
-        <div class="blog pt-3">
+        <div class="blog pt-3 blog-sticky">
           <div class="latest-home-card">
             <h5 class="custom-latest-title ml-2">Blog</h5>
             <hr class="custom-latest-hr" />
@@ -129,7 +130,12 @@
                 style="border-radius: 10px;"
               ></b-img>
             </div>
-            <div v-else class="mb-4" v-for="(i, index) in blog" :key="index">
+            <div
+              v-else
+              class="mb-4 blog-sticky"
+              v-for="(i, index) in blog"
+              :key="index"
+            >
               <nuxt-link :to="`/blogDetail/${i.slug}`">
                 <b-card class="pl-2 pr-2" no-body style="border: none;">
                   <b-card-img
@@ -150,7 +156,7 @@
           </div>
         </div>
 
-        <div class="qanda mb-4 latest-home-card">
+        <div class="qanda mb-4 latest-home-card qanda-sticky">
           <h5 class="custom-latest-title ml-2">Q and A</h5>
           <hr class="custom-latest-hr" />
           <b-row>
@@ -419,6 +425,30 @@ export default {
 
 <style scoped>
 @import url("https://fonts.googleapis.com/css2?family=Inter&display=swap");
+.side-bar-sticky {
+  /* position: -webkit-sticky; Safari */
+  position: sticky;
+  /* left: 0px; */
+  /* bottom: 0px; */
+  top: 52px;
+}
+.blog-sticky {
+  /* position: -webkit-sticky; Safari */
+  position: sticky;
+  top: 38px;
+}
+.footer-sticky {
+  position: sticky;
+  /* left: 0px; */
+  /* bottom: 0px; */
+  top: 648px;
+}
+.qanda-sticky {
+  position: sticky;
+  /* left: 0px; */
+  /* bottom: 0px; */
+  top: 590px;
+}
 /* .myDIV {
   padding-bottom: 20px;
 } */

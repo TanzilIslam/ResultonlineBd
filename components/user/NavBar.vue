@@ -46,11 +46,12 @@
             </form> -->
             <div class="d-flex w-100">
               <div class="w-100">
-                <form @submit.prevent="searchinfo">
+                <form @keyup.enter.prevent="searchinfo">
                   <autocomplete
                     :search="searchData"
                     placeholder="Search Here..."
                     :get-result-value="getResultValue"
+                    @submit="handleSubmit"
                   ></autocomplete>
                 </form>
               </div>
@@ -103,11 +104,12 @@
 
           <div class="d-flex w-100">
             <div class="w-100">
-              <form @submit.prevent="searchinfo">
+              <form @keyup.enter.prevent="searchinfo">
                 <autocomplete
                   :search="searchData"
                   placeholder="Search Here..."
                   :get-result-value="getResultValue"
+                  @submit="handleSubmit"
                 ></autocomplete>
               </form>
             </div>
@@ -150,7 +152,7 @@ export default {
     },
     searchData(input) {
       return new Promise((resolve) => {
-        if (input.length < 3) {
+        if (input.length < 2) {
           return resolve([]);
         }
 
@@ -166,6 +168,12 @@ export default {
 
     getResultValue(result) {
       return result.title;
+    },
+    handleSubmit(result) {
+      event.preventDefault();
+      try {
+        this.$router.push("/search/" + result.title);
+      } catch (error) {}
     },
   },
   computed: {
@@ -190,6 +198,7 @@ export default {
 .custom-mynav {
   height: 50px;
   background-color: #242729 !important;
+  padding-right: 0px !important;
 }
 .item,
 a {
@@ -232,7 +241,6 @@ a {
     outline: none !important;
     outline: none !important;
   }
-  
 }
 a {
   border: none !important;
