@@ -28,7 +28,7 @@
           v-bind:class="{ range: showSearch }"
         >
           <div v-if="!show" class="d-flex">
-            <form @submit.prevent="search" class="d-inline w-100">
+            <form @submit.prevent="searchinfo" class="d-inline w-100">
               <div>
                 <b-input-group size="sm">
                   <b-form-input
@@ -37,7 +37,7 @@
                     placeholder="Search Here..."
                   ></b-form-input>
                   <b-input-group-append>
-                    <b-button class="icon-button" @click="search">
+                    <b-button class="icon-button-two" @click="searchinfo">
                       <b-icon icon="search" variant="light"></b-icon>
                     </b-button>
                   </b-input-group-append>
@@ -97,42 +97,10 @@
                 ></autocomplete>
               </form>
             </div>
-            <b-button class="icon-button" @click="searchinfo">
+            <div class="btn icon-button" @click="searchinfo">
               <b-icon icon="search" variant="light"></b-icon>
-            </b-button>
-          </div>
-
-          <!-- <form
-            autocomplete="off"
-            @submit.prevent="search"
-            class="mx-2 mr-2 my-auto d-inline w-100"
-          >
-            <div> -->
-          <!-- <b-input-group size="sm">
-                <autocomplete
-                  :search="searchData"
-                  placeholder="Search Here..."
-                ></autocomplete> -->
-
-          <!-- <b-form-input
-                  autocomplete="off"
-                  @input="takeinput"
-                  style="color: #e4e6e8;"
-                  v-model="keyword"
-                  placeholder="Search Here..."
-                  list="my-list-id"
-                ></b-form-input> -->
-          <!-- <datalist id="my-list-id">
-                  <option>Manual Option</option>
-                </datalist> -->
-          <!-- <b-input-group-append>
-                  <b-button class="icon-button" @click="search">
-                    <b-icon icon="search" variant="light"></b-icon>
-                  </b-button>
-                </b-input-group-append>
-              </b-input-group>
             </div>
-          </form> -->
+          </div>
 
           <b-navbar-nav>
             <b-nav-item class="my-auto" to="/favourite" href="#"
@@ -158,44 +126,15 @@ export default {
   },
   methods: {
     searchinfo() {
-      // var z = document.getElementsByClassName("autocomplete-input").value;
-      // console.log(z);
       if (this.keyword != "") {
         this.$router.push("/search/" + this.keyword);
       }
     },
-
-    // async search() {
-    //   if (this.keyword != "") {
-    //     this.$router.push("/search/" + this.keyword);
-    //   }
-    // },
     customMethod() {
       this.show = true;
       this.showSearch = true;
     },
     searchData(input) {
-      // if (input.length < 3) {
-      //   return [];
-      // }
-      // var self = this;
-      // self.$axios
-      //   .$get(process.env.baseUrl + "/serach/" + input)
-      //   .then(function (posts) {
-      //     if (posts.results != "") {
-      //       posts.results.forEach((element) => {
-      //         self.countries.push(element.title);
-      //       });
-      //       self.suggested = Array.from(new Set(self.countries));
-      //     }
-      //   })
-      //   .catch(function (e) {
-      //     console.log("");
-      //   });
-      // self.keyword = input;
-      // return self.suggested.filter((country) => {
-      //   return country.toLowerCase().startsWith(input.toLowerCase());
-      // });
       return new Promise((resolve) => {
         if (input.length < 3) {
           return resolve([]);
@@ -206,7 +145,7 @@ export default {
           .then((data) => {
             resolve(data.results);
           })
-          .catch((e) => console.log(""));
+          .catch((e) => console.log());
         this.keyword = input;
       });
     },
@@ -214,9 +153,6 @@ export default {
     getResultValue(result) {
       return result.title;
     },
-    // handleSubmit(result) {
-    //   console.log(result.title);
-    // },
   },
   computed: {
     showSearch() {
@@ -300,8 +236,15 @@ a {
   border-color: #3b4045;
   background-color: #3b4045;
   box-shadow: none;
-  height: 31px;
-  margin-left: -2px;
+  height: 34px;
+  margin-left: -6px;
+}
+.icon-button-two {
+  border-color: #3b4045;
+  background-color: #3b4045;
+  box-shadow: none;
+  /* height: 34px; */
+  margin-left: -6px;
 }
 
 .form-control::placeholder {

@@ -76,7 +76,7 @@
           <b-list-group>
             <VclRelatedCard
               class="px-2"
-              cWidth="360"
+              :cWidth="360"
               :alignVc="true"
               v-if="$fetchState.pending"
             />

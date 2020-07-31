@@ -9,7 +9,7 @@
         v-for="(item, index) in subTagList"
         :key="index"
         @click="showSubTagPosts(item)"
-        class="qa-tags"
+        class="qa-tags my-2"
       >
         {{ item.shot_list_name }}
       </div>
