@@ -71,6 +71,7 @@
                 <p class="details">
                   Then please visit the link below for full article
                 </p>
+                <br />
                 <b-button
                   class="get-bytton"
                   variant="success"

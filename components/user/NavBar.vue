@@ -4,7 +4,7 @@
       type="dark"
       id="my-nav"
       class="fixed-top custom-mynav"
-      toggleable="sm"
+      toggleable="md"
     >
       <b-container class="pl-2 pr-3">
         <b-navbar-brand to="/" class="brand-logo"
@@ -28,7 +28,7 @@
           v-bind:class="{ range: showSearch }"
         >
           <div v-if="!show" class="d-flex">
-            <form @submit.prevent="searchinfo" class="d-inline w-100">
+            <!-- <form @submit.prevent="searchinfo" class="d-inline w-100">
               <div>
                 <b-input-group size="sm">
                   <b-form-input
@@ -43,7 +43,21 @@
                   </b-input-group-append>
                 </b-input-group>
               </div>
-            </form>
+            </form> -->
+            <div class="d-flex w-100">
+              <div class="w-100">
+                <form @submit.prevent="searchinfo">
+                  <autocomplete
+                    :search="searchData"
+                    placeholder="Search Here..."
+                    :get-result-value="getResultValue"
+                  ></autocomplete>
+                </form>
+              </div>
+              <div class="btn icon-button" @click="searchinfo">
+                <b-icon icon="search" variant="light"></b-icon>
+              </div>
+            </div>
 
             <div class="pl-4">
               <b-icon
@@ -183,7 +197,7 @@ a {
   font-size: 17px;
 }
 
-@media (min-width: 576px) {
+@media (min-width: 768px) {
   .brand-logo-sm-device {
     display: none !important;
   }
@@ -191,7 +205,7 @@ a {
     display: none !important;
   }
 }
-@media (min-width: 0px) and (max-width: 575px) {
+@media (min-width: 0px) and (max-width: 767px) {
   .range {
     width: inherit !important;
   }
@@ -218,6 +232,7 @@ a {
     outline: none !important;
     outline: none !important;
   }
+  
 }
 a {
   border: none !important;

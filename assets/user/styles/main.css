@@ -221,7 +221,7 @@ a {
 }
 
 /* Loading spinner */
-.autocomplete[data-loading="true"]::after {
+/* .autocomplete[data-loading="true"]::after { */
   /* content: "";
   border: 3px solid #000000;
   border-right: 3px solid rgb(255, 255, 255);
@@ -233,7 +233,7 @@ a {
   top: 50%;
   transform: translateY(-50%);
   animation: rotate 1s infinite linear; */
-}
+
 
 .autocomplete-result-list {
   margin: 0px;
@@ -281,5 +281,17 @@ a {
   }
   to {
     transform: translateY(-50%) rotate(359deg);
+  }
+}
+
+
+@media (min-width: 0px) and (max-width: 767px) {
+  [data-position="below"] .autocomplete-result-list {
+    margin-top: 8px;
+    border-top-color: transparent;
+    border-radius: 0 0 8px 8px;
+    padding-bottom: 0px;
+    color: black;
+    font-size: 16px;
   }
 }
