@@ -111,7 +111,7 @@
     </div>
 
     <!-- Pagination Start End -->
-    <div class="myPagination">
+    <div v-if="showPag" class="myPagination">
       <div class="text-center mt-5 mb-3">
         <b-button variant="dark" @click="loadData">Load More</b-button>
       </div>
@@ -133,6 +133,7 @@ export default {
       dQandA: "/qandADetail/",
       dBlog: "/blogDetail/",
       nodata: false,
+      showPag: false,
     };
   },
   async fetch() {
@@ -141,7 +142,10 @@ export default {
       .$get(process.env.baseUrl + "/serach/" + self.$route.params.key)
       .then(function (posts) {
         self.searched = posts.results;
-        self.next = posts.next;
+        if (posts.next != null) {
+          self.next = posts.next;
+          self.showPag = true;
+        }
       })
       .catch(function (e) {
         self.nodata = true;

@@ -6,49 +6,40 @@
     <b-row>
       <!-- Channel start -->
       <b-col class="home-sidebar" cols="12" sm="12" md="3" lg="3" xl="3">
-        <div class="side-bar-sticky"><SideBar /></div>
+        <div class="side-bar-sticky">
+          <div class="side-bar-scroll">
+            <SideBar />
+            <div class="pt-2">
+              <b-row no-gutters class="m-1">
+                <p class="mb-3 footer-name link-hover mr-2">
+                  <span class="mr-2">Terms</span> <span>Privacy</span>
+                </p>
+                <p class="mb-3 footer-name link-hover">
+                  <span class="mr-2">Get In Touch</span> <span>About Us</span>
+                </p>
+                <b-col class="pt-1" cols="12" sm="12" md="12" lg="12" xl="12">
+                  <div class="d-flex justify-content-start social-icon">
+                    <b-img
+                      class="footer-name social-icons"
+                      :src="
+                        require('~/assets/user/footer/facebook-circled.png')
+                      "
+                    ></b-img>
 
-        <div class="pt-2 mb-3 footer-sticky">
-          <b-row no-gutters class="m-1">
-            <!-- <b-col
-              class="pt-1"
-              cols="3"
-              sm="3"
-              md="2"
-              lg="2"
-              xl="2"
-              v-for="(i, index) in footerList"
-              :key="index"
-            > -->
-            <!-- <nuxt-link :to="i.link"> -->
-            <p class="mb-3 footer-name link-hover mr-2">
-              <span class="mr-2">Terms</span> <span>Privacy</span>
-            </p>
-            <p class="mb-3 footer-name link-hover">
-              <span class="mr-2">Get In Touch</span> <span>About Us</span>
-            </p>
-
-            <!-- </nuxt-link -->
-            <!-- </b-col> -->
-            <b-col class="pt-1" cols="12" sm="12" md="12" lg="12" xl="12">
-              <div class="d-flex justify-content-start social-icon">
-                <b-img
-                  class="footer-name social-icons"
-                  :src="require('~/assets/user/footer/facebook-circled.png')"
-                ></b-img>
-
-                <b-img
-                  class="footer-name social-icons"
-                  :src="require('~/assets/user/footer/images.jpeg')"
-                ></b-img>
-                <b-img
-                  class="footer-name social-icons"
-                  :src="require('~/assets/user/footer/download.png')"
-                ></b-img>
-              </div>
-              <div class="pt-3 footer-name">© 2020 · NuxtIt</div>
-            </b-col>
-          </b-row>
+                    <b-img
+                      class="footer-name social-icons"
+                      :src="require('~/assets/user/footer/images.jpeg')"
+                    ></b-img>
+                    <b-img
+                      class="footer-name social-icons"
+                      :src="require('~/assets/user/footer/download.png')"
+                    ></b-img>
+                  </div>
+                  <div class="pt-3 footer-name">© 2020 · NuxtIt</div>
+                </b-col>
+              </b-row>
+            </div>
+          </div>
         </div>
       </b-col>
       <!-- channel end -->
@@ -111,80 +102,76 @@
         </div>
 
         <div class="blog pt-3 blog-sticky">
-          <div class="latest-home-card">
-            <h5 class="custom-latest-title ml-2">Blog</h5>
-            <hr class="custom-latest-hr" />
-            <div v-if="$fetchState.pending">
-              <b-img
-                height="160"
-                :blank="true"
-                blank-color="#bbb"
-                class="mb-3 px-2 w-100"
-                style="border-radius: 10px;"
-              ></b-img>
-              <b-img
-                :blank="true"
-                blank-color="#bbb"
-                class="w-100 px-2"
-                height="160"
-                style="border-radius: 10px;"
-              ></b-img>
-            </div>
-            <div
-              v-else
-              class="mb-4 blog-sticky"
-              v-for="(i, index) in blog"
-              :key="index"
-            >
-              <nuxt-link :to="`/blogDetail/${i.slug}`">
-                <b-card class="pl-2 pr-2" no-body style="border: none;">
-                  <b-card-img
-                    height="160"
-                    :src="i.photo"
-                    style="border-radius: 10px;"
-                  ></b-card-img>
-                  <b-card-text
-                    text-tag="p"
-                    class="custom-card-text-title pt-2 pb-4 pl-1"
-                  >
-                    {{ i.title }}
-                  </b-card-text>
-                </b-card>
-                <hr class="mx-3 my-0" v-if="index == 0" />
-              </nuxt-link>
-            </div>
-          </div>
-        </div>
-
-        <div class="qanda mb-4 latest-home-card qanda-sticky">
-          <h5 class="custom-latest-title ml-2">Q and A</h5>
-          <hr class="custom-latest-hr" />
-          <b-row>
-            <b-col
-              cols="12"
-              sm="12"
-              md="12"
-              lg="12"
-              xl="12"
-              v-for="(j, index) in qandA"
-              :key="index"
-            >
-              <div class="pl-2 pr-2 mb-3">
-                <nuxt-link prefetch :to="`/qandADetail/${j.slug}`">
-                  <b-card class="pl-2 pt-2" no-body>
-                    <div @click="setViewQandA(j.view, j.slug)">
-                      <h6>
-                        <strong>{{ j.title }}</strong>
-                      </h6>
-                      <p>
-                        {{ j.details.slice(0, 40) + "..." }}
-                      </p>
-                    </div>
+          <div class="blog-scroll">
+            <div class="latest-home-card">
+              <h5 class="custom-latest-title ml-2">Blog</h5>
+              <hr class="custom-latest-hr" />
+              <div v-if="$fetchState.pending">
+                <b-img
+                  height="160"
+                  :blank="true"
+                  blank-color="#bbb"
+                  class="mb-3 px-2 w-100"
+                  style="border-radius: 10px;"
+                ></b-img>
+                <b-img
+                  :blank="true"
+                  blank-color="#bbb"
+                  class="w-100 px-2"
+                  height="160"
+                  style="border-radius: 10px;"
+                ></b-img>
+              </div>
+              <div v-else class="mb-4" v-for="(i, index) in blog" :key="index">
+                <nuxt-link :to="`/blogDetail/${i.slug}`">
+                  <b-card class="pl-2 pr-2" no-body style="border: none;">
+                    <b-card-img
+                      height="160"
+                      :src="i.photo"
+                      style="border-radius: 10px;"
+                    ></b-card-img>
+                    <b-card-text
+                      text-tag="p"
+                      class="custom-card-text-title pt-2 pb-4 pl-1"
+                    >
+                      {{ i.title }}
+                    </b-card-text>
                   </b-card>
+                  <hr class="mx-3 my-0" v-if="index == 0" />
                 </nuxt-link>
               </div>
-            </b-col>
-          </b-row>
+            </div>
+            <div class="qanda mb-4 latest-home-card">
+              <h5 class="custom-latest-title ml-2">Q and A</h5>
+              <hr class="custom-latest-hr" />
+              <b-row>
+                <b-col
+                  cols="12"
+                  sm="12"
+                  md="12"
+                  lg="12"
+                  xl="12"
+                  v-for="(j, index) in qandA"
+                  :key="index"
+                >
+                  <div class="pl-2 pr-2 mb-3">
+                    <nuxt-link prefetch :to="`/qandADetail/${j.slug}`">
+                      <b-card class="pl-2 pt-2" no-body>
+                        <div @click="setViewQandA(j.view, j.slug)">
+                          <h6>
+                            <strong>{{ j.title }}</strong>
+                          </h6>
+                          <p>
+                            {{ j.details.slice(0, 40) + "..." }}
+                          </p>
+                        </div>
+                      </b-card>
+                    </nuxt-link>
+                  </div>
+                </b-col>
+              </b-row>
+            </div>
+          </div>
         </div>
       </b-col>
       <!-- latest end -->
@@ -425,44 +412,40 @@ export default {
 
 <style scoped>
 @import url("https://fonts.googleapis.com/css2?family=Inter&display=swap");
+
 .side-bar-sticky {
-  /* position: -webkit-sticky; Safari */
+  position: -webkit-sticky;
   position: sticky;
-  /* left: 0px; */
-  /* bottom: 0px; */
-  top: 52px;
+  top: 65px;
+}
+.blog-scroll {
+  height: 500px;
+  overflow-x: hidden;
+  overflow-y: scroll;
+}
+@media (min-height: 900px) {
+  .side-bar-scroll {
+    height: 100% !important;
+    overflow-x: hidden !important;
+    overflow-y: hidden !important;
+  }
+  .blog-scroll {
+    height: 100% !important;
+    overflow-x: hidden !important;
+    overflow-y: hidden !important;
+  }
+}
+
+.side-bar-scroll {
+  height: 550px;
+  overflow-x: hidden;
+  overflow-y: scroll;
 }
 .blog-sticky {
-  /* position: -webkit-sticky; Safari */
   position: sticky;
-  top: 38px;
+  top: 50px;
 }
-.footer-sticky {
-  position: sticky;
-  /* left: 0px; */
-  /* bottom: 0px; */
-  top: 648px;
-}
-.qanda-sticky {
-  position: sticky;
-  /* left: 0px; */
-  /* bottom: 0px; */
-  top: 590px;
-}
-/* .myDIV {
-  padding-bottom: 20px;
-} */
-/* .sticky {
-  position: sticky;
-  top: 0px;
-  padding-bottom: 20px;
-} */
-/* 
-p.link-hover :hover {
-  display: none;
-  background-color: #cfbebe !important;
-  border-radius: 8px;
-} */
+
 .footer-name {
   cursor: pointer;
   color: #757575;
