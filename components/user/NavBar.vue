@@ -173,7 +173,10 @@ export default {
       event.preventDefault();
       try {
         this.$router.push("/search/" + result.title);
-      } catch (error) {}
+      } catch (error) {
+        console.log(this.keyword);
+        this.$router.push("/search/" + this.keyword);
+      }
     },
   },
   computed: {

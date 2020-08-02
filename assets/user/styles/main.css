@@ -45,8 +45,9 @@ body{
   transition: none!important;
  
 }
-
-
+.main-tag-button:not(:disabled):not(.disabled):active:focus, .main-tag-button:not(:disabled):not(.disabled).active:focus, .show > .btn-light.dropdown-toggle:focus {
+    box-shadow: none !important;
+}
 
 .main-tag-button:focus,
 .main-tag-button.focus {
