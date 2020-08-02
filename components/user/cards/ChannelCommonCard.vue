@@ -2,7 +2,7 @@
   <div class="channel-common-card">
     <b-card no-body class="custom-channel-common-card">
       <div @click="setview">
-        <nuxt-link prefetch :to="`/detailPost/${article.slug}`">
+        <nuxt-link prefetch :to="`/${article.slug}`">
           <b-card-img-lazy
             blank-color="#bbb"
             :src="article.photo"
@@ -26,7 +26,7 @@
       </div>
 
       <div @click="setview">
-        <nuxt-link prefetch :to="`/detailPost/${article.slug}`">
+        <nuxt-link prefetch :to="`/${article.slug}`">
           <b-card-text text-tag="h6" class="custom-card-text-title">{{
             article.title
           }}</b-card-text>

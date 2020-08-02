@@ -1,9 +1,11 @@
 <template>
   <div class="question-and-answere">
     <!-- tags -->
+
+    <h5 class="pt-4"><strong> #shortList</strong></h5>
     <div
       class="tags flex-wrap d-flex justify-content-between"
-      style="padding-top: 20px; padding-bottom: 20px;"
+      style="padding-bottom: 20px;"
     >
       <div
         v-for="(item, index) in subTagList"
@@ -26,7 +28,7 @@
         xl="3"
       >
         <div style="background-color: #f8f9fa; padding: 10px; margin-top: 7px;">
-          <h2 class="side-bar-title">Fast Check</h2>
+          <h2 class="side-bar-title">All</h2>
           <hr />
           <b-list-group>
             <b-list-group-item
@@ -34,7 +36,7 @@
               :key="index"
               class="p-0 m-0 list-item mb-4"
             >
-              <nuxt-link prefetch :to="`/qandADetail/${i.slug}`">
+              <nuxt-link prefetch :to="`/q/${i.slug}`">
                 <div @click="setView(i.view, i.slug)">
                   <h4 class="list-title">
                     {{ i.title }}
@@ -81,7 +83,7 @@
                 xl="4"
                 class="mb-3"
               >
-                <nuxt-link prefetch :to="`/qandADetail/${j.slug}`">
+                <nuxt-link prefetch :to="`/q/${j.slug}`">
                   <b-card no-body class="card-body">
                     <div @click="setView(j.view, j.slug)">
                       <h6>
@@ -115,7 +117,7 @@
               xl="4"
               class="mb-3"
             >
-              <nuxt-link prefetch :to="`/qandADetail/${j.slug}`">
+              <nuxt-link prefetch :to="`/q/${j.slug}`">
                 <b-card no-body class="card-body">
                   <div @click="setView(j.view, j.slug)">
                     <h6>

@@ -1,6 +1,6 @@
 <template>
   <div class="vcl-home-card">
-    <b-card class="mb-4 rounded" no-body v-for="i of 6" :key="i">
+    <b-card class="mb-4 rounded" no-body v-for="i of 5" :key="i">
       <vue-content-loading
         class="custom-vcl-home-card"
         :width="300"
@@ -22,7 +22,7 @@ import VueContentLoading from "vue-content-loading";
 
 export default {
   name: "VclHomeCard",
-  components: { VueContentLoading }
+  components: { VueContentLoading },
 };
 </script>
 

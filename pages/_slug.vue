@@ -155,7 +155,7 @@
               :key="index"
               class="custom-list-item"
             >
-              <nuxt-link prefetch :to="`/detailPost/${i.slug}`">
+              <nuxt-link prefetch :to="`/${i.slug}`">
                 <div @click="setview(i)" class="d-flex">
                   <div>
                     <b-img-lazy
@@ -167,8 +167,8 @@
                   <div class="ml-2">
                     <h5 class="related-card-title">
                       {{
-                        i.title.length > 35
-                          ? i.title.slice(0, 32) + ".."
+                        i.title.length > 33
+                          ? i.title.slice(0, 29) + ".."
                           : i.title
                       }}
                     </h5>

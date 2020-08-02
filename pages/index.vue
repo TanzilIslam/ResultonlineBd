@@ -8,36 +8,38 @@
       <b-col class="home-sidebar" cols="12" sm="12" md="3" lg="3" xl="3">
         <div class="side-bar-sticky">
           <div class="side-bar-scroll">
-            <SideBar />
-            <div class="pt-2">
-              <b-row no-gutters class="m-1">
-                <p class="mb-3 footer-name link-hover mr-2">
-                  <span class="mr-2">Terms</span> <span>Privacy</span>
-                </p>
-                <p class="mb-3 footer-name link-hover">
-                  <span class="mr-2">Get In Touch</span> <span>About Us</span>
-                </p>
-                <b-col class="pt-1" cols="12" sm="12" md="12" lg="12" xl="12">
-                  <div class="d-flex justify-content-start social-icon">
-                    <b-img
-                      class="footer-name social-icons"
-                      :src="
-                        require('~/assets/user/footer/facebook-circled.png')
-                      "
-                    ></b-img>
+            <div class="scrollbox-content">
+              <SideBar />
+              <div class="pt-2">
+                <b-row no-gutters class="m-1">
+                  <p class="mb-3 footer-name link-hover mr-2">
+                    <span class="mr-2">Terms</span> <span>Privacy</span>
+                  </p>
+                  <p class="mb-3 footer-name link-hover">
+                    <span class="mr-2">Get In Touch</span> <span>About Us</span>
+                  </p>
+                  <b-col class="pt-1" cols="12" sm="12" md="12" lg="12" xl="12">
+                    <div class="d-flex justify-content-start social-icon">
+                      <b-img
+                        class="footer-name social-icons"
+                        :src="
+                          require('~/assets/user/footer/facebook-circled.png')
+                        "
+                      ></b-img>
 
-                    <b-img
-                      class="footer-name social-icons"
-                      :src="require('~/assets/user/footer/images.jpeg')"
-                    ></b-img>
-                    <b-img
-                      class="footer-name social-icons"
-                      :src="require('~/assets/user/footer/download.png')"
-                    ></b-img>
-                  </div>
-                  <div class="pt-3 footer-name">© 2020 · NuxtIt</div>
-                </b-col>
-              </b-row>
+                      <b-img
+                        class="footer-name social-icons"
+                        :src="require('~/assets/user/footer/images.jpeg')"
+                      ></b-img>
+                      <b-img
+                        class="footer-name social-icons"
+                        :src="require('~/assets/user/footer/download.png')"
+                      ></b-img>
+                    </div>
+                    <div class="pt-3 footer-name">© 2020 · NuxtIt</div>
+                  </b-col>
+                </b-row>
+              </div>
             </div>
           </div>
         </div>
@@ -82,7 +84,7 @@
               :data-index="index"
               class="custom-list-item px-2 py-1"
             >
-              <nuxt-link prefetch :to="`/detailPost/${article.slug}`">
+              <nuxt-link prefetch :to="`/${article.slug}`">
                 <div @click="setview(article)" class="d-flex">
                   <div class="custom-latest-text mr-3">
                     {{ article.title }}
@@ -101,7 +103,7 @@
           </b-list-group>
         </div>
 
-        <div class="blog pt-3 blog-sticky">
+        <!-- <div class="blog pt-3 blog-sticky">
           <div class="blog-scroll">
             <div class="latest-home-card">
               <h5 class="custom-latest-title ml-2">Blog</h5>
@@ -172,7 +174,7 @@
               </b-row>
             </div>
           </div>
-        </div>
+        </div> -->
       </b-col>
       <!-- latest end -->
 
@@ -303,19 +305,20 @@ export default {
         console.log("No Net" + error);
       })
       .finally(function () {});
+
     await this.$axios
       .$get(process.env.baseUrl + `/latestdata`)
       .then((posts) => this.$store.dispatch("home/FetchLatestArticles", posts));
 
     // blog
-    await this.$axios
-      .$get(process.env.baseUrl + `/blog/api/v1/home_card`)
-      .then((posts) => (this.blog = posts));
+    // await this.$axios
+    //   .$get(process.env.baseUrl + `/blog/api/v1/home_card`)
+    //   .then((posts) => (this.blog = posts));
 
     // qand a
-    await this.$axios
-      .$get(process.env.baseUrl + `/q&a/api/v1/qanda_home`)
-      .then((posts) => (this.qandA = posts));
+    // await this.$axios
+    //   .$get(process.env.baseUrl + `/q&a/api/v1/qanda_home`)
+    //   .then((posts) => (this.qandA = posts));
   },
   computed: mapState({
     HomeArticles: (state) => state.home.HomeArticles,
@@ -388,16 +391,16 @@ export default {
         alert("No more data" + e);
       }
     },
-    async setviewqAndA(view, slug) {
-      await this.$axios
-        .$put(process.env.baseUrl + `/q&a/api/v1/dtls/${slug}`, {
-          view: view + 1,
-        })
-        .then(function (response) {})
-        .catch(function (e) {
-          console.log(e);
-        });
-    },
+    // async setviewqAndA(view, slug) {
+    //   await this.$axios
+    //     .$put(process.env.baseUrl + `/q&a/api/v1/dtls/${slug}`, {
+    //       view: view + 1,
+    //     })
+    //     .then(function (response) {})
+    //     .catch(function (e) {
+    //       console.log(e);
+    //     });
+    // },
   },
   mounted() {
     // this.check();
@@ -418,29 +421,35 @@ export default {
   position: sticky;
   top: 65px;
 }
-.blog-scroll {
+/* .blog-scroll {
   height: 500px;
   overflow-x: hidden;
   overflow-y: scroll;
-}
+} */
 @media (min-height: 900px) {
   .side-bar-scroll {
     height: 100% !important;
     overflow-x: hidden !important;
     overflow-y: hidden !important;
   }
-  .blog-scroll {
-    height: 100% !important;
-    overflow-x: hidden !important;
-    overflow-y: hidden !important;
-  }
 }
+/* .side-bar-scroll {
+  overflow: auto;
+  visibility: hidden;
+}
+.scrollbox-content,
+.side-bar-scroll:hover,
+.side-bar-scroll:focus {
+  visibility: visible;
+  overflow-y: scroll;
+} */
 
-.side-bar-scroll {
+.side-bar-scroll:hover {
   height: 550px;
   overflow-x: hidden;
   overflow-y: scroll;
 }
+
 .blog-sticky {
   position: sticky;
   top: 50px;

@@ -1,6 +1,6 @@
 <template>
   <div class="home-card">
-    <div class="custom-home-card rounded">
+    <div class="rounded">
       <b-card no-body class="mb-4">
         <div class="d-flex">
           <div class="ml-3 mt-3 mb-2">
@@ -26,12 +26,12 @@
 
               <div class="ml-auto">
                 <b-icon
-                  class="mr-2"
+                  class="mr-2 custom-home-card"
                   @click="$bvModal.show(article.slug)"
                   icon="reply"
                 ></b-icon>
                 <b-icon
-                  class="mr-4"
+                  class="mr-4 custom-home-card"
                   :icon="icon"
                   @click="setFavourite()"
                 ></b-icon>
@@ -40,13 +40,13 @@
 
             <b-card-text text-tag="p" class="text-muted"
               >{{ article.release_date }}
-              <b-icon icon="clock-fill" variant="gray"></b-icon>
+              <!-- <b-icon icon="clock-fill" variant="gray"></b-icon> -->
             </b-card-text>
           </div>
         </div>
 
         <h5 class="ml-4 py-3">{{ article.title }}</h5>
-        <nuxt-link prefetch :to="`/detailPost/${article.slug}`">
+        <nuxt-link prefetch :to="`/${article.slug}`">
           <div @click="setview">
             <b-card-img-lazy
               blank-color="#bbb"

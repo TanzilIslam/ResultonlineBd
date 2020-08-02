@@ -24,7 +24,7 @@
         </div>
       </div>
       <div @click="setview">
-        <nuxt-link prefetch :to="`/detailPost/${ArticleSlug}`">
+        <nuxt-link prefetch :to="`/${ArticleSlug}`">
           <b-card-text text-tag="h6" class="custom-card-text-title">{{
             ArticleTitle
           }}</b-card-text>

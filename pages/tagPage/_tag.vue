@@ -36,7 +36,7 @@
             :key="index"
             class="py-3"
           >
-            <nuxt-link prefetch :to="`/detailPost/${article.slug}`">
+            <nuxt-link prefetch :to="`/${article.slug}`">
               <div @click="setview(article.view, article.slug)">
                 <b-card no-body class="custom-author-small-card">
                   <b-card-img-lazy

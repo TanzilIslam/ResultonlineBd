@@ -143,7 +143,7 @@ export default {
   methods: {
     searchinfo() {
       if (this.keyword != "") {
-        this.$router.push("/search/" + this.keyword);
+        this.$router.push("/search?" + this.keyword);
       }
     },
     customMethod() {
@@ -172,10 +172,10 @@ export default {
     handleSubmit(result) {
       event.preventDefault();
       try {
-        this.$router.push("/search/" + result.title);
+        this.$router.push("/search?" + result.title);
       } catch (error) {
         console.log(this.keyword);
-        this.$router.push("/search/" + this.keyword);
+        this.$router.push("/search?" + this.keyword);
       }
     },
   },

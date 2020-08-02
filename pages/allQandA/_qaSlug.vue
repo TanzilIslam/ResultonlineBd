@@ -27,7 +27,7 @@
         xl="6"
         class="mb-3"
       >
-        <nuxt-link prefetch :to="`/qandADetail/${j.slug}`">
+        <nuxt-link prefetch :to="`/q/${j.slug}`">
           <b-card no-body class="card-body">
             <div @click="setView(j.view, j.slug)">
               <h4>
@@ -60,7 +60,7 @@ export default {
   data() {
     return {
       data: [],
-      next: ""
+      next: "",
     };
   },
   async fetch() {
@@ -69,14 +69,14 @@ export default {
       .$get(
         process.env.baseUrl + `/q&a/api/v1/channel/${self.$route.params.qaSlug}`
       )
-      .then(function(posts) {
+      .then(function (posts) {
         self.data = posts.results;
         self.next = posts.next;
       })
-      .catch(function(error) {
+      .catch(function (error) {
         console.log(error);
       })
-      .finally(function() {});
+      .finally(function () {});
   },
   methods: {
     async loadData() {
@@ -84,16 +84,16 @@ export default {
         var self = this;
         await self.$axios
           .$get(self.next)
-          .then(function(posts) {
-            posts.results.List.forEach(element => {
+          .then(function (posts) {
+            posts.results.List.forEach((element) => {
               self.data.List.push(element);
             });
             self.next = posts.next;
           })
-          .catch(function(error) {
+          .catch(function (error) {
             console.log("No Net" + error);
           })
-          .finally(function() {});
+          .finally(function () {});
       } else {
         alert("Null");
       }
@@ -101,14 +101,14 @@ export default {
     async setView(view, slug) {
       this.$axios
         .$put(process.env.baseUrl + `/q&a/api/v1/dtls/${slug}`, {
-          view: view + 1
+          view: view + 1,
         })
-        .then(function(response) {})
-        .catch(function(e) {
+        .then(function (response) {})
+        .catch(function (e) {
           console.log(e);
         });
-    }
-  }
+    },
+  },
 };
 </script>
 

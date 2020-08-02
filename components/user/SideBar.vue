@@ -132,8 +132,8 @@ export default {
   border: none !important;
   font-size: 16px !important;
   padding: 0px !important;
-  margin-top: 15px;
-  /* margin-bottom: 5px; */
+  /* margin-top: 15px; */
+  margin-bottom: 15px;
 }
 .image-holder {
   border-radius: 10px;

@@ -1,7 +1,7 @@
 <template>
   <div class="vcl-channel-common-card">
     <b-row>
-      <b-col md="4" lg="4" xs="12" sm="6" xl="4" v-for="i in 21" :key="i">
+      <b-col md="4" lg="4" xs="12" sm="6" xl="4" v-for="i in 3" :key="i">
         <vcl-twitch class="custom-vcl-channel-common-card"></vcl-twitch>
       </b-col>
     </b-row>
@@ -13,7 +13,7 @@ import { VclTwitch } from "vue-content-loading";
 
 export default {
   name: "VclChannelCommonCard",
-  components: { VclTwitch }
+  components: { VclTwitch },
 };
 </script>
 

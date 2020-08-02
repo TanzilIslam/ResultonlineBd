@@ -1,7 +1,7 @@
 <template>
   <div class="author-vcl-card">
     <b-row>
-      <b-col md="3" lg="3" xs="12" sm="6" xl="3" v-for="i in 21" :key="i">
+      <b-col md="3" lg="3" xs="12" sm="6" xl="3" v-for="i in 3" :key="i">
         <vcl-twitch class="custom-author-vcl-card"></vcl-twitch>
       </b-col>
     </b-row>
@@ -13,7 +13,7 @@ import { VclTwitch } from "vue-content-loading";
 
 export default {
   name: "AuthorVclCard",
-  components: { VclTwitch }
+  components: { VclTwitch },
 };
 </script>
 

@@ -44,7 +44,7 @@
               :key="index"
               class="custom-list-item"
             >
-              <nuxt-link prefetch :to="`/blogDetail/${i.slug}`">
+              <nuxt-link prefetch :to="`/b/${i.slug}`">
                 <div class="d-flex">
                   <div>
                     <b-img-lazy
@@ -104,7 +104,7 @@
             v-for="(article, index) in RecommendedArticles"
             :key="index"
           >
-            <nuxt-link prefetch :to="`/blogDetail/${article.slug}`">
+            <nuxt-link prefetch :to="`/b/${article.slug}`">
               <div class="channel-common-card">
                 <b-card no-body class="custom-channel-common-card">
                   <b-card-img-lazy

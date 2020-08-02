@@ -129,9 +129,9 @@ export default {
     return {
       searched: [],
       next: "",
-      dGeneral: "/detailPost/",
-      dQandA: "/qandADetail/",
-      dBlog: "/blogDetail/",
+      dGeneral: "/",
+      dQandA: "/q/",
+      dBlog: "/b/",
       nodata: false,
       showPag: false,
     };

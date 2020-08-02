@@ -7,6 +7,14 @@
       <b-col class="mb-3" cols="12" sm="12" md="9" lg="9" xl="9">
         <div>
           <div class="question mb-4">
+            <h4>
+              <b-icon
+                icon="award-fill"
+                class="mr-1"
+                style="height: 30px; width: 30px;"
+              ></b-icon>
+              <strong>Question</strong>
+            </h4>
             <b-card no-body>
               <div class="m-4">
                 <div class="d-flex w-100">
@@ -38,7 +46,7 @@
                 class="mr-1"
                 style="height: 30px; width: 30px;"
               ></b-icon>
-              <strong>Solution</strong>
+              <strong>Answere</strong>
             </h4>
             <b-card no-body>
               <div class="m-4">
@@ -59,7 +67,7 @@
               v-for="(i, index) in relatedData"
               :key="index"
             >
-              <nuxt-link prefetch :to="`/qandADetail/${i.slug}`">
+              <nuxt-link prefetch :to="`/q/${i.slug}`">
                 <div @click="setView(i.view, i.slug)">
                   {{ i.title }}
                 </div>

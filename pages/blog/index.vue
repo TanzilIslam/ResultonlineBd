@@ -15,7 +15,7 @@
           v-for="(i, index) in cover"
           :key="index"
         >
-          <nuxt-link :to="`/blogDetail/${i.slug}`">
+          <nuxt-link :to="`/b/${i.slug}`">
             <b-card
               overlay
               :img-src="i.photo"
@@ -24,14 +24,16 @@
               img-height="400"
               class="cover-card"
             >
-              <b-card-text text-tag="p" class="cover-title">
-                {{ i.title }}
-              </b-card-text>
+              <div class="text-holder">
+                <b-card-text text-tag="p" class="cover-title">
+                  {{ i.title }}
+                </b-card-text>
+              </div>
             </b-card>
           </nuxt-link>
         </b-col>
       </b-row>
-      <div style="margin-top: 40px;">
+      <div>
         <b-row>
           <b-col cols="12" class="mt-4 mb-3">
             <div class="d-flex align-self-center mb-2">
@@ -52,7 +54,7 @@
             v-for="(i, index) in home.slice(0, 2)"
             :key="index"
           >
-            <nuxt-link :to="`/blogDetail/${i.slug}`">
+            <nuxt-link :to="`/b/${i.slug}`">
               <b-card
                 class="cover-card"
                 img-height="280"
@@ -69,10 +71,10 @@
           <b-col cols="12" sm="12" md="4" lg="4" xl="4">
             <div
               class="mb-3"
-              v-for="(i, index) in home.slice(2, 5)"
+              v-for="(i, index) in home.slice(2, 4)"
               :key="index"
             >
-              <nuxt-link :to="`/blogDetail/${i.slug}`">
+              <nuxt-link :to="`/b/${i.slug}`">
                 <div class="d-flex">
                   <div class="">
                     <b-img height="136" width="205" :src="i.photo"></b-img>
@@ -89,18 +91,14 @@
         </b-row>
       </div>
       <!-- Bottom Cards -->
-      <div
-        v-for="(item, index) in bottomCards"
-        :key="index"
-        style="margin-top: 30px;"
-      >
+      <div v-for="(item, index) in bottomCards" :key="index">
         <b-row>
           <b-col
             cols="12"
             md="12"
             lg="12"
             xl="12"
-            class="mb-2 mt-4 bottom-section-title"
+            class="mb-2 mt-2 bottom-section-title"
           >
             <h5>
               <b-img
@@ -128,7 +126,7 @@
             lg="4"
             xl="4"
           >
-            <nuxt-link :to="`/blogDetail/${i.slug}`">
+            <nuxt-link :to="`/b/${i.slug}`">
               <b-card class="cover-card-two" no-body img-top>
                 <b-card-img
                   width="436"
@@ -227,6 +225,14 @@ export default {
 /* .blog-page{
 
 } */
+
+.card-img-overlay {
+  background: linear-gradient(
+    to bottom,
+    rgba(0, 0, 0, 0) 0%,
+    rgba(0, 0, 0, 0.9) 100%
+  ) !important;
+}
 .cover-title {
   padding-left: 10px !important;
   padding-bottom: 10px;
@@ -237,6 +243,7 @@ export default {
   left: 0px;
   font-family: "Cambay";
   font-weight: 500;
+
   /* background: -webkit-gradient(
     linear,
     left top,
@@ -244,16 +251,17 @@ export default {
     from(rgba(0, 0, 0, 0)),
     to(rgba(0, 0, 0, 0.9))
   ); */
-  background: linear-gradient(
+  /* background: linear-gradient(
     to bottom,
     rgba(0, 0, 0, 0) 0%,
     rgba(0, 0, 0, 0.9) 100%
-  );
+  ); */
 }
 .cover-card {
   border-radius: 0px !important;
   border: none;
 }
+
 .card-title-one {
   color: rgb(18, 20, 22);
   font-size: 18px;
