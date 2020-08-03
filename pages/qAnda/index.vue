@@ -62,12 +62,12 @@
               <b-card class="latest-home-card">
                 <nuxt-link prefetch :to="`/allQandA/${i.q_slug}`">
                   <b-card-text text-tag="h2" class="channel-cover-title">
-                    <b-img
+                    <!-- <b-img
                       class="shawdo-sm rounded mr-1"
                       height="50"
                       width="50"
                       :src="i.q_icon"
-                    ></b-img>
+                    ></b-img> -->
                     {{ i.publisher }}</b-card-text
                   >
                 </nuxt-link>
@@ -268,6 +268,7 @@ export default {
   /* margin-top: 20px; */
   text-align: center !important;
   color: black !important;
+  font-size: 25px;
 }
 a {
   color: black !important;
