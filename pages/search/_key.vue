@@ -30,6 +30,7 @@
                 :key="index"
                 class="mb-4 py-4"
               >
+              <div v-if="i.is_active">
                 <div v-if="i.targetUrl.url == 'count/'">
                   <nuxt-link :to="`${dGeneral}${i.slug}`">
                     <div
@@ -80,7 +81,6 @@
                     </div>
                   </nuxt-link>
                 </div>
-
                 <div v-else-if="i.targetUrl.url == 'blog/api/v1/details/'">
                   <nuxt-link :to="`${dBlog}${i.slug}`">
                     <div class="d-flex">
@@ -102,6 +102,7 @@
                       </div>
                     </div>
                   </nuxt-link>
+                </div>
                 </div>
               </b-list-group-item>
             </b-list-group>
