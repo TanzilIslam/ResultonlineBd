@@ -24,22 +24,24 @@
           v-for="(i, index) in allBlogPost.List"
           :key="index"
         >
-          <nuxt-link prefetch :to="`/b/${i.blog_slug}`">
-            <b-card class="cover-card-two" no-body img-top>
-              <b-card-img
-                width="436"
-                height="280"
-                :src="'http://cdn.resultonlinebd.com/media/' + i.post_img"
-                class="card-image-bottom"
-              ></b-card-img>
-              <b-card-text text-tag="p" class="card-title-small mt-4">
-                {{ i.title }}
-              </b-card-text>
-              <b-card-text text-tag="p" class="des">
-                {{ i.decribe_post.slice(0, 80) }}
-              </b-card-text>
-            </b-card>
-          </nuxt-link>
+          <div v-if="i.is_active">
+            <nuxt-link prefetch :to="`/b/${i.slug}`">
+              <b-card class="cover-card-two" no-body img-top>
+                <b-card-img
+                  width="436"
+                  height="280"
+                  :src="'http://cdn.resultonlinebd.com/media/' + i.photo"
+                  class="card-image-bottom"
+                ></b-card-img>
+                <b-card-text text-tag="p" class="card-title-small mt-4">
+                  {{ i.title }}
+                </b-card-text>
+                <b-card-text text-tag="p" class="des">
+                  {{ i.details.slice(0, 80) }}
+                </b-card-text>
+              </b-card>
+            </nuxt-link>
+          </div>
         </b-col>
       </b-row>
       <!-- Pagination Start End -->

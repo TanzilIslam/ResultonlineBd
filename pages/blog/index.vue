@@ -15,22 +15,24 @@
           v-for="(i, index) in cover"
           :key="index"
         >
-          <nuxt-link :to="`/b/${i.slug}`">
-            <b-card
-              overlay
-              :img-src="i.photo"
-              img-alt="Card Image"
-              text-variant="white"
-              img-height="400"
-              class="cover-card"
-            >
-              <div class="text-holder">
-                <b-card-text text-tag="p" class="cover-title">
-                  {{ i.title }}
-                </b-card-text>
-              </div>
-            </b-card>
-          </nuxt-link>
+          <div v-if="i.is_active">
+            <nuxt-link :to="`/b/${i.slug}`">
+              <b-card
+                overlay
+                :img-src="i.photo"
+                img-alt="Card Image"
+                text-variant="white"
+                img-height="400"
+                class="cover-card"
+              >
+                <div class="text-holder">
+                  <b-card-text text-tag="p" class="cover-title">
+                    {{ i.title }}
+                  </b-card-text>
+                </div>
+              </b-card>
+            </nuxt-link>
+          </div>
         </b-col>
       </b-row>
       <div>
@@ -54,19 +56,21 @@
             v-for="(i, index) in home.slice(0, 2)"
             :key="index"
           >
-            <nuxt-link :to="`/b/${i.slug}`">
-              <b-card
-                class="cover-card"
-                img-height="280"
-                no-body
-                :img-src="i.photo"
-                img-top
-              >
-                <b-card-text class="card-title-one">
-                  {{ i.title }}
-                </b-card-text>
-              </b-card>
-            </nuxt-link>
+            <div v-if="i.is_active">
+              <nuxt-link :to="`/b/${i.slug}`">
+                <b-card
+                  class="cover-card"
+                  img-height="280"
+                  no-body
+                  :img-src="i.photo"
+                  img-top
+                >
+                  <b-card-text class="card-title-one">
+                    {{ i.title }}
+                  </b-card-text>
+                </b-card>
+              </nuxt-link>
+            </div>
           </b-col>
           <b-col cols="12" sm="12" md="4" lg="4" xl="4">
             <div
@@ -74,18 +78,20 @@
               v-for="(i, index) in home.slice(2, 4)"
               :key="index"
             >
-              <nuxt-link :to="`/b/${i.slug}`">
-                <div class="d-flex">
-                  <div class="">
-                    <b-img height="136" width="205" :src="i.photo"></b-img>
+              <div v-if="i.is_active">
+                <nuxt-link :to="`/b/${i.slug}`">
+                  <div class="d-flex">
+                    <div class="">
+                      <b-img height="136" width="205" :src="i.photo"></b-img>
+                    </div>
+                    <div class="card-title-two ml-2">
+                      <h6>
+                        <strong>{{ i.title }}</strong>
+                      </h6>
+                    </div>
                   </div>
-                  <div class="card-title-two ml-2">
-                    <h6>
-                      <strong>{{ i.title }}</strong>
-                    </h6>
-                  </div>
-                </div>
-              </nuxt-link>
+                </nuxt-link>
+              </div>
             </div>
           </b-col>
         </b-row>
@@ -100,25 +106,27 @@
             xl="12"
             class="mb-2 mt-2 bottom-section-title"
           >
-            <h5>
-              <b-img
-                height="40"
-                width="40"
-                class="rounded shadow-sm"
-                :src="item.cat_icon"
-              ></b-img>
-              <nuxt-link prefetch :to="`/allBlogPost/${item.cat_slug}`"
-                ><strong>{{ item.cat_name }}</strong></nuxt-link
-              >
-            </h5>
-            <h6 class="mb-3" style="font-size: 20px;">
-              {{ item.cat_description }}
-            </h6></b-col
-          >
+            <div v-if="item.is_active">
+              <h5>
+                <b-img
+                  height="40"
+                  width="40"
+                  class="rounded shadow-sm"
+                  :src="item.cat_icon"
+                ></b-img>
+                <nuxt-link prefetch :to="`/allBlogPost/${item.cat_slug}`"
+                  ><strong>{{ item.cat_name }}</strong></nuxt-link
+                >
+              </h5>
+              <h6 class="mb-3" style="font-size: 20px;">
+                {{ item.cat_description }}
+              </h6>
+            </div>
+          </b-col>
 
           <b-col
-            v-for="(i, ind) in item.List"
-            :key="ind"
+            v-for="(i, index) in item.List"
+            :key="index"
             class="mb-4"
             cols="12"
             sm="6"
@@ -126,22 +134,24 @@
             lg="4"
             xl="4"
           >
-            <nuxt-link :to="`/b/${i.slug}`">
-              <b-card class="cover-card-two" no-body img-top>
-                <b-card-img
-                  width="436"
-                  height="280"
-                  :src="'http://cdn.resultonlinebd.com' + i.photo"
-                  class="card-image-bottom"
-                ></b-card-img>
-                <b-card-text text-tag="p" class="card-title-small mt-4">
-                  {{ i.title }}
-                </b-card-text>
-                <!-- <b-card-text text-tag="p" class="des">
+            <div v-if="i.is_active">
+              <nuxt-link :to="`/b/${i.slug}`">
+                <b-card class="cover-card-two" no-body img-top>
+                  <b-card-img
+                    width="436"
+                    height="280"
+                    :src="'http://cdn.resultonlinebd.com' + i.photo"
+                    class="card-image-bottom"
+                  ></b-card-img>
+                  <b-card-text text-tag="p" class="card-title-small mt-4">
+                    {{ i.title }}
+                  </b-card-text>
+                  <!-- <b-card-text text-tag="p" class="des">
                   {{ i.decribe_post.slice(0, 80) }}
                 </b-card-text> -->
-              </b-card>
-            </nuxt-link>
+                </b-card>
+              </nuxt-link>
+            </div>
           </b-col>
         </b-row>
       </div>

@@ -1,5 +1,5 @@
 <template>
-  <div class="home-card">
+  <div v-if="article.is_active" class="home-card">
     <div class="rounded">
       <b-card no-body class="mb-4">
         <div class="d-flex">

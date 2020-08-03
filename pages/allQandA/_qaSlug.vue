@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="cover mt-2 mb-3">
+    <div v-if="data.is_active" class="cover mt-2 mb-3">
       <b-card class="latest-home-card">
         <!-- <nuxt-link prefetch :to="`/allQandA/${i.q_slug}`"> -->
         <b-card-text text-tag="h2" class="channel-cover-title">
@@ -27,22 +27,24 @@
         xl="6"
         class="mb-3"
       >
-        <nuxt-link prefetch :to="`/q/${j.slug}`">
-          <b-card no-body class="card-body">
-            <div @click="setView(j.view, j.slug)">
-              <h4>
-                <strong>{{ j.title }}</strong>
-              </h4>
-              <p class="text-muted">
-                {{ j.created_at }}
-                <b-icon icon="clock-fill" class="ml-1"></b-icon>
-              </p>
-              <p>
-                {{ j.details.slice(0, 40) }}
-              </p>
-            </div>
-          </b-card>
-        </nuxt-link>
+        <div v-if="j.is_active">
+          <nuxt-link prefetch :to="`/q/${j.slug}`">
+            <b-card no-body class="card-body">
+              <div @click="setView(j.view, j.slug)">
+                <h4>
+                  <strong>{{ j.title }}</strong>
+                </h4>
+                <p class="text-muted">
+                  {{ j.created_at }}
+                  <b-icon icon="clock-fill" class="ml-1"></b-icon>
+                </p>
+                <p>
+                  {{ j.details.slice(0, 40) }}
+                </p>
+              </div>
+            </b-card>
+          </nuxt-link>
+        </div>
       </b-col>
     </b-row>
     <!-- Pagination Start End -->

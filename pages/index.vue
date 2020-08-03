@@ -57,7 +57,7 @@
         xl="4"
         class="order-md-last order-lg-last order-xl-last home-latest"
       >
-        <div class="latest-home-card mb-4">
+        <div class="latest-home-card mb-4 fresh-sticky">
           <h5 class="custom-latest-title ml-2">
             <b-img
               height="30"
@@ -86,21 +86,23 @@
               :data-index="index"
               class="custom-list-item px-2 py-1"
             >
-              <nuxt-link prefetch :to="`/${article.slug}`">
-                <div @click="setview(article)" class="d-flex">
-                  <div class="custom-latest-text mr-3">
-                    {{ article.title }}
-                    <p class="mt-4 text-muted">{{ article.release_date }}</p>
+              <div v-if="article.is_active">
+                <nuxt-link prefetch :to="`/${article.slug}`">
+                  <div @click="setview(article)" class="d-flex">
+                    <div class="custom-latest-text mr-3">
+                      {{ article.title }}
+                      <p class="mt-4 text-muted">{{ article.release_date }}</p>
+                    </div>
+                    <div class="ml-auto">
+                      <b-img
+                        class="custom-latest-image"
+                        :src="article.photo"
+                      ></b-img>
+                    </div>
                   </div>
-                  <div class="ml-auto">
-                    <b-img
-                      class="custom-latest-image"
-                      :src="article.photo"
-                    ></b-img>
-                  </div>
-                </div>
-              </nuxt-link>
-              <hr class="custom-latest-item-hr" v-if="index < 4" />
+                </nuxt-link>
+                <hr class="custom-latest-item-hr" v-if="index < 4" />
+              </div>
             </b-list-group-item>
           </b-list-group>
         </div>
@@ -419,6 +421,12 @@ export default {
 @import url("https://fonts.googleapis.com/css2?family=Inter&display=swap");
 
 .side-bar-sticky {
+  position: -webkit-sticky;
+  position: sticky;
+  top: 65px;
+}
+
+.fresh-sticky {
   position: -webkit-sticky;
   position: sticky;
   top: 65px;

@@ -8,90 +8,94 @@
           Error while fetching posts: {{ $fetchState.error.message }}
         </h4>
         <div v-else>
-          <b-card
-            class="mb-2 details-main-image"
-            no-body
-            :img-src="DetailArticle.photo"
-            img-alt="card Image"
-            text-variant="white"
-            img-height="375"
-          ></b-card>
-          <span style="font-size: 18px;" class="text-muted">
-            {{ DetailArticle.contentowners.authorsname }} |
-            {{ DetailArticle.release_date }}
-          </span>
-          <div class="d-flex float-right mb-4">
-            <b-img
-              alt="png"
-              class=""
-              style="width: 20px; height: 20px;"
-              :src="require('~/assets/user/detailPage/fire.png')"
-            ></b-img>
-            <b-card-text text-tag="p" class="view-logo-detailpage text-muted">{{
-              DetailArticle.view
+          <div v-if="DetailArticle.is_active">
+            <b-card
+              class="mb-2 details-main-image"
+              no-body
+              :img-src="DetailArticle.photo"
+              :img-alt="DetailArticle.Seoimgalt"
+              text-variant="white"
+              img-height="375"
+            ></b-card>
+            <span style="font-size: 18px;" class="text-muted">
+              {{ DetailArticle.contentowners.authorsname }} |
+              {{ DetailArticle.release_date }}
+            </span>
+            <div class="d-flex float-right mb-4">
+              <b-img
+                alt="png"
+                class=""
+                style="width: 20px; height: 20px;"
+                :src="require('~/assets/user/detailPage/fire.png')"
+              ></b-img>
+              <b-card-text
+                text-tag="p"
+                class="view-logo-detailpage text-muted"
+                >{{ DetailArticle.view }}</b-card-text
+              >
+              <b-icon
+                class="mr-3 custom-home-card"
+                @click="$bvModal.show(article.slug)"
+                icon="reply"
+              ></b-icon>
+              <b-icon
+                class="mr-3 custom-home-card"
+                :icon="icon"
+                @click="setFavourite()"
+              ></b-icon>
+            </div>
+            <b-card-text class="mt-4" text-tag="h4">{{
+              DetailArticle.title
             }}</b-card-text>
-            <b-icon
-              class="mr-3 custom-home-card"
-              @click="$bvModal.show(article.slug)"
-              icon="reply"
-            ></b-icon>
-            <b-icon
-              class="mr-3 custom-home-card"
-              :icon="icon"
-              @click="setFavourite()"
-            ></b-icon>
-          </div>
-          <b-card-text class="mt-4" text-tag="h4">{{
-            DetailArticle.title
-          }}</b-card-text>
 
-          <div class="secreat">
-            <div v-if="!DetailArticle.contentlock">
-              <div v-html="DetailArticle.details" class="details mt-4"></div>
-            </div>
-            <div v-else-if="DetailArticle.contentlock">
-              <div class="paragraph">
-                <div
-                  class="details first"
-                  v-html="
-                    DetailArticle.details.slice(
-                      0,
-                      (DetailArticle.details.length *
-                        DetailArticle.Persentase) /
-                        100
-                    )
-                  "
-                ></div>
-                <div
-                  class="noselect details-bg second"
-                  v-html="
-                    DetailArticle.details.slice(
-                      (DetailArticle.details.length *
-                        DetailArticle.Persentase) /
-                        100,
-                      DetailArticle.details.length
-                    )
-                  "
-                ></div>
+            <div class="secreat">
+              <div v-if="!DetailArticle.contentlock">
+                <div v-html="DetailArticle.details" class="details mt-4"></div>
               </div>
-              <div class="text-center mt-4 mb-4 unlimited">
-                <h5 class="details">
-                  <strong>Want to get full access?</strong>
-                </h5>
-                <p class="details">
-                  Then please visit the link below for full article
-                </p>
-                <br />
-                <b-button
-                  class="get-bytton"
-                  variant="success"
-                  :href="DetailArticle.contentlink"
-                >
-                  Get Full Article
-                </b-button>
+              <div v-else-if="DetailArticle.contentlock">
+                <div class="paragraph">
+                  <div
+                    class="details first"
+                    v-html="
+                      DetailArticle.details.slice(
+                        0,
+                        (DetailArticle.details.length *
+                          DetailArticle.Persentase) /
+                          100
+                      )
+                    "
+                  ></div>
+                  <div
+                    class="noselect details-bg second"
+                    v-html="
+                      DetailArticle.details.slice(
+                        (DetailArticle.details.length *
+                          DetailArticle.Persentase) /
+                          100,
+                        DetailArticle.details.length
+                      )
+                    "
+                  ></div>
+                </div>
+                <div class="text-center mt-4 mb-4 unlimited">
+                  <h5 class="details">
+                    <strong>Want to get full access?</strong>
+                  </h5>
+                  <p class="details">
+                    Then please visit the link below for full article
+                  </p>
+                  <br />
+                  <b-button
+                    class="get-bytton"
+                    variant="success"
+                    :href="DetailArticle.contentlink"
+                  >
+                    Get Full Article
+                  </b-button>
+                </div>
               </div>
+              <hr />
             </div>
-            <hr />
           </div>
         </div>
       </b-col>
@@ -155,33 +159,36 @@
               :key="index"
               class="custom-list-item"
             >
-              <nuxt-link prefetch :to="`/${i.slug}`">
-                <div @click="setview(i)" class="d-flex">
-                  <div>
-                    <b-img-lazy
-                      blank-color="#bbb"
-                      class="custom-latest-image"
-                      :src="i.photo"
-                    ></b-img-lazy>
-                  </div>
-                  <div class="ml-2">
-                    <h5 class="related-card-title">
-                      {{
-                        i.title.length > 33
-                          ? i.title.slice(0, 29) + ".."
-                          : i.title
-                      }}
-                    </h5>
-                    <div class="mt-2 related-date-channel">
-                      <span class="text-dark"
-                        >{{ i.contentowners.authorsname }} |</span
-                      >
-                      <span class="text-muted">{{ i.release_date }}</span>
+              <div v-if="i.is_active">
+                <nuxt-link prefetch :to="`/${i.slug}`">
+                  <div @click="setview(i)" class="d-flex">
+                    <div>
+                      <b-img-lazy
+                        blank-color="#bbb"
+                        class="custom-latest-image"
+                        :src="i.photo"
+                      ></b-img-lazy>
+                    </div>
+                    <div class="ml-2">
+                      <h5 class="related-card-title">
+                        {{
+                          i.title.length > 33
+                            ? i.title.slice(0, 29) + ".."
+                            : i.title
+                        }}
+                      </h5>
+                      <div class="mt-2 related-date-channel">
+                        <span class="text-dark"
+                          >{{ i.contentowners.authorsname }} |</span
+                        >
+                        <span class="text-muted">{{ i.release_date }}</span>
+                      </div>
                     </div>
                   </div>
-                </div>
-              </nuxt-link>
-              <hr v-if="index < 3" class="mb-1" />
+                </nuxt-link>
+
+                <hr v-if="index < 3" class="mb-1" />
+              </div>
             </b-list-group-item>
           </b-list-group>
         </div>
@@ -354,12 +361,12 @@ export default {
   },
   head() {
     return {
-      title: this.DetailArticle.title,
+      title: this.DetailArticle.SeoTitle,
       meta: [
         {
           hid: "description",
           name: "description",
-          content: this.DetailArticle.details,
+          content: this.DetailArticle.SeoMetaDes,
         },
       ],
       // link: [

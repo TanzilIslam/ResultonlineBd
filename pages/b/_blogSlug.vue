@@ -7,22 +7,24 @@
           Error while fetching posts: {{ $fetchState.error.message }}
         </h4>
         <div v-else>
-          <b-card
-            class="mb-2 mr-2"
-            no-body
-            :img-src="DetailArticle.photo"
-            img-alt="card Image"
-            text-variant="white"
-            img-height="375"
-          ></b-card>
-          <span style="font-size:18px" class="text-muted">
-            {{ DetailArticle.catagry_select.cat_name }}
-          </span>
-          <b-card-text class="mt-4" text-tag="h4">{{
-            DetailArticle.title
-          }}</b-card-text>
+          <div v-if="DetailArticle.is_active">
+            <b-card
+              class="mb-2 mr-2"
+              no-body
+              :img-src="DetailArticle.photo"
+              img-alt="card Image"
+              text-variant="white"
+              img-height="375"
+            ></b-card>
+            <span style="font-size: 18px;" class="text-muted">
+              {{ DetailArticle.catagry_select.cat_name }}
+            </span>
+            <b-card-text class="mt-4" text-tag="h4">{{
+              DetailArticle.title
+            }}</b-card-text>
 
-          <div v-html="DetailArticle.details" class="mt-3 details"></div>
+            <div v-html="DetailArticle.details" class="mt-3 details"></div>
+          </div>
         </div>
       </b-col>
       <b-col
@@ -38,37 +40,39 @@
         <div class="ml-2 latest-home-card">
           <!-- <div>v-if="$fetchState.pending"  v-else </div> -->
           <VclRelatedCard v-if="$fetchState.pending" />
-          <b-list-group style="background-color:white;" v-else>
+          <b-list-group style="background-color: white;" v-else>
             <b-list-group-item
               v-for="(i, index) in RelatedArticles"
               :key="index"
               class="custom-list-item"
             >
-              <nuxt-link prefetch :to="`/b/${i.slug}`">
-                <div class="d-flex">
-                  <div>
-                    <b-img-lazy
-                      blank-color="#bbb"
-                      class="custom-latest-image"
-                      :src="i.photo"
-                    ></b-img-lazy>
-                  </div>
-                  <div class="ml-2">
-                    <h5 class="related-card-title">
-                      {{
-                        i.title.length > 30
-                          ? i.title.slice(0, 26) + ".."
-                          : i.title
-                      }}
-                    </h5>
-                    <div class="mt-2 related-date-channel">
-                      <span>{{ i.catagry_select.cat_name }} |</span>
-                      <span class="text-muted">{{ i.created_at }}</span>
+              <div v-if="i.is_active">
+                <nuxt-link prefetch :to="`/b/${i.slug}`">
+                  <div class="d-flex">
+                    <div>
+                      <b-img-lazy
+                        blank-color="#bbb"
+                        class="custom-latest-image"
+                        :src="i.photo"
+                      ></b-img-lazy>
+                    </div>
+                    <div class="ml-2">
+                      <h5 class="related-card-title">
+                        {{
+                          i.title.length > 30
+                            ? i.title.slice(0, 26) + ".."
+                            : i.title
+                        }}
+                      </h5>
+                      <div class="mt-2 related-date-channel">
+                        <span>{{ i.catagry_select.cat_name }} |</span>
+                        <span class="text-muted">{{ i.created_at }}</span>
+                      </div>
                     </div>
                   </div>
-                </div>
-              </nuxt-link>
-              <hr class="p-0 m-0" v-if="index < 3" />
+                </nuxt-link>
+                <hr class="p-0 m-0" v-if="index < 3" />
+              </div>
             </b-list-group-item>
           </b-list-group>
         </div>
@@ -76,16 +80,16 @@
     </b-row>
     <hr />
     <div class="recommended">
-      <div class="d-flex  mb-3">
+      <div class="d-flex mb-3">
         <b-img
-          style="background-color: #343a40; padding:5px"
-          height="48"
-          width="48"
+          style="background-color: #343a40; padding: 5px;"
+          height="42"
+          width="42"
           class="rounded"
           :src="require('~/assets/user/detailPage/1.png')"
         >
         </b-img>
-        <h5 style="color:#222;" class="ml-2 mt-2">
+        <h5 style="color: #222;" class="ml-2 mt-2">
           <strong>Recommended</strong>
         </h5>
       </div>
@@ -104,6 +108,7 @@
             v-for="(article, index) in RecommendedArticles"
             :key="index"
           >
+          <div v-if="article.is_active">
             <nuxt-link prefetch :to="`/b/${article.slug}`">
               <div class="channel-common-card">
                 <b-card no-body class="custom-channel-common-card">
@@ -125,6 +130,7 @@
                 </b-card>
               </div>
             </nuxt-link>
+            </div>
           </b-col>
         </b-row>
       </div>
@@ -166,7 +172,7 @@ export default {
       DetailArticle: {},
       RelatedArticles: [],
       RecommendedArticles: [],
-      recommendedNextData: ""
+      recommendedNextData: "",
     };
   },
   head() {
@@ -176,9 +182,9 @@ export default {
         {
           hid: "description",
           name: "description",
-          content: this.DetailArticle.details
-        }
-      ]
+          content: this.DetailArticle.details,
+        },
+      ],
     };
   },
   async fetch() {
@@ -189,25 +195,25 @@ export default {
         process.env.baseUrl +
           `/blog/api/v1/details/${self.$route.params.blogSlug}`
       )
-      .then(posts => (self.DetailArticle = posts));
+      .then((posts) => (self.DetailArticle = posts));
 
     // related data
     await self.$axios
       .$get(process.env.baseUrl + `/blog/api/v1/cover`)
-      .then(posts => (self.RelatedArticles = posts.results));
+      .then((posts) => (self.RelatedArticles = posts.results));
 
     // recomanded data
 
     await self.$axios
       .$get(process.env.baseUrl + "/blog/api/v1/recommended")
-      .then(function(posts) {
+      .then(function (posts) {
         self.RecommendedArticles = posts.results;
         // self.this.recommendedNextData = posts.next;
       })
-      .catch(function(error) {
+      .catch(function (error) {
         console.log("No Net" + error);
       })
-      .finally(function() {});
+      .finally(function () {});
   },
   methods: {
     async loadDataRecommended() {
@@ -216,28 +222,28 @@ export default {
         var self = this;
         await self.$axios
           .$get(process.env.baseUrl)
-          .then(function(posts) {
-            posts.results.forEach(element => {
+          .then(function (posts) {
+            posts.results.forEach((element) => {
               self.RecommendedArticles.push(element);
             });
             self.recommendedNextData = posts.next;
           })
-          .catch(function(error) {
+          .catch(function (error) {
             console.log("No Net" + error);
           })
-          .finally(function() {});
+          .finally(function () {});
         self.loadedRecommended = true;
       } else {
         this.$bvToast.show("my-toast");
       }
-    }
+    },
   },
   mounted() {
     this.$nextTick(() => {
       this.$nuxt.$loading.start();
       setTimeout(() => this.$nuxt.$loading.finish(), 1000);
     });
-  }
+  },
 };
 </script>
 

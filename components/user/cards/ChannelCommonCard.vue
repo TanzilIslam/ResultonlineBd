@@ -1,5 +1,5 @@
 <template>
-  <div class="channel-common-card">
+  <div v-if="article.is_active" class="channel-common-card">
     <b-card no-body class="custom-channel-common-card">
       <div @click="setview">
         <nuxt-link prefetch :to="`/${article.slug}`">

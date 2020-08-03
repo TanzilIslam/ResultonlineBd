@@ -11,9 +11,10 @@
         v-for="(item, index) in subTagList"
         :key="index"
         @click="showSubTagPosts(item)"
-        class="qa-tags my-2"
       >
-        {{ item.shot_list_name }}
+        <div v-if="item.is_active" class="qa-tags my-2">
+          {{ item.shot_list_name }}
+        </div>
       </div>
     </div>
 
@@ -36,16 +37,18 @@
               :key="index"
               class="p-0 m-0 list-item mb-4"
             >
-              <nuxt-link prefetch :to="`/q/${i.slug}`">
-                <div @click="setView(i.view, i.slug)">
-                  <h4 class="list-title">
-                    {{ i.title }}
-                  </h4>
-                  <p class="text-muted sub-title">
-                    {{ i.catagry.publisher }}
-                  </p>
-                </div>
-              </nuxt-link>
+              <div v-if="i.is_active">
+                <nuxt-link prefetch :to="`/q/${i.slug}`">
+                  <div @click="setView(i.view, i.slug)">
+                    <h4 class="list-title">
+                      {{ i.title }}
+                    </h4>
+                    <p class="text-muted sub-title">
+                      {{ i.catagry.publisher }}
+                    </p>
+                  </div>
+                </nuxt-link>
+              </div>
             </b-list-group-item>
           </b-list-group>
         </div>
@@ -53,7 +56,7 @@
       <b-col cols="12" sm="12" md="9" lg="9" xl="9">
         <div v-if="!selectedData">
           <div v-for="(i, index) in data" :key="index">
-            <div class="cover mt-2 mb-3">
+            <div v-if="i.is_active" class="cover mt-2 mb-3">
               <!-- <b-row> -->
               <!-- <b-col cols="12" sm="12" md="9" lg="9" xl="9"> -->
               <b-card class="latest-home-card">
@@ -83,22 +86,24 @@
                 xl="4"
                 class="mb-3"
               >
-                <nuxt-link prefetch :to="`/q/${j.slug}`">
-                  <b-card no-body class="card-body">
-                    <div @click="setView(j.view, j.slug)">
-                      <h6>
-                        <strong>{{ j.title.slice(0, 20) + ".." }}</strong>
-                      </h6>
-                      <p class="text-muted">
-                        {{ j.created_at }}
-                        <b-icon icon="clock-fill" class="ml-1"></b-icon>
-                      </p>
-                      <p>
-                        {{ j.details.slice(0, 40) + ".." }}
-                      </p>
-                    </div>
-                  </b-card>
-                </nuxt-link>
+                <div v-if="j.is_active">
+                  <nuxt-link prefetch :to="`/q/${j.slug}`">
+                    <b-card no-body class="card-body">
+                      <div @click="setView(j.view, j.slug)">
+                        <h6>
+                          <strong>{{ j.title.slice(0, 20) + ".." }}</strong>
+                        </h6>
+                        <p class="text-muted">
+                          {{ j.created_at }}
+                          <b-icon icon="clock-fill" class="ml-1"></b-icon>
+                        </p>
+                        <p>
+                          {{ j.details.slice(0, 40) + ".." }}
+                        </p>
+                      </div>
+                    </b-card>
+                  </nuxt-link>
+                </div>
               </b-col>
             </b-row>
           </div>
@@ -117,22 +122,24 @@
               xl="4"
               class="mb-3"
             >
-              <nuxt-link prefetch :to="`/q/${j.slug}`">
-                <b-card no-body class="card-body">
-                  <div @click="setView(j.view, j.slug)">
-                    <h6>
-                      <strong>{{ j.title.slice(0, 40) + ".." }}</strong>
-                    </h6>
-                    <p class="text-muted">
-                      {{ j.created_at }}
-                      <b-icon icon="clock-fill" class="ml-1"></b-icon>
-                    </p>
-                    <p>
-                      {{ j.details.slice(0, 40) + ".." }}
-                    </p>
-                  </div>
-                </b-card>
-              </nuxt-link>
+              <div v-if="j.is_active">
+                <nuxt-link prefetch :to="`/q/${j.slug}`">
+                  <b-card no-body class="card-body">
+                    <div @click="setView(j.view, j.slug)">
+                      <h6>
+                        <strong>{{ j.title.slice(0, 40) + ".." }}</strong>
+                      </h6>
+                      <p class="text-muted">
+                        {{ j.created_at }}
+                        <b-icon icon="clock-fill" class="ml-1"></b-icon>
+                      </p>
+                      <p>
+                        {{ j.details.slice(0, 40) + ".." }}
+                      </p>
+                    </div>
+                  </b-card>
+                </nuxt-link>
+              </div>
             </b-col>
           </b-row>
         </div>

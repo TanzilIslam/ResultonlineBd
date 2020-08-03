@@ -5,7 +5,7 @@
     </div>
     <b-row v-else class="pt-4">
       <b-col class="mb-3" cols="12" sm="12" md="9" lg="9" xl="9">
-        <div>
+        <div v-if="data.is_active">
           <div class="question mb-4">
             <h4>
               <b-icon
@@ -67,11 +67,13 @@
               v-for="(i, index) in relatedData"
               :key="index"
             >
-              <nuxt-link prefetch :to="`/q/${i.slug}`">
-                <div @click="setView(i.view, i.slug)">
-                  {{ i.title }}
-                </div>
-              </nuxt-link>
+              <div v-if="i.is_active">
+                <nuxt-link prefetch :to="`/q/${i.slug}`">
+                  <div @click="setView(i.view, i.slug)">
+                    {{ i.title }}
+                  </div>
+                </nuxt-link>
+              </div>
             </b-list-group-item>
           </b-list-group>
         </b-card>

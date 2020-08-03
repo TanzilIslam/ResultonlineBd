@@ -8,7 +8,7 @@
               <div class="d-flex ml-4 mt-4">
                 <b-img
                   v-if="loadImg"
-                  blank="true"
+                  :blank="true"
                   blank-color="#777"
                   class="custom-author-logo mt-4"
                 ></b-img>
@@ -77,13 +77,15 @@
           v-for="(a, index) in AuthorArticles.List"
           :key="index"
         >
-          <AuthorSmallCard
-            :ArticleCover="'http://cdn.resultonlinebd.com/media/' + a.photo"
-            :ArticleTitle="a.title"
-            :ArticlePublish="a.release_date"
-            :ArticleSlug="a.slug"
-            :ArticleView="a.view"
-          />
+          <div v-if="a.is_active">
+            <AuthorSmallCard
+              :ArticleCover="'http://cdn.resultonlinebd.com/media/' + a.photo"
+              :ArticleTitle="a.title"
+              :ArticlePublish="a.release_date"
+              :ArticleSlug="a.slug"
+              :ArticleView="a.view"
+            />
+          </div>
         </b-col>
       </b-row>
 
@@ -109,11 +111,6 @@
 import { mapState } from "vuex";
 
 export default {
-  data() {
-    return {
-      loadImg: true,
-    };
-  },
   head() {
     return {
       title: "ResultOnlineBd " + this.AuthorArticles.authorsname,
@@ -150,6 +147,7 @@ export default {
       showAboutDiv: false,
       Loading: false,
       nextLink: "",
+      loadImg: true,
     };
   },
   methods: {
