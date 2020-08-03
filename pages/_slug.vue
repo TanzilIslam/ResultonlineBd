@@ -31,7 +31,7 @@
               DetailArticle.view
             }}</b-card-text>
             <b-icon
-              class="ml-2 mr-4 custom-home-card"
+              class="mr-3 custom-home-card"
               @click="$bvModal.show(article.slug)"
               icon="reply"
             ></b-icon>
@@ -192,8 +192,8 @@
       <div class="d-flex mb-3">
         <b-img
           style="background-color: #343a40; padding: 5px;"
-          height="48"
-          width="48"
+          height="40"
+          width="40"
           class="rounded"
           :src="require('~/assets/user/detailPage/1.png')"
         >
@@ -252,8 +252,8 @@
       <div class="d-flex mb-3">
         <b-img
           style="background-color: #343a40; padding: 5px;"
-          height="48"
-          width="48"
+          height="40"
+          width="40"
           class="rounded"
           :src="require('~/assets/user/detailPage/2.png')"
         >

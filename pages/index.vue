@@ -7,10 +7,12 @@
       <!-- Channel start -->
       <b-col class="home-sidebar" cols="12" sm="12" md="3" lg="3" xl="3">
         <div class="side-bar-sticky">
+          <h5 class="text-center chanel">Channel</h5>
+
           <div class="side-bar-scroll">
             <div class="scrollbox-content">
               <SideBar />
-              <div class="pt-2">
+              <div class="pt-4">
                 <b-row no-gutters class="m-1">
                   <p class="mb-3 footer-name link-hover mr-2">
                     <span class="mr-2">Terms</span> <span>Privacy</span>
@@ -449,11 +451,16 @@ export default {
   overflow-x: hidden;
   overflow-y: scroll;
 }
+/* .side-bar-scroll {
+  height: 5560px;
+  overflow-x: hidden;
+  overflow-y: scroll;
+} */
 
-.blog-sticky {
+/* .blog-sticky {
   position: sticky;
   top: 50px;
-}
+} */
 
 .footer-name {
   cursor: pointer;
@@ -533,5 +540,14 @@ a {
   font-size: 18px;
   line-height: 1.4;
   letter-spacing: -0.5px;
+}
+.chanel {
+  height: 40px;
+  line-height: 40px;
+  font-size: 20px;
+  background-color: #343a40;
+  color: white;
+  border-radius: 7px;
+  margin-bottom: 0px;
 }
 </style>
