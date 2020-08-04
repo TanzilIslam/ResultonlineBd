@@ -1,7 +1,7 @@
 <template>
-  <div class="detail-post">
+  <div class="mobile-detail-post">
     <b-row>
-      <b-col cols="12" sm="12" md="8" lg="8" xl="8">
+      <b-col class="mx-auto" cols="12" sm="12" md="8" lg="8" xl="8">
         <VclDetailCard v-if="$fetchState.pending" />
 
         <h4 v-else-if="$fetchState.error">
@@ -98,15 +98,7 @@
             </div>
           </div>
         </div>
-      </b-col>
-      <b-col
-        cols="12"
-        sm="12"
-        md="6"
-        lg="6"
-        xl="6"
-        class="order-md-last order-lg-last order-xl-last"
-      >
+
         <div class="tags mt-4 mb-3">
           <span class="text-dark mr-2" style="font-size: 1rem;">Tags:</span>
           <b-badge
@@ -147,50 +139,6 @@
               <VclStar />
             </b-col>
           </b-row>
-        </div>
-      </b-col>
-      <b-col cols="12" sm="12" md="4" lg="4" xl="4">
-        <div class="pt-2 pl-2 latest-home-card-detailpage">
-          <VclRelatedCard v-if="$fetchState.pending" />
-
-          <b-list-group v-else>
-            <b-list-group-item
-              v-for="(i, index) in RelatedArticles"
-              :key="index"
-              class="custom-list-item"
-            >
-              <div v-if="i.is_active">
-                <nuxt-link prefetch :to="`/${i.slug}`">
-                  <div @click="setview(i)" class="d-flex">
-                    <div>
-                      <b-img-lazy
-                        blank-color="#bbb"
-                        class="custom-latest-image"
-                        :src="i.photo"
-                      ></b-img-lazy>
-                    </div>
-                    <div class="ml-2">
-                      <h5 class="related-card-title">
-                        {{
-                          i.title.length > 33
-                            ? i.title.slice(0, 29) + ".."
-                            : i.title
-                        }}
-                      </h5>
-                      <div class="mt-2 related-date-channel">
-                        <span class="text-dark"
-                          >{{ i.contentowners.authorsname }} |</span
-                        >
-                        <span class="text-muted">{{ i.release_date }}</span>
-                      </div>
-                    </div>
-                  </div>
-                </nuxt-link>
-
-                <hr v-if="index < 3" class="mb-1" />
-              </div>
-            </b-list-group-item>
-          </b-list-group>
         </div>
       </b-col>
     </b-row>
@@ -255,18 +203,19 @@
       <!-- pagination End -->
     </div>
     <hr />
-    <div class="high-rated mb-4">
+
+    <div class="hot-this-month">
       <div class="d-flex mb-3">
         <b-img
           style="background-color: #343a40; padding: 5px;"
           height="40"
           width="40"
           class="rounded"
-          :src="require('~/assets/user/detailPage/2.png')"
+          :src="require('~/assets/user/detailPage/1.png')"
         >
         </b-img>
         <h5 style="color: #222;" class="ml-2 mt-2">
-          <strong>High Rated</strong>
+          <strong>Hot This month</strong>
         </h5>
       </div>
       <VclChannelCommonCard v-if="$fetchState.pending" />
@@ -281,7 +230,7 @@
             md="3"
             lg="3"
             xl="3"
-            v-for="(article, index) in HighRatedArticles"
+            v-for="(article, index) in hotMonth"
             :key="index"
           >
             <!-- <nuxt-link prefetch :to="`/detailPost/${article.slug}`"> -->
@@ -293,17 +242,7 @@
       <!-- pagination Start -->
       <div class="myPagination">
         <div class="text-center mt-2 mb-2">
-          <span v-if="!loadedHighRated"
-            ><b-spinner
-              style="width: 2rem; height: 2rem;"
-              label="Loading..."
-            ></b-spinner
-          ></span>
-          <div
-            v-else-if="loadedHighRated"
-            @click="loadDataHighRated"
-            class="more-button"
-          >
+          <div @click="loadDataHotMonth" class="more-button">
             <b-icon
               icon="chevron-down"
               variant="dark"
@@ -314,6 +253,57 @@
       </div>
       <!-- pagination End -->
     </div>
+
+    <div class="mxmobile">
+      <div class="d-flex mb-3">
+        <b-img
+          style="background-color: #343a40; padding: 5px;"
+          height="40"
+          width="40"
+          class="rounded"
+          :src="require('~/assets/user/detailPage/1.png')"
+        >
+        </b-img>
+        <h5 style="color: #222;" class="ml-2 mt-2">
+          <strong>Mix Brand</strong>
+        </h5>
+      </div>
+      <VclChannelCommonCard v-if="$fetchState.pending" />
+      <h4 v-else-if="$fetchState.error">
+        Error while fetching posts: {{ $fetchState.error.message }}
+      </h4>
+      <div v-else>
+        <b-row>
+          <b-col
+            cols="12"
+            sm="6"
+            md="3"
+            lg="3"
+            xl="3"
+            v-for="(article, index) in mixBrand"
+            :key="index"
+          >
+            <!-- <nuxt-link prefetch :to="`/detailPost/${article.slug}`"> -->
+            <ChannelCommonCard :article="article" :data-index="index" />
+            <!-- </nuxt-link> -->
+          </b-col>
+        </b-row>
+      </div>
+      <!-- pagination Start -->
+      <div class="myPagination">
+        <div class="text-center mt-2 mb-2">
+          <div @click="loadDataMixBrand" class="more-button">
+            <b-icon
+              icon="chevron-down"
+              variant="dark"
+              class="more-button-icon"
+            ></b-icon>
+          </div>
+        </div>
+      </div>
+      <!-- pagination End -->
+    </div>
+
     <div>
       <b-toast
         id="my-toast-details"
@@ -351,12 +341,14 @@ export default {
     return {
       rating: 0,
       loadedRecommended: true,
-      loadedHighRated: true,
+      bottomCards: {},
       showRateDiv: true,
       showRateThanksDiv: false,
       reviewLoading: false,
       icon: "star",
       toogle: false,
+      hotMonth: [],
+      mixBrand: [],
     };
   },
   head() {
@@ -369,52 +361,62 @@ export default {
           content: this.DetailArticle.SeoMetaDes,
         },
       ],
-      // link: [
-      //   {
-      //     rel: "stylesheet",
-      //     href:
-      //       "https://fonts.googleapis.com/css2?family=Roboto:ital@1&display=swap"
-      //   }
-      // ]
     };
   },
   async fetch() {
     var self = this;
-    await self.$axios
-      .$get(process.env.baseUrl + `/count/${self.$route.params.slug}`)
+    await this.$axios
+      .$get(process.env.baseUrl + `/count/${this.$route.params.slug}`)
       .then(function (posts) {
         self.$store.dispatch("detailPage/FetchDetailArticle", posts);
       });
 
-    await self.$axios
+    await this.$axios
       .$get(
         process.env.baseUrl +
-          `/dtl_rlt?search=${self.DetailArticle.channel.channelname}`
+          `/dtl_rlt?search=${this.DetailArticle.channel.channelname}`
       )
       .then((posts) =>
-        self.$store.dispatch("detailPage/FetchRelatedArticles", posts.results)
+        this.$store.dispatch("detailPage/FetchRelatedArticles", posts.results)
       );
 
     // await self.$axios
-    //   .$get(
-    //     process.env.baseUrl +
-    //       `/recommended_data?search=${self.DetailArticle.tag_creator.tag_name}`
-    //   )
+    //   .$get(process.env.baseUrl + `/recommended_data?search=${self.tagCreator}`)
     //   .then((posts) =>
     //     self.$store.dispatch(
     //       "detailPage/FetchRecommendedArticles",
     //       posts.results
     //     )
-        
     //   );
-    await self.$axios
-      .$get(process.env.baseUrl + `/high_ratetd`)
-      .then((posts) =>
-        self.$store.dispatch("detailPage/FetchHighRatedArticles", posts.results)
-      );
+    // console.log(self.DetailArticle.tag_creator.tag_name)
+
+    await this.$axios
+      .$get(process.env.baseUrl + `/mobile_hot_Month`)
+      .then(function (posts) {
+        posts.forEach((element) => {
+          element.ListMonth.forEach((elements) => {
+            self.hotMonth.push(elements);
+          });
+        });
+        // console.log(posts);
+      });
+
+    await this.$axios
+      .$get(process.env.baseUrl + `/mxmobile`)
+      .then(function (posts) {
+        self.mixBrand = posts;
+      });
   },
   computed: mapState({
     DetailArticle: (state) => state.detailPage.DetailArticle,
+    // tagCreator() {
+    //   var tagName;
+    //   for (const i of this.DetailArticle.tag_creator) {
+    //     console.log(i.tag_name);
+    //     tagName = i.tag_name;
+    //   }
+    //   return tagName;
+    // },
     details: (state) =>
       state.detailPage.DetailArticle.details
         .replace(/(^\s*)|(\s*$)/gi, "")
@@ -422,7 +424,6 @@ export default {
         .replace(/\n /, "\n")
         .split(" "),
     RecommendedArticles: (state) => state.detailPage.RecommendedArticles,
-    HighRatedArticles: (state) => state.detailPage.HighRatedArticles,
     RelatedArticles: (state) => state.detailPage.RelatedArticles,
   }),
   methods: {
@@ -468,7 +469,6 @@ export default {
         }
       }
     },
-
     async setRating(rating) {
       var self = this;
       self.showRateDiv = false;
@@ -505,15 +505,6 @@ export default {
       }
       this.loadedRecommended = true;
     },
-    async loadDataHighRated() {
-      this.loadedHighRated = false;
-      try {
-        await this.$store.dispatch("detailPage/FetchMoreHighRatedArticles");
-      } catch (e) {
-        alert("No more data" + e);
-      }
-      this.loadedHighRated = true;
-    },
     async setview(i) {
       try {
         await this.$axios.$put(
@@ -549,12 +540,12 @@ export default {
         }
       }
     },
+    async loadDataHotMonth() {},
+    async loadDataMixBrand() {},
   },
-  // created() {
-  //   this.checkLocalStorage();
-  // },
   mounted() {
     this.checkLocal();
+    this.checkLocalStorage();
     this.$nextTick(() => {
       this.$nuxt.$loading.start();
       setTimeout(() => this.$nuxt.$loading.finish(), 1000);
@@ -564,10 +555,6 @@ export default {
 </script>
 
 <style  scoped>
-/* .secreat {
-  visibility: hidden;
-} */
-
 .custom-home-card {
   cursor: pointer;
 }
@@ -682,11 +669,6 @@ p {
   padding: 0px !important;
 }
 
-/* .custom-latest-text {
-  margin-left: 5px;
-  text-align: left;
-  font-size: 16px;
-} */
 .latest-home-card-detailpage {
   background: #fff;
   box-shadow: 0 5px 0.9rem -0.8rem rgba(0, 0, 0, 0.8),
