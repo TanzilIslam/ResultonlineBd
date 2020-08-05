@@ -7,12 +7,10 @@
       <!-- Channel start -->
       <b-col class="home-sidebar" cols="12" sm="12" md="3" lg="3" xl="3">
         <div class="side-bar-sticky">
-          <h5 class="text-center chanel">Channel</h5>
-
           <div class="side-bar-scroll">
             <div class="scrollbox-content">
               <SideBar />
-              <div class="pt-4">
+              <div>
                 <b-row no-gutters class="m-1">
                   <p class="mb-3 footer-name link-hover mr-2">
                     <span class="mr-2">Terms</span> <span>Privacy</span>
@@ -57,7 +55,7 @@
         xl="4"
         class="order-md-last order-lg-last order-xl-last home-latest"
       >
-        <div class="latest-home-card mb-4 fresh-sticky">
+        <div class="latest-home-card mb-4 pt-1 fresh-sticky">
           <h5 class="custom-latest-title ml-2">
             <b-img
               height="30"
@@ -87,20 +85,43 @@
               class="custom-list-item px-2 py-1"
             >
               <div v-if="article.is_active">
-                <nuxt-link prefetch :to="`/${article.slug}`">
-                  <div @click="setview(article)" class="d-flex">
-                    <div class="custom-latest-text mr-3">
-                      {{ article.title }}
-                      <p class="mt-4 text-muted">{{ article.release_date }}</p>
+                <div v-if="article.channel.channelname == 'Mobile phone'">
+                  <nuxt-link prefetch :to="`/m/${article.slug}`">
+                    <div @click="setview(article)" class="d-flex">
+                      <div class="custom-latest-text mr-3">
+                        {{ article.title }}
+                        <p class="mt-4 text-muted">
+                          {{ article.release_date }}
+                        </p>
+                      </div>
+                      <div class="ml-auto">
+                        <b-img
+                          class="custom-latest-image"
+                          :src="article.photo"
+                        ></b-img>
+                      </div>
                     </div>
-                    <div class="ml-auto">
-                      <b-img
-                        class="custom-latest-image"
-                        :src="article.photo"
-                      ></b-img>
+                  </nuxt-link>
+                </div>
+                <div v-else>
+                  <nuxt-link prefetch :to="`/${article.slug}`">
+                    <div @click="setview(article)" class="d-flex">
+                      <div class="custom-latest-text mr-3">
+                        {{ article.title }}
+                        <p class="mt-4 text-muted">
+                          {{ article.release_date }}
+                        </p>
+                      </div>
+                      <div class="ml-auto">
+                        <b-img
+                          class="custom-latest-image"
+                          :src="article.photo"
+                        ></b-img>
+                      </div>
                     </div>
-                  </div>
-                </nuxt-link>
+                  </nuxt-link>
+                </div>
+
                 <hr class="custom-latest-item-hr" v-if="index < 4" />
               </div>
             </b-list-group-item>
@@ -240,11 +261,11 @@
 <script>
 import { mapState } from "vuex";
 import { MoonLoader } from "@saeris/vue-spinners";
-import vuescroll from "vuescroll";
+
 import axios from "axios";
 export default {
   layout: "default",
-  components: { MoonLoader, vuescroll },
+  components: { MoonLoader },
   head() {
     return {
       title: "ResultOnlineBd - Home Page",
@@ -260,6 +281,43 @@ export default {
   },
   data() {
     return {
+      ops: {
+        vuescroll: {
+          mode: "native",
+          sizeStrategy: "percent",
+          detectResize: true,
+        },
+        scrollPanel: {
+          initialScrollY: false,
+          initialScrollX: false,
+          scrollingX: true,
+          scrollingY: true,
+          speed: 300,
+          easing: undefined,
+          verticalNativeBarPos: "right",
+        },
+        rail: {
+          background: "#01a99a",
+          opacity: 0,
+          size: "6px",
+          specifyBorderRadius: false,
+          gutterOfEnds: null,
+          gutterOfSide: "2px",
+          keepShow: true,
+        },
+        bar: {
+          showDelay: 500,
+          onlyShowBarOnScroll: true,
+          keepShow: true,
+          background: "#c1c1c1",
+          opacity: 1,
+          hoverStyle: true,
+          specifyBorderRadius: false,
+          minSize: 0,
+          size: "6px",
+          disable: false,
+        },
+      },
       loading: false,
       showCl: false,
       nextUrl: "",
@@ -443,27 +501,13 @@ export default {
     overflow-y: hidden !important;
   }
 }
-/* .side-bar-scroll {
-  overflow: auto;
-  visibility: hidden;
-}
-.scrollbox-content,
-.side-bar-scroll:hover,
-.side-bar-scroll:focus {
-  visibility: visible;
-  overflow-y: scroll;
-} */
 
-.side-bar-scroll:hover {
-  height: 550px;
+.side-bar-scroll {
+  height: 500px;
   overflow-x: hidden;
   overflow-y: scroll;
+  scrollbar-width: thin;
 }
-/* .side-bar-scroll {
-  height: 5560px;
-  overflow-x: hidden;
-  overflow-y: scroll;
-} */
 
 /* .blog-sticky {
   position: sticky;

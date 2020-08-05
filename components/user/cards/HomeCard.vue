@@ -46,18 +46,34 @@
         </div>
 
         <h5 class="ml-4 py-3">{{ article.title }}</h5>
-        <nuxt-link prefetch :to="`/${article.slug}`">
-          <div @click="setview">
-            <b-card-img-lazy
-              blank-color="#bbb"
-              :src="article.photo"
-              bottom
-              height="230"
-              width="280"
-            >
-            </b-card-img-lazy>
-          </div>
-        </nuxt-link>
+        <div v-if="article.channel.channelname == 'Mobile phone'">
+          <nuxt-link prefetch :to="`/m/${article.slug}`">
+            <div @click="setview">
+              <b-card-img-lazy
+                blank-color="#bbb"
+                :src="article.photo"
+                bottom
+                height="230"
+                width="280"
+              >
+              </b-card-img-lazy>
+            </div>
+          </nuxt-link>
+        </div>
+        <div v-else>
+          <nuxt-link prefetch :to="`/${article.slug}`">
+            <div @click="setview">
+              <b-card-img-lazy
+                blank-color="#bbb"
+                :src="article.photo"
+                bottom
+                height="230"
+                width="280"
+              >
+              </b-card-img-lazy>
+            </div>
+          </nuxt-link>
+        </div>
       </b-card>
     </div>
     <div>

@@ -230,29 +230,6 @@
           </b-col>
         </b-row>
       </div>
-      <!-- pagination Start -->
-      <div class="myPagination">
-        <div class="text-center mt-2 mb-2">
-          <span v-if="!loadedRecommended"
-            ><b-spinner
-              style="width: 2rem; height: 2rem;"
-              label="Loading..."
-            ></b-spinner
-          ></span>
-          <div
-            v-else-if="loadedRecommended"
-            @click="loadDataRecommended"
-            class="more-button"
-          >
-            <b-icon
-              icon="chevron-down"
-              variant="dark"
-              class="more-button-icon"
-            ></b-icon>
-          </div>
-        </div>
-      </div>
-      <!-- pagination End -->
     </div>
     <hr />
     <div class="high-rated mb-4">
@@ -395,18 +372,14 @@ export default {
         self.$store.dispatch("detailPage/FetchRelatedArticles", posts.results)
       );
 
-    // await self.$axios
-    //   .$get(
-    //     process.env.baseUrl +
-    //       `/recommended_data?search=${self.DetailArticle.tag_creator.tag_name}`
-    //   )
-    //   .then((posts) =>
-    //     self.$store.dispatch(
-    //       "detailPage/FetchRecommendedArticles",
-    //       posts.results
-    //     )
-        
-    //   );
+    await self.$axios
+      .$get(
+        process.env.baseUrl +
+          `/recommended_data?search=${self.DetailArticle.channel.slug_channel}`
+      )
+      .then((posts) =>
+        self.$store.dispatch("detailPage/FetchRecommendedArticles", posts)
+      );
     await self.$axios
       .$get(process.env.baseUrl + `/high_ratetd`)
       .then((posts) =>

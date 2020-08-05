@@ -22,11 +22,21 @@
                   "
                 ></b-img>
                 <div class="vl mt-4"></div>
-                <div class="custom-text mt-4 pl-3">
+                <div class="custom-text my-auto pl-3">
                   <h3 class="text-dark">
-                    Hello Everyone! <br />
-                    I am {{ AuthorArticles.authorsname }}
+                    {{ AuthorArticles.authorsname }}
                   </h3>
+                  <div class="d-flex" style="cursor: pointer;">
+                    <div
+                      class="text-dark my-auto px-1 mr-3"
+                      style="border: 1px solid black; border-radius: 5px;"
+                    >
+                      Go to Website
+                    </div>
+                    <div class="h4">
+                      <b-icon icon="reply" variant="dark"></b-icon>
+                    </div>
+                  </div>
                 </div>
               </div>
             </b-col>
@@ -84,6 +94,7 @@
               :ArticlePublish="a.release_date"
               :ArticleSlug="a.slug"
               :ArticleView="a.view"
+              :article="a.channel__slug_channel"
             />
           </div>
         </b-col>

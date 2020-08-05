@@ -2,15 +2,28 @@
   <div v-if="article.is_active" class="channel-common-card">
     <b-card no-body class="custom-channel-common-card">
       <div @click="setview">
-        <nuxt-link prefetch :to="`/${article.slug}`">
-          <b-card-img-lazy
-            blank-color="#bbb"
-            :src="article.photo"
-            top
-            height="165"
-            style="border-radius: 10px;"
-          ></b-card-img-lazy>
-        </nuxt-link>
+        <div v-if="article.channel.channelname == 'Mobile phone'">
+          <nuxt-link prefetch :to="`/m/${article.slug}`">
+            <b-card-img-lazy
+              blank-color="#bbb"
+              :src="article.photo"
+              top
+              height="165"
+              style="border-radius: 10px;"
+            ></b-card-img-lazy>
+          </nuxt-link>
+        </div>
+        <div v-else>
+          <nuxt-link prefetch :to="`/${article.slug}`">
+            <b-card-img-lazy
+              blank-color="#bbb"
+              :src="article.photo"
+              top
+              height="165"
+              style="border-radius: 10px;"
+            ></b-card-img-lazy>
+          </nuxt-link>
+        </div>
       </div>
 
       <div class="d-flex w-100">
@@ -26,11 +39,20 @@
       </div>
 
       <div @click="setview">
-        <nuxt-link prefetch :to="`/${article.slug}`">
-          <b-card-text text-tag="h6" class="custom-card-text-title">{{
-            article.title
-          }}</b-card-text>
-        </nuxt-link>
+        <div v-if="article.channel.channelname == 'Mobile phone'">
+          <nuxt-link prefetch :to="`/m/${article.slug}`">
+            <b-card-text text-tag="h6" class="custom-card-text-title">{{
+              article.title
+            }}</b-card-text>
+          </nuxt-link>
+        </div>
+        <div v-else>
+          <nuxt-link prefetch :to="`/${article.slug}`">
+            <b-card-text text-tag="h6" class="custom-card-text-title">{{
+              article.title
+            }}</b-card-text>
+          </nuxt-link>
+        </div>
       </div>
     </b-card>
   </div>

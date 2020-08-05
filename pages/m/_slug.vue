@@ -178,29 +178,6 @@
           </b-col>
         </b-row>
       </div>
-      <!-- pagination Start -->
-      <div class="myPagination">
-        <div class="text-center mt-2 mb-2">
-          <span v-if="!loadedRecommended"
-            ><b-spinner
-              style="width: 2rem; height: 2rem;"
-              label="Loading..."
-            ></b-spinner
-          ></span>
-          <div
-            v-else-if="loadedRecommended"
-            @click="loadDataRecommended"
-            class="more-button"
-          >
-            <b-icon
-              icon="chevron-down"
-              variant="dark"
-              class="more-button-icon"
-            ></b-icon>
-          </div>
-        </div>
-      </div>
-      <!-- pagination End -->
     </div>
     <hr />
 
@@ -234,24 +211,11 @@
             :key="index"
           >
             <!-- <nuxt-link prefetch :to="`/detailPost/${article.slug}`"> -->
-            <ChannelCommonCard :article="article" :data-index="index" />
+            <MobileCards :article="article" :data-index="index" />
             <!-- </nuxt-link> -->
           </b-col>
         </b-row>
       </div>
-      <!-- pagination Start -->
-      <div class="myPagination">
-        <div class="text-center mt-2 mb-2">
-          <div @click="loadDataHotMonth" class="more-button">
-            <b-icon
-              icon="chevron-down"
-              variant="dark"
-              class="more-button-icon"
-            ></b-icon>
-          </div>
-        </div>
-      </div>
-      <!-- pagination End -->
     </div>
 
     <div class="mxmobile">
@@ -284,24 +248,11 @@
             :key="index"
           >
             <!-- <nuxt-link prefetch :to="`/detailPost/${article.slug}`"> -->
-            <ChannelCommonCard :article="article" :data-index="index" />
+            <MobileCards :article="article" :data-index="index" />
             <!-- </nuxt-link> -->
           </b-col>
         </b-row>
       </div>
-      <!-- pagination Start -->
-      <div class="myPagination">
-        <div class="text-center mt-2 mb-2">
-          <div @click="loadDataMixBrand" class="more-button">
-            <b-icon
-              icon="chevron-down"
-              variant="dark"
-              class="more-button-icon"
-            ></b-icon>
-          </div>
-        </div>
-      </div>
-      <!-- pagination End -->
     </div>
 
     <div>
@@ -365,32 +316,23 @@ export default {
   },
   async fetch() {
     var self = this;
-    await this.$axios
-      .$get(process.env.baseUrl + `/count/${this.$route.params.slug}`)
+    await self.$axios
+      .$get(process.env.baseUrl + `/count/${self.$route.params.slug}`)
       .then(function (posts) {
-        self.$store.dispatch("detailPage/FetchDetailArticle", posts);
+        self.$store.dispatch("mobileDetailPage/FetchDetailArticle", posts);
       });
 
-    await this.$axios
+    
+    await self.$axios
       .$get(
         process.env.baseUrl +
-          `/dtl_rlt?search=${this.DetailArticle.channel.channelname}`
+          `/recommended_data?search=${self.DetailArticle.channel.slug_channel}`
       )
       .then((posts) =>
-        this.$store.dispatch("detailPage/FetchRelatedArticles", posts.results)
+        self.$store.dispatch("mobileDetailPage/FetchRecommendedArticles", posts)
       );
 
-    // await self.$axios
-    //   .$get(process.env.baseUrl + `/recommended_data?search=${self.tagCreator}`)
-    //   .then((posts) =>
-    //     self.$store.dispatch(
-    //       "detailPage/FetchRecommendedArticles",
-    //       posts.results
-    //     )
-    //   );
-    // console.log(self.DetailArticle.tag_creator.tag_name)
-
-    await this.$axios
+    await self.$axios
       .$get(process.env.baseUrl + `/mobile_hot_Month`)
       .then(function (posts) {
         posts.forEach((element) => {
@@ -401,14 +343,14 @@ export default {
         // console.log(posts);
       });
 
-    await this.$axios
+    await self.$axios
       .$get(process.env.baseUrl + `/mxmobile`)
       .then(function (posts) {
         self.mixBrand = posts;
       });
   },
   computed: mapState({
-    DetailArticle: (state) => state.detailPage.DetailArticle,
+    DetailArticle: (state) => state.mobileDetailPage.DetailArticle,
     // tagCreator() {
     //   var tagName;
     //   for (const i of this.DetailArticle.tag_creator) {
@@ -418,13 +360,13 @@ export default {
     //   return tagName;
     // },
     details: (state) =>
-      state.detailPage.DetailArticle.details
+      state.mobileDetailPage.DetailArticle.details
         .replace(/(^\s*)|(\s*$)/gi, "")
         .replace(/[ ]{2,}/gi, " ")
         .replace(/\n /, "\n")
         .split(" "),
-    RecommendedArticles: (state) => state.detailPage.RecommendedArticles,
-    RelatedArticles: (state) => state.detailPage.RelatedArticles,
+    RecommendedArticles: (state) => state.mobileDetailPage.RecommendedArticles,
+    RelatedArticles: (state) => state.mobileDetailPage.RelatedArticles,
   }),
   methods: {
     setFavourite() {
@@ -499,7 +441,9 @@ export default {
     async loadDataRecommended() {
       this.loadedRecommended = false;
       try {
-        await this.$store.dispatch("detailPage/FetchMoreRecommendedArticles");
+        await this.$store.dispatch(
+          "mobileDetailPage/FetchMoreRecommendedArticles"
+        );
       } catch (e) {
         alert("No more data" + e);
       }

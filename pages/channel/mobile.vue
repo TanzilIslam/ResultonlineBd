@@ -170,7 +170,7 @@
                 :key="index"
               >
                 <!-- <nuxt-link prefetch :to="`/detailPost/${article.slug}`"> -->
-                <ChannelCommonCard :article="article" :data-index="index" />
+                <MobileCards :article="article" :data-index="index" />
                 <!-- </nuxt-link> -->
               </b-col>
             </b-row>
@@ -191,7 +191,7 @@
                 :key="index"
               >
                 <!-- <nuxt-link prefetch :to="`/detailPost/${article.slug}`"> -->
-                <ChannelCommonCard :article="article" :data-index="index" />
+                <MobileCards :article="article" :data-index="index" />
                 <!-- </nuxt-link> -->
               </b-col>
             </b-row>
@@ -218,7 +218,7 @@
                   class="mb-1"
                 >
                   <!-- <nuxt-link prefetch :to="`/detailPost/${article.slug}`"> -->
-                  <ChannelCommonCard :article="article" :data-index="index" />
+                  <MobileCards :article="article" :data-index="index" />
                   <!-- </nuxt-link> -->
                 </b-col>
               </b-row>
@@ -271,7 +271,7 @@
                   xl="4"
                 >
                   <!-- <nuxt-link prefetch :to="`/detailPost/${article.slug}`"> -->
-                  <ChannelCommonCard :article="article" :data-index="index" />
+                  <MobileCards :article="article" :data-index="index" />
                   <!-- </nuxt-link> -->
                 </b-col>
               </b-row>

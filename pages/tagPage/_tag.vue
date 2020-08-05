@@ -37,25 +37,48 @@
             class="py-3"
           >
             <div v-if="article.is_active">
-              <nuxt-link prefetch :to="`/${article.slug}`">
-                <div @click="setview(article.view, article.slug)">
-                  <b-card no-body class="custom-author-small-card">
-                    <b-card-img-lazy
-                      :src="imgpath + article.photo"
-                      blank-color="#bbb"
-                      top
-                      height="165"
-                      style="border-radius: 10px;"
-                    ></b-card-img-lazy>
-                    <!-- <b-card-text class="text-muted custom-card-text-date" text-tag="p">{{
+              <div v-if="article.channel__slug_channel == 'Mobile'">
+                <nuxt-link prefetch :to="`/m/${article.slug}`">
+                  <div @click="setview(article.view, article.slug)">
+                    <b-card no-body class="custom-author-small-card">
+                      <b-card-img-lazy
+                        :src="imgpath + article.photo"
+                        blank-color="#bbb"
+                        top
+                        height="165"
+                        style="border-radius: 10px;"
+                      ></b-card-img-lazy>
+                      <!-- <b-card-text class="text-muted custom-card-text-date" text-tag="p">{{
         ArticlePublish
       }}</b-card-text> -->
-                    <b-card-text text-tag="h6" class="custom-card-text-title">
-                      {{ article.title }}
-                    </b-card-text>
-                  </b-card>
-                </div>
-              </nuxt-link>
+                      <b-card-text text-tag="h6" class="custom-card-text-title">
+                        {{ article.title }}
+                      </b-card-text>
+                    </b-card>
+                  </div>
+                </nuxt-link>
+              </div>
+              <div v-else>
+                <nuxt-link prefetch :to="`/${article.slug}`">
+                  <div @click="setview(article.view, article.slug)">
+                    <b-card no-body class="custom-author-small-card">
+                      <b-card-img-lazy
+                        :src="imgpath + article.photo"
+                        blank-color="#bbb"
+                        top
+                        height="165"
+                        style="border-radius: 10px;"
+                      ></b-card-img-lazy>
+                      <!-- <b-card-text class="text-muted custom-card-text-date" text-tag="p">{{
+        ArticlePublish
+      }}</b-card-text> -->
+                      <b-card-text text-tag="h6" class="custom-card-text-title">
+                        {{ article.title }}
+                      </b-card-text>
+                    </b-card>
+                  </div>
+                </nuxt-link>
+              </div>
             </div>
           </b-col>
         </b-row>

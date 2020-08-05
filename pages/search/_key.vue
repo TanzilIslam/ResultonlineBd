@@ -30,79 +30,106 @@
                 :key="index"
                 class="mb-4 py-4"
               >
-              <div v-if="i.is_active">
-                <div v-if="i.targetUrl.url == 'count/'">
-                  <nuxt-link :to="`${dGeneral}${i.slug}`">
-                    <div
-                      @click="setView(i.view, i.targetUrl.url, i.slug)"
-                      class="d-flex"
-                    >
-                      <div class="image-section mr-4">
-                        <b-img
-                          height="102"
-                          width="102"
-                          class="rounded"
-                          :src="`http://cdn.resultonlinebd.com/media/${i.photo}`"
-                        ></b-img>
-                      </div>
-                      <div class="text-section">
-                        <h1 class="text-title pb-3">
-                          {{ i.title }}
-                        </h1>
-                        <p class="text-description">
-                          {{ i.details.slice(0, 30) }}
-                        </p>
-                      </div>
+                <div v-if="i.is_active">
+                  <div v-if="i.targetUrl.url == 'count/'">
+                    <div v-if="i.channel__slug_channel == 'Mobile'">
+                      <nuxt-link :to="`/m/${i.slug}`">
+                        <div
+                          @click="setView(i.view, i.targetUrl.url, i.slug)"
+                          class="d-flex"
+                        >
+                          <div class="image-section mr-4">
+                            <b-img
+                              height="102"
+                              width="102"
+                              class="rounded"
+                              :src="`http://cdn.resultonlinebd.com/media/${i.photo}`"
+                            ></b-img>
+                          </div>
+                          <div class="text-section">
+                            <h1 class="text-title pb-3">
+                              {{ i.title }}
+                            </h1>
+                            <p class="text-description">
+                              {{ i.details.slice(0, 30) }}
+                            </p>
+                          </div>
+                        </div>
+                      </nuxt-link>
                     </div>
-                  </nuxt-link>
-                </div>
-                <div v-else-if="i.targetUrl.url == 'q&a/api/v1/dtls/'">
-                  <nuxt-link :to="`${dQandA}${i.slug}`">
-                    <div
-                      @click="setView(i.view, i.targetUrl.url, i.slug)"
-                      class="d-flex"
-                    >
-                      <div class="image-section mr-4">
-                        <!-- <b-img
+                    <div v-else>
+                      <nuxt-link :to="`${dGeneral}${i.slug}`">
+                        <div
+                          @click="setView(i.view, i.targetUrl.url, i.slug)"
+                          class="d-flex"
+                        >
+                          <div class="image-section mr-4">
+                            <b-img
+                              height="102"
+                              width="102"
+                              class="rounded"
+                              :src="`http://cdn.resultonlinebd.com/media/${i.photo}`"
+                            ></b-img>
+                          </div>
+                          <div class="text-section">
+                            <h1 class="text-title pb-3">
+                              {{ i.title }}
+                            </h1>
+                            <p class="text-description">
+                              {{ i.details.slice(0, 30) }}
+                            </p>
+                          </div>
+                        </div>
+                      </nuxt-link>
+                    </div>
+                  </div>
+                  <div v-else-if="i.targetUrl.url == 'q&a/api/v1/dtls/'">
+                    <nuxt-link :to="`${dQandA}${i.slug}`">
+                      <div
+                        @click="setView(i.view, i.targetUrl.url, i.slug)"
+                        class="d-flex"
+                      >
+                        <div class="image-section mr-4">
+                          <!-- <b-img
                       height="102"
                       width="102"
                       class="rounded"
                       :src="`http://cdn.resultonlinebd.com/media/${i.photo}`"
                     ></b-img> -->
+                        </div>
+                        <div class="text-section">
+                          <h1 class="text-title pb-3">
+                            {{ i.title }}
+                          </h1>
+                          <p class="text-description">
+                            {{ i.details.slice(0, 30) }}
+                          </p>
+                        </div>
                       </div>
-                      <div class="text-section">
-                        <h1 class="text-title pb-3">
-                          {{ i.title }}
-                        </h1>
-                        <p class="text-description">
-                          {{ i.details.slice(0, 30) }}
-                        </p>
+                    </nuxt-link>
+                  </div>
+                  <div v-else-if="i.targetUrl.url == 'blog/api/v1/details/'">
+                    <nuxt-link :to="`${dBlog}${i.slug}`">
+                      <div class="d-flex">
+                        <div class="image-section mr-4">
+                          <b-img
+                            height="102"
+                            width="102"
+                            class="rounded"
+                            :src="`http://cdn.resultonlinebd.com/media/${i.photo}`"
+                          ></b-img>
+                        </div>
+                        <div class="text-section">
+                          <h1 class="text-title pb-3">
+                            {{ i.title }}
+                          </h1>
+                          <p class="text-description">
+                            {{ i.details.slice(0, 30) }}
+                          </p>
+                        </div>
                       </div>
-                    </div>
-                  </nuxt-link>
-                </div>
-                <div v-else-if="i.targetUrl.url == 'blog/api/v1/details/'">
-                  <nuxt-link :to="`${dBlog}${i.slug}`">
-                    <div class="d-flex">
-                      <div class="image-section mr-4">
-                        <b-img
-                          height="102"
-                          width="102"
-                          class="rounded"
-                          :src="`http://cdn.resultonlinebd.com/media/${i.photo}`"
-                        ></b-img>
-                      </div>
-                      <div class="text-section">
-                        <h1 class="text-title pb-3">
-                          {{ i.title }}
-                        </h1>
-                        <p class="text-description">
-                          {{ i.details.slice(0, 30) }}
-                        </p>
-                      </div>
-                    </div>
-                  </nuxt-link>
-                </div>
+                    </nuxt-link>
+                  </div>
                 </div>
               </b-list-group-item>
             </b-list-group>

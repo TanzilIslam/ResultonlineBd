@@ -8,6 +8,7 @@ import Breadcrumb from '~/components/user/Breadcrumb'
 import SideBar from '~/components/user/SideBar'
 import VclChannelCommonCard from '~/components/user/vue-content-loading-cards/VclChannelCommonCard'
 import ChannelCommonCard from '~/components/user/cards/ChannelCommonCard'
+import MobileCards from '~/components/user/cards/MobileCards'
 import { VueSpinners } from '@saeris/vue-spinners'
 Vue.use(VueSpinners)
 Vue.component('NavBar', NavBar)
@@ -16,6 +17,7 @@ Vue.component('Breadcrumb', Breadcrumb)
 Vue.component('SideBar', SideBar)
 Vue.component('VclChannelCommonCard', VclChannelCommonCard)
 Vue.component('ChannelCommonCard', ChannelCommonCard)
+Vue.component('MobileCards', MobileCards)
 // common components end
 
 // Home Page start

@@ -29,6 +29,9 @@
         :img-src="i.Cover_img"
         img-width="1024"
       >
+        <a :href="i.url" style="text-decoration: none;">
+          <h6 style="color: black;">{{ i.title }}</h6>
+        </a>
       </b-carousel-slide>
     </b-carousel>
   </div>
