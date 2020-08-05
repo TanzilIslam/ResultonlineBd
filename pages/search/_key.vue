@@ -23,12 +23,13 @@
       </div>
       <div v-else>
         <b-row>
-          <b-col cols="12" sm="6" md="12" lg="12" xl="12">
+          <b-col cols="12" sm="12" class="mx-auto" md="8" lg="8" xl="8">
             <b-list-group>
               <b-list-group-item
                 v-for="(i, index) in searched"
                 :key="index"
                 class="mb-4 py-4"
+                style="border-radius: 8px;"
               >
                 <div v-if="i.is_active">
                   <div v-if="i.targetUrl.url == 'count/'">
