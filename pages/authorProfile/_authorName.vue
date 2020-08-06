@@ -27,11 +27,12 @@
                     {{ AuthorArticles.authorsname }}
                   </h3>
                   <div class="d-flex" style="cursor: pointer;">
-                    <div
-                      class="text-dark my-auto px-1 mr-3"
-                      style="border: 1px solid black; border-radius: 5px;"
-                    >
-                      Go to Website
+                    <div class="mr-4 pt-1">
+                      <b-img
+                        src="~/assets/user/icons/web.png"
+                        height="20"
+                        width="20"
+                      ></b-img>
                     </div>
                     <div class="h4">
                       <b-icon icon="reply" variant="dark"></b-icon>
@@ -210,7 +211,7 @@ export default {
   margin-left: 15px;
 }
 .custom-cover {
-  background-image: linear-gradient(120deg, #d4fc79 0%, #96e6a1 100%);
+  background-image: url("~assets/user/icons/authorBackground.jpg");
   height: 320px;
   border-radius: 10px;
 }
