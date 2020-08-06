@@ -86,7 +86,7 @@
             <template v-slot:title>
               <b-img
                 src="~assets/user/icons/fresh.svg"
-                style="height: 30px; width: 23px;"
+                style="height: 20px; width: 20px;"
               ></b-img>
               Fresh
             </template>
@@ -96,7 +96,7 @@
             <template v-slot:title>
               <b-img
                 src="~assets/user/icons/about.svg"
-                style="height: 30px; width: 30px;"
+                style="height: 22px; width: 22px;"
               ></b-img>
               About
             </template>

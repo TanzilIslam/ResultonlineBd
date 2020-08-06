@@ -26,12 +26,12 @@
 
               <div class="ml-auto">
                 <b-icon
-                  class="mr-2 custom-home-card"
+                  class="mr-2 h4 custom-home-card"
                   @click="$bvModal.show(article.slug)"
                   icon="reply"
                 ></b-icon>
                 <b-icon
-                  class="mr-4 custom-home-card"
+                  class="mr-4 h5 custom-home-card"
                   :icon="icon"
                   @click="setFavourite()"
                 ></b-icon>

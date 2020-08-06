@@ -108,28 +108,28 @@
             v-for="(article, index) in RecommendedArticles"
             :key="index"
           >
-          <div v-if="article.is_active">
-            <nuxt-link prefetch :to="`/b/${article.slug}`">
-              <div class="channel-common-card">
-                <b-card no-body class="custom-channel-common-card">
-                  <b-card-img-lazy
-                    blank-color="#bbb"
-                    :src="article.photo"
-                    top
-                    height="165"
-                    style="border-radius: 10px;"
-                  ></b-card-img-lazy>
-                  <b-card-text
-                    class="text-muted custom-card-text-date"
-                    text-tag="p"
-                    >{{ article.created_at }}</b-card-text
-                  >
-                  <b-card-text text-tag="h6" class="custom-card-text-title">{{
-                    article.title
-                  }}</b-card-text>
-                </b-card>
-              </div>
-            </nuxt-link>
+            <div v-if="article.is_active">
+              <nuxt-link prefetch :to="`/b/${article.slug}`">
+                <div class="channel-common-card">
+                  <b-card no-body class="custom-channel-common-card">
+                    <b-card-img-lazy
+                      blank-color="#bbb"
+                      :src="article.photo"
+                      top
+                      height="165"
+                      style="border-radius: 10px;"
+                    ></b-card-img-lazy>
+                    <b-card-text
+                      class="text-muted custom-card-text-date"
+                      text-tag="p"
+                      >{{ article.created_at }}</b-card-text
+                    >
+                    <b-card-text text-tag="h6" class="custom-card-text-title">{{
+                      article.title
+                    }}</b-card-text>
+                  </b-card>
+                </div>
+              </nuxt-link>
             </div>
           </b-col>
         </b-row>
@@ -207,7 +207,7 @@ export default {
     await self.$axios
       .$get(process.env.baseUrl + "/blog/api/v1/recommended")
       .then(function (posts) {
-        self.RecommendedArticles = posts.results;
+        self.RecommendedArticles = posts;
         // self.this.recommendedNextData = posts.next;
       })
       .catch(function (error) {

@@ -39,14 +39,14 @@ body{
   /* Channel Tabs Start */
   .latest-under-line{
     height : 3px; 
-    width: 110px; 
+    width: 90px; 
     background-color: black;
   }
   .about-under-line{
    height: 3px;
-   width: 110px;
+   width: 77px;
    background-color: black;
-   margin-left: 107px;
+   margin-left: 112px;
    }
   .line {
     margin-top: 0px;
@@ -347,4 +347,20 @@ a {
 
 .carousel-inner{
   border-radius: 5px !important;
+}
+
+
+.carousel-caption {
+	position: absolute;
+	right: 0;
+	bottom: 0;
+	left: 0px;
+	z-index: 10;
+	padding-bottom: 20px;
+padding-top: 90px;
+	color: #fff;
+	text-align: left;
+	background-image: linear-gradient(180deg,transparent,transparent 23%,rgba(0,0,0,.29) 48%,#080808);
+  padding-left: 8%;
+
 }

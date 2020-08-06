@@ -28,7 +28,7 @@
               <b-list-group-item
                 v-for="(i, index) in searched"
                 :key="index"
-                class="mb-4 py-4"
+                class="mb-4 search-card shadow-sm"
                 style="border-radius: 8px;"
               >
                 <div v-if="i.is_active">
@@ -90,14 +90,6 @@
                         @click="setView(i.view, i.targetUrl.url, i.slug)"
                         class="d-flex"
                       >
-                        <div class="image-section mr-4">
-                          <!-- <b-img
-                      height="102"
-                      width="102"
-                      class="rounded"
-                      :src="`http://cdn.resultonlinebd.com/media/${i.photo}`"
-                    ></b-img> -->
-                        </div>
                         <div class="text-section">
                           <h1 class="text-title pb-3">
                             {{ i.title }}
@@ -226,9 +218,9 @@ a {
   text-decoration: none;
 }
 .text-title {
-  font-size: 24px;
+  font-size: 18px;
   font-weight: 900;
-  font-family: "ars-maquette-web", sans-serif;
+  /* font-family: "ars-maquette-web", sans-serif; */
 }
 .text-description {
   font-size: 12px;
@@ -238,4 +230,6 @@ a {
 .content-loading {
   height: 150px;
 }
+/* .search-card {
+} */
 </style>

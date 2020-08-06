@@ -29,8 +29,10 @@
         :img-src="i.Cover_img"
         img-width="1024"
       >
-        <a :href="i.url" style="text-decoration: none;">
-          <h6 style="color: black;">{{ i.title }}</h6>
+        <a :href="i.url" class="c-txt-link">
+          <div class="c-txt">
+            {{ i.title }}
+          </div>
         </a>
       </b-carousel-slide>
     </b-carousel>
@@ -74,10 +76,14 @@ export default {
 .myCarousel {
   margin-bottom: 10px;
 }
-.cover-img {
-  border-radius: 10px;
+.c-txt-link {
+  text-decoration: none;
+  color: white;
+  /* font-family: ProximaNova-Bold, helvetica, Arial, sans-serif; */
 }
-/* .carousel-inner > .carousel-item > img {
-  border-radius: 10px !important;
-} */
+.c-txt {
+  font-family: "Cambay";
+  font-weight: 500;
+  font-size: 22px;
+}
 </style>
