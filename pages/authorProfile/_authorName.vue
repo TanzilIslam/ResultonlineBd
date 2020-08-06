@@ -1,79 +1,78 @@
 <template>
   <div class="author-profile">
-    <b-row>
-      <b-col sm="12" md="12" lg="12" xl="12">
-        <div class="custom-cover">
-          <b-row>
-            <b-col sm="6" md="6" lg="6" xl="6" class="mt-4 mx-auto">
-              <div class="d-flex ml-4 mt-4">
-                <b-img
-                  v-if="loadImg"
-                  :blank="true"
-                  blank-color="#777"
-                  class="custom-author-logo mt-4"
-                ></b-img>
+    <div>
+      <b-card
+        overlay
+        :img-src="`http://cdn.resultonlinebd.com/media/${AuthorArticles.coverImg}`"
+        img-alt="Card Image"
+        text-variant="white"
+        class=""
+        img-height="300"
+      >
+        <div class="d-flex justify-content-center">
+          <div>
+            <b-img
+              v-if="loadImg"
+              :blank="true"
+              blank-color="#777"
+              class="logo mt-4"
+            ></b-img>
 
+            <b-img
+              v-else
+              :src="
+                'http://cdn.resultonlinebd.com/media/' +
+                AuthorArticles.authorsprofilrimg
+              "
+              class="logo"
+            ></b-img>
+          </div>
+          <div>
+            <div class="vl"></div>
+          </div>
+          <div class="pl-3 pt-4">
+            <h3 class="text-dark">
+              {{ AuthorArticles.authorsname }}
+            </h3>
+            <div class="d-flex" style="cursor: pointer;">
+              <div class="mr-4 pt-1">
                 <b-img
-                  v-else
-                  class="custom-author-logo mt-4"
-                  :src="
-                    'http://cdn.resultonlinebd.com/media/' +
-                    AuthorArticles.authorsprofilrimg
-                  "
+                  height="20"
+                  width="20"
+                  src="~/assets/user/icons/web.png"
                 ></b-img>
-                <div class="vl mt-4"></div>
-                <div class="custom-text my-auto pl-3">
-                  <h3 class="text-dark">
-                    {{ AuthorArticles.authorsname }}
-                  </h3>
-                  <div class="d-flex" style="cursor: pointer;">
-                    <div class="mr-4 pt-1">
-                      <b-img
-                        src="~/assets/user/icons/web.png"
-                        height="20"
-                        width="20"
-                      ></b-img>
-                    </div>
-                    <div class="h4">
-                      <b-icon icon="reply" variant="dark"></b-icon>
-                    </div>
-                  </div>
-                </div>
               </div>
-            </b-col>
-          </b-row>
+              <div class="h4">
+                <b-icon icon="reply" variant="dark"></b-icon>
+              </div>
+            </div>
+          </div>
         </div>
-      </b-col>
-    </b-row>
-    <b-row>
-      <b-col md="12">
-        <!--Tab start -->
-        <b-tabs :no-nav-style="true" content-class="mt-0 mb-0">
-          <b-tab title-link-class="text-dark" active @click="goLatest()">
-            <template v-slot:title>
-              <b-img
-                src="~assets/user/icons/fresh.svg"
-                style="height: 30px; width: 23px;"
-              ></b-img>
-              Fresh
-            </template>
-            <div class="latest-under-line"></div>
-          </b-tab>
-          <b-tab title-link-class="text-dark" @click="goAbout()">
-            <template v-slot:title>
-              <b-img
-                src="~assets/user/icons/about.svg"
-                style="height: 30px; width: 30px;"
-              ></b-img>
-              About
-            </template>
-            <div class="about-under-line"></div>
-          </b-tab>
-          <hr class="line" />
-        </b-tabs>
-        <!--Tab End -->
-      </b-col>
-    </b-row>
+      </b-card>
+    </div>
+    <b-tabs :no-nav-style="true" class="pt-2" content-class="mt-0 mb-0">
+      <b-tab title-link-class="text-dark" active @click="goLatest()">
+        <template v-slot:title>
+          <b-img
+            src="~assets/user/icons/fresh.svg"
+            style="height: 20px; width: 20px;"
+          ></b-img>
+          Fresh
+        </template>
+        <div class="latest-under-line"></div>
+      </b-tab>
+      <b-tab title-link-class="text-dark" @click="goAbout()">
+        <template v-slot:title>
+          <b-img
+            src="~assets/user/icons/about.svg"
+            style="height: 22px; width: 22px;"
+          ></b-img>
+          About
+        </template>
+        <div class="about-under-line"></div>
+      </b-tab>
+      <hr class="line" />
+    </b-tabs>
     <div v-show="showLatestDiv">
       <AuthorVclCard v-if="$fetchState.pending" />
       <h4 v-else-if="$fetchState.error">
@@ -101,13 +100,11 @@
         </b-col>
       </b-row>
 
-      <!-- Pagination Start End -->
       <div class="myPagination">
         <div class="text-center mt-5 mb-3">
           <b-button variant="dark" @click="loadData">Load More</b-button>
         </div>
       </div>
-      <!-- Pagination End -->
     </div>
     <div v-show="showAboutDiv">
       <b-container>
@@ -115,7 +112,6 @@
         <div class="about-text" v-html="AuthorArticles.about"></div>
       </b-container>
     </div>
-    <!-- </b-row> -->
   </div>
 </template>
 
@@ -201,26 +197,16 @@ export default {
 /* .author-profile{
   
 } */
-.custom-text {
-  color: rgb(255, 255, 255);
-}
-
-.vl {
-  border-left: 3px solid rgb(230, 233, 230);
-  height: 150px;
-  margin-left: 15px;
-}
-.custom-cover {
-  background-image: url("~assets/user/icons/authorBackground.jpg");
-  height: 320px;
-  border-radius: 10px;
-}
-
-.custom-author-logo {
+.logo {
   height: 150px;
   width: 150px;
   border-radius: 10px;
   padding: 5px;
+}
+.vl {
+  border-left: 3px solid rgb(230, 233, 230);
+  height: 92%;
+  margin-top: 6px;
 }
 a {
   color: black !important;
