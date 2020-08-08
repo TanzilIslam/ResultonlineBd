@@ -27,7 +27,7 @@
               <div class="ml-auto">
                 <b-icon
                   class="mr-2 h4 custom-home-card"
-                  @click="$bvModal.show(article.slug)"
+                  @click="popupActivo2 = true"
                   icon="reply"
                 ></b-icon>
                 <b-icon
@@ -77,18 +77,29 @@
       </b-card>
     </div>
     <div>
-      <b-modal
+      <!-- <b-modal
         :id="article.slug"
         content-class="shadow"
         title="BootstrapVue"
         centered
       >
         <p class="my-2">
-          <!-- hide-backdrop -->
+          
           We've added the utility class <code>'shadow'</code>
           to the modal content for added effect.
         </p>
-      </b-modal>
+      </b-modal> -->
+      <div class="centerx">
+        <vs-popup
+          classContent="popup-example"
+          title="Share this article"
+          :active.sync="popupActivo2"
+          ><p>
+            Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do
+            eiusmod tempor incididunt ut
+          </p>
+        </vs-popup>
+      </div>
     </div>
   </div>
 </template>
@@ -98,6 +109,16 @@ export default {
     return {
       icon: "star",
       toogle: false,
+      select1: 3,
+      options1: [
+        { text: "IT", value: 0 },
+        { text: "Blade Runner", value: 2 },
+        { text: "Thor Ragnarok", value: 3 },
+      ],
+      value1: "",
+      value2: "",
+      popupActivo2: false,
+      popupActivo3: false,
     };
   },
   props: {

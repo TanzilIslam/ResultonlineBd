@@ -13,6 +13,7 @@ export default {
     ],
     link: [
       { rel: 'png', type: 'image/x-icon', href: '/favicon.ico' },
+      // { rel: "stylesheet", href: "https://unpkg.com/vuesax@4.0.1-alpha.16/dist/vuesax.min.css" }
       // {
       //   rel: "stylesheet",
       //   href: "https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.0.0/animate.min.css"

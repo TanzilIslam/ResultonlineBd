@@ -26,9 +26,9 @@
         </div>
       </div>
       <div class="d-flex w-100">
-        <b-card-text class="text-muted custom-card-text-date" text-tag="p"
-          >{{ ArticlePublish }} |</b-card-text
-        >
+        <b-card-text class="text-muted custom-card-text-date" text-tag="p">{{
+          ArticlePublish
+        }}</b-card-text>
         <div class="ml-auto pt-2">
           <p>
             <b-icon :icon="icon" @click="setFavourite()" class="mr-2"></b-icon>

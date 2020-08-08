@@ -1,12 +1,21 @@
 <template>
   <div class="author-profile">
     <div>
+      <b-img
+        v-if="$fetchState.pending"
+        :blank="true"
+        class="w-100 rounded"
+        blank-color="gray"
+        height="300"
+      ></b-img>
+
       <b-card
+        v-else
         overlay
         :img-src="`http://cdn.resultonlinebd.com/media/${AuthorArticles.coverImg}`"
         img-alt="Card Image"
         text-variant="white"
-        class=""
+        class="rounded"
         img-height="300"
       >
         <div class="d-flex justify-content-center">

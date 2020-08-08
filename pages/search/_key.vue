@@ -41,8 +41,8 @@
                         >
                           <div class="image-section mr-4">
                             <b-img
-                              height="102"
-                              width="102"
+                              height="80"
+                              width="80"
                               class="rounded"
                               :src="`http://cdn.resultonlinebd.com/media/${i.photo}`"
                             ></b-img>
@@ -66,8 +66,8 @@
                         >
                           <div class="image-section mr-4">
                             <b-img
-                              height="102"
-                              width="102"
+                              height="80"
+                              width="80"
                               class="rounded"
                               :src="`http://cdn.resultonlinebd.com/media/${i.photo}`"
                             ></b-img>
@@ -106,8 +106,8 @@
                       <div class="d-flex">
                         <div class="image-section mr-4">
                           <b-img
-                            height="102"
-                            width="102"
+                            height="80"
+                            width="80"
                             class="rounded"
                             :src="`http://cdn.resultonlinebd.com/media/${i.photo}`"
                           ></b-img>
@@ -230,6 +230,10 @@ a {
 .content-loading {
   height: 150px;
 }
-/* .search-card {
-} */
+.search-card {
+  padding-left: 5px;
+}
+.text-section {
+  padding-top: 5px;
+}
 </style>

@@ -73,4 +73,14 @@ Vue.component('Tab', Tab);
 
 import Autocomplete from '@trevoreyre/autocomplete-vue'
 // import '@trevoreyre/autocomplete-vue/dist/style.css'
+import 'material-icons/iconfont/material-icons.css';
+
 Vue.use(Autocomplete)
+
+
+import Vuesax from 'vuesax'
+
+import 'vuesax/dist/vuesax.css' //Vuesax styles
+Vue.use(Vuesax, {
+    // options here
+})

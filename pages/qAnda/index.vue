@@ -91,7 +91,7 @@
                     <b-card no-body class="card-body">
                       <div @click="setView(j.view, j.slug)">
                         <h6>
-                          <strong>{{ j.title.slice(0, 20) + ".." }}</strong>
+                          <strong>{{ j.title }}</strong>
                         </h6>
                         <p class="text-muted">
                           {{ j.created_at }}
@@ -127,7 +127,7 @@
                   <b-card no-body class="card-body">
                     <div @click="setView(j.view, j.slug)">
                       <h6>
-                        <strong>{{ j.title.slice(0, 40) + ".." }}</strong>
+                        <strong>{{ j.title }}</strong>
                       </h6>
                       <p class="text-muted">
                         {{ j.created_at }}

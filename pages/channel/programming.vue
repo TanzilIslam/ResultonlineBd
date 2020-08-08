@@ -3,7 +3,8 @@
     <b-row no-gutters>
       <!-- sideBar Start -->
       <b-col class="pr-2" cols="12" sm="12" md="3" lg="3" xl="3">
-        <div class="mb-4">
+        <FixedChannelSideBar />
+        <div class="mb-4 channel-side-bar-sticky">
           <div class="d-flex channel-side-bar-title">
             <b-icon
               v-b-toggle.sidebar-backdrop
@@ -17,7 +18,6 @@
             </h5>
           </div>
           <!--  -->
-          <FixedChannelSideBar />
 
           <b-list-group class="channel-side-bar channel-side-bar-list-group">
             <button
