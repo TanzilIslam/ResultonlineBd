@@ -24,7 +24,7 @@
     "nuxt": "^2.0.0",
     "vue-content-loading": "^1.6.0",
     "vue-star-rating": "^1.6.1",
-    "vuesax": "^3.11.17",
+    "vuesax": "^4.0.1-alpha.23",
     "vuescroll": "^4.15.1"
   },
   "devDependencies": {}

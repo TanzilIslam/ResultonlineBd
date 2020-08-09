@@ -387,3 +387,6 @@ padding-top: 65px;
   padding-left: 8%;
 
 }
+.con-vs-popup .vs-popup {
+  width: 400px !important;
+}

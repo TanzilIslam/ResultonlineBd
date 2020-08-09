@@ -27,13 +27,13 @@
               <div class="ml-auto">
                 <b-icon
                   class="mr-2 h4 custom-home-card"
-                  @click="popupActivo2 = true"
+                  @click="active2 = !active2"
                   icon="reply"
                 ></b-icon>
                 <b-icon
                   class="mr-4 h5 custom-home-card"
                   :icon="icon"
-                  @click="setFavourite()"
+                  @click="openNotification(6000)"
                 ></b-icon>
               </div>
             </div>
@@ -77,29 +77,32 @@
       </b-card>
     </div>
     <div>
-      <!-- <b-modal
-        :id="article.slug"
-        content-class="shadow"
-        title="BootstrapVue"
-        centered
-      >
-        <p class="my-2">
-          
-          We've added the utility class <code>'shadow'</code>
-          to the modal content for added effect.
-        </p>
-      </b-modal> -->
-      <div class="centerx">
-        <vs-popup
-          classContent="popup-example"
-          title="Share this article"
-          :active.sync="popupActivo2"
-          ><p>
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do
-            eiusmod tempor incididunt ut
-          </p>
-        </vs-popup>
-      </div>
+      <vs-dialog width="400px" not-center v-model="active2">
+        <template #header>
+          <h6 class="pt-2">Share this aticle</h6>
+        </template>
+
+        <div class="con-content">
+          <div class="text-center">
+            <b-img
+              @click="shareToFb"
+              style="cursor: pointer;"
+              height="40"
+              width="40"
+              src="~/assets/user/icons/fb.png"
+            >
+            </b-img>
+            <b-input-group size="sm" class="mt-3">
+              <b-form-input :value="place"></b-form-input>
+              <b-input-group-append>
+                <b-button variant="outline-dark" @click="copyLink">{{
+                  isCopy
+                }}</b-button>
+              </b-input-group-append>
+            </b-input-group>
+          </div>
+        </div>
+      </vs-dialog>
     </div>
   </div>
 </template>
@@ -109,16 +112,12 @@ export default {
     return {
       icon: "star",
       toogle: false,
-      select1: 3,
-      options1: [
-        { text: "IT", value: 0 },
-        { text: "Blade Runner", value: 2 },
-        { text: "Thor Ragnarok", value: 3 },
-      ],
-      value1: "",
+      copyText: "",
       value2: "",
       popupActivo2: false,
-      popupActivo3: false,
+      isCopy: "Copy",
+      active2: false,
+      place: `http://test.resultonlinebd.com/${this.article.slug}`,
     };
   },
   props: {
@@ -153,47 +152,27 @@ export default {
         alert("No more data" + e);
       }
     },
-    setFavourite() {
+    copyLink() {
+      navigator.clipboard.writeText(this.place);
+      this.isCopy = "Copied";
+    },
+    openNotification(duration) {
       if (process.browser) {
         this.toogle = !this.toogle;
         if (this.toogle) {
-          // var addToLocalStorageObject = function(name, key, value) {
-          //   var existing = localStorage.getItem(name);
-          //   existing = existing ? JSON.parse(existing) : {};
-          //   existing[key] = value;
-          //   localStorage.setItem(name, JSON.stringify(existing));
-          // };
-          // addToLocalStorageObject(
-          //   "FavouriteArticles",
-          //   this.article.slug,
-          //   this.article
-          // );
-
           localStorage.setItem(
             this.article.slug,
             JSON.stringify(this.article.title)
           );
           this.icon = "star-fill";
-          this.$bvToast.toast(`Successfully added to Favourite!`, {
+
+          const noti = this.$vs.notification({
+            duration,
+            progress: "auto",
             title: "Done",
-            autoHideDelay: 2000,
-            solid: true,
-            static: true,
+            text: `Successfully added to Favourite.`,
           });
         } else if (!this.toogle) {
-          // var existingTwo = localStorage.getItem("FavouriteArticles");
-          // var newVar = JSON.parse(existingTwo);
-          // // var ob = {};
-          // for (var key in newVar) {
-          //   if (newVar.hasOwnProperty(key)) {
-          //     var element = newVar[key];
-          //     if (element.slug === this.article.slug) {
-          //       element = "";
-          //       console.log(element);
-          //       break;
-          //     }
-          //   }
-          // }
           for (let i = 0; i < localStorage.length; i++) {
             let key = localStorage.key(i);
             let value = localStorage.getItem(key);
@@ -207,6 +186,13 @@ export default {
           this.icon = "star";
         }
       }
+    },
+    shareToFb() {
+      window.open(
+        "https://www.facebook.com/dialog/share?app_id=2141341249515400&display=popup&href=http://test.resultonlinebd.com/" +
+          this.article.slug,
+        "_blank"
+      );
     },
   },
 };
