@@ -378,7 +378,10 @@ export default {
           `/recommended_data?search=${self.DetailArticle.channel.slug_channel}`
       )
       .then((posts) =>
-        self.$store.dispatch("detailPage/FetchRecommendedArticles", posts)
+        self.$store.dispatch(
+          "detailPage/FetchRecommendedArticles",
+          posts.results
+        )
       );
     await self.$axios
       .$get(process.env.baseUrl + `/high_ratetd`)

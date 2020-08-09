@@ -322,14 +322,16 @@ export default {
         self.$store.dispatch("mobileDetailPage/FetchDetailArticle", posts);
       });
 
-    
     await self.$axios
       .$get(
         process.env.baseUrl +
           `/recommended_data?search=${self.DetailArticle.channel.slug_channel}`
       )
       .then((posts) =>
-        self.$store.dispatch("mobileDetailPage/FetchRecommendedArticles", posts)
+        self.$store.dispatch(
+          "mobileDetailPage/FetchRecommendedArticles",
+          posts.results
+        )
       );
 
     await self.$axios

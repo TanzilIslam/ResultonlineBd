@@ -387,6 +387,11 @@ padding-top: 65px;
   padding-left: 8%;
 
 }
-.con-vs-popup .vs-popup {
-  width: 400px !important;
+
+.vs-dialog__close{
+  background-color: white !important;
+}
+.vs-dialog{
+  background-color: #4a5153 !important;
+  color: white !important; 
 }

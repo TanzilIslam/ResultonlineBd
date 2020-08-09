@@ -33,7 +33,7 @@
                 <b-icon
                   class="mr-4 h5 custom-home-card"
                   :icon="icon"
-                  @click="openNotification(6000)"
+                  @click="openNotification(6000, '#4a5153')"
                 ></b-icon>
               </div>
             </div>
@@ -77,12 +77,12 @@
       </b-card>
     </div>
     <div>
-      <vs-dialog width="400px" not-center v-model="active2">
+      <vs-dialog width="550px" not-center v-model="active2">
         <template #header>
           <h6 class="pt-2">Share this aticle</h6>
         </template>
 
-        <div class="con-content">
+        <div>
           <div class="text-center">
             <b-img
               @click="shareToFb"
@@ -95,7 +95,7 @@
             <b-input-group size="sm" class="mt-3">
               <b-form-input :value="place"></b-form-input>
               <b-input-group-append>
-                <b-button variant="outline-dark" @click="copyLink">{{
+                <b-button variant="outline-light" @click="copyLink">{{
                   isCopy
                 }}</b-button>
               </b-input-group-append>
@@ -156,7 +156,7 @@ export default {
       navigator.clipboard.writeText(this.place);
       this.isCopy = "Copied";
     },
-    openNotification(duration) {
+    openNotification(duration, color) {
       if (process.browser) {
         this.toogle = !this.toogle;
         if (this.toogle) {
@@ -168,9 +168,12 @@ export default {
 
           const noti = this.$vs.notification({
             duration,
+            color,
+
             progress: "auto",
             title: "Done",
-            text: `Successfully added to Favourite.`,
+            text:
+              "This article Successfully added to Favourite.Check Favourite Section",
           });
         } else if (!this.toogle) {
           for (let i = 0; i < localStorage.length; i++) {
@@ -182,7 +185,15 @@ export default {
               break;
             }
           }
+          const noti = this.$vs.notification({
+            duration: 6000,
+            color: "rgb(242, 19, 93)",
 
+            progress: "auto",
+            title: "Done",
+            text:
+              "This article Successfully Removed from Favourite.Click again to added!",
+          });
           this.icon = "star";
         }
       }
