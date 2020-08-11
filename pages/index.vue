@@ -268,83 +268,84 @@ export default {
   components: { MoonLoader },
   head() {
     return {
-      title: "ResultOnlineBd - Home Page",
+      title: this.seoObject.page_title,
       meta: [
         {
           hid: "description",
           name: "description",
-          content:
-            "Here you can find all the latest information about technology,mobile phones,educations etc.",
+          content: this.seoObject.description,
+        },
+        {
+          hid: "keywords",
+          name: "keywords",
+          content: this.seoObject.meta_keyword,
+        },
+        {
+          hid: "twitter:card",
+          name: "twitter:card",
+          content: this.seoObject.page_title,
+        },
+        {
+          hid: "twitter:title",
+          name: "twitter:title",
+          content: this.seoObject.page_title,
+        },
+        {
+          hid: "twitter:description",
+          name: "twitter:description",
+          content: this.seoObject.description,
+        },
+        {
+          hid: "og:title",
+          property: "og:title",
+          content: this.seoObject.page_title,
+        },
+        {
+          hid: "og:type",
+          property: "og:type",
+          content: "article.text",
+        },
+        {
+          hid: "og:url",
+          property: "og:url",
+          content: "",
+        },
+        {
+          hid: "og:description",
+          name: "og:description",
+          content: this.seoObject.description,
+        },
+        {
+          hid: "og:image",
+          name: "og:image",
+          content: this.seoObject.meta_image,
         },
       ],
     };
   },
   data() {
     return {
-      ops: {
-        vuescroll: {
-          mode: "native",
-          sizeStrategy: "percent",
-          detectResize: true,
-        },
-        scrollPanel: {
-          initialScrollY: false,
-          initialScrollX: false,
-          scrollingX: true,
-          scrollingY: true,
-          speed: 300,
-          easing: undefined,
-          verticalNativeBarPos: "right",
-        },
-        rail: {
-          background: "#01a99a",
-          opacity: 0,
-          size: "6px",
-          specifyBorderRadius: false,
-          gutterOfEnds: null,
-          gutterOfSide: "2px",
-          keepShow: true,
-        },
-        bar: {
-          showDelay: 500,
-          onlyShowBarOnScroll: true,
-          keepShow: true,
-          background: "#c1c1c1",
-          opacity: 1,
-          hoverStyle: true,
-          specifyBorderRadius: false,
-          minSize: 0,
-          size: "6px",
-          disable: false,
-        },
-      },
       loading: false,
       showCl: false,
       nextUrl: "",
-      footerList: [
-        {
-          name: "Terms",
-          link: "",
-        },
-        {
-          name: "Privacy",
-          link: "",
-        },
-        {
-          name: "Get In Touch",
-          link: "",
-        },
-        {
-          name: "About Us",
-          link: "",
-        },
-      ],
       blog: [],
       qandA: [],
+      seoObject: {},
     };
   },
   async fetch() {
+    //seo
     var self = this;
+
+    await self.$axios
+      .$get(process.env.baseUrl + "/s/h/Homepage")
+      .then(function (posts) {
+        self.seoObject = posts;
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+
     var tokenStr1 =
       "dhhdofhofhwefieo90zSeheoip.Nwwuhehewuheo#ddofhh$$iohdoishNb<annsiasias>abssbuis<snosoiasnios>";
     // var tokenStr2 =

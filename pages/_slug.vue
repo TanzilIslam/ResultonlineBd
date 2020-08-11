@@ -107,6 +107,7 @@
         <div class="tags mt-4 mb-3">
           <span class="text-dark mr-2" style="font-size: 1rem;">Tags:</span>
           <b-badge
+            style="border-radius: 10px;"
             class="ml-2"
             v-for="(i, index) in DetailArticle.tag_creator"
             :key="index"

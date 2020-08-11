@@ -166,10 +166,79 @@ export default {
       selectedData: false,
       subTagData: [],
       fastCheck: [],
+      seoObject: {},
+    };
+  },
+  head() {
+    return {
+      title: this.seoObject.page_title,
+      meta: [
+        {
+          hid: "description",
+          name: "description",
+          content: this.seoObject.description,
+        },
+        {
+          hid: "keywords",
+          name: "keywords",
+          content: this.seoObject.meta_keyword,
+        },
+        {
+          hid: "twitter:card",
+          name: "twitter:card",
+          content: this.seoObject.page_title,
+        },
+        {
+          hid: "twitter:title",
+          name: "twitter:title",
+          content: this.seoObject.page_title,
+        },
+        {
+          hid: "twitter:description",
+          name: "twitter:description",
+          content: this.seoObject.description,
+        },
+        {
+          hid: "og:title",
+          property: "og:title",
+          content: this.seoObject.page_title,
+        },
+        {
+          hid: "og:type",
+          property: "og:type",
+          content: "article.text",
+        },
+        {
+          hid: "og:url",
+          property: "og:url",
+          content: "",
+        },
+        {
+          hid: "og:description",
+          name: "og:description",
+          content: this.seoObject.description,
+        },
+        {
+          hid: "og:image",
+          name: "og:image",
+          content: this.seoObject.meta_image,
+        },
+      ],
     };
   },
   async fetch() {
     var self = this;
+    //seo
+    var self = this;
+
+    await self.$axios
+      .$get(process.env.baseUrl + "/s/h/qandaPage")
+      .then(function (posts) {
+        self.seoObject = posts;
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
     await self.$axios
       .$get(process.env.baseUrl + "/q&a/api/v1/short_list")
       .then(function (posts) {
