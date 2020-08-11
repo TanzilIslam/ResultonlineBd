@@ -8,7 +8,7 @@
         
         </b-col>
       </b-row> -->
-      <nuxt />
+      <nuxt keep-alive />
     </b-container>
   </div>
 </template>

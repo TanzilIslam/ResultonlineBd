@@ -77,14 +77,15 @@
       </b-card>
     </div>
     <div>
-      <vs-dialog width="550px" not-center v-model="active2">
+      <vs-dialog width="470px" not-center v-model="active2">
         <template #header>
-          <h6 class="pt-2">Share this aticle</h6>
+          <h6 class="pt-3">Share this aticle</h6>
         </template>
 
         <div>
           <div class="text-center">
             <b-img
+              class=""
               @click="shareToFb"
               style="cursor: pointer;"
               height="40"
@@ -92,12 +93,21 @@
               src="~/assets/user/icons/fb.png"
             >
             </b-img>
-            <b-input-group size="sm" class="mt-3">
+            <b-input-group size="sm" class="pt-4">
               <b-form-input :value="place"></b-form-input>
               <b-input-group-append>
-                <b-button variant="outline-light" @click="copyLink">{{
-                  isCopy
-                }}</b-button>
+                <!-- <b-icon icon="clipboard"></b-icon> -->
+
+                <!-- <b-button variant="outline-light"> -->
+                <b-img
+                  style="cursor: pointer;"
+                  height="31"
+                  width="31"
+                  src="~/assets/user/icons/copy.png"
+                  @click="copyLink"
+                  class="rounded"
+                ></b-img>
+                <!-- </b-button> -->
               </b-input-group-append>
             </b-input-group>
           </div>
@@ -171,7 +181,7 @@ export default {
             color,
 
             progress: "auto",
-            title: "Done",
+            title: "Added",
             text:
               "This article Successfully added to Favourite.Check Favourite Section",
           });
@@ -187,10 +197,10 @@ export default {
           }
           const noti = this.$vs.notification({
             duration: 6000,
-            color: "rgb(242, 19, 93)",
+            color: "#dc3545",
 
             progress: "auto",
-            title: "Done",
+            title: "Removed",
             text:
               "This article Successfully Removed from Favourite.Click again to added!",
           });

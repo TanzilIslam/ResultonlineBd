@@ -2,14 +2,11 @@
   <div class="detail-post">
     <b-row>
       <b-col cols="12" sm="12" md="8" lg="8" xl="8">
-        <VclDetailCard v-if="$fetchState.pending" />
-
-        <h4 v-else-if="$fetchState.error">
-          Error while fetching posts: {{ $fetchState.error.message }}
-        </h4>
-        <div v-else>
+        <div>
           <div v-if="DetailArticle.is_active">
+            <VclDetailCard v-if="notCompleted" />
             <b-card
+              v-else
               class="mb-2 details-main-image"
               no-body
               :img-src="DetailArticle.photo"
@@ -315,6 +312,7 @@
         Reviwe Successfully Submitted!
       </b-toast>
     </div>
+    <button @click="check">click</button>
   </div>
 </template>
 
@@ -334,6 +332,9 @@ export default {
       reviewLoading: false,
       icon: "star",
       toogle: false,
+      holde: true,
+      articleView: 0,
+      notCompleted: true,
     };
   },
   head() {
@@ -355,12 +356,24 @@ export default {
       // ]
     };
   },
+  watch: {
+    "$route.query": "$fetch",
+  },
+  async created() {},
+  activated() {
+    if (this.$fetchState.timestamp <= Date.now() - 30000) {
+      this.$fetch();
+    }
+  },
   async fetch() {
     var self = this;
     await self.$axios
       .$get(process.env.baseUrl + `/count/${self.$route.params.slug}`)
       .then(function (posts) {
+        // if (self.hold) {
         self.$store.dispatch("detailPage/FetchDetailArticle", posts);
+        self.notCompleted = false;
+        // }
       });
 
     await self.$axios
@@ -525,12 +538,16 @@ export default {
         }
       }
     },
+    check() {
+      try {
+      } catch (error) {
+        console.log(error);
+      }
+    },
   },
-  // created() {
-  //   this.checkLocalStorage();
-  // },
   mounted() {
     this.checkLocal();
+    this.checkLocalStorage();
     this.$nextTick(() => {
       this.$nuxt.$loading.start();
       setTimeout(() => this.$nuxt.$loading.finish(), 1000);
