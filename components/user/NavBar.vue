@@ -9,7 +9,7 @@
       <b-container class="pl-2 pr-3">
         <b-navbar-brand to="/" class="brand-logo"
           ><b-img
-            :src="require('~/assets/user/navbar/r.png')"
+            :src="require('~/assets/user/icons/brand.png')"
             class="logo"
           ></b-img>
         </b-navbar-brand>
@@ -18,7 +18,7 @@
 
         <b-navbar-brand v-if="show" to="/" class="brand-logo-sm-device"
           ><b-img
-            :src="require('~/assets/user/navbar/r.png')"
+            :src="require('~/assets/user/icons/brand.png')"
             class="logo"
           ></b-img>
         </b-navbar-brand>
@@ -28,22 +28,6 @@
           v-bind:class="{ range: showSearch }"
         >
           <div v-if="!show" class="d-flex">
-            <!-- <form @submit.prevent="searchinfo" class="d-inline w-100">
-              <div>
-                <b-input-group size="sm">
-                  <b-form-input
-                    style="color: #e4e6e8;"
-                    v-model="keyword"
-                    placeholder="Search Here..."
-                  ></b-form-input>
-                  <b-input-group-append>
-                    <b-button class="icon-button-two" @click="searchinfo">
-                      <b-icon icon="search" variant="light"></b-icon>
-                    </b-button>
-                  </b-input-group-append>
-                </b-input-group>
-              </div>
-            </form> -->
             <div class="d-flex w-100">
               <div class="w-100">
                 <form @keyup.enter.prevent="searchinfo">
@@ -193,7 +177,7 @@ export default {
 
 <style scoped>
 .logo {
-  height: 63px;
+  height: 46px;
   width: 110px;
   border-radius: 4px;
   margin-left: -7px;

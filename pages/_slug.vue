@@ -313,7 +313,6 @@
         Reviwe Successfully Submitted!
       </b-toast>
     </div>
-    <button @click="check">click</button>
   </div>
 </template>
 

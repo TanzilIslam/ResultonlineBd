@@ -1,15 +1,14 @@
 <template>
-  <div class="footer" style="background-color:rgb(243, 244, 242);">
+  <div class="footer" style="background-color: rgb(243, 244, 242);">
     <b-container>
       <b-row no-gutters>
         <b-col cols="12" sm="12" md="3" lg="3" xl="3">
           <div
-            class="d-flex   justify-content-center justify-content-md-start justify-content-lg-start justify-content-xl-start first-section  mt-4"
+            class="d-flex justify-content-center justify-content-md-start justify-content-lg-start justify-content-xl-start first-section mt-4"
           >
             <b-img
-              height="25"
-              width="25"
-              :src="require('~/assets/user/navbar/r.png')"
+              class="logo"
+              :src="require('~/assets/user/icons/footerLogo.png')"
               alt="Kitten"
             ></b-img>
             <!-- <h5><strong>Resultonlinebd</strong></h5> -->
@@ -70,5 +69,11 @@ h5 {
   width: 25px;
   margin-right: 25px;
   cursor: pointer;
+}
+.logo {
+  height: 46px;
+  width: 110px;
+  border-radius: 4px;
+  margin-left: -7px;
 }
 </style>
