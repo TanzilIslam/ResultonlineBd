@@ -177,8 +177,8 @@ export default {
 
 <style scoped>
 .logo {
-  height: 46px;
-  width: 110px;
+  height: 34px;
+  width: 93px;
   border-radius: 4px;
   margin-left: -7px;
 }

@@ -6,11 +6,11 @@
           <div
             class="d-flex justify-content-center justify-content-md-start justify-content-lg-start justify-content-xl-start first-section mt-4"
           >
-            <b-img
+            <!-- <b-img
               class="logo"
               :src="require('~/assets/user/icons/footerLogo.png')"
               alt="Kitten"
-            ></b-img>
+            ></b-img> -->
             <!-- <h5><strong>Resultonlinebd</strong></h5> -->
           </div>
         </b-col>
