@@ -50,42 +50,92 @@ export default {
   data() {
     return {
       loaded: true,
+      seoObject: {},
     };
   },
   head() {
     return {
-      title: "Top Articles - ResultOnlineBd",
+      title: this.seoObject.page_title,
       meta: [
         {
           hid: "description",
           name: "description",
-          content:
-            "Here you can find all the top articles  about technology,education,celebrity,history,islam and different programming cool stuffs.",
+          content: this.seoObject.description,
+        },
+        {
+          hid: "keywords",
+          name: "keywords",
+          content: this.seoObject.meta_keyword,
+        },
+        {
+          hid: "twitter:card",
+          name: "twitter:card",
+          content: this.seoObject.page_title,
+        },
+        {
+          hid: "twitter:title",
+          name: "twitter:title",
+          content: this.seoObject.page_title,
+        },
+        {
+          hid: "twitter:description",
+          name: "twitter:description",
+          content: this.seoObject.description,
+        },
+        {
+          hid: "og:title",
+          property: "og:title",
+          content: this.seoObject.page_title,
+        },
+        {
+          hid: "og:type",
+          property: "og:type",
+          content: "article.text",
+        },
+        {
+          hid: "og:url",
+          property: "og:url",
+          content: "",
+        },
+        {
+          hid: "og:description",
+          name: "og:description",
+          content: this.seoObject.description,
+        },
+        {
+          hid: "og:image",
+          name: "og:image",
+          content: this.seoObject.meta_image,
         },
       ],
     };
   },
   async fetch() {
-    await this.$axios
+    var self = this;
+    await self.$axios
+      .$get(process.env.baseUrl + "/s/all/")
+      .then(function (posts) {
+        self.seoObject = posts;
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+
+    await self.$axios
       .$get(process.env.baseUrl + `/TopContent`)
       .then((posts) =>
-        this.$store.dispatch("top/FetchTopArticles", posts.results)
+        self.$store.dispatch("top/FetchTopArticles", posts.results)
       );
   },
   computed: mapState({
     TopArticles: (state) => state.top.TopArticles,
   }),
-  data() {
-    return {
-      loaded: true,
-    };
-  },
   methods: {
     async loadData() {
       try {
         await this.$store.dispatch("top/FetchMoreTopArticles");
       } catch (e) {
-        alert("No more data" + e);
+        alert("No more data");
       }
     },
   },

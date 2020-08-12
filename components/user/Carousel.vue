@@ -27,6 +27,7 @@
         :key="index"
         :img-src="i.Cover_img"
         img-width="1024"
+        img-height="400"
       >
         <a :href="i.url" class="c-txt-link">
           <div class="c-txt">
