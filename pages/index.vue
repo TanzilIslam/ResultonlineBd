@@ -3,7 +3,7 @@
     <Carousel />
     <Breadcrumb :allActive="true" />
 
-    <b-row>
+    <b-row class="home-main-row">
       <!-- Channel start -->
       <b-col class="home-sidebar" cols="12" sm="12" md="3" lg="3" xl="3">
         <div class="side-bar-sticky">
@@ -205,7 +205,7 @@
 
       <!-- home card start -->
       <b-col cols="12" sm="12" md="5" lg="5" class="index-home-card" xl="5">
-        <div id="myDIV" class="sticky">
+        <div id="myDIV">
           <div class="home-cards">
             <VclHomeCard v-if="$fetchState.pending" />
             <h4 v-else-if="$fetchState.error">

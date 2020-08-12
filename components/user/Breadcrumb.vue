@@ -125,8 +125,5 @@ export default {
   background: none;
 }
 @media (max-width: 342px) {
-  .b-button {
-    /* font-size: 12px !important; */
-  }
 }
 </style>

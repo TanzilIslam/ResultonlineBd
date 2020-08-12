@@ -373,7 +373,25 @@ a {
  .carousel-inner img{
   height: 177px !important;
 }
+.my-custome-container{
 
+  padding-left: 0px !important;
+  padding-right: 0px !important;
+
+}
+.home-main-row{
+  margin-left: 0px !important;
+  margin-right: 0px !important;
+}
+.carousel-inner{
+  border-radius: 0px !important;
+}
+
+.home-sidebar ,.home-latest, .index-home-card{
+      padding-right: 0px !important;
+    padding-left: 0px !important;
+
+}
 }
 .carousel-inner{
   border-radius: 5px !important;
@@ -395,10 +413,10 @@ padding-top: 65px;
 
 }
 
-/* .vs-dialog__close{
+.vs-dialog__close{
   background-color: white !important;
 }
 .vs-dialog{
-  background-color: #4a5153 !important;
+  background-color: #3b4045 !important;
   color: white !important; 
-} */
+}
