@@ -102,13 +102,13 @@
         <div class="tags mt-4 mb-3">
           <span class="text-dark mr-2" style="font-size: 1rem;">Tags:</span>
           <b-badge
-            class="ml-2"
+            class="ml-2 custom-badge"
             v-for="(i, index) in DetailArticle.tag_creator"
             :key="index"
             :variant="i.tagNameBG"
           >
             <nuxt-link :to="`/tagPage/${i.tagSlug}`">
-              {{ i.tag_name }}
+              <div class="tag-text">{{ i.tag_name }}</div>
             </nuxt-link></b-badge
           >
         </div>
@@ -299,7 +299,7 @@ export default {
       icon: "star",
       toogle: false,
       hotMonth: [],
-      mixBrand: [],
+      mixBrand: []
     };
   },
   head() {
@@ -309,16 +309,16 @@ export default {
         {
           hid: "description",
           name: "description",
-          content: this.DetailArticle.SeoMetaDes,
-        },
-      ],
+          content: this.DetailArticle.SeoMetaDes
+        }
+      ]
     };
   },
   async fetch() {
     var self = this;
     await self.$axios
       .$get(process.env.baseUrl + `/count/${self.$route.params.slug}`)
-      .then(function (posts) {
+      .then(function(posts) {
         self.$store.dispatch("mobileDetailPage/FetchDetailArticle", posts);
       });
 
@@ -327,7 +327,7 @@ export default {
         process.env.baseUrl +
           `/recommended_data?search=${self.DetailArticle.channel.slug_channel}`
       )
-      .then((posts) =>
+      .then(posts =>
         self.$store.dispatch(
           "mobileDetailPage/FetchRecommendedArticles",
           posts.results
@@ -336,9 +336,9 @@ export default {
 
     await self.$axios
       .$get(process.env.baseUrl + `/mobile_hot_Month`)
-      .then(function (posts) {
-        posts.forEach((element) => {
-          element.ListMonth.forEach((elements) => {
+      .then(function(posts) {
+        posts.forEach(element => {
+          element.ListMonth.forEach(elements => {
             self.hotMonth.push(elements);
           });
         });
@@ -347,12 +347,12 @@ export default {
 
     await self.$axios
       .$get(process.env.baseUrl + `/mxmobile`)
-      .then(function (posts) {
+      .then(function(posts) {
         self.mixBrand = posts;
       });
   },
   computed: mapState({
-    DetailArticle: (state) => state.mobileDetailPage.DetailArticle,
+    DetailArticle: state => state.mobileDetailPage.DetailArticle,
     // tagCreator() {
     //   var tagName;
     //   for (const i of this.DetailArticle.tag_creator) {
@@ -361,14 +361,14 @@ export default {
     //   }
     //   return tagName;
     // },
-    details: (state) =>
+    details: state =>
       state.mobileDetailPage.DetailArticle.details
         .replace(/(^\s*)|(\s*$)/gi, "")
         .replace(/[ ]{2,}/gi, " ")
         .replace(/\n /, "\n")
         .split(" "),
-    RecommendedArticles: (state) => state.mobileDetailPage.RecommendedArticles,
-    RelatedArticles: (state) => state.mobileDetailPage.RelatedArticles,
+    RecommendedArticles: state => state.mobileDetailPage.RecommendedArticles,
+    RelatedArticles: state => state.mobileDetailPage.RelatedArticles
   }),
   methods: {
     setFavourite() {
@@ -384,7 +384,7 @@ export default {
             title: "Done",
             autoHideDelay: 2000,
             solid: true,
-            static: true,
+            static: true
           });
         } else if (!this.toogle) {
           for (let i = 0; i < localStorage.length; i++) {
@@ -419,15 +419,15 @@ export default {
       self.reviewLoading = true;
       await this.$axios
         .$put(process.env.baseUrl + `/count/${this.$route.params.slug}`, {
-          reviewcount: this.DetailArticle.reviewcount + this.rating,
+          reviewcount: this.DetailArticle.reviewcount + this.rating
         })
-        .then(function (res) {})
-        .catch((error) => {
+        .then(function(res) {})
+        .catch(error => {
           console.log(error);
         });
 
       self.$bvToast.show("my-toast-details");
-      setTimeout(function () {
+      setTimeout(function() {
         self.reviewLoading = false;
       }, 1000);
 
@@ -456,12 +456,12 @@ export default {
         await this.$axios.$put(
           process.env.baseUrl + `/count/${i.slug}`,
           {
-            view: i.view + 1,
+            view: i.view + 1
           },
           {
             headers: {
-              Authorization: `Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJrZXkiOiJjdXN0b21fdmFsdWUifQ.Gn4_F3IujZkyYR3gygA0TZuVeprhDDiDCWE1LvvCKsY`,
-            },
+              Authorization: `Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJrZXkiOiJjdXN0b21fdmFsdWUifQ.Gn4_F3IujZkyYR3gygA0TZuVeprhDDiDCWE1LvvCKsY`
+            }
           }
         );
         // this.$store.dispatch("countView/setViewcount", this.article.slug);
@@ -487,7 +487,7 @@ export default {
       }
     },
     async loadDataHotMonth() {},
-    async loadDataMixBrand() {},
+    async loadDataMixBrand() {}
   },
   mounted() {
     this.checkLocal();
@@ -496,11 +496,19 @@ export default {
       this.$nuxt.$loading.start();
       setTimeout(() => this.$nuxt.$loading.finish(), 1000);
     });
-  },
+  }
 };
 </script>
 
-<style  scoped>
+<style scoped>
+.custom-badge {
+  border-radius: 30px;
+  font-size: 14px;
+}
+.tag-text {
+  margin: 5px;
+}
+
 .custom-home-card {
   cursor: pointer;
 }
@@ -575,14 +583,14 @@ p {
   font-size: 1.125rem;
   color: #333745;
   line-height: 1.7;
-  font-family: "Roboto", sans-serif;
+  /* font-family: "Roboto", sans-serif; */
   opacity: 0.3;
 }
 .details {
   font-size: 1.125rem;
   color: #333745;
   line-height: 1.7;
-  font-family: "Roboto", sans-serif;
+  /* font-family: "Roboto", sans-serif; */
 }
 .details-bg {
   background: -webkit-linear-gradient(#e0dfdf, #eee);
@@ -591,7 +599,7 @@ p {
   font-size: 1.125rem;
   color: #1b1e21;
   line-height: 1.7;
-  font-family: "Roboto", sans-serif;
+  /* font-family: "Roboto", sans-serif; */
 }
 .custom-card-text-title {
   margin-top: 0px !important;
@@ -627,7 +635,7 @@ p {
   font-size: 18px;
   line-height: 1.4;
   letter-spacing: -0.5px;
-  font-family: "Roboto", sans-serif;
+  /* font-family: "Roboto", sans-serif; */
 }
 
 /* Channel Tabs Start */

@@ -64,7 +64,7 @@
               src="~assets/user/icons/history.svg"
             ></b-img>
           </div>
-          <p class="item-holder">history</p>
+          <p class="item-holder">History</p>
         </b-list-group-item>
 
         <b-list-group-item
@@ -112,11 +112,11 @@
 
 <script>
 export default {
-  name: "SideBar",
+  name: "SideBar"
 };
 </script>
 
-<style scoped >
+<style scoped>
 .mylist:hover {
   color: #212529 !important;
   background-color: #e2e6ea !important;

@@ -172,7 +172,7 @@ export default {
       DetailArticle: {},
       RelatedArticles: [],
       RecommendedArticles: [],
-      recommendedNextData: "",
+      recommendedNextData: ""
     };
   },
   head() {
@@ -182,9 +182,9 @@ export default {
         {
           hid: "description",
           name: "description",
-          content: this.DetailArticle.details,
-        },
-      ],
+          content: this.DetailArticle.details
+        }
+      ]
     };
   },
   async fetch() {
@@ -195,25 +195,25 @@ export default {
         process.env.baseUrl +
           `/blog/api/v1/details/${self.$route.params.blogSlug}`
       )
-      .then((posts) => (self.DetailArticle = posts));
+      .then(posts => (self.DetailArticle = posts));
 
     // related data
     await self.$axios
       .$get(process.env.baseUrl + `/blog/api/v1/cover`)
-      .then((posts) => (self.RelatedArticles = posts.results));
+      .then(posts => (self.RelatedArticles = posts.results));
 
     // recomanded data
 
     await self.$axios
       .$get(process.env.baseUrl + "/blog/api/v1/recommended")
-      .then(function (posts) {
+      .then(function(posts) {
         self.RecommendedArticles = posts;
         // self.this.recommendedNextData = posts.next;
       })
-      .catch(function (error) {
+      .catch(function(error) {
         console.log("No Net" + error);
       })
-      .finally(function () {});
+      .finally(function() {});
   },
   methods: {
     async loadDataRecommended() {
@@ -222,32 +222,32 @@ export default {
         var self = this;
         await self.$axios
           .$get(process.env.baseUrl)
-          .then(function (posts) {
-            posts.results.forEach((element) => {
+          .then(function(posts) {
+            posts.results.forEach(element => {
               self.RecommendedArticles.push(element);
             });
             self.recommendedNextData = posts.next;
           })
-          .catch(function (error) {
+          .catch(function(error) {
             console.log("No Net" + error);
           })
-          .finally(function () {});
+          .finally(function() {});
         self.loadedRecommended = true;
       } else {
         this.$bvToast.show("my-toast");
       }
-    },
+    }
   },
   mounted() {
     this.$nextTick(() => {
       this.$nuxt.$loading.start();
       setTimeout(() => this.$nuxt.$loading.finish(), 1000);
     });
-  },
+  }
 };
 </script>
 
-<style  scoped>
+<style scoped>
 .custom-channel-common-card {
   border: none !important;
   cursor: pointer;
@@ -302,7 +302,7 @@ export default {
   font-size: 1.125rem;
   color: #333745;
   line-height: 1.7;
-  font-family: "Roboto", sans-serif;
+  /* font-family: "Roboto", sans-serif; */
 }
 
 .more-button-icon {
@@ -341,14 +341,14 @@ p {
   font-size: 1.125rem;
   color: #333745;
   line-height: 1.7;
-  font-family: "Roboto", sans-serif;
+  /* font-family: "Roboto", sans-serif; */
   opacity: 0.3;
 }
 .details {
   font-size: 1.125rem;
   color: #333745;
   line-height: 1.7;
-  font-family: "Roboto", sans-serif;
+  /* font-family: "Roboto", sans-serif; */
 }
 .details-bg {
   background: -webkit-linear-gradient(#e0dfdf, #eee);
@@ -357,7 +357,7 @@ p {
   font-size: 1.125rem;
   color: #1b1e21;
   line-height: 1.7;
-  font-family: "Roboto", sans-serif;
+  /* font-family: "Roboto", sans-serif; */
 }
 .custom-card-text-title {
   margin-top: 0px !important;
@@ -387,7 +387,7 @@ p {
   font-size: 18px;
   line-height: 1.4;
   letter-spacing: -0.5px;
-  font-family: "Roboto", sans-serif;
+  /* font-family: "Roboto", sans-serif; */
 }
 
 /* Channel Tabs Start */

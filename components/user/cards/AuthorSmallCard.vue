@@ -39,14 +39,14 @@
       <div @click="setview">
         <div v-if="article == 'Mobile'">
           <nuxt-link prefetch :to="`/m/${ArticleSlug}`">
-            <b-card-text text-tag="h6" class="custom-card-text-title">{{
+            <b-card-text text-tag="h5" class="custom-card-text-title">{{
               ArticleTitle
             }}</b-card-text>
           </nuxt-link>
         </div>
         <div v-else>
           <nuxt-link prefetch :to="`/${ArticleSlug}`">
-            <b-card-text text-tag="h6" class="custom-card-text-title">{{
+            <b-card-text text-tag="h5" class="custom-card-text-title">{{
               ArticleTitle
             }}</b-card-text>
           </nuxt-link>
@@ -61,37 +61,37 @@ export default {
   props: {
     ArticleCover: {
       type: String,
-      default: "",
+      default: ""
     },
     ArticlePublish: {
       type: String,
-      default: "2101-11-22",
+      default: "2101-11-22"
     },
     ArticleTitle: {
       type: String,
-      default: "This is the Title",
+      default: "This is the Title"
     },
     ArticleSlug: {
-      type: String,
+      type: String
     },
     ArticleView: {
-      type: Number,
+      type: Number
     },
     article: {
-      type: String,
-    },
+      type: String
+    }
   },
   data() {
     return {
       icon: "star",
-      toogle: false,
+      toogle: false
     };
   },
   methods: {
     setview() {
       try {
         this.$axios.$put(process.env.baseUrl + `/count/${this.ArticleSlug}`, {
-          view: this.ArticleView + 1,
+          view: this.ArticleView + 1
         });
         // this.$store.dispatch("countView/setViewcount", this.article.slug);
       } catch (e) {
@@ -123,7 +123,7 @@ export default {
             title: "Done",
             autoHideDelay: 2000,
             solid: true,
-            static: true,
+            static: true
           });
         } else if (!this.toogle) {
           for (let i = 0; i < localStorage.length; i++) {
@@ -139,15 +139,15 @@ export default {
           this.icon = "star";
         }
       }
-    },
+    }
   },
   mounted() {
     this.checkLocal();
-  },
+  }
 };
 </script>
 
-<style  scoped>
+<style scoped>
 /* .author-small-card {
 } */
 
@@ -167,7 +167,8 @@ export default {
 .custom-card-text-title {
   margin-top: 0px !important;
   color: rgb(27, 30, 33);
-  font-weight: 400;
+  /* font-weight: bold; */
+  /* font-weight: 400; */
   font-size: 18px;
   line-height: 1.4;
   letter-spacing: -0.5px;

@@ -30,7 +30,7 @@
       <div @click="setview">
         <!-- <div v-if="article.channel.channelname == 'Mobile phone'"> -->
         <nuxt-link prefetch :to="`/m/${article.slug}`">
-          <b-card-text text-tag="h6" class="custom-card-text-title">{{
+          <b-card-text text-tag="h5" class="custom-card-text-title">{{
             article.title
           }}</b-card-text>
         </nuxt-link>
@@ -46,7 +46,7 @@ export default {
   data() {
     return {
       icon: "star",
-      toogle: false,
+      toogle: false
     };
   },
   mounted() {
@@ -55,14 +55,14 @@ export default {
   props: {
     article: {
       type: Object,
-      required: true,
-    },
+      required: true
+    }
   },
   methods: {
     setview() {
       try {
         this.$axios.$put(process.env.baseUrl + `/count/${this.article.slug}`, {
-          view: this.article.view + 1,
+          view: this.article.view + 1
         });
         // this.$store.dispatch("countView/setViewcount", this.article.slug);
       } catch (e) {
@@ -94,7 +94,7 @@ export default {
             title: "Done",
             autoHideDelay: 2000,
             solid: true,
-            static: true,
+            static: true
           });
         } else if (!this.toogle) {
           for (let i = 0; i < localStorage.length; i++) {
@@ -110,12 +110,12 @@ export default {
           this.icon = "star";
         }
       }
-    },
-  },
+    }
+  }
 };
 </script>
 
-<style  scoped>
+<style scoped>
 /* .channel-common-card{
 
 } */

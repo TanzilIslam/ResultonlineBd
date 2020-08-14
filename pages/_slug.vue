@@ -84,7 +84,7 @@
                   <br />
                   <b-button
                     class="get-bytton"
-                    variant="success"
+                    variant="dark"
                     :href="DetailArticle.contentlink"
                   >
                     Get Full Article
@@ -107,14 +107,13 @@
         <div class="tags mt-4 mb-3">
           <span class="text-dark mr-2" style="font-size: 1rem;">Tags:</span>
           <b-badge
-            style="border-radius: 10px;"
-            class="ml-2"
+            class="custom-badge ml-2"
             v-for="(i, index) in DetailArticle.tag_creator"
             :key="index"
             :variant="i.tagNameBG"
           >
             <nuxt-link :to="`/tagPage/${i.tagSlug}`">
-              {{ i.tag_name }}
+              <div class="tag-text">{{ i.tag_name }}</div>
             </nuxt-link></b-badge
           >
         </div>
@@ -334,7 +333,7 @@ export default {
       toogle: false,
       holde: true,
       articleView: 0,
-      notCompleted: true,
+      notCompleted: true
     };
   },
   head() {
@@ -344,58 +343,58 @@ export default {
         {
           hid: "description",
           name: "description",
-          content: this.DetailArticle.SeoMetaDes,
+          content: this.DetailArticle.SeoMetaDes
         },
         {
           hid: "keywords",
           name: "keywords",
-          content: this.DetailArticle.SeoMetaDes,
+          content: this.DetailArticle.SeoMetaDes
         },
         {
           hid: "twitter:card",
           name: "twitter:card",
-          content: this.DetailArticle.SeoTitle,
+          content: this.DetailArticle.SeoTitle
         },
         {
           hid: "twitter:title",
           name: "twitter:title",
-          content: this.DetailArticle.SeoTitle,
+          content: this.DetailArticle.SeoTitle
         },
         {
           hid: "twitter:description",
           name: "twitter:description",
-          content: this.DetailArticle.SeoMetaDes,
+          content: this.DetailArticle.SeoMetaDes
         },
         {
           hid: "og:title",
           property: "og:title",
-          content: this.DetailArticle.SeoTitle,
+          content: this.DetailArticle.SeoTitle
         },
         {
           hid: "og:type",
           property: "og:type",
-          content: "article.text",
+          content: "article.text"
         },
         {
           hid: "og:url",
           property: "og:url",
-          content: "",
+          content: ""
         },
         {
           hid: "og:description",
           name: "og:description",
-          content: this.DetailArticle.SeoMetaDes,
+          content: this.DetailArticle.SeoMetaDes
         },
         {
           hid: "og:image",
           name: "og:image",
-          content: this.DetailArticle.photo,
-        },
-      ],
+          content: this.DetailArticle.photo
+        }
+      ]
     };
   },
   watch: {
-    "$route.query": "$fetch",
+    "$route.query": "$fetch"
   },
   async created() {},
   activated() {
@@ -407,7 +406,7 @@ export default {
     var self = this;
     await self.$axios
       .$get(process.env.baseUrl + `/count/${self.$route.params.slug}`)
-      .then(function (posts) {
+      .then(function(posts) {
         // if (self.hold) {
         self.$store.dispatch("detailPage/FetchDetailArticle", posts);
         self.notCompleted = false;
@@ -419,7 +418,7 @@ export default {
         process.env.baseUrl +
           `/dtl_rlt?search=${self.DetailArticle.channel.channelname}`
       )
-      .then((posts) =>
+      .then(posts =>
         self.$store.dispatch("detailPage/FetchRelatedArticles", posts.results)
       );
 
@@ -428,7 +427,7 @@ export default {
         process.env.baseUrl +
           `/recommended_data?search=${self.DetailArticle.channel.slug_channel}`
       )
-      .then((posts) =>
+      .then(posts =>
         self.$store.dispatch(
           "detailPage/FetchRecommendedArticles",
           posts.results
@@ -436,21 +435,21 @@ export default {
       );
     await self.$axios
       .$get(process.env.baseUrl + `/high_ratetd`)
-      .then((posts) =>
+      .then(posts =>
         self.$store.dispatch("detailPage/FetchHighRatedArticles", posts.results)
       );
   },
   computed: mapState({
-    DetailArticle: (state) => state.detailPage.DetailArticle,
-    details: (state) =>
+    DetailArticle: state => state.detailPage.DetailArticle,
+    details: state =>
       state.detailPage.DetailArticle.details
         .replace(/(^\s*)|(\s*$)/gi, "")
         .replace(/[ ]{2,}/gi, " ")
         .replace(/\n /, "\n")
         .split(" "),
-    RecommendedArticles: (state) => state.detailPage.RecommendedArticles,
-    HighRatedArticles: (state) => state.detailPage.HighRatedArticles,
-    RelatedArticles: (state) => state.detailPage.RelatedArticles,
+    RecommendedArticles: state => state.detailPage.RecommendedArticles,
+    HighRatedArticles: state => state.detailPage.HighRatedArticles,
+    RelatedArticles: state => state.detailPage.RelatedArticles
   }),
   methods: {
     setFavourite() {
@@ -466,7 +465,7 @@ export default {
             title: "Done",
             autoHideDelay: 2000,
             solid: true,
-            static: true,
+            static: true
           });
         } else if (!this.toogle) {
           for (let i = 0; i < localStorage.length; i++) {
@@ -502,15 +501,15 @@ export default {
       self.reviewLoading = true;
       await this.$axios
         .$put(process.env.baseUrl + `/count/${this.$route.params.slug}`, {
-          reviewcount: this.DetailArticle.reviewcount + this.rating,
+          reviewcount: this.DetailArticle.reviewcount + this.rating
         })
-        .then(function (res) {})
-        .catch((error) => {
+        .then(function(res) {})
+        .catch(error => {
           console.log(error);
         });
 
       self.$bvToast.show("my-toast-details");
-      setTimeout(function () {
+      setTimeout(function() {
         self.reviewLoading = false;
       }, 1000);
 
@@ -546,12 +545,12 @@ export default {
         await this.$axios.$put(
           process.env.baseUrl + `/count/${i.slug}`,
           {
-            view: i.view + 1,
+            view: i.view + 1
           },
           {
             headers: {
-              Authorization: `Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJrZXkiOiJjdXN0b21fdmFsdWUifQ.Gn4_F3IujZkyYR3gygA0TZuVeprhDDiDCWE1LvvCKsY`,
-            },
+              Authorization: `Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJrZXkiOiJjdXN0b21fdmFsdWUifQ.Gn4_F3IujZkyYR3gygA0TZuVeprhDDiDCWE1LvvCKsY`
+            }
           }
         );
         // this.$store.dispatch("countView/setViewcount", this.article.slug);
@@ -581,7 +580,7 @@ export default {
       } catch (error) {
         console.log(error);
       }
-    },
+    }
   },
   mounted() {
     this.checkLocal();
@@ -590,14 +589,23 @@ export default {
       this.$nuxt.$loading.start();
       setTimeout(() => this.$nuxt.$loading.finish(), 1000);
     });
-  },
+  }
 };
 </script>
 
-<style  scoped>
+<style scoped>
+/* @import url("https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap"); */
 /* .secreat {
   visibility: hidden;
 } */
+
+.custom-badge {
+  border-radius: 30px;
+  font-size: 14px;
+}
+.tag-text {
+  margin: 5px;
+}
 
 .custom-home-card {
   cursor: pointer;
@@ -673,14 +681,14 @@ p {
   font-size: 1.125rem;
   color: #333745;
   line-height: 1.7;
-  font-family: "Roboto", sans-serif;
+  /* font-family: "Roboto", sans-serif; */
   opacity: 0.3;
 }
 .details {
   font-size: 1.125rem;
   color: #333745;
   line-height: 1.7;
-  font-family: "Roboto", sans-serif;
+  /* font-family: "Roboto", sans-serif; */
 }
 .details-bg {
   background: -webkit-linear-gradient(#e0dfdf, #eee);
@@ -689,7 +697,7 @@ p {
   font-size: 1.125rem;
   color: #1b1e21;
   line-height: 1.7;
-  font-family: "Roboto", sans-serif;
+  /* font-family: "Roboto", sans-serif; */
 }
 .custom-card-text-title {
   margin-top: 0px !important;
@@ -730,31 +738,10 @@ p {
   font-size: 18px;
   line-height: 1.4;
   letter-spacing: -0.5px;
-  font-family: "Roboto", sans-serif;
+  /* font-family: "Roboto", sans-serif; */
 }
 
 /* Channel Tabs Start */
-.all-under-line {
-  height: 3px;
-  width: 51px;
-  background-color: black;
-}
-.top-under-line {
-  height: 3px;
-  width: 60px;
-  background-color: black;
-  margin-left: 49px;
-}
-.high-rated-under-line {
-  height: 3px;
-  width: 114px;
-  background-color: black;
-  margin-left: 107px;
-}
-.line {
-  margin-top: 0px;
-  padding-top: 0px;
-}
 
 .tags,
 a {

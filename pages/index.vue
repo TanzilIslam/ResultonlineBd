@@ -10,37 +10,35 @@
           <div class="side-bar-scroll">
             <div class="scrollbox-content">
               <SideBar />
-              <div>
-                <b-row no-gutters class="m-1">
-                  <p class="mb-3 footer-name link-hover mr-2">
-                    <span class="mr-2">Terms</span> <span>Privacy</span>
-                  </p>
-                  <p class="mb-3 footer-name link-hover">
-                    <span class="mr-2">Get In Touch</span> <span>About Us</span>
-                  </p>
-                  <b-col class="pt-1" cols="12" sm="12" md="12" lg="12" xl="12">
-                    <div class="d-flex justify-content-start social-icon">
-                      <b-img
-                        class="footer-name social-icons"
-                        :src="
-                          require('~/assets/user/footer/facebook-circled.png')
-                        "
-                      ></b-img>
-
-                      <b-img
-                        class="footer-name social-icons"
-                        :src="require('~/assets/user/footer/images.jpeg')"
-                      ></b-img>
-                      <b-img
-                        class="footer-name social-icons"
-                        :src="require('~/assets/user/footer/download.png')"
-                      ></b-img>
-                    </div>
-                    <div class="pt-3 footer-name">© 2020 · NuxtIt</div>
-                  </b-col>
-                </b-row>
-              </div>
             </div>
+          </div>
+          <div class="home-footer">
+            <b-row no-gutters class="m-1">
+              <p class="mb-3 footer-name link-hover mr-2">
+                <span class="mr-2">Terms</span> <span>Privacy</span>
+              </p>
+              <p class="mb-3 footer-name link-hover">
+                <span class="mr-2">Get In Touch</span> <span>About Us</span>
+              </p>
+              <b-col class="pt-1" cols="12" sm="12" md="12" lg="12" xl="12">
+                <div class="d-flex justify-content-start social-icon">
+                  <b-img
+                    class="footer-name social-icons"
+                    :src="require('~/assets/user/footer/facebook-circled.png')"
+                  ></b-img>
+
+                  <b-img
+                    class="footer-name social-icons"
+                    :src="require('~/assets/user/footer/images.jpeg')"
+                  ></b-img>
+                  <b-img
+                    class="footer-name social-icons"
+                    :src="require('~/assets/user/footer/download.png')"
+                  ></b-img>
+                </div>
+                <div class="pt-3 footer-name">© 2020 · NuxtIt</div>
+              </b-col>
+            </b-row>
           </div>
         </div>
       </b-col>
@@ -273,54 +271,54 @@ export default {
         {
           hid: "description",
           name: "description",
-          content: this.seoObject.description,
+          content: this.seoObject.description
         },
         {
           hid: "keywords",
           name: "keywords",
-          content: this.seoObject.meta_keyword,
+          content: this.seoObject.meta_keyword
         },
         {
           hid: "twitter:card",
           name: "twitter:card",
-          content: this.seoObject.page_title,
+          content: this.seoObject.page_title
         },
         {
           hid: "twitter:title",
           name: "twitter:title",
-          content: this.seoObject.page_title,
+          content: this.seoObject.page_title
         },
         {
           hid: "twitter:description",
           name: "twitter:description",
-          content: this.seoObject.description,
+          content: this.seoObject.description
         },
         {
           hid: "og:title",
           property: "og:title",
-          content: this.seoObject.page_title,
+          content: this.seoObject.page_title
         },
         {
           hid: "og:type",
           property: "og:type",
-          content: "article.text",
+          content: "article.text"
         },
         {
           hid: "og:url",
           property: "og:url",
-          content: "",
+          content: ""
         },
         {
           hid: "og:description",
           name: "og:description",
-          content: this.seoObject.description,
+          content: this.seoObject.description
         },
         {
           hid: "og:image",
           name: "og:image",
-          content: this.seoObject.meta_image,
-        },
-      ],
+          content: this.seoObject.meta_image
+        }
+      ]
     };
   },
   data() {
@@ -330,7 +328,7 @@ export default {
       nextUrl: "",
       blog: [],
       qandA: [],
-      seoObject: {},
+      seoObject: {}
     };
   },
   async fetch() {
@@ -339,10 +337,10 @@ export default {
 
     await self.$axios
       .$get(process.env.baseUrl + "/s/h/Homepage")
-      .then(function (posts) {
+      .then(function(posts) {
         self.seoObject = posts;
       })
-      .catch(function (error) {
+      .catch(function(error) {
         console.log(error);
       });
 
@@ -357,21 +355,21 @@ export default {
     await self.$axios
       .$get(process.env.baseUrl, {
         headers: {
-          Authorization: `Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJrZXkiOiJjdXN0b21fdmFsdWUifQ.Gn4_F3IujZkyYR3gygA0TZuVeprhDDiDCWE1LvvCKsY`,
-        },
+          Authorization: `Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJrZXkiOiJjdXN0b21fdmFsdWUifQ.Gn4_F3IujZkyYR3gygA0TZuVeprhDDiDCWE1LvvCKsY`
+        }
       })
-      .then(function (posts) {
+      .then(function(posts) {
         self.$store.dispatch("home/FetchHomeArticles", posts.results);
         self.nextUrl = posts.next;
       })
-      .catch(function (error) {
+      .catch(function(error) {
         console.log("No Net" + error);
       })
-      .finally(function () {});
+      .finally(function() {});
 
     await this.$axios
       .$get(process.env.baseUrl + `/latestdata`)
-      .then((posts) => this.$store.dispatch("home/FetchLatestArticles", posts));
+      .then(posts => this.$store.dispatch("home/FetchLatestArticles", posts));
 
     // blog
     // await this.$axios
@@ -384,8 +382,8 @@ export default {
     //   .then((posts) => (this.qandA = posts));
   },
   computed: mapState({
-    HomeArticles: (state) => state.home.HomeArticles,
-    LatestArticles: (state) => state.home.LatestArticles,
+    HomeArticles: state => state.home.HomeArticles,
+    LatestArticles: state => state.home.LatestArticles
   }),
   methods: {
     scroll() {
@@ -426,17 +424,17 @@ export default {
         );
         await this.$axios
           .$get(self.nextUrl)
-          .then(function (posts) {
-            posts.results.forEach((element) => {
+          .then(function(posts) {
+            posts.results.forEach(element => {
               self.$store.dispatch("home/More", element);
             });
             self.nextUrl = posts.next;
             self.loaded = true;
           })
-          .catch(function (error) {
+          .catch(function(error) {
             console.log("No Net" + error);
           })
-          .finally(function () {});
+          .finally(function() {});
 
         self.showCl = false;
       } else {
@@ -447,13 +445,13 @@ export default {
     async setview(article) {
       try {
         await this.$axios.$put(process.env.baseUrl + `/count/${article.slug}`, {
-          view: article.view + 1,
+          view: article.view + 1
         });
         // this.$store.dispatch("countView/setViewcount", this.article.slug);
       } catch (e) {
         alert("No more data" + e);
       }
-    },
+    }
     // async setviewqAndA(view, slug) {
     //   await this.$axios
     //     .$put(process.env.baseUrl + `/q&a/api/v1/dtls/${slug}`, {
@@ -472,7 +470,7 @@ export default {
       this.$nuxt.$loading.start();
       setTimeout(() => this.$nuxt.$loading.finish(), 1000);
     });
-  },
+  }
 };
 </script>
 
@@ -495,7 +493,7 @@ export default {
   overflow-x: hidden;
   overflow-y: scroll;
 } */
-@media (min-height: 900px) {
+@media (min-height: 730px) {
   .side-bar-scroll {
     height: 100% !important;
     overflow-x: hidden !important;
@@ -504,7 +502,7 @@ export default {
 }
 
 .side-bar-scroll {
-  height: 500px;
+  height: 400px;
   overflow-x: hidden;
   overflow-y: scroll;
   scrollbar-width: thin;

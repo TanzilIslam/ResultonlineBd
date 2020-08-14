@@ -1,4 +1,4 @@
- <template>
+<template>
   <div class="custom-navbar">
     <b-navbar
       type="dark"
@@ -121,7 +121,7 @@ export default {
       keyword: "",
       show: true,
       countries: [],
-      suggested: "",
+      suggested: ""
     };
   },
   methods: {
@@ -135,17 +135,17 @@ export default {
       this.showSearch = true;
     },
     searchData(input) {
-      return new Promise((resolve) => {
+      return new Promise(resolve => {
         if (input.length < 2) {
           return resolve([]);
         }
 
         fetch(process.env.baseUrl + "/serach/" + input)
-          .then((response) => response.json())
-          .then((data) => {
+          .then(response => response.json())
+          .then(data => {
             resolve(data.results);
           })
-          .catch((e) => console.log());
+          .catch(e => console.log());
         this.keyword = input;
       });
     },
@@ -161,7 +161,7 @@ export default {
         console.log(this.keyword);
         this.$router.push("/search/" + this.keyword);
       }
-    },
+    }
   },
   computed: {
     showSearch() {
@@ -170,15 +170,15 @@ export default {
       } else {
         return false;
       }
-    },
-  },
+    }
+  }
 };
 </script>
 
 <style scoped>
 .logo {
-  height: 34px;
-  width: 93px;
+  height: 64px;
+  width: 110px;
   border-radius: 4px;
   margin-left: -7px;
 }

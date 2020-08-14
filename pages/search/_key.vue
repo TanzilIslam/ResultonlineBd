@@ -44,7 +44,9 @@
                               height="80"
                               width="80"
                               class="rounded"
-                              :src="`http://cdn.resultonlinebd.com/media/${i.photo}`"
+                              :src="
+                                `http://cdn.resultonlinebd.com/media/${i.photo}`
+                              "
                             ></b-img>
                           </div>
                           <div class="text-section">
@@ -69,7 +71,9 @@
                               height="80"
                               width="80"
                               class="rounded"
-                              :src="`http://cdn.resultonlinebd.com/media/${i.photo}`"
+                              :src="
+                                `http://cdn.resultonlinebd.com/media/${i.photo}`
+                              "
                             ></b-img>
                           </div>
                           <div class="text-section">
@@ -109,7 +113,9 @@
                             height="80"
                             width="80"
                             class="rounded"
-                            :src="`http://cdn.resultonlinebd.com/media/${i.photo}`"
+                            :src="
+                              `http://cdn.resultonlinebd.com/media/${i.photo}`
+                            "
                           ></b-img>
                         </div>
                         <div class="text-section">
@@ -154,21 +160,21 @@ export default {
       dQandA: "/q/",
       dBlog: "/b/",
       nodata: false,
-      showPag: false,
+      showPag: false
     };
   },
   async fetch() {
     var self = this;
     await self.$axios
       .$get(process.env.baseUrl + "/serach/" + self.$route.params.key)
-      .then(function (posts) {
+      .then(function(posts) {
         self.searched = posts.results;
         if (posts.next != null) {
           self.next = posts.next;
           self.showPag = true;
         }
       })
-      .catch(function (e) {
+      .catch(function(e) {
         console.log(e);
         self.nodata = true;
       });
@@ -180,16 +186,16 @@ export default {
         var self = this;
         await self.$axios
           .$get(self.next)
-          .then(function (posts) {
-            posts.results.forEach((element) => {
+          .then(function(posts) {
+            posts.results.forEach(element => {
               self.searched.push(element);
             });
             self.next = posts.next;
           })
-          .catch(function (error) {
+          .catch(function(error) {
             console.log("No Net" + error);
           })
-          .finally(function () {});
+          .finally(function() {});
       } else {
         alert("no more data");
       }
@@ -198,14 +204,14 @@ export default {
     async setView(viwes, url, slug) {
       await this.$axios
         .$put(process.env.baseUrl + `/${url}${slug}`, {
-          view: viwes + 1,
+          view: viwes + 1
         })
-        .then(function (response) {})
-        .catch(function (e) {
+        .then(function(response) {})
+        .catch(function(e) {
           console.log("setview " + e);
         });
-    },
-  },
+    }
+  }
 };
 </script>
 
@@ -219,19 +225,20 @@ a {
 }
 .text-title {
   font-size: 18px;
-  font-weight: 900;
+  font-weight: bold;
+  /* font-weight: 900; */
   /* font-family: "ars-maquette-web", sans-serif; */
 }
 .text-description {
   font-size: 12px;
   line-height: 1.5;
-  font-family: "ars-maquette-web", sans-serif;
+  /* font-family: "ars-maquette-web", sans-serif; */
 }
 .content-loading {
   height: 150px;
 }
 .search-card {
-  padding-left: 5px;
+  padding-left: 15px;
 }
 .text-section {
   padding-top: 5px;

@@ -2,56 +2,63 @@
   <div class="gaming-post">
     <b-row>
       <!-- sideBar Start -->
-      <b-col cols="12" sm="12" md="3" lg="3" xl="3">
-        <div class="channel-side-bar mb-4">
+      <b-col class="pr-2" cols="12" sm="12" md="3" lg="3" xl="3">
+        <FixedChannelSideBar />
+        <div class="mb-4 channel-side-bar-sticky">
           <div class="d-flex channel-side-bar-title">
             <b-icon
               v-b-toggle.sidebar-backdrop
-              class="ml-2 p-1 my-auto menu-logo"
+              class="ml-3 p-1 my-auto menu-logo"
               scale="2"
               style="cursor: pointer;"
-              icon=" list"
+              icon="chevron-right"
             ></b-icon>
             <h5 class="mx-auto my-auto">
               Gaming
             </h5>
           </div>
           <!--  -->
-          <FixedChannelSideBar />
 
-          <b-list-group class="channel-side-bar-list-group">
-            <b-button
-              variant="light"
-              class="main-tag-button channel-side-bar-list-item"
+          <b-list-group class="channel-side-bar channel-side-bar-list-group">
+            <button
+              class="main-tag-button channel-side-bar-list-item btn btn-light"
               v-for="(item, index) in mainTagList.results"
               :key="index"
               @click="showMainTagPosts(item)"
+              type="button"
             >
               <b-img
                 :src="item.tag_icon"
-                class="shadow-sm channel-side-bar-list-item-icon"
+                class="shadow channel-side-bar-list-item-icon"
               ></b-img>
-              {{ item.tag_name }}</b-button
-            >
+              {{ item.tag_name }}
+            </button>
           </b-list-group>
 
-          <div class="text-center">
-            <h6
+          <div class="text-center py-3">
+            <div
               v-if="mainTagList.next != null"
               @click="loadMoreMainTagListItem"
-              style="text-decoration: underline; cursor: pointer;"
-              class="ml-2 mt-4"
+              class="more-button"
             >
-              See More
-            </h6>
-            <h6
+              <b-icon
+                icon="chevron-down"
+                variant="dark"
+                class="more-button-icon"
+              ></b-icon>
+            </div>
+
+            <div
               v-else-if="mainTagList.previous != null"
               @click="loadLessMainTagListItem"
-              style="text-decoration: underline; cursor: pointer;"
-              class="ml-2 mt-4"
+              class="more-button"
             >
-              See Less
-            </h6>
+              <b-icon
+                icon="chevron-up"
+                variant="dark"
+                class="more-button-icon"
+              ></b-icon>
+            </div>
           </div>
         </div>
       </b-col>
@@ -59,16 +66,27 @@
 
       <b-col cols="12" sm="12" md="9" lg="9" xl="9">
         <!-- Cover Start -->
-        <ChannelCover ChannelCoverTitle="Gaming" />
+        <div class="channel-cover">
+          <b-card
+            overlay
+            img-height="80"
+            img-src="~/assets/user/icons/channel-cover-games.jpg"
+            text-variant="white"
+          >
+            <b-card-text text-tag="h2" class="channel-cover-title">
+              Gaming</b-card-text
+            >
+          </b-card>
+        </div>
         <!-- Cover End -->
 
         <!--Tab start -->
-        <b-tabs :no-nav-style="true" content-class="mt-0 mb-0">
+        <b-tabs :no-nav-style="true" class="pt-2" content-class="mt-0 mb-0">
           <b-tab title-link-class="text-dark" active @click="goLatest()">
             <template v-slot:title>
               <b-img
-                src="~/assets/user/tabs/r.png"
-                style="height: 30px; width: 30px;"
+                src="~assets/user/icons/fresh.svg"
+                style="height: 20px; width: 20px;"
               ></b-img>
               Fresh
             </template>
@@ -77,8 +95,8 @@
           <b-tab title-link-class="text-dark" @click="goAbout()">
             <template v-slot:title>
               <b-img
-                src="~/assets/user/tabs/a.png"
-                style="height: 30px; width: 30px;"
+                src="~assets/user/icons/about.svg"
+                style="height: 22px; width: 22px;"
               ></b-img>
               About
             </template>
@@ -173,98 +191,98 @@ export default {
         {
           hid: "description",
           name: "description",
-          content: this.seoObject.description,
+          content: this.seoObject.description
         },
         {
           hid: "keywords",
           name: "keywords",
-          content: this.seoObject.meta_keyword,
+          content: this.seoObject.meta_keyword
         },
         {
           hid: "twitter:card",
           name: "twitter:card",
-          content: this.seoObject.Channel_title,
+          content: this.seoObject.Channel_title
         },
         {
           hid: "twitter:title",
           name: "twitter:title",
-          content: this.seoObject.Channel_title,
+          content: this.seoObject.Channel_title
         },
         {
           hid: "twitter:description",
           name: "twitter:description",
-          content: this.seoObject.description,
+          content: this.seoObject.description
         },
         {
           hid: "og:title",
           property: "og:title",
-          content: this.seoObject.Channel_title,
+          content: this.seoObject.Channel_title
         },
         {
           hid: "og:type",
           property: "og:type",
-          content: "article.text",
+          content: "article.text"
         },
         {
           hid: "og:url",
           property: "og:url",
-          content: "",
+          content: ""
         },
         {
           hid: "og:description",
           name: "og:description",
-          content: this.seoObject.description,
+          content: this.seoObject.description
         },
         {
           hid: "og:image",
           name: "og:image",
-          content: this.seoObject.meta_image,
-        },
-      ],
+          content: this.seoObject.meta_image
+        }
+      ]
     };
   },
   async fetch() {
     var self = this;
     await self.$axios
       .$get(process.env.baseUrl + "/s/all/gaming")
-      .then(function (posts) {
+      .then(function(posts) {
         self.seoObject = posts;
       })
-      .catch(function (error) {
+      .catch(function(error) {
         console.log(error);
       });
     // Main Tag List Fetch
     await this.$axios
       .$get(process.env.channelMainTag + `gaming`)
-      .then(function (posts) {
+      .then(function(posts) {
         self.mainTagList = posts;
       })
-      .catch(function (error) {
+      .catch(function(error) {
         console.log("No Net" + error);
       })
-      .finally(function () {});
+      .finally(function() {});
 
     // Sub Tag List Fetch
     await this.$axios
       .$get(process.env.baseUrl + "/Tag_creator?search=Gaming")
-      .then(function (posts) {
+      .then(function(posts) {
         self.subTagList = posts.results;
       })
-      .catch(function (error) {
+      .catch(function(error) {
         console.log("No Net" + error);
       })
-      .finally(function () {});
+      .finally(function() {});
 
     // Channel Home Page Articles Fetch
     await this.$axios
       .$get(process.env.channelUrl + `Gaming`)
-      .then((posts) =>
+      .then(posts =>
         this.$store.dispatch("gaming/FetchGamingArticles", posts.results)
       );
   },
   computed: mapState({
-    GamingArticles: (state) => state.gaming.GamingArticles,
-    TagArticlesNextLink: (state) => state.gaming.TagArticlesNextLink,
+    GamingArticles: state => state.gaming.GamingArticles,
+    TagArticlesNextLink: state => state.gaming.TagArticlesNextLink
   }),
   data() {
     return {
@@ -276,7 +294,7 @@ export default {
       dataLoading: true,
       subTagSelected: false,
       mainTagSelected: false,
-      parentSelected: true,
+      parentSelected: true
     };
   },
   methods: {
@@ -294,29 +312,29 @@ export default {
       var self = this;
       await this.$axios
         .$get(this.mainTagList.next)
-        .then(function (posts) {
-          posts.results.forEach((element) => {
+        .then(function(posts) {
+          posts.results.forEach(element => {
             self.mainTagList.results.push(element);
           });
           self.mainTagList.next = posts.next;
           self.mainTagList.previous = posts.previous;
         })
-        .catch(function (error) {
+        .catch(function(error) {
           console.log("No Net" + error);
         })
-        .finally(function () {});
+        .finally(function() {});
     },
     async loadLessMainTagListItem() {
       var self = this;
       await self.$axios
         .$get(self.mainTagList.previous)
-        .then(function (posts) {
+        .then(function(posts) {
           self.mainTagList = posts;
         })
-        .catch(function (error) {
+        .catch(function(error) {
           console.log("No Net" + error);
         })
-        .finally(function () {});
+        .finally(function() {});
     },
     // show Main tag articles
     async showMainTagPosts(item) {
@@ -324,14 +342,14 @@ export default {
       var self = this;
       await this.$axios
         .$get(item.tag_content_link)
-        .then(function (posts) {
+        .then(function(posts) {
           self.$store.dispatch("gaming/FetchGamingArticles", posts.results);
           self.$store.dispatch("gaming/SetTagNextDataLink", posts.next);
         })
-        .catch(function (error) {
+        .catch(function(error) {
           console.log("No Net" + error);
         })
-        .finally(function () {});
+        .finally(function() {});
       this.dataLoading = true;
       this.mainTagSelected = true;
       this.parentSelected = false;
@@ -342,14 +360,14 @@ export default {
       var self = this;
       await this.$axios
         .$get(item.tag_target_link)
-        .then(function (posts) {
+        .then(function(posts) {
           self.$store.dispatch("gaming/FetchGamingArticles", posts.results);
           self.$store.dispatch("gaming/SetTagNextDataLink", posts.next);
         })
-        .catch(function (error) {
+        .catch(function(error) {
           console.log("No Net" + error);
         })
-        .finally(function () {});
+        .finally(function() {});
       this.dataLoading = true;
       this.subTagSelected = true;
       (this.parentSelected = false), (this.mainTagSelected = false);
@@ -371,16 +389,16 @@ export default {
           var self = this;
           await this.$axios
             .$get(self.TagArticlesNextLink)
-            .then(function (posts) {
-              posts.results.forEach((element) => {
+            .then(function(posts) {
+              posts.results.forEach(element => {
                 self.$store.dispatch("gaming/SetMoreTagArticles", element);
               });
               self.$store.dispatch("gaming/SetTagNextDataLink", posts.next);
             })
-            .catch(function (error) {
+            .catch(function(error) {
               console.log("No Net" + error);
             })
-            .finally(function () {});
+            .finally(function() {});
         }
       }
 
@@ -392,26 +410,26 @@ export default {
           var self = this;
           await this.$axios
             .$get(self.TagArticlesNextLink)
-            .then(function (posts) {
-              posts.results.forEach((element) => {
+            .then(function(posts) {
+              posts.results.forEach(element => {
                 self.$store.dispatch("gaming/SetMoreTagArticles", element);
               });
               self.$store.dispatch("gaming/SetTagNextDataLink", posts.next);
             })
-            .catch(function (error) {
+            .catch(function(error) {
               console.log("No Net" + error);
             })
-            .finally(function () {});
+            .finally(function() {});
         }
       }
-    },
+    }
   },
   mounted() {
     this.$nextTick(() => {
       this.$nuxt.$loading.start();
       setTimeout(() => this.$nuxt.$loading.finish(), 1000);
     });
-  },
+  }
 };
 </script>
 

@@ -51,7 +51,7 @@
                       <!-- <b-card-text class="text-muted custom-card-text-date" text-tag="p">{{
         ArticlePublish
       }}</b-card-text> -->
-                      <b-card-text text-tag="h6" class="custom-card-text-title">
+                      <b-card-text text-tag="h5" class="custom-card-text-title">
                         {{ article.title }}
                       </b-card-text>
                     </b-card>
@@ -72,7 +72,7 @@
                       <!-- <b-card-text class="text-muted custom-card-text-date" text-tag="p">{{
         ArticlePublish
       }}</b-card-text> -->
-                      <b-card-text text-tag="h6" class="custom-card-text-title">
+                      <b-card-text text-tag="h5" class="custom-card-text-title">
                         {{ article.title }}
                       </b-card-text>
                     </b-card>
@@ -102,7 +102,7 @@ export default {
     return {
       datas: [],
       next: "",
-      imgpath: "http://cdn.resultonlinebd.com/media/",
+      imgpath: "http://cdn.resultonlinebd.com/media/"
     };
   },
 
@@ -110,11 +110,11 @@ export default {
     var self = this;
     await self.$axios
       .$get(process.env.baseUrl + `/tagPage/${self.$route.params.tag}`)
-      .then(function (posts) {
+      .then(function(posts) {
         self.datas = posts.results;
         self.next = posts.next;
       })
-      .catch(function (e) {
+      .catch(function(e) {
         console.log(e);
       });
   },
@@ -122,7 +122,7 @@ export default {
     async setview(view, slug) {
       try {
         await this.$axios.$put(process.env.baseUrl + `/count/${slug}`, {
-          view: view + 1,
+          view: view + 1
         });
         // this.$store.dispatch("countView/setViewcount", this.article.slug);
       } catch (e) {
@@ -134,21 +134,21 @@ export default {
         var self = this;
         await self.$axios
           .$get(self.next)
-          .then(function (posts) {
-            posts.results.List.forEach((element) => {
+          .then(function(posts) {
+            posts.results.List.forEach(element => {
               self.datas.List.push(element);
             });
             self.next = posts.next;
           })
-          .catch(function (error) {
+          .catch(function(error) {
             console.log("No Net" + error);
           })
-          .finally(function () {});
+          .finally(function() {});
       } else {
         alert("Null");
       }
-    },
-  },
+    }
+  }
 };
 </script>
 

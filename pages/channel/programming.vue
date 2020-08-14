@@ -70,7 +70,7 @@
           <b-card
             overlay
             img-height="80"
-            img-src="~assets/user/ChannelCover/programming.jpg"
+            img-src="~/assets/user/icons/channel-cover-programming.jpg"
             text-variant="white"
           >
             <b-card-text text-tag="h2" class="channel-cover-title">
@@ -192,93 +192,93 @@ export default {
         {
           hid: "description",
           name: "description",
-          content: this.seoObject.description,
+          content: this.seoObject.description
         },
         {
           hid: "keywords",
           name: "keywords",
-          content: this.seoObject.meta_keyword,
+          content: this.seoObject.meta_keyword
         },
         {
           hid: "twitter:card",
           name: "twitter:card",
-          content: this.seoObject.Channel_title,
+          content: this.seoObject.Channel_title
         },
         {
           hid: "twitter:title",
           name: "twitter:title",
-          content: this.seoObject.Channel_title,
+          content: this.seoObject.Channel_title
         },
         {
           hid: "twitter:description",
           name: "twitter:description",
-          content: this.seoObject.description,
+          content: this.seoObject.description
         },
         {
           hid: "og:title",
           property: "og:title",
-          content: this.seoObject.Channel_title,
+          content: this.seoObject.Channel_title
         },
         {
           hid: "og:type",
           property: "og:type",
-          content: "article.text",
+          content: "article.text"
         },
         {
           hid: "og:url",
           property: "og:url",
-          content: "",
+          content: ""
         },
         {
           hid: "og:description",
           name: "og:description",
-          content: this.seoObject.description,
+          content: this.seoObject.description
         },
         {
           hid: "og:image",
           name: "og:image",
-          content: this.seoObject.meta_image,
-        },
-      ],
+          content: this.seoObject.meta_image
+        }
+      ]
     };
   },
   async fetch() {
     var self = this;
     await self.$axios
       .$get(process.env.baseUrl + "/s/all/programming")
-      .then(function (posts) {
+      .then(function(posts) {
         self.seoObject = posts;
       })
-      .catch(function (error) {
+      .catch(function(error) {
         console.log(error);
       });
 
     // Main Tag List Fetch
     await this.$axios
       .$get(process.env.channelMainTag + `programming`)
-      .then(function (posts) {
+      .then(function(posts) {
         self.mainTagList = posts;
       })
-      .catch(function (error) {
+      .catch(function(error) {
         console.log("No Net" + error);
       })
-      .finally(function () {});
+      .finally(function() {});
 
     // Sub Tag List Fetch
     await this.$axios
       .$get(process.env.baseUrl + "/Tag_creator?search=Programming")
-      .then(function (posts) {
+      .then(function(posts) {
         self.subTagList = posts.results;
       })
-      .catch(function (error) {
+      .catch(function(error) {
         console.log("No Net" + error);
       })
-      .finally(function () {});
+      .finally(function() {});
 
     // Channel Home Page Articles Fetch
     await this.$axios
       .$get(process.env.channelUrl + `Programming`)
-      .then((posts) =>
+      .then(posts =>
         this.$store.dispatch(
           "programming/FetchProgrammingArticles",
           posts.results
@@ -286,8 +286,8 @@ export default {
       );
   },
   computed: mapState({
-    ProgrammingArticles: (state) => state.programming.ProgrammingArticles,
-    TagArticlesNextLink: (state) => state.programming.TagArticlesNextLink,
+    ProgrammingArticles: state => state.programming.ProgrammingArticles,
+    TagArticlesNextLink: state => state.programming.TagArticlesNextLink
   }),
   data() {
     return {
@@ -299,7 +299,7 @@ export default {
       dataLoading: true,
       subTagSelected: false,
       mainTagSelected: false,
-      parentSelected: true,
+      parentSelected: true
     };
   },
   methods: {
@@ -317,29 +317,29 @@ export default {
       var self = this;
       await this.$axios
         .$get(this.mainTagList.next)
-        .then(function (posts) {
-          posts.results.forEach((element) => {
+        .then(function(posts) {
+          posts.results.forEach(element => {
             self.mainTagList.results.push(element);
           });
           self.mainTagList.next = posts.next;
           self.mainTagList.previous = posts.previous;
         })
-        .catch(function (error) {
+        .catch(function(error) {
           console.log("No Net" + error);
         })
-        .finally(function () {});
+        .finally(function() {});
     },
     async loadLessMainTagListItem() {
       var self = this;
       await self.$axios
         .$get(self.mainTagList.previous)
-        .then(function (posts) {
+        .then(function(posts) {
           self.mainTagList = posts;
         })
-        .catch(function (error) {
+        .catch(function(error) {
           console.log("No Net" + error);
         })
-        .finally(function () {});
+        .finally(function() {});
     },
     // show Main tag articles
     async showMainTagPosts(item) {
@@ -347,8 +347,8 @@ export default {
       var self = this;
       await self.$axios
         .$get(process.env.baseUrl + `/tagPage_home/${item.query_slug}`)
-        .then(function (posts) {
-          posts.results.List.forEach((element) => {
+        .then(function(posts) {
+          posts.results.List.forEach(element => {
             element.photo = process.env.baseUrl + "/media/" + element.photo;
           });
           self.$store.dispatch(
@@ -357,10 +357,10 @@ export default {
           );
           self.$store.dispatch("programming/SetTagNextDataLink", posts.next);
         })
-        .catch(function (error) {
+        .catch(function(error) {
           console.log("No Net" + error);
         })
-        .finally(function () {});
+        .finally(function() {});
       this.dataLoading = true;
       this.mainTagSelected = true;
       this.parentSelected = false;
@@ -371,8 +371,8 @@ export default {
       var self = this;
       await this.$axios
         .$get(item.tag_target_link)
-        .then(function (posts) {
-          posts.results.List.forEach((element) => {
+        .then(function(posts) {
+          posts.results.List.forEach(element => {
             element.photo = process.env.baseUrl + "/media/" + element.photo;
           });
 
@@ -382,10 +382,10 @@ export default {
           );
           self.$store.dispatch("programming/SetTagNextDataLink", posts.next);
         })
-        .catch(function (error) {
+        .catch(function(error) {
           console.log("No Net" + error);
         })
-        .finally(function () {});
+        .finally(function() {});
       this.dataLoading = true;
       this.subTagSelected = true;
       (this.parentSelected = false), (this.mainTagSelected = false);
@@ -409,8 +409,8 @@ export default {
           var self = this;
           await this.$axios
             .$get(self.TagArticlesNextLink)
-            .then(function (posts) {
-              posts.results.List.forEach((element) => {
+            .then(function(posts) {
+              posts.results.List.forEach(element => {
                 self.$store.dispatch("programming/SetMoreTagArticles", element);
               });
               self.$store.dispatch(
@@ -418,10 +418,10 @@ export default {
                 posts.next
               );
             })
-            .catch(function (error) {
+            .catch(function(error) {
               console.log("No Net" + error);
             })
-            .finally(function () {});
+            .finally(function() {});
         }
       }
 
@@ -433,8 +433,8 @@ export default {
           var self = this;
           await this.$axios
             .$get(self.TagArticlesNextLink)
-            .then(function (posts) {
-              posts.results.forEach((element) => {
+            .then(function(posts) {
+              posts.results.forEach(element => {
                 self.$store.dispatch("programming/SetMoreTagArticles", element);
               });
               self.$store.dispatch(
@@ -442,20 +442,20 @@ export default {
                 posts.next
               );
             })
-            .catch(function (error) {
+            .catch(function(error) {
               console.log("No Net" + error);
             })
-            .finally(function () {});
+            .finally(function() {});
         }
       }
-    },
+    }
   },
   mounted() {
     this.$nextTick(() => {
       this.$nuxt.$loading.start();
       setTimeout(() => this.$nuxt.$loading.finish(), 1000);
     });
-  },
+  }
 };
 </script>
 

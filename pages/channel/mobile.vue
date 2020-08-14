@@ -3,7 +3,8 @@
     <b-row>
       <!-- sideBar Start -->
       <b-col class="pr-2" cols="12" sm="12" md="3" lg="3" xl="3">
-        <div class="mb-4">
+        <FixedChannelSideBar />
+        <div class="mb-4 channel-side-bar-sticky">
           <div class="d-flex channel-side-bar-title">
             <b-icon
               v-b-toggle.sidebar-backdrop
@@ -16,8 +17,6 @@
               Mobile Phone
             </h5>
           </div>
-          <!--  -->
-          <FixedChannelSideBar />
 
           <b-list-group class="channel-side-bar channel-side-bar-list-group">
             <button
@@ -70,7 +69,7 @@
           <b-card
             overlay
             img-height="80"
-            img-src="~assets/user/ChannelCover/programming.jpg"
+            img-src="~/assets/user/icons/channel-cover-mobile.jpg"
             text-variant="white"
           >
             <b-card-text text-tag="h2" class="channel-cover-title">
@@ -312,54 +311,54 @@ export default {
         {
           hid: "description",
           name: "description",
-          content: this.seoObject.description,
+          content: this.seoObject.description
         },
         {
           hid: "keywords",
           name: "keywords",
-          content: this.seoObject.meta_keyword,
+          content: this.seoObject.meta_keyword
         },
         {
           hid: "twitter:card",
           name: "twitter:card",
-          content: this.seoObject.Channel_title,
+          content: this.seoObject.Channel_title
         },
         {
           hid: "twitter:title",
           name: "twitter:title",
-          content: this.seoObject.Channel_title,
+          content: this.seoObject.Channel_title
         },
         {
           hid: "twitter:description",
           name: "twitter:description",
-          content: this.seoObject.description,
+          content: this.seoObject.description
         },
         {
           hid: "og:title",
           property: "og:title",
-          content: this.seoObject.Channel_title,
+          content: this.seoObject.Channel_title
         },
         {
           hid: "og:type",
           property: "og:type",
-          content: "article.text",
+          content: "article.text"
         },
         {
           hid: "og:url",
           property: "og:url",
-          content: "",
+          content: ""
         },
         {
           hid: "og:description",
           name: "og:description",
-          content: this.seoObject.description,
+          content: this.seoObject.description
         },
         {
           hid: "og:image",
           name: "og:image",
-          content: this.seoObject.meta_image,
-        },
-      ],
+          content: this.seoObject.meta_image
+        }
+      ]
     };
   },
   data() {
@@ -377,23 +376,23 @@ export default {
       ops: {
         vuescroll: {
           mode: "slide",
-          zooming: false,
+          zooming: false
         },
         scrollPanel: {
           initialScrollY: 0,
           initialScrollX: 0,
           scrollingX: true,
           scrollingY: false,
-          speed: 200,
+          speed: 200
         },
         rail: {
-          keepShow: false,
+          keepShow: false
         },
         bar: {
           keepShow: false,
-          disable: true,
-        },
-      },
+          disable: true
+        }
+      }
     };
   },
   async fetch() {
@@ -401,47 +400,47 @@ export default {
 
     await self.$axios
       .$get(process.env.baseUrl + "/s/all/mobile")
-      .then(function (posts) {
+      .then(function(posts) {
         self.seoObject = posts;
       })
-      .catch(function (error) {
+      .catch(function(error) {
         console.log(error);
       });
     // Main Tag List Fetch
     await this.$axios
       .$get(process.env.channelMainTag + `mobile`)
-      .then(function (posts) {
+      .then(function(posts) {
         self.mainTagList = posts;
       })
-      .catch(function (error) {
+      .catch(function(error) {
         console.log("No Net" + error);
       })
-      .finally(function () {});
+      .finally(function() {});
 
     // Sub Tag List Fetch
     await this.$axios
       .$get(process.env.baseUrl + "/listBrand")
-      .then(function (posts) {
+      .then(function(posts) {
         self.subTagList = posts.results;
       })
-      .catch(function (error) {
+      .catch(function(error) {
         console.log("No Net" + error);
       })
-      .finally(function () {});
+      .finally(function() {});
     this.brandLogoLoaded = true;
 
     // Channel Home Page Articles Fetch
     await this.$axios
       .$get(process.env.channelUrl + `Mobile`)
-      .then((posts) =>
+      .then(posts =>
         this.$store.dispatch("mobile/FetchMobileArticles", posts.results)
       );
   },
   computed: mapState({
-    TopCards: (state) => state.mobile.MobileArticles.slice(0, 1),
-    BigCard: (state) => state.mobile.MobileArticles.slice(1, 2),
-    MobileArticles: (state) => state.mobile.MobileArticles,
-    TagArticlesNextLink: (state) => state.mobile.TagArticlesNextLink,
+    TopCards: state => state.mobile.MobileArticles.slice(0, 1),
+    BigCard: state => state.mobile.MobileArticles.slice(1, 2),
+    MobileArticles: state => state.mobile.MobileArticles,
+    TagArticlesNextLink: state => state.mobile.TagArticlesNextLink
   }),
 
   methods: {
@@ -459,29 +458,29 @@ export default {
       var self = this;
       await this.$axios
         .$get(this.mainTagList.next)
-        .then(function (posts) {
-          posts.results.forEach((element) => {
+        .then(function(posts) {
+          posts.results.forEach(element => {
             self.mainTagList.results.push(element);
           });
           self.mainTagList.next = posts.next;
           self.mainTagList.previous = posts.previous;
         })
-        .catch(function (error) {
+        .catch(function(error) {
           console.log("No Net" + error);
         })
-        .finally(function () {});
+        .finally(function() {});
     },
     async loadLessMainTagListItem() {
       var self = this;
       await self.$axios
         .$get(self.mainTagList.previous)
-        .then(function (posts) {
+        .then(function(posts) {
           self.mainTagList = posts;
         })
-        .catch(function (error) {
+        .catch(function(error) {
           console.log("No Net" + error);
         })
-        .finally(function () {});
+        .finally(function() {});
     },
     // show Main tag articles
     async showMainTagPosts(item) {
@@ -491,14 +490,14 @@ export default {
       var self = this;
       await this.$axios
         .$get(item.tag_content_link)
-        .then(function (posts) {
+        .then(function(posts) {
           self.$store.dispatch("mobile/FetchMobileArticles", posts.results);
           self.$store.dispatch("mobile/SetTagNextDataLink", posts.next);
         })
-        .catch(function (error) {
+        .catch(function(error) {
           console.log("No Net" + error);
         })
-        .finally(function () {});
+        .finally(function() {});
       this.dataLoading = true;
     },
     // show sub tag articles
@@ -508,14 +507,14 @@ export default {
       var self = this;
       await this.$axios
         .$get(item.ChannelDataUrl)
-        .then(function (posts) {
+        .then(function(posts) {
           self.$store.dispatch("mobile/FetchMobileArticles", posts.results);
           self.$store.dispatch("mobile/SetTagNextDataLink", posts.next);
         })
-        .catch(function (error) {
+        .catch(function(error) {
           console.log("No Net" + error);
         })
-        .finally(function () {});
+        .finally(function() {});
       this.dataLoading = true;
       (this.parentSelected = false), (this.mainTagSelected = false);
     },
@@ -536,16 +535,16 @@ export default {
           var self = this;
           await this.$axios
             .$get(self.TagArticlesNextLink)
-            .then(function (posts) {
-              posts.results.forEach((element) => {
+            .then(function(posts) {
+              posts.results.forEach(element => {
                 self.$store.dispatch("mobile/SetMoreTagArticles", element);
               });
               self.$store.dispatch("mobile/SetTagNextDataLink", posts.next);
             })
-            .catch(function (error) {
+            .catch(function(error) {
               console.log("No Net" + error);
             })
-            .finally(function () {});
+            .finally(function() {});
         }
       }
 
@@ -557,26 +556,26 @@ export default {
           var self = this;
           await this.$axios
             .$get(self.TagArticlesNextLink)
-            .then(function (posts) {
-              posts.results.forEach((element) => {
+            .then(function(posts) {
+              posts.results.forEach(element => {
                 self.$store.dispatch("mobile/SetMoreTagArticles", element);
               });
               self.$store.dispatch("mobile/SetTagNextDataLink", posts.next);
             })
-            .catch(function (error) {
+            .catch(function(error) {
               console.log("No Net" + error);
             })
-            .finally(function () {});
+            .finally(function() {});
         }
       }
-    },
+    }
   },
   mounted() {
     this.$nextTick(() => {
       this.$nuxt.$loading.start();
       setTimeout(() => this.$nuxt.$loading.finish(), 1000);
     });
-  },
+  }
 };
 </script>
 
