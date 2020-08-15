@@ -35,7 +35,7 @@
               >
               <b-icon
                 class="mr-3 custom-home-card"
-                @click="$bvModal.show(article.slug)"
+                @click="$bvModal.show(DetailArticle.slug)"
                 icon="reply"
               ></b-icon>
               <b-icon
@@ -87,7 +87,7 @@
                   <br />
                   <b-button
                     class="get-bytton"
-                    variant="success"
+                    variant="dark"
                     :href="DetailArticle.contentlink"
                   >
                     Get Full Article
@@ -113,24 +113,26 @@
           >
         </div>
 
-        <div v-if="showRateDiv" class="rate-section d-flex mb-4">
-          <div class="mt-2"><h6>Please Rate us:</h6></div>
-          <div class="ml-3">
-            <client-only>
-              <div>
-                <star-rating
-                  :star-size="35"
-                  :show-rating="false"
-                  v-model="rating"
-                  @rating-selected="setRating"
-                  :glow="2"
-                ></star-rating>
-              </div>
-            </client-only>
+        <div v-if="!DetailArticle.contentlock">
+          <div v-if="showRateDiv" class="rate-section d-flex mb-4">
+            <div class="mt-2"><h6>Please Rate us:</h6></div>
+            <div class="ml-3">
+              <client-only>
+                <div>
+                  <star-rating
+                    :star-size="35"
+                    :show-rating="false"
+                    v-model="rating"
+                    @rating-selected="setRating"
+                    :glow="2"
+                  ></star-rating>
+                </div>
+              </client-only>
+            </div>
           </div>
         </div>
 
-        <div>
+        <div v-if="!DetailArticle.contentlock">
           <h6 class="mt-3">Total Star : {{ DetailArticle.reviewcount }}</h6>
         </div>
         <div v-if="reviewLoading" class="pt-3">
@@ -286,7 +288,7 @@
 import { mapState } from "vuex";
 import VclStar from "@/components/user/vue-content-loading-cards/VclStar.vue";
 export default {
-  layout: "detail",
+  layout: "notKeepAlive",
   components: { VclStar },
   data() {
     return {
@@ -302,6 +304,18 @@ export default {
       mixBrand: []
     };
   },
+  watch: {
+    "$route.query": "$fetch"
+  },
+  async created() {
+    var self = this;
+    await self.$axios
+      .$get(process.env.baseUrl + `/count/${self.$route.params.slug}`)
+      .then(function(posts) {
+        self.setview(posts.view, posts.slug);
+      });
+  },
+
   head() {
     return {
       title: this.DetailArticle.SeoTitle,
@@ -351,6 +365,7 @@ export default {
         self.mixBrand = posts;
       });
   },
+
   computed: mapState({
     DetailArticle: state => state.mobileDetailPage.DetailArticle,
     // tagCreator() {
@@ -451,23 +466,23 @@ export default {
       }
       this.loadedRecommended = true;
     },
-    async setview(i) {
+    setview(views, slug) {
       try {
-        await this.$axios.$put(
-          process.env.baseUrl + `/count/${i.slug}`,
-          {
-            view: i.view + 1
-          },
-          {
-            headers: {
-              Authorization: `Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJrZXkiOiJjdXN0b21fdmFsdWUifQ.Gn4_F3IujZkyYR3gygA0TZuVeprhDDiDCWE1LvvCKsY`
+        this.$axios
+          .$put(
+            process.env.baseUrl + `/count/${slug}`,
+            {
+              view: views + 1
+            },
+            {
+              headers: {
+                Authorization: `Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJrZXkiOiJjdXN0b21fdmFsdWUifQ.Gn4_F3IujZkyYR3gygA0TZuVeprhDDiDCWE1LvvCKsY`
+              }
             }
-          }
-        );
+          )
+          .then(function(e) {});
         // this.$store.dispatch("countView/setViewcount", this.article.slug);
-      } catch (e) {
-        alert("No more data" + e);
-      }
+      } catch (e) {}
     },
     checkLocalStorage() {
       if (process.browser) {

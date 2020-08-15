@@ -2,13 +2,11 @@
   <div>
     <NavBar />
     <b-container>
-      <nuxt keep-alive />
+      <nuxt />
     </b-container>
-    <BottomFooter />
   </div>
 </template>
 <script>
 export default {};
 </script>
-<style>
-</style>
+<style scoped></style>

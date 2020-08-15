@@ -31,7 +31,11 @@
         }}</b-card-text>
         <div class="ml-auto pt-2">
           <p>
-            <b-icon :icon="icon" @click="setFavourite()" class="mr-2"></b-icon>
+            <b-icon
+              :icon="icon"
+              @click="setFavourite(6000, '#4a5153')"
+              class="mr-2"
+            ></b-icon>
             <b-icon icon="reply" class="mr-2"></b-icon>
           </p>
         </div>
@@ -89,14 +93,13 @@ export default {
   },
   methods: {
     setview() {
-      try {
-        this.$axios.$put(process.env.baseUrl + `/count/${this.ArticleSlug}`, {
-          view: this.ArticleView + 1
-        });
-        // this.$store.dispatch("countView/setViewcount", this.article.slug);
-      } catch (e) {
-        alert("No more data" + e);
-      }
+      // try {
+      //   this.$axios.$put(process.env.baseUrl + `/count/${this.ArticleSlug}`, {
+      //     view: this.ArticleView + 1
+      //   });
+      // } catch (e) {
+      //   alert("No more data" + e);
+      // }
     },
     checkLocal() {
       for (let i = 0; i < localStorage.length; i++) {
@@ -110,7 +113,7 @@ export default {
         }
       }
     },
-    setFavourite() {
+    setFavourite(duration, color) {
       if (process.browser) {
         this.toogle = !this.toogle;
         if (this.toogle) {
@@ -119,12 +122,22 @@ export default {
             JSON.stringify(this.ArticleTitle)
           );
           this.icon = "star-fill";
-          this.$bvToast.toast(`Successfully added to Favourite!`, {
-            title: "Done",
-            autoHideDelay: 2000,
-            solid: true,
-            static: true
+
+          const noti = this.$vs.notification({
+            duration,
+            color,
+
+            progress: "auto",
+            title: "Added",
+            text:
+              "This article Successfully added to Favourite.Check Favourite Section"
           });
+          // this.$bvToast.toast(`Successfully added to Favourite!`, {
+          //   title: "Done",
+          //   autoHideDelay: 2000,
+          //   solid: true,
+          //   static: true
+          // });
         } else if (!this.toogle) {
           for (let i = 0; i < localStorage.length; i++) {
             let key = localStorage.key(i);
@@ -135,6 +148,15 @@ export default {
               break;
             }
           }
+          const noti = this.$vs.notification({
+            duration: 6000,
+            color: "#dc3545",
+
+            progress: "auto",
+            title: "Removed",
+            text:
+              "This article Successfully Removed from Favourite.Click again to added!"
+          });
 
           this.icon = "star";
         }

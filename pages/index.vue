@@ -438,19 +438,18 @@ export default {
 
         self.showCl = false;
       } else {
-        this.$bvToast.show("my-toast");
+        // this.$bvToast.show("my-toast");
         this.showCl = false;
       }
     },
     async setview(article) {
-      try {
-        await this.$axios.$put(process.env.baseUrl + `/count/${article.slug}`, {
-          view: article.view + 1
-        });
-        // this.$store.dispatch("countView/setViewcount", this.article.slug);
-      } catch (e) {
-        alert("No more data" + e);
-      }
+      // try {
+      //   await this.$axios.$put(process.env.baseUrl + `/count/${article.slug}`, {
+      //     view: article.view + 1
+      //   });
+      // } catch (e) {
+      //   alert("No more data" + e);
+      // }
     }
     // async setviewqAndA(view, slug) {
     //   await this.$axios
@@ -502,7 +501,7 @@ export default {
 }
 
 .side-bar-scroll {
-  height: 400px;
+  height: 375px;
   overflow-x: hidden;
   overflow-y: scroll;
   scrollbar-width: thin;

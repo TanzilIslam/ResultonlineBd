@@ -303,7 +303,7 @@
 import { mapState } from "vuex";
 import { state } from "../../store/authorProfile";
 export default {
-  layout: "channel",
+  layout: "default",
   head() {
     return {
       title: this.seoObject.Channel_title,

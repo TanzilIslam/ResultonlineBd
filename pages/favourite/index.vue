@@ -34,11 +34,12 @@
 
 <script>
 export default {
+  layout: "notKeepAlive",
   data() {
     return {
       data: [],
       slugs: [],
-      pending: true,
+      pending: true
     };
   },
 
@@ -52,10 +53,10 @@ export default {
         var self = this;
         await self.$axios
           .$get(process.env.baseUrl + `/count/${iterator}`)
-          .then(function (posts) {
+          .then(function(posts) {
             self.data.push(posts);
           })
-          .catch(function (e) {
+          .catch(function(e) {
             console.log(e);
           });
       }
@@ -70,17 +71,17 @@ export default {
           // this.slugs.push(JSON.parse(key));
         }
       }
-    },
+    }
   },
   async mounted() {
     await this.getValue();
     await this.getData();
     this.pending = false;
-  },
+  }
 };
 </script>
 
-<style  scoped>
+<style scoped>
 a {
   color: black !important;
   text-decoration: none;

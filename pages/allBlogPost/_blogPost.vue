@@ -58,11 +58,12 @@
 
 <script>
 export default {
+  layout: "default",
   data() {
     return {
       allBlogPost: [],
       nextDataLink: "",
-      icon: "",
+      icon: ""
     };
   },
   async fetch() {
@@ -72,7 +73,7 @@ export default {
         process.env.baseUrl +
           `/blog/api/v1/blog_channel/${this.$route.params.blogPost}`
       )
-      .then(function (posts) {
+      .then(function(posts) {
         // posts.results.forEach(element => {
 
         //   element.catagry_select.forEach(elements => {
@@ -83,10 +84,10 @@ export default {
         self.allBlogPost = posts.results;
         self.nextDataLink = posts.next;
       })
-      .catch(function (error) {
+      .catch(function(error) {
         console.log("No Net" + error);
       })
-      .finally(function () {});
+      .finally(function() {});
   },
   methods: {
     async loadData() {
@@ -94,26 +95,26 @@ export default {
         var self = this;
         await self.$axios
           .$get(self.nextDataLink)
-          .then(function (posts) {
-            posts.results.List.forEach((element) => {
+          .then(function(posts) {
+            posts.results.List.forEach(element => {
               self.allBlogPost.List.push(element);
             });
             self.nextDataLink = posts.next;
           })
-          .catch(function (error) {
+          .catch(function(error) {
             console.log("No Net" + error);
           })
-          .finally(function () {});
+          .finally(function() {});
       } else {
         alert("Null");
       }
-    },
+    }
   },
   computed: {
     // icon() {
     //   return this.allBlogPost.catagry_select.cat_icon;
     // }
-  },
+  }
 };
 </script>
 

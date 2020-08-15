@@ -158,6 +158,7 @@
 
 <script>
 export default {
+  layout: "default",
   data() {
     return {
       data: [],
@@ -166,7 +167,7 @@ export default {
       selectedData: false,
       subTagData: [],
       fastCheck: [],
-      seoObject: {},
+      seoObject: {}
     };
   },
   head() {
@@ -176,54 +177,54 @@ export default {
         {
           hid: "description",
           name: "description",
-          content: this.seoObject.description,
+          content: this.seoObject.description
         },
         {
           hid: "keywords",
           name: "keywords",
-          content: this.seoObject.meta_keyword,
+          content: this.seoObject.meta_keyword
         },
         {
           hid: "twitter:card",
           name: "twitter:card",
-          content: this.seoObject.page_title,
+          content: this.seoObject.page_title
         },
         {
           hid: "twitter:title",
           name: "twitter:title",
-          content: this.seoObject.page_title,
+          content: this.seoObject.page_title
         },
         {
           hid: "twitter:description",
           name: "twitter:description",
-          content: this.seoObject.description,
+          content: this.seoObject.description
         },
         {
           hid: "og:title",
           property: "og:title",
-          content: this.seoObject.page_title,
+          content: this.seoObject.page_title
         },
         {
           hid: "og:type",
           property: "og:type",
-          content: "article.text",
+          content: "article.text"
         },
         {
           hid: "og:url",
           property: "og:url",
-          content: "",
+          content: ""
         },
         {
           hid: "og:description",
           name: "og:description",
-          content: this.seoObject.description,
+          content: this.seoObject.description
         },
         {
           hid: "og:image",
           name: "og:image",
-          content: this.seoObject.meta_image,
-        },
-      ],
+          content: this.seoObject.meta_image
+        }
+      ]
     };
   },
   async fetch() {
@@ -233,37 +234,37 @@ export default {
 
     await self.$axios
       .$get(process.env.baseUrl + "/s/h/qandaPage")
-      .then(function (posts) {
+      .then(function(posts) {
         self.seoObject = posts;
       })
-      .catch(function (error) {
+      .catch(function(error) {
         console.log(error);
       });
     await self.$axios
       .$get(process.env.baseUrl + "/q&a/api/v1/short_list")
-      .then(function (posts) {
+      .then(function(posts) {
         self.subTagList = posts.results;
       })
-      .catch(function (error) {
+      .catch(function(error) {
         console.log(error);
       });
 
     await self.$axios
       .$get(process.env.baseUrl + "/q&a/api/v1/")
-      .then(function (posts) {
+      .then(function(posts) {
         self.data = posts.results;
         self.next = posts.next;
       })
-      .catch(function (error) {
+      .catch(function(error) {
         console.log(error);
       });
 
     await self.$axios
       .$get(process.env.baseUrl + "/q&a/api/v1/qna_fast_check")
-      .then(function (posts) {
+      .then(function(posts) {
         self.fastCheck = posts;
       })
-      .catch(function (error) {
+      .catch(function(error) {
         console.log(error);
       });
   },
@@ -273,8 +274,8 @@ export default {
         var self = this;
         await self.$axios
           .$get(self.next)
-          .then(function (posts) {
-            posts.results.forEach((element) => {
+          .then(function(posts) {
+            posts.results.forEach(element => {
               if (!self.selectedData) {
                 self.data.push(element);
               } else {
@@ -283,10 +284,10 @@ export default {
             });
             self.next = posts.next;
           })
-          .catch(function (error) {
+          .catch(function(error) {
             console.log("No Net" + error);
           })
-          .finally(function () {});
+          .finally(function() {});
       } else {
         alert("Null");
       }
@@ -295,7 +296,7 @@ export default {
       var self = this;
       await self.$axios
         .$get(item.shot_list_data)
-        .then(function (posts) {
+        .then(function(posts) {
           // console.log(posts);
           // self.data = "";
           self.subTagData = posts.results;
@@ -303,21 +304,21 @@ export default {
           self.selectedData = true;
           // subtag
         })
-        .catch(function (error) {
+        .catch(function(error) {
           console.log("No Net" + error);
         });
     },
     async setView(view, slug) {
-      this.$axios
-        .$put(process.env.baseUrl + `/q&a/api/v1/dtls/${slug}`, {
-          view: view + 1,
-        })
-        .then(function (response) {})
-        .catch(function (e) {
-          console.log("setview " + e);
-        });
-    },
-  },
+      // this.$axios
+      //   .$put(process.env.baseUrl + `/q&a/api/v1/dtls/${slug}`, {
+      //     view: view + 1
+      //   })
+      //   .then(function(response) {})
+      //   .catch(function(e) {
+      //     console.log("setview " + e);
+      //   });
+    }
+  }
 };
 </script>
 

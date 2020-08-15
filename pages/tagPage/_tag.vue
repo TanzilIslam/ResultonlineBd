@@ -98,6 +98,7 @@
 
 <script>
 export default {
+  layout: "default",
   data() {
     return {
       datas: [],
@@ -120,14 +121,13 @@ export default {
   },
   methods: {
     async setview(view, slug) {
-      try {
-        await this.$axios.$put(process.env.baseUrl + `/count/${slug}`, {
-          view: view + 1
-        });
-        // this.$store.dispatch("countView/setViewcount", this.article.slug);
-      } catch (e) {
-        console.log(e);
-      }
+      // try {
+      //   await this.$axios.$put(process.env.baseUrl + `/count/${slug}`, {
+      //     view: view + 1
+      //   });
+      // } catch (e) {
+      //   console.log(e);
+      // }
     },
     async loadData() {
       if (this.next != null) {

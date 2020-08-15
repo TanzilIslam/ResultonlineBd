@@ -182,7 +182,7 @@
 <script>
 import { mapState } from "vuex";
 export default {
-  layout: "channel",
+  layout: "default",
   head() {
     return {
       title: this.seoObject.Channel_title,

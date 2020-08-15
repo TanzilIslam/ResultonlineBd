@@ -69,7 +69,7 @@
             >
               <div v-if="i.is_active">
                 <nuxt-link prefetch :to="`/q/${i.slug}`">
-                  <div @click="setView(i.view, i.slug)">
+                  <div>
                     {{ i.title }}
                   </div>
                 </nuxt-link>
@@ -84,22 +84,37 @@
 
 <script>
 export default {
+  layout: "notKeepAlive",
   data() {
     return {
       data: {},
-      relatedData: [],
+      relatedData: []
     };
   },
+  watch: {
+    "$route.query": "$fetch"
+  },
+  async created() {
+    var self = this;
+    await self.$axios
+      .$get(
+        process.env.baseUrl + `/q&a/api/v1/dtls/${self.$route.params.qadetail}`
+      )
+      .then(function(posts) {
+        self.setview(posts.view, posts.slug);
+      });
+  },
+
   async fetch() {
     var self = this;
     await self.$axios
       .$get(
         process.env.baseUrl + `/q&a/api/v1/dtls/${self.$route.params.qadetail}`
       )
-      .then(function (posts) {
+      .then(function(posts) {
         self.data = posts;
       })
-      .catch(function (e) {
+      .catch(function(e) {
         console.log(e);
       });
 
@@ -108,25 +123,25 @@ export default {
         process.env.baseUrl +
           `/q&a/api/v1/q_related_data/${self.data.catagry.publisher}`
       )
-      .then(function (posts) {
+      .then(function(posts) {
         self.relatedData = posts.results;
       })
-      .catch(function (e) {
+      .catch(function(e) {
         console.log(e);
       });
   },
   methods: {
-    async setView(view, slug) {
+    setview(views, slug) {
       this.$axios
         .$put(process.env.baseUrl + `/q&a/api/v1/dtls/${slug}`, {
-          view: view + 1,
+          view: views + 1
         })
-        .then(function (response) {})
-        .catch(function (e) {
+        .then(function(response) {})
+        .catch(function(e) {
           console.log(e);
         });
-    },
-  },
+    }
+  }
 };
 </script>
 

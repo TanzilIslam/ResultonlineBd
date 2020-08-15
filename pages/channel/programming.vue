@@ -161,9 +161,13 @@
           </b-row>
           <!-- Pagination Start End -->
           <div class="myPagination">
-            <div class="text-center mt-5 mb-3">
-              <b-button variant="dark" @click="loadData">Load More</b-button>
-            </div>
+            <vs-row justify="center">
+              <vs-col w="2">
+                <vs-button ref="button" flat @click="loadData"
+                  ><b>Load More</b></vs-button
+                >
+              </vs-col>
+            </vs-row>
           </div>
           <!-- Pagination End -->
         </div>
@@ -184,7 +188,7 @@
 <script>
 import { mapState } from "vuex";
 export default {
-  layout: "channel",
+  layout: "default",
   head() {
     return {
       title: this.seoObject.Channel_title,
@@ -392,13 +396,20 @@ export default {
     },
     async loadData() {
       // load home Articles
+      // const loading = this.$vs.loading({
+      //   target: this.$refs.content,
+      //   color: "dark"
+      // });
+      // setTimeout(() => {
+      //   loading.close();
+      // }, 3000);
       if (this.parentSelected) {
         try {
           await this.$store.dispatch(
             "programming/FetchMoreProgrammingArticles"
           );
         } catch (e) {
-          alert("No more data" + e);
+          // alert("No more data" + e);
         }
       }
       // load main tag articles

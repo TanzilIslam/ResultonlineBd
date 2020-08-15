@@ -127,14 +127,14 @@ export default {
       popupActivo2: false,
       isCopy: "Copy",
       active2: false,
-      place: `http://test.resultonlinebd.com/${this.article.slug}`,
+      place: `http://test.resultonlinebd.com/${this.article.slug}`
     };
   },
   props: {
     article: {
       type: Object,
-      required: true,
-    },
+      required: true
+    }
   },
   mounted() {
     this.checkLocal();
@@ -153,14 +153,13 @@ export default {
       }
     },
     setview() {
-      try {
-        this.$axios.$put(process.env.baseUrl + `/count/${this.article.slug}`, {
-          view: this.article.view + 1,
-        });
-        // this.$store.dispatch("countView/setViewcount", this.article.slug);
-      } catch (e) {
-        alert("No more data" + e);
-      }
+      // try {
+      //   this.$axios.$put(process.env.baseUrl + `/count/${this.article.slug}`, {
+      //     view: this.article.view + 1,
+      //   });
+      // } catch (e) {
+      //   alert("No more data" + e);
+      // }
     },
     copyLink() {
       navigator.clipboard.writeText(this.place);
@@ -183,7 +182,7 @@ export default {
             progress: "auto",
             title: "Added",
             text:
-              "This article Successfully added to Favourite.Check Favourite Section",
+              "This article Successfully added to Favourite.Check Favourite Section"
           });
         } else if (!this.toogle) {
           for (let i = 0; i < localStorage.length; i++) {
@@ -202,7 +201,7 @@ export default {
             progress: "auto",
             title: "Removed",
             text:
-              "This article Successfully Removed from Favourite.Click again to added!",
+              "This article Successfully Removed from Favourite.Click again to added!"
           });
           this.icon = "star";
         }
@@ -214,8 +213,8 @@ export default {
           this.article.slug,
         "_blank"
       );
-    },
-  },
+    }
+  }
 };
 </script>
 

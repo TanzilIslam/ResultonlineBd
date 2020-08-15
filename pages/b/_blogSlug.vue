@@ -162,7 +162,7 @@
 <script>
 import { mapState } from "vuex";
 export default {
-  layout: "detail",
+  layout: "notKeepAlive",
   components: {},
   data() {
     return {

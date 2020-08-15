@@ -78,14 +78,13 @@ export default {
   },
   methods: {
     setview() {
-      try {
-        this.$axios.$put(process.env.baseUrl + `/count/${this.article.slug}`, {
-          view: this.article.view + 1
-        });
-        // this.$store.dispatch("countView/setViewcount", this.article.slug);
-      } catch (e) {
-        alert("No more data" + e);
-      }
+      // try {
+      //   this.$axios.$put(process.env.baseUrl + `/count/${this.article.slug}`, {
+      //     view: this.article.view + 1
+      //   });
+      // } catch (e) {
+      //   alert("No more data" + e);
+      // }
     },
     checkLocal() {
       for (let i = 0; i < localStorage.length; i++) {

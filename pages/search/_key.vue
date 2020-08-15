@@ -151,6 +151,7 @@
 import { VclFacebook } from "vue-content-loading";
 
 export default {
+  layout: "notKeepAlive",
   components: { VclFacebook },
   data() {
     return {
@@ -202,14 +203,14 @@ export default {
     },
 
     async setView(viwes, url, slug) {
-      await this.$axios
-        .$put(process.env.baseUrl + `/${url}${slug}`, {
-          view: viwes + 1
-        })
-        .then(function(response) {})
-        .catch(function(e) {
-          console.log("setview " + e);
-        });
+      // await this.$axios
+      //   .$put(process.env.baseUrl + `/${url}${slug}`, {
+      //     view: viwes + 1
+      //   })
+      //   .then(function(response) {})
+      //   .catch(function(e) {
+      //     console.log("setview " + e);
+      //   });
     }
   }
 };
