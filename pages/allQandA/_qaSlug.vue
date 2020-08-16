@@ -98,7 +98,7 @@ export default {
           })
           .finally(function() {});
       } else {
-        alert("Null");
+        // alert("Null");
       }
     },
     async setView(view, slug) {

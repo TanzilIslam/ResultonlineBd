@@ -385,13 +385,13 @@ export default {
         try {
           await this.$store.dispatch("celebrity/FetchMoreCelebrityArticles");
         } catch (e) {
-          alert("No more data" + e);
+          // alert("No more data" + e);
         }
       }
       // load main tag articles
       else if (this.mainTagSelected) {
         if (this.TagArticlesNextLink == null) {
-          alert("null");
+          // alert("null");
         } else {
           var self = this;
           await this.$axios
@@ -412,7 +412,7 @@ export default {
       // load sub tag articles
       else if (this.subTagSelected) {
         if (this.TagArticlesNextLink == null) {
-          alert("null");
+          // alert("null");
         } else {
           var self = this;
           await this.$axios

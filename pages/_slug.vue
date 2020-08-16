@@ -545,7 +545,7 @@ export default {
       try {
         await this.$store.dispatch("detailPage/FetchMoreRecommendedArticles");
       } catch (e) {
-        alert("No more data" + e);
+        // alert("No more data" + e);
       }
       this.loadedRecommended = true;
     },

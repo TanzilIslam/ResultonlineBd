@@ -1,42 +1,88 @@
 <template>
-  <div v-if="article.is_active" class="channel-common-card">
-    <b-card no-body class="custom-channel-common-card">
-      <div @click="setview">
-        <!-- <div v-if="article.channel.channelname == 'Mobile phone'"> -->
-        <nuxt-link prefetch :to="`/m/${article.slug}`">
-          <b-card-img-lazy
-            blank-color="#bbb"
-            :src="article.photo"
-            top
-            height="165"
-            style="border-radius: 10px;"
-          ></b-card-img-lazy>
-        </nuxt-link>
-        <!-- </div> -->
-      </div>
+  <div>
+    <div v-if="article.is_active" class="channel-common-card">
+      <b-card no-body class="custom-channel-common-card">
+        <div @click="setview">
+          <!-- <div v-if="article.channel.channelname == 'Mobile phone'"> -->
+          <nuxt-link prefetch :to="`/m/${article.slug}`">
+            <b-card-img-lazy
+              blank-color="#bbb"
+              :src="article.photo"
+              top
+              height="165"
+              style="border-radius: 10px;"
+            ></b-card-img-lazy>
+          </nuxt-link>
+          <!-- </div> -->
+        </div>
 
-      <div class="d-flex w-100">
-        <b-card-text class="text-muted custom-card-text-date" text-tag="p">{{
-          article.release_date
-        }}</b-card-text>
-        <div class="ml-auto pt-2">
-          <p>
-            <b-icon :icon="icon" @click="setFavourite()" class="mr-2"></b-icon>
-            <b-icon icon="reply" class="mr-2"></b-icon>
-          </p>
+        <div class="d-flex w-100">
+          <b-card-text class="text-muted custom-card-text-date" text-tag="p">{{
+            article.release_date
+          }}</b-card-text>
+          <div class="ml-auto pt-2">
+            <p>
+              <b-icon
+                :icon="icon"
+                @click="setFavourite(6000, '#4a5153')"
+                class="mr-2"
+              ></b-icon>
+              <b-icon
+                icon="reply"
+                @click="active2 = !active2"
+                class="mr-2"
+              ></b-icon>
+            </p>
+          </div>
+        </div>
+
+        <div @click="setview">
+          <!-- <div v-if="article.channel.channelname == 'Mobile phone'"> -->
+          <nuxt-link prefetch :to="`/m/${article.slug}`">
+            <b-card-text text-tag="h5" class="custom-card-text-title">{{
+              article.title
+            }}</b-card-text>
+          </nuxt-link>
+          <!-- </div> -->
+        </div>
+      </b-card>
+    </div>
+    <vs-dialog width="470px" not-center v-model="active2">
+      <template #header>
+        <h6 class="pt-3">Share this article</h6>
+      </template>
+
+      <div>
+        <div class="text-center">
+          <b-img
+            class=""
+            @click="shareToFb"
+            style="cursor: pointer;"
+            height="40"
+            width="40"
+            src="~/assets/user/icons/fb.svg"
+          >
+          </b-img>
+          <b-input-group size="sm" class="pt-4">
+            <b-form-input :value="place"></b-form-input>
+            <b-input-group-append>
+              <!-- <b-icon icon="clipboard"></b-icon> -->
+
+              <!-- <b-button variant="outline-light"> -->
+              <b-img
+                style="cursor: pointer;"
+                height="31"
+                width="31"
+                src="~/assets/user/icons/copy.png"
+                @click="copyLink"
+                class="rounded"
+              ></b-img>
+              <!-- </b-button> -->
+            </b-input-group-append>
+          </b-input-group>
         </div>
       </div>
-
-      <div @click="setview">
-        <!-- <div v-if="article.channel.channelname == 'Mobile phone'"> -->
-        <nuxt-link prefetch :to="`/m/${article.slug}`">
-          <b-card-text text-tag="h5" class="custom-card-text-title">{{
-            article.title
-          }}</b-card-text>
-        </nuxt-link>
-        <!-- </div> -->
-      </div>
-    </b-card>
+    </vs-dialog>
   </div>
 </template>
 
@@ -46,7 +92,9 @@ export default {
   data() {
     return {
       icon: "star",
-      toogle: false
+      toogle: false,
+      active2: false,
+      place: `http://test.resultonlinebd.com/${this.article.slug}`
     };
   },
   mounted() {
@@ -80,7 +128,7 @@ export default {
         }
       }
     },
-    setFavourite() {
+    setFavourite(duration, color) {
       if (process.browser) {
         this.toogle = !this.toogle;
         if (this.toogle) {
@@ -89,11 +137,14 @@ export default {
             JSON.stringify(this.article.title)
           );
           this.icon = "star-fill";
-          this.$bvToast.toast(`Successfully added to Favourite!`, {
-            title: "Done",
-            autoHideDelay: 2000,
-            solid: true,
-            static: true
+          const noti = this.$vs.notification({
+            duration,
+            color,
+
+            progress: "auto",
+            title: "Added",
+            text:
+              "This article Successfully added to Favourite.Check Favourite Section"
           });
         } else if (!this.toogle) {
           for (let i = 0; i < localStorage.length; i++) {
@@ -105,10 +156,29 @@ export default {
               break;
             }
           }
+          const noti = this.$vs.notification({
+            duration: 6000,
+            color: "#dc3545",
+
+            progress: "auto",
+            title: "Removed",
+            text:
+              "This article Successfully Removed from Favourite.Click again to added!"
+          });
 
           this.icon = "star";
         }
       }
+    },
+    copyLink() {
+      navigator.clipboard.writeText(this.place);
+    },
+    shareToFb() {
+      window.open(
+        "https://www.facebook.com/dialog/share?app_id=2141341249515400&display=popup&href=http://test.resultonlinebd.com/" +
+          this.article.slug,
+        "_blank"
+      );
     }
   }
 };

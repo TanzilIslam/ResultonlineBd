@@ -28,7 +28,12 @@
                     <div class="d-flex">
                       <b-icon icon="eye-fill" class="mt-1 ml-2 mr-1"></b-icon>
                       {{ data.view }}
-                      <b-icon icon="reply" class="mt-1 ml-4"></b-icon>
+                      <b-icon
+                        icon="reply"
+                        style="cursor:pointer;"
+                        @click="active2 = !active2"
+                        class="mt-1 ml-4"
+                      ></b-icon>
                     </div>
                   </div>
                 </div>
@@ -79,6 +84,42 @@
         </b-card>
       </b-col>
     </b-row>
+    <vs-dialog width="470px" not-center v-model="active2">
+      <template #header>
+        <h6 class="pt-3">Share this Question and Answere</h6>
+      </template>
+
+      <div>
+        <div class="text-center">
+          <b-img
+            class=""
+            @click="shareToFb"
+            style="cursor: pointer;"
+            height="40"
+            width="40"
+            src="~/assets/user/icons/fb.svg"
+          >
+          </b-img>
+          <b-input-group size="sm" class="pt-4">
+            <b-form-input :value="place"></b-form-input>
+            <b-input-group-append>
+              <!-- <b-icon icon="clipboard"></b-icon> -->
+
+              <!-- <b-button variant="outline-light"> -->
+              <b-img
+                style="cursor: pointer;"
+                height="31"
+                width="31"
+                src="~/assets/user/icons/copy.png"
+                @click="copyLink"
+                class="rounded "
+              ></b-img>
+              <!-- </b-button> -->
+            </b-input-group-append>
+          </b-input-group>
+        </div>
+      </div>
+    </vs-dialog>
   </div>
 </template>
 
@@ -88,7 +129,9 @@ export default {
   data() {
     return {
       data: {},
-      relatedData: []
+      relatedData: [],
+      active2: false,
+      place: `http://test.resultonlinebd.com/q&a/api/v1/dtls/${this.$route.params.qadetail}`
     };
   },
   watch: {
@@ -140,6 +183,16 @@ export default {
         .catch(function(e) {
           console.log(e);
         });
+    },
+    copyLink() {
+      navigator.clipboard.writeText(this.place);
+    },
+    shareToFb() {
+      window.open(
+        "https://www.facebook.com/dialog/share?app_id=2141341249515400&display=popup&href=http://test.resultonlinebd.com/q&a/api/v1/dtls/" +
+          this.$route.params.qadetail,
+        "_blank"
+      );
     }
   }
 };

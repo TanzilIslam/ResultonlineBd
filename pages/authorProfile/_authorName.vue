@@ -149,7 +149,7 @@
             style="cursor: pointer;"
             height="40"
             width="40"
-            src="~/assets/user/icons/fb.png"
+            src="~/assets/user/icons/fb.svg"
           >
           </b-img>
           <b-input-group size="sm" class="pt-4">
@@ -250,7 +250,7 @@ export default {
           self.nextLink = posts.next;
         });
       } else {
-        alert("null");
+        // alert("null");
       }
     },
     authorWeb() {

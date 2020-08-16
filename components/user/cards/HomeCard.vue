@@ -79,7 +79,7 @@
     <div>
       <vs-dialog width="470px" not-center v-model="active2">
         <template #header>
-          <h6 class="pt-3">Share this aticle</h6>
+          <h6 class="pt-3">Share this article</h6>
         </template>
 
         <div>
@@ -90,7 +90,7 @@
               style="cursor: pointer;"
               height="40"
               width="40"
-              src="~/assets/user/icons/fb.png"
+              src="~/assets/user/icons/fb.svg"
             >
             </b-img>
             <b-input-group size="sm" class="pt-4">
@@ -105,7 +105,7 @@
                   width="31"
                   src="~/assets/user/icons/copy.png"
                   @click="copyLink"
-                  class="rounded"
+                  class="rounded "
                 ></b-img>
                 <!-- </b-button> -->
               </b-input-group-append>

@@ -198,7 +198,7 @@ export default {
           })
           .finally(function() {});
       } else {
-        alert("no more data");
+        // alert("no more data");
       }
     },
 

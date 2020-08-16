@@ -291,7 +291,7 @@ export default {
           })
           .finally(function() {});
       } else {
-        alert("Null");
+        // alert("Null");
       }
     }
   }

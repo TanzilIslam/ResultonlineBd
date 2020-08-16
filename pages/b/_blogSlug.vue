@@ -234,7 +234,7 @@ export default {
           .finally(function() {});
         self.loadedRecommended = true;
       } else {
-        this.$bvToast.show("my-toast");
+        // this.$bvToast.show("my-toast");
       }
     }
   },

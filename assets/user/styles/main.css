@@ -398,6 +398,9 @@ a {
   padding-left: 8%;
 }
 
+.copy-logo {
+  background-color: white;
+}
 .vs-dialog__close {
   background-color: white !important;
 }
