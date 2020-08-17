@@ -22,12 +22,11 @@
     >
       <b-carousel-slide
         class="cover-img"
-        img-alt="Blank image"
         v-for="(i, index) in data"
         :key="index"
         :img-src="i.Cover_img"
+        :img-alt="i.imgAlt"
         img-width="1024"
-        img-height="400"
       >
         <a :href="i.url" class="c-txt-link">
           <div class="c-txt">
@@ -44,7 +43,7 @@ import VueContentLoading from "vue-content-loading";
 
 export default {
   components: {
-    VueContentLoading,
+    VueContentLoading
   },
   name: "Carousel",
   data() {
@@ -52,7 +51,7 @@ export default {
       slide: 0,
       sliding: null,
       data: [],
-      loadingImg: true,
+      loadingImg: true
     };
   },
   methods: {
@@ -61,14 +60,14 @@ export default {
     },
     onSlideEnd(slide) {
       this.sliding = false;
-    },
+    }
   },
   async mounted() {
     await this.$axios
       .$get(process.env.baseUrl + `/Coverimgapi`)
-      .then((posts) => (this.data = posts));
+      .then(posts => (this.data = posts));
     this.loadingImg = false;
-  },
+  }
 };
 </script>
 

@@ -9,6 +9,7 @@
       <b-container class="pl-2 pr-3">
         <b-navbar-brand to="/" class="brand-logo"
           ><b-img
+            alt="result online bd logo"
             :src="require('~/assets/user/icons/brand.png')"
             class="logo"
           ></b-img>
@@ -18,6 +19,7 @@
 
         <b-navbar-brand v-if="show" to="/" class="brand-logo-sm-device"
           ><b-img
+            alt="result online bd logo"
             :src="require('~/assets/user/icons/brand.png')"
             class="logo"
           ></b-img>

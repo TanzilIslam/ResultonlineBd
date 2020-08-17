@@ -9,6 +9,7 @@
         >
           <div class="image-holder">
             <b-img
+              alt="logo of programming channel"
               class="image-logo"
               src="~assets/user/icons/programming.svg"
             ></b-img>
@@ -21,6 +22,7 @@
         >
           <div class="image-holder">
             <b-img
+              alt="logo of Mobile Phone channel"
               class="image-logo"
               src="~assets/user/icons/mobile.svg"
             ></b-img>
@@ -34,6 +36,7 @@
         >
           <div class="image-holder">
             <b-img
+              alt="logo of celebrity and movie channel"
               class="image-logo"
               src="~/assets/user/icons/celebrity.svg"
             ></b-img>
@@ -47,6 +50,7 @@
         >
           <div class="image-holder">
             <b-img
+              alt="logo of gaming  channel"
               class="image-logo"
               src="~assets/user/icons/gaming.svg"
             ></b-img>
@@ -60,6 +64,7 @@
         >
           <div class="image-holder">
             <b-img
+              alt="logo of history channel"
               class="image-logo"
               src="~assets/user/icons/history.svg"
             ></b-img>
@@ -73,6 +78,7 @@
         >
           <div class="image-holder">
             <b-img
+              alt="logo of health channel"
               class="image-logo"
               src="~assets/user/icons/health.svg"
             ></b-img>
@@ -86,6 +92,7 @@
         >
           <div class="image-holder">
             <b-img
+              alt="logo of technology channel"
               class="image-logo"
               src="~assets/user/icons/technology.svg"
             ></b-img>
@@ -99,6 +106,7 @@
         >
           <div class="image-holder">
             <b-img
+              alt="logo of Design Library channel"
               class="image-logo"
               src="~assets/user/icons/designlibrary.svg"
             ></b-img>

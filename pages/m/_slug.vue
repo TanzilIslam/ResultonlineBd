@@ -35,13 +35,13 @@
               >
               <b-icon
                 class="mr-3 custom-home-card"
-                @click="$bvModal.show(DetailArticle.slug)"
+                @click="active2 = !active2"
                 icon="reply"
               ></b-icon>
               <b-icon
                 class="mr-3 custom-home-card"
                 :icon="icon"
-                @click="setFavourite()"
+                @click="setFavourite(6000, '#4a5153')"
               ></b-icon>
             </div>
             <b-card-text class="mt-4" text-tag="h4">{{
@@ -99,18 +99,20 @@
           </div>
         </div>
 
-        <div class="tags mt-4 mb-3">
-          <span class="text-dark mr-2" style="font-size: 1rem;">Tags:</span>
-          <b-badge
-            class="ml-2 custom-badge"
+       <div class="tags d-flex mt-4 mb-3">
+          <p class="text-dark mr-2 my-auto " style="font-size: 1rem;">Tags:</p>
+          <vs-button
+            size="small"
+            style="font-size: 14px;"
             v-for="(i, index) in DetailArticle.tag_creator"
+            :color="i.tagNameBG"
             :key="index"
-            :variant="i.tagNameBG"
+            :to="`/tagPage/${i.tagSlug}`"
+            flat
           >
-            <nuxt-link :to="`/tagPage/${i.tagSlug}`">
-              <div class="tag-text">{{ i.tag_name }}</div>
-            </nuxt-link></b-badge
-          >
+            {{ i.tag_name }}
+          </vs-button>
+        
         </div>
 
         <div v-if="!DetailArticle.contentlock">
@@ -258,28 +260,42 @@
     </div>
 
     <div>
-      <b-toast
-        id="my-toast-details"
-        toaster="b-toaster-top-right"
-        variant="warning"
-        solid
-        auto-hide-delay="3000"
-      >
-        <template v-slot:toast-title>
-          <div class="d-flex flex-grow-1 align-items-baseline">
-            <b-img
-              blank
-              blank-color="#ff5555"
-              class="mr-2"
-              width="12"
-              height="12"
-            ></b-img>
-            <strong class="mr-auto">Submitted!</strong>
-            <small class="text-muted mr-2">3 seconds ago</small>
-          </div>
+      <vs-dialog width="470px" not-center v-model="active2">
+        <template #header>
+          <h6 class="pt-3">Share this article</h6>
         </template>
-        Reviwe Successfully Submitted!
-      </b-toast>
+
+        <div>
+          <div class="text-center">
+            <b-img
+              class=""
+              @click="shareToFb"
+              style="cursor: pointer;"
+              height="40"
+              width="40"
+              src="~/assets/user/icons/fb.svg"
+            >
+            </b-img>
+            <b-input-group size="sm" class="pt-4">
+              <b-form-input :value="place"></b-form-input>
+              <b-input-group-append>
+                <!-- <b-icon icon="clipboard"></b-icon> -->
+
+                <!-- <b-button variant="outline-light"> -->
+                <b-img
+                  style="cursor: pointer;"
+                  height="31"
+                  width="31"
+                  src="~/assets/user/icons/copy.png"
+                  @click="copyLink"
+                  class="rounded "
+                ></b-img>
+                <!-- </b-button> -->
+              </b-input-group-append>
+            </b-input-group>
+          </div>
+        </div>
+      </vs-dialog>
     </div>
   </div>
 </template>
@@ -301,21 +317,12 @@ export default {
       icon: "star",
       toogle: false,
       hotMonth: [],
-      mixBrand: []
+      mixBrand: [],
+      articleView: 0,
+      active2: false,
+      place: `http://test.resultonlinebd.com/${this.$route.params.slug}`
     };
   },
-  watch: {
-    "$route.query": "$fetch"
-  },
-  async created() {
-    var self = this;
-    await self.$axios
-      .$get(process.env.baseUrl + `/count/${self.$route.params.slug}`)
-      .then(function(posts) {
-        self.setview(posts.view, posts.slug);
-      });
-  },
-
   head() {
     return {
       title: this.DetailArticle.SeoTitle,
@@ -330,6 +337,29 @@ export default {
   },
   async fetch() {
     var self = this;
+    await self.$axios
+      .$get(process.env.baseUrl + `/count/${self.$route.params.slug}`)
+      .then(function(posts) {
+        // console.log("1st get ", posts.view);
+        self.articleView = posts.view;
+      });
+
+    await self.$axios
+      .$put(
+        process.env.baseUrl + `/count/${self.$route.params.slug}`,
+        {
+          view: self.articleView + 1
+        },
+        {
+          headers: {
+            Authorization: `Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJrZXkiOiJjdXN0b21fdmFsdWUifQ.Gn4_F3IujZkyYR3gygA0TZuVeprhDDiDCWE1LvvCKsY`
+          }
+        }
+      )
+      .then(function(e) {
+        // console.log("2nd ", e.view);
+      });
+
     await self.$axios
       .$get(process.env.baseUrl + `/count/${self.$route.params.slug}`)
       .then(function(posts) {
@@ -386,7 +416,17 @@ export default {
     RelatedArticles: state => state.mobileDetailPage.RelatedArticles
   }),
   methods: {
-    setFavourite() {
+    copyLink() {
+      navigator.clipboard.writeText(this.place);
+    },
+    shareToFb() {
+      window.open(
+        "https://www.facebook.com/dialog/share?app_id=2141341249515400&display=popup&href=http://test.resultonlinebd.com/m/" +
+          this.$route.params.slug,
+        "_blank"
+      );
+    },
+    setFavourite(duration, color) {
       if (process.browser) {
         this.toogle = !this.toogle;
         if (this.toogle) {
@@ -395,11 +435,14 @@ export default {
             JSON.stringify(this.DetailArticle.title)
           );
           this.icon = "star-fill";
-          this.$bvToast.toast(`Successfully added to Favourite!`, {
-            title: "Done",
-            autoHideDelay: 2000,
-            solid: true,
-            static: true
+          const noti = this.$vs.notification({
+            duration,
+            color,
+
+            progress: "auto",
+            title: "Added",
+            text:
+              "This article Successfully added to Favourite.Check Favourite Section"
           });
         } else if (!this.toogle) {
           for (let i = 0; i < localStorage.length; i++) {
@@ -411,6 +454,15 @@ export default {
               break;
             }
           }
+          const noti = this.$vs.notification({
+            duration: 6000,
+            color: "#dc3545",
+
+            progress: "auto",
+            title: "Removed",
+            text:
+              "This article Successfully Removed from Favourite.Click again to added!"
+          });
 
           this.icon = "star";
         }
@@ -532,7 +584,6 @@ export default {
   color: #eee !important;
 }
 .tags {
-  font-size: 20px;
   cursor: pointer;
 }
 .more-button {

@@ -5,6 +5,7 @@
         <div class="d-flex">
           <div class="ml-3 mt-3 mb-2">
             <b-card-img-lazy
+              :alt="article.contentowners.imgAlt"
               blank-color="#bbb"
               class="rounded-circle p-1 img-logo"
               :src="article.contentowners.authorsprofilrimg"
@@ -33,6 +34,7 @@
                 <b-icon
                   class="mr-4 h5 custom-home-card"
                   :icon="icon"
+                  :variant="iconColor"
                   @click="openNotification(6000, '#4a5153')"
                 ></b-icon>
               </div>
@@ -48,8 +50,9 @@
         <h5 class="ml-4 py-3">{{ article.title }}</h5>
         <div v-if="article.channel.channelname == 'Mobile phone'">
           <nuxt-link prefetch :to="`/m/${article.slug}`">
-            <div @click="setview">
+            <div>
               <b-card-img-lazy
+                :alt="article.Seoimgalt"
                 blank-color="#bbb"
                 :src="article.photo"
                 bottom
@@ -62,8 +65,9 @@
         </div>
         <div v-else>
           <nuxt-link prefetch :to="`/${article.slug}`">
-            <div @click="setview">
+            <div>
               <b-card-img-lazy
+                :alt="article.Seoimgalt"
                 blank-color="#bbb"
                 :src="article.photo"
                 bottom
@@ -122,12 +126,9 @@ export default {
     return {
       icon: "star",
       toogle: false,
-      copyText: "",
-      value2: "",
-      popupActivo2: false,
-      isCopy: "Copy",
       active2: false,
-      place: `http://test.resultonlinebd.com/${this.article.slug}`
+      place: `http://test.resultonlinebd.com/${this.article.slug}`,
+      iconColor: "dark"
     };
   },
   props: {
@@ -148,22 +149,13 @@ export default {
           // console.log("found");
           this.toogle = true;
           this.icon = "star-fill";
+          this.iconColor = "warning";
           break;
         }
       }
     },
-    setview() {
-      // try {
-      //   this.$axios.$put(process.env.baseUrl + `/count/${this.article.slug}`, {
-      //     view: this.article.view + 1,
-      //   });
-      // } catch (e) {
-      //   alert("No more data" + e);
-      // }
-    },
     copyLink() {
       navigator.clipboard.writeText(this.place);
-      this.isCopy = "Copied";
     },
     openNotification(duration, color) {
       if (process.browser) {
@@ -174,6 +166,7 @@ export default {
             JSON.stringify(this.article.title)
           );
           this.icon = "star-fill";
+          this.iconColor = "warning";
 
           const noti = this.$vs.notification({
             duration,
@@ -203,6 +196,7 @@ export default {
             text:
               "This article Successfully Removed from Favourite.Click again to added!"
           });
+          this.iconColor = "dark";
           this.icon = "star";
         }
       }

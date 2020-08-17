@@ -1,10 +1,11 @@
 <template>
   <div class="programming-post">
+    <!-- <h1>{{ heightOfScreen }}</h1> -->
     <b-row no-gutters>
       <!-- sideBar Start -->
       <b-col class="pr-2" cols="12" sm="12" md="3" lg="3" xl="3">
         <FixedChannelSideBar />
-        <div class="mb-4 channel-side-bar-sticky">
+        <div class="mb-4  channel-side-bar-sticky">
           <div class="d-flex channel-side-bar-title">
             <b-icon
               v-b-toggle.sidebar-backdrop
@@ -19,7 +20,13 @@
           </div>
           <!--  -->
 
-          <b-list-group class="channel-side-bar channel-side-bar-list-group">
+          <b-list-group
+            class="channel-side-bar  channel-side-bar-list-group"
+            v-bind:style="{
+              height: heightOfScreen + 'px',
+              overflowY: 'scroll'
+            }"
+          >
             <button
               class="main-tag-button channel-side-bar-list-item btn btn-light"
               v-for="(item, index) in mainTagList.results"
@@ -155,7 +162,6 @@
             >
               <!-- <nuxt-link prefetch :to="`/detailPost/${article.slug}`"> -->
               <ChannelCommonCard :article="article" :data-index="index" />
-
               <!-- </nuxt-link> -->
             </b-col>
           </b-row>
@@ -291,7 +297,16 @@ export default {
   },
   computed: mapState({
     ProgrammingArticles: state => state.programming.ProgrammingArticles,
-    TagArticlesNextLink: state => state.programming.TagArticlesNextLink
+    TagArticlesNextLink: state => state.programming.TagArticlesNextLink,
+    heightOfScreen() {
+      if (process.browser) {
+        return (
+          (window.innerHeight ||
+            document.documentElement.clientHeight ||
+            document.body.clientHeight) - 145
+        );
+      }
+    }
   }),
   data() {
     return {
@@ -461,12 +476,19 @@ export default {
       }
     }
   },
+  watch: {
+    // heightOfScreen
+    // your watchers will go in here!
+  },
   mounted() {
     this.$nextTick(() => {
       this.$nuxt.$loading.start();
       setTimeout(() => this.$nuxt.$loading.finish(), 1000);
     });
   }
+  // computed: {
+
+  // }
 };
 </script>
 

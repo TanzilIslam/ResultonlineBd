@@ -131,25 +131,37 @@ export default {
       data: {},
       relatedData: [],
       active2: false,
-      place: `http://test.resultonlinebd.com/q&a/api/v1/dtls/${this.$route.params.qadetail}`
+      place: `http://test.resultonlinebd.com/q&a/api/v1/dtls/${this.$route.params.qadetail}`,
+      articleView: 0
     };
   },
-  watch: {
-    "$route.query": "$fetch"
-  },
-  async created() {
+  async fetch() {
     var self = this;
     await self.$axios
       .$get(
         process.env.baseUrl + `/q&a/api/v1/dtls/${self.$route.params.qadetail}`
       )
       .then(function(posts) {
-        self.setview(posts.view, posts.slug);
+        // console.log("1st get ", posts.view);
+        self.articleView = posts.view;
       });
-  },
 
-  async fetch() {
-    var self = this;
+    await self.$axios
+      .$put(
+        process.env.baseUrl + `/q&a/api/v1/dtls/${self.$route.params.qadetail}`,
+        {
+          view: self.articleView + 1
+        },
+        {
+          headers: {
+            Authorization: `Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJrZXkiOiJjdXN0b21fdmFsdWUifQ.Gn4_F3IujZkyYR3gygA0TZuVeprhDDiDCWE1LvvCKsY`
+          }
+        }
+      )
+      .then(function(e) {
+        // console.log("2nd ", e.view);
+      });
+
     await self.$axios
       .$get(
         process.env.baseUrl + `/q&a/api/v1/dtls/${self.$route.params.qadetail}`
@@ -174,16 +186,16 @@ export default {
       });
   },
   methods: {
-    setview(views, slug) {
-      this.$axios
-        .$put(process.env.baseUrl + `/q&a/api/v1/dtls/${slug}`, {
-          view: views + 1
-        })
-        .then(function(response) {})
-        .catch(function(e) {
-          console.log(e);
-        });
-    },
+    // setview(views, slug) {
+    //   this.$axios
+    //     .$put(process.env.baseUrl + `/q&a/api/v1/dtls/${slug}`, {
+    //       view: views + 1
+    //     })
+    //     .then(function(response) {})
+    //     .catch(function(e) {
+    //       console.log(e);
+    //     });
+    // },
     copyLink() {
       navigator.clipboard.writeText(this.place);
     },

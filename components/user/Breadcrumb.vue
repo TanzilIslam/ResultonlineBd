@@ -10,6 +10,7 @@
         @click="loadAll()"
       >
         <b-img
+          alt="logo of all catagory articles"
           class="rounded"
           height="20"
           width="20"
@@ -23,6 +24,7 @@
         @click="loadTop()"
       >
         <b-img
+          alt="logo of top articles"
           class="rounded"
           height="20"
           width="20"
@@ -36,6 +38,7 @@
         @click="loadhighRated()"
       >
         <b-img
+          alt="logo of high rated articles"
           class="rounded"
           height="20"
           width="20"
@@ -54,16 +57,16 @@ export default {
   props: {
     allActive: {
       type: Boolean,
-      default: false,
+      default: false
     },
     topActive: {
       type: Boolean,
-      default: false,
+      default: false
     },
     highRatedActive: {
       type: Boolean,
-      default: false,
-    },
+      default: false
+    }
   },
   data() {
     return {};
@@ -77,8 +80,8 @@ export default {
     },
     loadhighRated() {
       this.$router.push("/high-rated");
-    },
-  },
+    }
+  }
 };
 </script>
 

@@ -7,13 +7,48 @@
       <!-- Channel start -->
       <b-col class="home-sidebar" cols="12" sm="12" md="3" lg="3" xl="3">
         <div class="side-bar-sticky">
-          <div class="side-bar-scroll">
+          <div
+            class="side-bar-scroll"
+            v-bind:style="{
+              height: heightOfScreen + 'px',
+              overflowY: 'scroll'
+            }"
+          >
             <div class="scrollbox-content">
               <SideBar />
             </div>
           </div>
-          <div class="home-footer">
-            <b-row no-gutters class="m-1">
+          <div class="home-footer pt-3">
+            <p class="mb-3 footer-name link-hover mr-2">
+              <span class="mr-2">Terms</span> <span>Privacy</span>
+            </p>
+            <p class="mb-3 footer-name link-hover">
+              <span class="mr-2">Get In Touch</span> <span>About Us</span>
+            </p>
+            <div class="d-flex">
+              <div>
+                <b-img
+                  alt="facebook logo of resultonlinebd page"
+                  class="footer-name social-icons"
+                  :src="require('~/assets/user/footer/facebook-circled.png')"
+                ></b-img>
+              </div>
+              <div>
+                <b-img
+                  alt="instagram logo of resultonlinebd page"
+                  class="footer-name social-icons"
+                  :src="require('~/assets/user/footer/images.jpeg')"
+                ></b-img>
+              </div>
+              <div>
+                <b-img
+                  alt="twiter logo of resultonlinebd page"
+                  class="footer-name social-icons"
+                  :src="require('~/assets/user/footer/download.png')"
+                ></b-img>
+              </div>
+            </div>
+            <!-- <b-row no-gutters class="m-1">
               <p class="mb-3 footer-name link-hover mr-2">
                 <span class="mr-2">Terms</span> <span>Privacy</span>
               </p>
@@ -38,7 +73,7 @@
                 </div>
                 <div class="pt-3 footer-name">© 2020 · NuxtIt</div>
               </b-col>
-            </b-row>
+            </b-row> -->
           </div>
         </div>
       </b-col>
@@ -56,6 +91,7 @@
         <div class="latest-home-card mb-4 pt-1 fresh-sticky">
           <h5 class="custom-latest-title ml-2">
             <b-img
+              alt="image of fresh catagory article"
               height="30"
               width="25"
               class="ml-1 mr-2"
@@ -85,7 +121,7 @@
               <div v-if="article.is_active">
                 <div v-if="article.channel.channelname == 'Mobile phone'">
                   <nuxt-link prefetch :to="`/m/${article.slug}`">
-                    <div @click="setview(article)" class="d-flex">
+                    <div class="d-flex">
                       <div class="custom-latest-text mr-3">
                         {{ article.title }}
                         <p class="mt-4 text-muted">
@@ -103,7 +139,7 @@
                 </div>
                 <div v-else>
                   <nuxt-link prefetch :to="`/${article.slug}`">
-                    <div @click="setview(article)" class="d-flex">
+                    <div class="d-flex">
                       <div class="custom-latest-text mr-3">
                         {{ article.title }}
                         <p class="mt-4 text-muted">
@@ -383,7 +419,16 @@ export default {
   },
   computed: mapState({
     HomeArticles: state => state.home.HomeArticles,
-    LatestArticles: state => state.home.LatestArticles
+    LatestArticles: state => state.home.LatestArticles,
+    heightOfScreen() {
+      if (process.browser) {
+        return (
+          (window.innerHeight ||
+            document.documentElement.clientHeight ||
+            document.body.clientHeight) - 185
+        );
+      }
+    }
   }),
   methods: {
     scroll() {
@@ -441,16 +486,16 @@ export default {
         // this.$bvToast.show("my-toast");
         this.showCl = false;
       }
-    },
-    async setview(article) {
-      // try {
-      //   await this.$axios.$put(process.env.baseUrl + `/count/${article.slug}`, {
-      //     view: article.view + 1
-      //   });
-      // } catch (e) {
-      //   alert("No more data" + e);
-      // }
     }
+    // async setview(article) {
+    // try {
+    //   await this.$axios.$put(process.env.baseUrl + `/count/${article.slug}`, {
+    //     view: article.view + 1
+    //   });
+    // } catch (e) {
+    //   alert("No more data" + e);
+    // }
+    // }
     // async setviewqAndA(view, slug) {
     //   await this.$axios
     //     .$put(process.env.baseUrl + `/q&a/api/v1/dtls/${slug}`, {
@@ -501,9 +546,9 @@ export default {
 }
 
 .side-bar-scroll {
-  height: 375px;
+  /* height: 375px; */
   overflow-x: hidden;
-  overflow-y: scroll;
+  /* overflow-y: scroll; */
   scrollbar-width: thin;
 }
 
