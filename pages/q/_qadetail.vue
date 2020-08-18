@@ -7,14 +7,23 @@
       <b-col class="mb-3" cols="12" sm="12" md="9" lg="9" xl="9">
         <div v-if="data.is_active">
           <div class="question mb-4">
-            <h4>
-              <b-icon
-                icon="award-fill"
-                class="mr-1"
-                style="height: 30px; width: 30px;"
-              ></b-icon>
-              <strong>Question</strong>
-            </h4>
+            <!-- <h4> -->
+            <div class="d-flex">
+              <div class="image-holder">
+                <b-img
+                  class="mr-2"
+                  height="30"
+                  width="30"
+                  alt="question logo"
+                  src="~/assets/user/icons/qa.svg"
+                >
+                </b-img>
+              </div>
+
+              <h4><strong>Question</strong></h4>
+            </div>
+
+            <!-- </h4> -->
             <b-card no-body>
               <div class="m-4">
                 <div class="d-flex w-100">
@@ -25,14 +34,17 @@
                   </div>
 
                   <div class="ml-auto">
-                    <div class="d-flex">
-                      <b-icon icon="eye-fill" class="mt-1 ml-2 mr-1"></b-icon>
+                    <div class="d-flex pt-1">
+                      <b-icon
+                        icon="eye-fill"
+                        class=" ml-2 mr-1 my-auto"
+                      ></b-icon>
                       {{ data.view }}
                       <b-icon
                         icon="reply"
                         style="cursor:pointer;"
                         @click="active2 = !active2"
-                        class="mt-1 ml-4"
+                        class="mt-1 ml-4 h5 my-auto"
                       ></b-icon>
                     </div>
                   </div>
@@ -45,14 +57,24 @@
             </b-card>
           </div>
           <div class="answer pt-4">
-            <h4>
-              <b-icon
-                icon="award-fill"
-                class="mr-1"
-                style="height: 30px; width: 30px;"
-              ></b-icon>
-              <strong>Answere</strong>
-            </h4>
+            <!-- <h4> -->
+            <div class="d-flex">
+              <!-- <div class="d-flex"> -->
+              <div class="image-holder">
+                <b-img
+                  class="mr-2"
+                  height="30"
+                  width="30"
+                  alt="answare logo"
+                  src="~/assets/user/icons/ans.svg"
+                >
+                </b-img>
+              </div>
+
+              <h4><strong>Answere</strong></h4>
+            </div>
+
+            <!-- </h4> -->
             <b-card no-body>
               <div class="m-4">
                 <div v-html="data.awnsr_qna"></div>
@@ -88,37 +110,9 @@
       <template #header>
         <h6 class="pt-3">Share this Question and Answere</h6>
       </template>
-
-      <div>
-        <div class="text-center">
-          <b-img
-            class=""
-            @click="shareToFb"
-            style="cursor: pointer;"
-            height="40"
-            width="40"
-            src="~/assets/user/icons/fb.svg"
-          >
-          </b-img>
-          <b-input-group size="sm" class="pt-4">
-            <b-form-input :value="place"></b-form-input>
-            <b-input-group-append>
-              <!-- <b-icon icon="clipboard"></b-icon> -->
-
-              <!-- <b-button variant="outline-light"> -->
-              <b-img
-                style="cursor: pointer;"
-                height="31"
-                width="31"
-                src="~/assets/user/icons/copy.png"
-                @click="copyLink"
-                class="rounded "
-              ></b-img>
-              <!-- </b-button> -->
-            </b-input-group-append>
-          </b-input-group>
-        </div>
-      </div>
+      <ShareModal
+        :pathUrl="`/q&a/api/v1/dtls/${this.$route.params.qadetail}`"
+      />
     </vs-dialog>
   </div>
 </template>
@@ -131,7 +125,6 @@ export default {
       data: {},
       relatedData: [],
       active2: false,
-      place: `http://test.resultonlinebd.com/q&a/api/v1/dtls/${this.$route.params.qadetail}`,
       articleView: 0
     };
   },
@@ -185,28 +178,7 @@ export default {
         console.log(e);
       });
   },
-  methods: {
-    // setview(views, slug) {
-    //   this.$axios
-    //     .$put(process.env.baseUrl + `/q&a/api/v1/dtls/${slug}`, {
-    //       view: views + 1
-    //     })
-    //     .then(function(response) {})
-    //     .catch(function(e) {
-    //       console.log(e);
-    //     });
-    // },
-    copyLink() {
-      navigator.clipboard.writeText(this.place);
-    },
-    shareToFb() {
-      window.open(
-        "https://www.facebook.com/dialog/share?app_id=2141341249515400&display=popup&href=http://test.resultonlinebd.com/q&a/api/v1/dtls/" +
-          this.$route.params.qadetail,
-        "_blank"
-      );
-    }
-  }
+  methods: {}
 };
 </script>
 
@@ -225,5 +197,15 @@ a {
 }
 .qa-details {
   font-family: "Inter", sans-serif;
+}
+.image-holder {
+  padding-left: 8px;
+  padding-top: 4px;
+  border-radius: 5px;
+  margin-right: 8px;
+  margin-bottom: 4px;
+  /* text-align: center; */
+  /* padding: 8px; */
+  background-color: #e4e6eb;
 }
 </style>

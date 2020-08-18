@@ -169,7 +169,7 @@
           <div class="myPagination">
             <vs-row justify="center">
               <vs-col w="2">
-                <vs-button ref="button" flat @click="loadData"
+                <vs-button   color="#343a40" ref="button" flat @click="loadData"
                   ><b>Load More</b></vs-button
                 >
               </vs-col>

@@ -45,6 +45,7 @@
               <b-icon
                 class="mr-3 custom-home-card h5"
                 :icon="icon"
+                :variant="iconColor"
                 @click="setFavourite(6000, '#4a5153')"
               ></b-icon>
             </div>
@@ -320,37 +321,7 @@
         <template #header>
           <h6 class="pt-3">Share this article</h6>
         </template>
-
-        <div>
-          <div class="text-center">
-            <b-img
-              class=""
-              @click="shareToFb"
-              style="cursor: pointer;"
-              height="40"
-              width="40"
-              src="~/assets/user/icons/fb.svg"
-            >
-            </b-img>
-            <b-input-group size="sm" class="pt-4">
-              <b-form-input :value="place"></b-form-input>
-              <b-input-group-append>
-                <!-- <b-icon icon="clipboard"></b-icon> -->
-
-                <!-- <b-button variant="outline-light"> -->
-                <b-img
-                  style="cursor: pointer;"
-                  height="31"
-                  width="31"
-                  src="~/assets/user/icons/copy.png"
-                  @click="copyLink"
-                  class="rounded "
-                ></b-img>
-                <!-- </b-button> -->
-              </b-input-group-append>
-            </b-input-group>
-          </div>
-        </div>
+        <ShareModal :pathUrl="`/${this.$route.params.slug}`" />
       </vs-dialog>
     </div>
   </div>
@@ -376,7 +347,7 @@ export default {
       articleView: 0,
       notCompleted: true,
       active2: false,
-      place: `http://test.resultonlinebd.com/${this.$route.params.slug}`
+      iconColor : "dark"
     };
   },
   head() {
@@ -510,16 +481,6 @@ export default {
     RelatedArticles: state => state.detailPage.RelatedArticles
   }),
   methods: {
-    copyLink() {
-      navigator.clipboard.writeText(this.place);
-    },
-    shareToFb() {
-      window.open(
-        "https://www.facebook.com/dialog/share?app_id=2141341249515400&display=popup&href=http://test.resultonlinebd.com/" +
-          this.$route.params.slug,
-        "_blank"
-      );
-    },
     setFavourite(duration, color) {
       if (process.browser) {
         this.toogle = !this.toogle;
@@ -529,6 +490,7 @@ export default {
             JSON.stringify(this.DetailArticle.title)
           );
           this.icon = "star-fill";
+          this.iconColor = "warning"
           const noti = this.$vs.notification({
             duration,
             color,
@@ -559,6 +521,7 @@ export default {
           });
 
           this.icon = "star";
+          this.iconColor = "dark"
         }
       }
     },
@@ -570,6 +533,7 @@ export default {
           // console.log("found");
           this.toogle = true;
           this.icon = "star-fill";
+          this.iconColor = "warning"
           break;
         }
       }

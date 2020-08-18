@@ -1,7 +1,7 @@
 <template>
   <div class="author-small-card">
     <b-card no-body class="custom-author-small-card">
-      <div @click="setview">
+      <div>
         <div v-if="article == 'Mobile'">
           <nuxt-link prefetch :to="`/m/${ArticleSlug}`">
             <b-card-img-lazy
@@ -33,6 +33,7 @@
           <p>
             <b-icon
               :icon="icon"
+              :variant="iconColor"
               @click="setFavourite(6000, '#4a5153')"
               class="mr-2"
             ></b-icon>
@@ -44,7 +45,7 @@
           </p>
         </div>
       </div>
-      <div @click="setview">
+      <div>
         <div v-if="article == 'Mobile'">
           <nuxt-link prefetch :to="`/m/${ArticleSlug}`">
             <b-card-text text-tag="h5" class="custom-card-text-title">{{
@@ -65,36 +66,11 @@
       <template #header>
         <h6 class="pt-3">Share this article</h6>
       </template>
-
-      <div>
-        <div class="text-center">
-          <b-img
-            class=""
-            @click="shareToFb"
-            style="cursor: pointer;"
-            height="40"
-            width="40"
-            src="~/assets/user/icons/fb.svg"
-          >
-          </b-img>
-          <b-input-group size="sm" class="pt-4">
-            <b-form-input :value="place"></b-form-input>
-            <b-input-group-append>
-              <!-- <b-icon icon="clipboard"></b-icon> -->
-
-              <!-- <b-button variant="outline-light"> -->
-              <b-img
-                style="cursor: pointer;"
-                height="31"
-                width="31"
-                src="~/assets/user/icons/copy.png"
-                @click="copyLink"
-                class="rounded"
-              ></b-img>
-              <!-- </b-button> -->
-            </b-input-group-append>
-          </b-input-group>
-        </div>
+      <div v-if="article == 'Mobile'">
+        <ShareModal :pathUrl="`/m/${this.ArticleSlug}`" />
+      </div>
+      <div v-else>
+        <ShareModal :pathUrl="`/${this.ArticleSlug}`" />
       </div>
     </vs-dialog>
   </div>
@@ -130,19 +106,10 @@ export default {
       icon: "star",
       toogle: false,
       active2: false,
-      place: `http://test.resultonlinebd.com/${this.article.slug}`
+      iconColor: "dark"
     };
   },
   methods: {
-    setview() {
-      // try {
-      //   this.$axios.$put(process.env.baseUrl + `/count/${this.ArticleSlug}`, {
-      //     view: this.ArticleView + 1
-      //   });
-      // } catch (e) {
-      //   alert("No more data" + e);
-      // }
-    },
     checkLocal() {
       for (let i = 0; i < localStorage.length; i++) {
         let key = localStorage.key(i);
@@ -151,6 +118,7 @@ export default {
           // console.log("found");
           this.toogle = true;
           this.icon = "star-fill";
+          this.iconColor = "warning";
           break;
         }
       }
@@ -164,6 +132,7 @@ export default {
             JSON.stringify(this.ArticleTitle)
           );
           this.icon = "star-fill";
+          this.iconColor = "warning";
 
           const noti = this.$vs.notification({
             duration,
@@ -174,12 +143,6 @@ export default {
             text:
               "This article Successfully added to Favourite.Check Favourite Section"
           });
-          // this.$bvToast.toast(`Successfully added to Favourite!`, {
-          //   title: "Done",
-          //   autoHideDelay: 2000,
-          //   solid: true,
-          //   static: true
-          // });
         } else if (!this.toogle) {
           for (let i = 0; i < localStorage.length; i++) {
             let key = localStorage.key(i);
@@ -201,18 +164,9 @@ export default {
           });
 
           this.icon = "star";
+          this.iconColor = "dark";
         }
       }
-    },
-    copyLink() {
-      navigator.clipboard.writeText(this.place);
-    },
-    shareToFb() {
-      window.open(
-        "https://www.facebook.com/dialog/share?app_id=2141341249515400&display=popup&href=http://test.resultonlinebd.com/" +
-          this.article.slug,
-        "_blank"
-      );
     }
   },
   mounted() {

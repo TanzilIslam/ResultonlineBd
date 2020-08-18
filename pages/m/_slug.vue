@@ -34,13 +34,14 @@
                 >{{ DetailArticle.view }}</b-card-text
               >
               <b-icon
-                class="mr-3 custom-home-card"
+                class="mr-3 custom-home-card h4"
                 @click="active2 = !active2"
                 icon="reply"
               ></b-icon>
               <b-icon
-                class="mr-3 custom-home-card"
+                class="mr-3 custom-home-card h5"
                 :icon="icon"
+                :variant="iconColor"
                 @click="setFavourite(6000, '#4a5153')"
               ></b-icon>
             </div>
@@ -99,7 +100,7 @@
           </div>
         </div>
 
-       <div class="tags d-flex mt-4 mb-3">
+        <div class="tags d-flex mt-4 mb-3">
           <p class="text-dark mr-2 my-auto " style="font-size: 1rem;">Tags:</p>
           <vs-button
             size="small"
@@ -112,7 +113,6 @@
           >
             {{ i.tag_name }}
           </vs-button>
-        
         </div>
 
         <div v-if="!DetailArticle.contentlock">
@@ -264,37 +264,7 @@
         <template #header>
           <h6 class="pt-3">Share this article</h6>
         </template>
-
-        <div>
-          <div class="text-center">
-            <b-img
-              class=""
-              @click="shareToFb"
-              style="cursor: pointer;"
-              height="40"
-              width="40"
-              src="~/assets/user/icons/fb.svg"
-            >
-            </b-img>
-            <b-input-group size="sm" class="pt-4">
-              <b-form-input :value="place"></b-form-input>
-              <b-input-group-append>
-                <!-- <b-icon icon="clipboard"></b-icon> -->
-
-                <!-- <b-button variant="outline-light"> -->
-                <b-img
-                  style="cursor: pointer;"
-                  height="31"
-                  width="31"
-                  src="~/assets/user/icons/copy.png"
-                  @click="copyLink"
-                  class="rounded "
-                ></b-img>
-                <!-- </b-button> -->
-              </b-input-group-append>
-            </b-input-group>
-          </div>
-        </div>
+        <ShareModal :pathUrl="`/m/${this.$route.params.slug}`" />
       </vs-dialog>
     </div>
   </div>
@@ -320,7 +290,7 @@ export default {
       mixBrand: [],
       articleView: 0,
       active2: false,
-      place: `http://test.resultonlinebd.com/${this.$route.params.slug}`
+      iconColor : "dark"
     };
   },
   head() {
@@ -416,16 +386,6 @@ export default {
     RelatedArticles: state => state.mobileDetailPage.RelatedArticles
   }),
   methods: {
-    copyLink() {
-      navigator.clipboard.writeText(this.place);
-    },
-    shareToFb() {
-      window.open(
-        "https://www.facebook.com/dialog/share?app_id=2141341249515400&display=popup&href=http://test.resultonlinebd.com/m/" +
-          this.$route.params.slug,
-        "_blank"
-      );
-    },
     setFavourite(duration, color) {
       if (process.browser) {
         this.toogle = !this.toogle;
@@ -435,6 +395,7 @@ export default {
             JSON.stringify(this.DetailArticle.title)
           );
           this.icon = "star-fill";
+          this.iconColor = "warning"
           const noti = this.$vs.notification({
             duration,
             color,
@@ -465,6 +426,7 @@ export default {
           });
 
           this.icon = "star";
+          this.iconColor= "dark"
         }
       }
     },
@@ -476,6 +438,7 @@ export default {
           // console.log("found");
           this.toogle = true;
           this.icon = "star-fill";
+          this.iconColor = "warning" 
           break;
         }
       }
@@ -517,24 +480,6 @@ export default {
         // alert("No more data" + e);
       }
       this.loadedRecommended = true;
-    },
-    setview(views, slug) {
-      try {
-        this.$axios
-          .$put(
-            process.env.baseUrl + `/count/${slug}`,
-            {
-              view: views + 1
-            },
-            {
-              headers: {
-                Authorization: `Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJrZXkiOiJjdXN0b21fdmFsdWUifQ.Gn4_F3IujZkyYR3gygA0TZuVeprhDDiDCWE1LvvCKsY`
-              }
-            }
-          )
-          .then(function(e) {});
-        // this.$store.dispatch("countView/setViewcount", this.article.slug);
-      } catch (e) {}
     },
     checkLocalStorage() {
       if (process.browser) {

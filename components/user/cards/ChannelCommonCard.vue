@@ -2,7 +2,7 @@
   <div>
     <div v-if="article.is_active" class="channel-common-card">
       <b-card no-body class="custom-channel-common-card">
-        <div @click="setview">
+        <div>
           <div v-if="article.channel.channelname == 'Mobile phone'">
             <nuxt-link prefetch :to="`/m/${article.slug}`">
               <b-card-img-lazy
@@ -36,6 +36,7 @@
               <b-icon
                 :icon="icon"
                 @click="setFavourite(6000, '#4a5153')"
+                :variant="iconColor"
                 class="mr-2"
               ></b-icon>
               <b-icon
@@ -47,7 +48,7 @@
           </div>
         </div>
 
-        <div @click="setview">
+        <div>
           <div v-if="article.channel.channelname == 'Mobile phone'">
             <nuxt-link prefetch :to="`/m/${article.slug}`">
               <b-card-text text-tag="h5" class="custom-card-text-title">{{
@@ -69,36 +70,11 @@
       <template #header>
         <h6 class="pt-3">Share this article</h6>
       </template>
-
-      <div>
-        <div class="text-center">
-          <b-img
-            class=""
-            @click="shareToFb"
-            style="cursor: pointer;"
-            height="40"
-            width="40"
-            src="~/assets/user/icons/fb.svg"
-          >
-          </b-img>
-          <b-input-group size="sm" class="pt-4">
-            <b-form-input :value="place"></b-form-input>
-            <b-input-group-append>
-              <!-- <b-icon icon="clipboard"></b-icon> -->
-
-              <!-- <b-button variant="outline-light"> -->
-              <b-img
-                style="cursor: pointer;"
-                height="31"
-                width="31"
-                src="~/assets/user/icons/copy.png"
-                @click="copyLink"
-                class="rounded"
-              ></b-img>
-              <!-- </b-button> -->
-            </b-input-group-append>
-          </b-input-group>
-        </div>
+      <div v-if="article.channel.channelname == 'Mobile phone'">
+        <ShareModal :pathUrl="`/m/${this.article.slug}`" />
+      </div>
+      <div v-else>
+        <ShareModal :pathUrl="`/${this.article.slug}`" />
       </div>
     </vs-dialog>
   </div>
@@ -112,7 +88,7 @@ export default {
       icon: "star",
       toogle: false,
       active2: false,
-      place: `http://test.resultonlinebd.com/${this.article.slug}`
+      iconColor: "dark"
     };
   },
   mounted() {
@@ -125,18 +101,6 @@ export default {
     }
   },
   methods: {
-    setview() {
-      // try {
-      //   this.$axios.$put(process.env.baseUrl + `/count/${this.article.slug}`, {
-      //     view: this.article.view + 1
-      //   });
-      // } catch (e) {
-      //   alert("No more data" + e);
-      // }
-    },
-    copyLink() {
-      navigator.clipboard.writeText(this.place);
-    },
     checkLocal() {
       for (let i = 0; i < localStorage.length; i++) {
         let key = localStorage.key(i);
@@ -145,6 +109,7 @@ export default {
           // console.log("found");
           this.toogle = true;
           this.icon = "star-fill";
+          this.iconColor = "warning";
           break;
         }
       }
@@ -158,6 +123,7 @@ export default {
             JSON.stringify(this.article.title)
           );
           this.icon = "star-fill";
+          this.iconColor = "warning";
           const noti = this.$vs.notification({
             duration,
             color,
@@ -187,15 +153,9 @@ export default {
               "This article Successfully Removed from Favourite.Click again to added!"
           });
           this.icon = "star";
+          this.iconColor = "dark";
         }
       }
-    },
-    shareToFb() {
-      window.open(
-        "https://www.facebook.com/dialog/share?app_id=2141341249515400&display=popup&href=http://test.resultonlinebd.com/" +
-          this.article.slug,
-        "_blank"
-      );
     }
   }
 };

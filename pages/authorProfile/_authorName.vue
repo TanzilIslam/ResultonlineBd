@@ -140,37 +140,9 @@
       <template #header>
         <h6 class="pt-3">Share this page</h6>
       </template>
-
-      <div>
-        <div class="text-center">
-          <b-img
-            class=""
-            @click="shareToFb"
-            style="cursor: pointer;"
-            height="40"
-            width="40"
-            src="~/assets/user/icons/fb.svg"
-          >
-          </b-img>
-          <b-input-group size="sm" class="pt-4">
-            <b-form-input :value="place"></b-form-input>
-            <b-input-group-append>
-              <!-- <b-icon icon="clipboard"></b-icon> -->
-
-              <!-- <b-button variant="outline-light"> -->
-              <b-img
-                style="cursor: pointer;"
-                height="31"
-                width="31"
-                src="~/assets/user/icons/copy.png"
-                @click="copyLink"
-                class="rounded"
-              ></b-img>
-              <!-- </b-button> -->
-            </b-input-group-append>
-          </b-input-group>
-        </div>
-      </div>
+      <ShareModal
+        :pathUrl="`/authorProfile/${this.$route.params.authorName}`"
+      />
     </vs-dialog>
   </div>
 </template>
@@ -254,7 +226,7 @@ export default {
       }
     },
     authorWeb() {
-      window.open("https://www.google.com", "_blank");
+      window.open(this.AuthorArticles.authorsweblink, "_blank");
     }
   },
   mounted() {
