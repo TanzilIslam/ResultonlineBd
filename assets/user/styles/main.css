@@ -155,12 +155,13 @@ body {
 }
 .sub-tag {
   cursor: pointer;
-  background-color: rgba(0, 0, 0, 0.06);
-  border-radius: 6px;
-  text-align: center;
+  /* background-color: rgba(0, 0, 0, 0.06); */
+  /* border-radius: 6px; */
+  /* text-align: center; */
   height: 32px;
   line-height: 32px;
   padding: 0 14px;
+  font-size: 14px !important;
 }
 
 /* Channel sidebar,MainTag,SubTag end */

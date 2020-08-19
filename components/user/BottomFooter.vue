@@ -1,55 +1,41 @@
 <template>
   <div class="footer" style="background-color: #000000;">
     <b-container>
-      <b-row no-gutters>
-        <b-col cols="12" sm="12" md="3" lg="3" xl="3">
-          <div
-            class="d-flex justify-content-center justify-content-md-start justify-content-lg-start justify-content-xl-start first-section mt-4"
-          >
-          |
-            <!-- <b-img
-              class="logo"
-              :src="require('~/assets/user/icons/brand.png')"
-              alt="Kitten"
-            ></b-img> -->
-          </div>
-        </b-col>
-        <b-col cols="12" sm="12" md="4" lg="4" xl="4">
-          <div class="d-flex justify-content-center social-icon mt-4">
-                      <p style="color: white;font-size:12px">
-            ©2020 ReoLib.All Rights Reserved.Developed by: NUXTIT
-          </p>
-          </div>
-        </b-col>
-        <b-col cols="12" sm="12" md="5" lg="5" xl="5">
-          <div
-            class="d-flex justify-content-center justify-content-md-end justify-content-lg-end justify-content-xl-end last-section mt-4"
-          >
+      <div class="d-flex justify-content-between pt-2">
+        <div>
           <b-img
-              class="social-icons"
-              :src="require('~/assets/user/icons/fb.png')"
-            ></b-img>
+            height="20"
+            width="22"
+            class="rounded"
+            src="~/assets/user/icons/footerLogo.png"
+          ></b-img>
+          |
+        </div>
+        <div>
+          <p style="color: white;font-size:12px">
+            ©2020 ReoLib.All Rights Reserved
+          </p>
+        </div>
+        <div>
+          <b-img
+            class="social-icons"
+            :src="require('~/assets/user/icons/fb.png')"
+          ></b-img>
 
-            <b-img
-              class="social-icons"
-              :src="require('~/assets/user/icons/insta.png')"
-            ></b-img>
-            <b-img
-              class="social-icons"
-              :src="require('~/assets/user/icons/tw.png')"
-            ></b-img>
-            <b-img
-              class="social-icons"
-              :src="require('~/assets/user/icons/pin.png')"
-            ></b-img>
-          </div>
-            <!-- <h5>Terms</h5>
-            <h5>Privacy</h5>
-            <h5>Get In Touch</h5>
-            <h5>About Us</h5> -->
-          
-        </b-col>
-      </b-row>
+          <b-img
+            class="social-icons"
+            :src="require('~/assets/user/icons/insta.png')"
+          ></b-img>
+          <b-img
+            class="social-icons"
+            :src="require('~/assets/user/icons/tw.png')"
+          ></b-img>
+          <b-img
+            class="social-icons"
+            :src="require('~/assets/user/icons/pin.png')"
+          ></b-img>
+        </div>
+      </div>
     </b-container>
   </div>
 </template>

@@ -274,7 +274,7 @@
 import { mapState } from "vuex";
 import VclStar from "@/components/user/vue-content-loading-cards/VclStar.vue";
 export default {
-  layout: "notKeepAlive",
+  layout: "detail",
   components: { VclStar },
   data() {
     return {
@@ -290,7 +290,7 @@ export default {
       mixBrand: [],
       articleView: 0,
       active2: false,
-      iconColor : "dark"
+      iconColor: "dark"
     };
   },
   head() {
@@ -395,7 +395,7 @@ export default {
             JSON.stringify(this.DetailArticle.title)
           );
           this.icon = "star-fill";
-          this.iconColor = "warning"
+          this.iconColor = "warning";
           const noti = this.$vs.notification({
             duration,
             color,
@@ -426,7 +426,7 @@ export default {
           });
 
           this.icon = "star";
-          this.iconColor= "dark"
+          this.iconColor = "dark";
         }
       }
     },
@@ -438,7 +438,7 @@ export default {
           // console.log("found");
           this.toogle = true;
           this.icon = "star-fill";
-          this.iconColor = "warning" 
+          this.iconColor = "warning";
           break;
         }
       }

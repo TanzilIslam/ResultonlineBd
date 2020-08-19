@@ -1,6 +1,5 @@
 <template>
   <div class="programming-post">
-    <!-- <h1>{{ heightOfScreen }}</h1> -->
     <b-row no-gutters>
       <!-- sideBar Start -->
       <b-col class="pr-2" cols="12" sm="12" md="3" lg="3" xl="3">
@@ -118,15 +117,24 @@
           <div
             class="d-flex justify-content-between justify-content-lg-between justify-content-xl-between flex-wrap mt-2 mb-4"
           >
-            <b-button
+            <vs-button
+              flat
+              v-for="(item, index) in subTagList"
+              :key="index"
+              :color="item.tagNameBG"
+              @click="showSubTagPosts(item)"
+              class="sub-tag"
+              >{{ item.tag_name }}
+            </vs-button>
+            <!-- <b-button
               variant="light"
               v-for="(item, index) in subTagList"
               :key="index"
               @click="showSubTagPosts(item)"
               class="sub-tag"
             >
-              {{ item.tag_name }}
-            </b-button>
+              
+            </b-button> -->
           </div>
           <!-- Sub Tags End -->
 
@@ -166,14 +174,16 @@
             </b-col>
           </b-row>
           <!-- Pagination Start End -->
-          <div class="myPagination">
-            <vs-row justify="center">
-              <vs-col w="2">
-                <vs-button   color="#343a40" ref="button" flat @click="loadData"
-                  ><b>Load More</b></vs-button
-                >
-              </vs-col>
-            </vs-row>
+          <div class="myPagination ">
+            <div class="d-flex justify-content-center">
+              <vs-button
+                :loading="loadMoreLoading"
+                color="#343a40"
+                flat
+                @click="loadData"
+                ><strong>Load More</strong></vs-button
+              >
+            </div>
           </div>
           <!-- Pagination End -->
         </div>
@@ -318,7 +328,8 @@ export default {
       dataLoading: true,
       subTagSelected: false,
       mainTagSelected: false,
-      parentSelected: true
+      parentSelected: true,
+      loadMoreLoading: false
     };
   },
   methods: {
@@ -418,6 +429,7 @@ export default {
       // setTimeout(() => {
       //   loading.close();
       // }, 3000);
+      this.loadMoreLoading = true;
       if (this.parentSelected) {
         try {
           await this.$store.dispatch(
@@ -474,6 +486,7 @@ export default {
             .finally(function() {});
         }
       }
+      this.loadMoreLoading = false;
     }
   },
   watch: {

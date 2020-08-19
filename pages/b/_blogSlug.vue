@@ -16,9 +16,20 @@
               text-variant="white"
               img-height="375"
             ></b-card>
-            <span style="font-size: 18px;" class="text-muted">
-              {{ DetailArticle.catagry_select.cat_name }}
-            </span>
+            <div class="d-flex">
+              <div style="font-size: 18px;" class="text-muted">
+                {{ DetailArticle.catagry_select.cat_name }} |
+                {{ DetailArticle.created_at }}
+              </div>
+              <div class="ml-auto mr-2">
+                <b-icon
+                  class="h4"
+                  style="cursor:pointer;"
+                  @click="active2 = !active2"
+                  icon="reply"
+                ></b-icon>
+              </div>
+            </div>
             <b-card-text class="mt-4" text-tag="h4">{{
               DetailArticle.title
             }}</b-card-text>
@@ -135,34 +146,19 @@
         </b-row>
       </div>
     </div>
-    <b-toast
-      toaster="b-toaster-bottom-center"
-      id="my-toast"
-      variant="dark"
-      solid
-    >
-      <template v-slot:toast-title>
-        <div class="d-flex flex-grow-1 align-items-baseline">
-          <b-img
-            blank
-            blank-color="black"
-            class="mr-2"
-            width="12"
-            height="12"
-          ></b-img>
-          <strong class="mr-auto">End!</strong>
-          <!-- <small class="text-muted mr-2">42 seconds ago</small> -->
-        </div>
+    <vs-dialog width="470px" not-center v-model="active2">
+      <template #header>
+        <h6 class="pt-3">Share this article</h6>
       </template>
-      No more data are available
-    </b-toast>
+      <ShareModal :pathUrl="`/b/${this.$route.params.blogSlug}`" />
+    </vs-dialog>
   </div>
 </template>
 
 <script>
 import { mapState } from "vuex";
 export default {
-  layout: "notKeepAlive",
+  layout: "detail",
   components: {},
   data() {
     return {
@@ -172,7 +168,8 @@ export default {
       DetailArticle: {},
       RelatedArticles: [],
       RecommendedArticles: [],
-      recommendedNextData: ""
+      recommendedNextData: "",
+      active2: false
     };
   },
   head() {

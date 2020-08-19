@@ -63,6 +63,14 @@ export default {
   methods: {
     copyLink() {
       navigator.clipboard.writeText(this.place);
+      const noti = this.$vs.notification({
+        duration: 4000,
+        color: "#4a5153",
+
+        progress: "auto",
+        title: "Copied",
+        text: "This article link is  copied."
+      });
     },
     shareToFb() {
       window.open(

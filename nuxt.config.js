@@ -1,18 +1,22 @@
-
+const axios = require("axios");
 export default {
-  mode: 'universal',
+  mode: "universal",
   /*
-  ** Headers of the page
-  */
+   ** Headers of the page
+   */
   head: {
-    title: process.env.npm_package_name || '',
+    title: process.env.npm_package_name || "",
     meta: [
-      { charset: 'utf-8' },
-      { name: 'viewport', content: 'width=device-width, initial-scale=1' },
-      { hid: 'description', name: 'description', content: process.env.npm_package_description || '' }
+      { charset: "utf-8" },
+      { name: "viewport", content: "width=device-width, initial-scale=1" },
+      {
+        hid: "description",
+        name: "description",
+        content: process.env.npm_package_description || ""
+      }
     ],
     link: [
-      { rel: 'png', type: 'image/x-icon', href: '/favicon.ico' },
+      { rel: "png", type: "image/x-icon", href: "/favicon.ico" }
       // { rel: "stylesheet", href: "https://unpkg.com/vuesax@4.0.1-alpha.16/dist/vuesax.min.css" }
       // {
       //   rel: "stylesheet",
@@ -22,49 +26,61 @@ export default {
     ]
   },
   /*
-  ** Customize the progress-bar color
-  */
-  loading: { color: '#ff0000', height: '3px' },
+   ** Customize the progress-bar color
+   */
+  loading: { color: "#ff0000", height: "3px" },
   /*
-  ** Global CSS
-  */
-  css: ['~/assets/user/styles/main.css'],
+   ** Global CSS
+   */
+  css: ["~/assets/user/styles/main.css"],
   /*
-  ** Plugins to load before mounting the App
-  */
+   ** Plugins to load before mounting the App
+   */
   plugins: [
-    '~plugins/component-registration.js'],
+    "~plugins/component-registration.js",
+    { src: "~plugins/ga.js", mode: "client" }
+  ],
   /*
-  ** Nuxt.js dev-modules
-  */
+   ** Nuxt.js dev-modules
+   */
   buildModules: [],
   /*
-  ** Nuxt.js modules
-  */
+   ** Nuxt.js modules
+   */
   modules: [
     // Doc: https://bootstrap-vue.js.org
-    'bootstrap-vue/nuxt',
+    "bootstrap-vue/nuxt",
     // Doc: https://axios.nuxtjs.org/usage
-    '@nuxtjs/axios'],
+    "@nuxtjs/axios",
+    "@nuxtjs/sitemap"
+  ],
   bootstrapVue: {
     icons: true // Install the IconsPlugin (in addition to BootStrapVue plugin
   },
   /*
-  ** Axios module configuration
-  ** See https://axios.nuxtjs.org/options
-  */
-  axios: {
-
-  },
+   ** Axios module configuration
+   ** See https://axios.nuxtjs.org/options
+   */
+  axios: {},
+  sitemap: {
+   
+      hostname: 'http://test.resultonlinebd.com',
+       gzip: true,
+       xmlNs: 'xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"',
+      routes: async () => {
+         let baseUrl = process.env.BASE_URL || `http://cdn.resultonlinebd.com` 
+      const { data } = await axios.get(`${baseUrl}/all/`)
+      return data.data.map((post) => `/count/${post.slug}`)
+    }
+  }
   /*
-  ** Build configuration
-  */
+   ** Build configuration
+   */
   build: {
     /*
-    ** You can extend webpack config here
-    */
-    extend(config, ctx) {
-    }
+     ** You can extend webpack config here
+     */
+    extend(config, ctx) {}
   },
   env: {
     baseUrl: process.env.BASE_URL || `http://cdn.resultonlinebd.com`,
@@ -73,7 +89,6 @@ export default {
     channelMainTag: `http://cdn.resultonlinebd.com/tagmanager?search=`
   },
   server: {
-    host: '0'
+    host: "0"
   }
-
-}
+};

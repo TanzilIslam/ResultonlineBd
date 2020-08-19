@@ -119,7 +119,7 @@
 
 <script>
 export default {
-  layout: "notKeepAlive",
+  layout: "detail",
   data() {
     return {
       data: {},

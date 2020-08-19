@@ -83,6 +83,7 @@ export default {
 
         self.allBlogPost = posts.results;
         self.nextDataLink = posts.next;
+        // console.log(self.allBlogPost);
       })
       .catch(function(error) {
         console.log("No Net" + error);
