@@ -63,16 +63,15 @@ export default {
    */
   axios: {},
   sitemap: {
-   
-      hostname: 'http://test.resultonlinebd.com',
-       gzip: true,
-       xmlNs: 'xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"',
-      routes: async () => {
-         let baseUrl = process.env.BASE_URL || `http://cdn.resultonlinebd.com` 
-      const { data } = await axios.get(`${baseUrl}/all/`)
-      return data.data.map((post) => `/count/${post.slug}`)
-    }
-  }
+    hostname: "http://test.resultonlinebd.com",
+    gzip: true,
+    xmlNs: 'xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"'
+    //   routes: async () => {
+    //      let baseUrl = process.env.BASE_URL || `http://cdn.resultonlinebd.com`
+    //   const { data } = await axios.get(`${baseUrl}/all/`)
+    //   return data.data.map((post) => `/count/${post.slug}`)
+    // }
+  },
   /*
    ** Build configuration
    */
