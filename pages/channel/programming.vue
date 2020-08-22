@@ -114,17 +114,15 @@
         <!-- Latest Div Start -->
         <div v-show="showLatestDiv">
           <!-- Sub Tags Start -->
-          <div
-            class="d-flex justify-content-between justify-content-lg-between justify-content-xl-between flex-wrap mt-2 mb-4"
-          >
+          <div class="d-flex justify-content-start flex-wrap mt-2 mb-4">
             <vs-button
               flat
               v-for="(item, index) in subTagList"
               :key="index"
-              :color="item.tagNameBG"
+              :color="item.tag_creator__tagNameBG"
               @click="showSubTagPosts(item)"
               class="sub-tag"
-              >{{ item.tag_name }}
+              >{{ item.tag_creator__tag_name }}
             </vs-button>
             <!-- <b-button
               variant="light"
@@ -284,17 +282,6 @@ export default {
       })
       .finally(function() {});
 
-    // Sub Tag List Fetch
-    await this.$axios
-      .$get(process.env.baseUrl + "/Tag_creator?search=Programming")
-      .then(function(posts) {
-        self.subTagList = posts.results;
-      })
-      .catch(function(error) {
-        console.log("No Net" + error);
-      })
-      .finally(function() {});
-
     // Channel Home Page Articles Fetch
     await this.$axios
       .$get(process.env.channelUrl + `Programming`)
@@ -375,8 +362,19 @@ export default {
     async showMainTagPosts(item) {
       this.dataLoading = false;
       var self = this;
+
+      await this.$axios
+        .$get(process.env.baseUrl + "/Listsub_Tag/" + item.query_slug)
+        .then(function(posts) {
+          self.subTagList = posts.results.List;
+        })
+        .catch(function(error) {
+          console.log("No Net" + error);
+        })
+        .finally(function() {});
+
       await self.$axios
-        .$get(process.env.baseUrl + `/tagPage_home/${item.query_slug}`)
+        .$get(process.env.baseUrl + `/channelpagetag/${item.query_slug}`)
         .then(function(posts) {
           posts.results.List.forEach(element => {
             element.photo = process.env.baseUrl + "/media/" + element.photo;
@@ -400,7 +398,7 @@ export default {
       this.dataLoading = false;
       var self = this;
       await this.$axios
-        .$get(item.tag_target_link)
+        .$get(process.env.baseUrl + "/targetData/" + item.tag_creator__tagSlug)
         .then(function(posts) {
           posts.results.List.forEach(element => {
             element.photo = process.env.baseUrl + "/media/" + element.photo;
@@ -422,13 +420,6 @@ export default {
     },
     async loadData() {
       // load home Articles
-      // const loading = this.$vs.loading({
-      //   target: this.$refs.content,
-      //   color: "dark"
-      // });
-      // setTimeout(() => {
-      //   loading.close();
-      // }, 3000);
       this.loadMoreLoading = true;
       if (this.parentSelected) {
         try {
@@ -449,6 +440,7 @@ export default {
             .$get(self.TagArticlesNextLink)
             .then(function(posts) {
               posts.results.List.forEach(element => {
+                element.photo = process.env.baseUrl + "/media/" + element.photo;
                 self.$store.dispatch("programming/SetMoreTagArticles", element);
               });
               self.$store.dispatch(
@@ -472,7 +464,8 @@ export default {
           await this.$axios
             .$get(self.TagArticlesNextLink)
             .then(function(posts) {
-              posts.results.forEach(element => {
+              posts.results.List.forEach(element => {
+                element.photo = process.env.baseUrl + "/media/" + element.photo;
                 self.$store.dispatch("programming/SetMoreTagArticles", element);
               });
               self.$store.dispatch(

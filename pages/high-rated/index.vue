@@ -13,7 +13,7 @@
           :key="index"
         >
           <!-- <nuxt-link prefetch :to="`/detailPost/${article.slug}`"> -->
-          <ChannelCommonCard :article="article" :data-index="index" />
+          <CheckSmallCard :article="article" :data-index="index" />
           <!-- </nuxt-link> -->
         </b-col>
       </b-row>

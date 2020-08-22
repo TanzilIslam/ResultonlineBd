@@ -3,7 +3,7 @@
     <div v-if="article.is_active" class="channel-common-card">
       <b-card no-body class="custom-channel-common-card">
         <div>
-          <!-- <div v-if="article.channel.channelname == 'Mobile phone'">
+          <div v-if="article.channel.channelname == 'Mobile phone'">
             <nuxt-link prefetch :to="`/m/${article.slug}`">
               <b-card-img-lazy
                 blank-color="#bbb"
@@ -13,8 +13,8 @@
                 style="border-radius: 10px;"
               ></b-card-img-lazy>
             </nuxt-link>
-          </div> -->
-          <div>
+          </div>
+          <div v-else>
             <nuxt-link prefetch :to="`/${article.slug}`">
               <b-card-img-lazy
                 blank-color="#bbb"
@@ -49,14 +49,14 @@
         </div>
 
         <div>
-          <!-- <div v-if="article.channel.channelname == 'Mobile phone'">
+          <div v-if="article.channel.channelname == 'Mobile phone'">
             <nuxt-link prefetch :to="`/m/${article.slug}`">
               <b-card-text text-tag="h5" class="custom-card-text-title">{{
                 article.title
               }}</b-card-text>
             </nuxt-link>
-          </div> -->
-          <div>
+          </div>
+          <div v-else>
             <nuxt-link prefetch :to="`/${article.slug}`">
               <b-card-text text-tag="h5" class="custom-card-text-title">{{
                 article.title
@@ -70,10 +70,10 @@
       <template #header>
         <h6 class="pt-3">Share this article</h6>
       </template>
-      <!-- <div v-if="article.channel.channelname == 'Mobile phone'">
+      <div v-if="article.channel.channelname == 'Mobile phone'">
         <ShareModal :pathUrl="`/m/${this.article.slug}`" />
-      </div> -->
-      <div>
+      </div>
+      <div v-else>
         <ShareModal :pathUrl="`/${this.article.slug}`" />
       </div>
     </vs-dialog>
