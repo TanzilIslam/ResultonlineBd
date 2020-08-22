@@ -6,6 +6,7 @@
           <div v-if="article.channel.channelname == 'Mobile phone'">
             <nuxt-link prefetch :to="`/m/${article.slug}`">
               <b-card-img-lazy
+                :alt="article.Seoimgalt"
                 blank-color="#bbb"
                 :src="article.photo"
                 top
@@ -17,6 +18,7 @@
           <div v-else>
             <nuxt-link prefetch :to="`/${article.slug}`">
               <b-card-img-lazy
+                :alt="article.Seoimgalt"
                 blank-color="#bbb"
                 :src="article.photo"
                 top

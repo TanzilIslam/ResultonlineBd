@@ -107,6 +107,7 @@
                         <b-img
                           class="custom-latest-image"
                           :src="article.photo"
+                          :alt="article.Seoimgalt"
                         ></b-img>
                       </div>
                     </div>
@@ -125,6 +126,7 @@
                         <b-img
                           class="custom-latest-image"
                           :src="article.photo"
+                          :alt="article.Seoimgalt"
                         ></b-img>
                       </div>
                     </div>

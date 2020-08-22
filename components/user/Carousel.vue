@@ -25,7 +25,7 @@
         v-for="(i, index) in data"
         :key="index"
         :img-src="i.Cover_img"
-        :img-alt="i.imgAlt"
+        :img-alt="i.title"
         img-width="1024"
       >
         <a :href="i.url" class="c-txt-link">

@@ -17,6 +17,7 @@
           <div>
             <nuxt-link prefetch :to="`/${article.slug}`">
               <b-card-img-lazy
+                :alt="article.Seoimgalt"
                 blank-color="#bbb"
                 :src="article.photo"
                 top

@@ -34,6 +34,7 @@
               type="button"
             >
               <b-img
+                :alt="item.tag_name"
                 :src="item.tag_icon"
                 class="shadow channel-side-bar-list-item-icon"
               ></b-img>
@@ -78,6 +79,7 @@
             img-height="80"
             img-src="~/assets/user/icons/channel-cover-programming.jpg"
             text-variant="white"
+            img-alt="programming"
           >
             <b-card-text text-tag="h2" class="channel-cover-title">
               Programming</b-card-text
@@ -364,7 +366,7 @@ export default {
       var self = this;
 
       await this.$axios
-        .$get(process.env.baseUrl + "/Listsub_Tag/" + item.query_slug)
+        .$get(process.env.baseUrl + `/Listsub_Tag/${item.query_slug}`)
         .then(function(posts) {
           self.subTagList = posts.results.List;
         })

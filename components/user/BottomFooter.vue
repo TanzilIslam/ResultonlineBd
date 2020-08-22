@@ -1,8 +1,8 @@
 <template>
   <div class="footer" style="background-color: #000000;">
     <b-container>
-      <div class="d-flex justify-content-between pt-2">
-        <div>
+      <div class="d-flex justify-content-center pt-2">
+        <div class="mr-4">
           <b-img
             height="20"
             width="22"
@@ -11,12 +11,12 @@
           ></b-img>
           |
         </div>
-        <div>
+        <div class="ml-4 mr-4 pt-1">
           <p style="color: white;font-size:12px">
             ©2020 ReoLib.All Rights Reserved
           </p>
         </div>
-        <div>
+        <div class="ml-4">
           <b-img
             class="social-icons"
             :src="require('~/assets/user/icons/fb.png')"

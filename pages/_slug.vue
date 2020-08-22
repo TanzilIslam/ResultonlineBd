@@ -1,12 +1,12 @@
 <template>
   <div class="detail-post">
-    <div class="add-top mb-2  pt-1">
+    <!-- <div class="add-top mb-2  pt-1">
       <b-card
         no-body
         img-src="~/assets/user/dummyImages/add2.png"
         img-height="110"
       ></b-card>
-    </div>
+    </div> -->
     <b-row>
       <b-col cols="12" sm="12" md="8" lg="8" xl="8">
         <div>
@@ -185,6 +185,7 @@
                         blank-color="#bbb"
                         class="custom-latest-image"
                         :src="i.photo"
+                        :alt="i.Seoimgalt"
                       ></b-img-lazy>
                     </div>
                     <div class="ml-2">
@@ -210,13 +211,13 @@
             </b-list-group-item>
           </b-list-group>
         </div>
-        <div class="add-right pt-4">
+        <!-- <div class="add-right pt-4">
           <b-card
             no-body
             img-src="~/assets/user/dummyImages/add1.png"
             img-height="300"
           ></b-card>
-        </div>
+        </div> -->
       </b-col>
     </b-row>
     <hr />
@@ -347,7 +348,7 @@ export default {
       articleView: 0,
       notCompleted: true,
       active2: false,
-      iconColor : "dark"
+      iconColor: "dark"
     };
   },
   head() {
@@ -490,7 +491,7 @@ export default {
             JSON.stringify(this.DetailArticle.title)
           );
           this.icon = "star-fill";
-          this.iconColor = "warning"
+          this.iconColor = "warning";
           const noti = this.$vs.notification({
             duration,
             color,
@@ -521,7 +522,7 @@ export default {
           });
 
           this.icon = "star";
-          this.iconColor = "dark"
+          this.iconColor = "dark";
         }
       }
     },
@@ -533,7 +534,7 @@ export default {
           // console.log("found");
           this.toogle = true;
           this.icon = "star-fill";
-          this.iconColor = "warning"
+          this.iconColor = "warning";
           break;
         }
       }

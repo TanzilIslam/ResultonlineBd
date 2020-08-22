@@ -2,6 +2,7 @@
   <div class="author-profile">
     <div>
       <b-img
+        alt="cover photo of author Profile"
         v-if="$fetchState.pending"
         :blank="true"
         class="w-100 rounded"
@@ -13,9 +14,9 @@
         v-else
         overlay
         :img-src="
-          `http://cdn.resultonlinebd.com/media/${AuthorArticles.coverImg}`
+          `http://cdn.resultonlinebd.com/media/channel_profile/jkmjmkj.jpg`
         "
-        img-alt="Card Image"
+        :img-alt="AuthorArticles.authorsname"
         text-variant="white"
         class="rounded"
         img-height="300"
@@ -36,6 +37,7 @@
                   AuthorArticles.authorsprofilrimg
               "
               class="logo"
+              :alt="AuthorArticles.authorsname"
             ></b-img>
           </div>
           <div>
@@ -119,6 +121,7 @@
               :ArticleSlug="a.slug"
               :ArticleView="a.view"
               :article="a.channel__slug_channel"
+              :imgAlt="a.Seoimgalt"
             />
           </div>
         </b-col>
@@ -154,12 +157,59 @@ export default {
   layout: "default",
   head() {
     return {
-      title: "ResultOnlineBd " + this.AuthorArticles.authorsname,
+      title: this.AuthorArticles.page_title,
       meta: [
         {
           hid: "description",
           name: "description",
-          content: "what you need to know About  " + this.AuthorArticles.about
+          content: this.AuthorArticles.description
+        },
+        {
+          hid: "keywords",
+          name: "keywords",
+          content: this.AuthorArticles.meta_keyword
+        },
+        {
+          hid: "twitter:card",
+          name: "twitter:card",
+          content: this.AuthorArticles.page_title
+        },
+        {
+          hid: "twitter:title",
+          name: "twitter:title",
+          content: this.AuthorArticles.page_title
+        },
+        {
+          hid: "twitter:description",
+          name: "twitter:description",
+          content: this.AuthorArticles.description
+        },
+        {
+          hid: "og:title",
+          property: "og:title",
+          content: this.AuthorArticles.page_title
+        },
+        {
+          hid: "og:type",
+          property: "og:type",
+          content: "article.text"
+        },
+        {
+          hid: "og:url",
+          property: "og:url",
+          content: ""
+        },
+        {
+          hid: "og:description",
+          name: "og:description",
+          content: this.AuthorArticles.description
+        },
+        {
+          hid: "og:image",
+          name: "og:image",
+          content:
+            "http://cdn.resultonlinebd.com/media/" +
+            this.AuthorArticles.authorsprofilrimg
         }
       ]
     };

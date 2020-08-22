@@ -5,7 +5,7 @@
         <div class="d-flex">
           <div class="ml-3 mt-3 mb-2">
             <b-card-img-lazy
-              :alt="article.contentowners.imgAlt"
+              :alt="article.contentowners.authorsname"
               blank-color="#bbb"
               class="rounded-circle p-1 img-logo"
               :src="article.contentowners.authorsprofilrimg"

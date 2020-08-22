@@ -16,6 +16,7 @@
         <div v-else>
           <nuxt-link prefetch :to="`/${ArticleSlug}`">
             <b-card-img-lazy
+              :alt="imgAlt"
               :src="ArticleCover"
               blank-color="#bbb"
               top
@@ -98,6 +99,9 @@ export default {
       type: Number
     },
     article: {
+      type: String
+    },
+    imgAlt: {
       type: String
     }
   },
