@@ -79,17 +79,17 @@
 
         <b-collapse id="nav-collapse" is-nav>
           <b-navbar-nav class="ml-4 mr-2 item">
-            <b-nav-item to="/" class="my-auto" href="#">Home</b-nav-item>
-            <b-nav-item to="/qAnda" class="my-auto ml-1" href="#"
+            <!-- <b-nav-item to="/" class="my-auto" href="#">Home</b-nav-item> -->
+            <!-- <b-nav-item to="/qAnda" class="my-auto ml-1" href="#"
               >Q&A</b-nav-item
-            >
-            <b-nav-item to="/blog" class="my-auto mt-1" href="#"
+            > -->
+            <!-- <b-nav-item to="/blog" class="my-auto mt-1" href="#"
               >Blog</b-nav-item
-            >
+            > -->
           </b-navbar-nav>
 
-          <div class="d-flex w-100">
-            <div class="w-100">
+          <div class="d-flex w-100 justify-content-center">
+            <div class="w-75">
               <form @keyup.enter.prevent="searchinfo">
                 <autocomplete
                   :search="searchData"
@@ -105,13 +105,31 @@
           </div>
 
           <b-navbar-nav>
-            <b-nav-item class="my-auto" to="/favourite" href="#"
-              >Favourite</b-nav-item
-            >
+            <!-- <b-nav-item> -->
+            <b-img
+              style="cursor:pointer;"
+              height="30"
+              width="30"
+              class="rounded"
+              alt="right menu logo"
+              src="~/assets/user/icons/right-menu.png"
+              @click="showRightMenu"
+            ></b-img>
+            <!-- </b-nav-item> -->
+            <!-- <b-nav-item class="my-auto" to="/favourite" href="#"
+              ><b-icon icon="list" variant="white"></b-icon
+            ></b-nav-item> -->
           </b-navbar-nav>
         </b-collapse>
       </b-container>
     </b-navbar>
+
+    <div v-if="showRightMenuCard" class="right-menu" id="myForm">
+      <p>Home</p>
+      <p>QandA</p>
+      <p>Blog</p>
+      <p><nuxt-link to="/favourite"> Favourite</nuxt-link></p>
+    </div>
   </div>
 </template>
 
@@ -123,10 +141,25 @@ export default {
       keyword: "",
       show: true,
       countries: [],
-      suggested: ""
+      suggested: "",
+      showRightMenuCard: false,
+      toogle: false
     };
   },
   methods: {
+    showRightMenu() {
+      this.toogle = !this.toogle;
+      if (this.toogle) {
+        // console.log("show");
+        this.showRightMenuCard = true;
+      } else if (!this.toogle) {
+        // console.log("hide");
+        this.showRightMenuCard = false;
+      }
+    },
+    // showRightMenu() {
+    //   this.showRightMenuCard = true;
+    // },
     searchinfo() {
       if (this.keyword != "") {
         this.$router.push("/search/" + this.keyword);
@@ -173,11 +206,25 @@ export default {
         return false;
       }
     }
-  }
+  },
+  mounted() {}
 };
 </script>
 
 <style scoped>
+.right-menu a {
+  color: black !important;
+  text-decoration: none;
+}
+.right-menu {
+  z-index: 9;
+  position: fixed;
+  right: 25px;
+  top: 55px;
+  background-color: white !important;
+  padding: 10px;
+  border-radius: 5px;
+}
 .logo {
   height: 64px;
   width: 110px;

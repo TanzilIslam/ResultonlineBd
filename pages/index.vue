@@ -29,22 +29,22 @@
               <div>
                 <b-img
                   alt="facebook logo of resultonlinebd page"
-                  class="footer-name social-icons bg-dark rounded"
-                  :src="require('~/assets/user/icons/fb.png')"
+                  class="footer-name social-icons"
+                  :src="require('~/assets/user/icons/facebook.svg')"
                 ></b-img>
               </div>
               <div>
                 <b-img
                   alt="instagram logo of resultonlinebd page"
-                  class="footer-name social-icons bg-dark rounded"
-                  :src="require('~/assets/user/icons/insta.png')"
+                  class="footer-name social-icons "
+                  :src="require('~/assets/user/icons/pinterest.svg')"
                 ></b-img>
               </div>
               <div>
                 <b-img
                   alt="twiter logo of resultonlinebd page"
-                  class="footer-name social-icons bg-dark rounded"
-                  :src="require('~/assets/user/icons/tw.png')"
+                  class="footer-name social-icons bg-"
+                  :src="require('~/assets/user/icons/twitter.svg')"
                 ></b-img>
               </div>
             </div>
@@ -514,7 +514,7 @@ export default {
   overflow-x: hidden;
   overflow-y: scroll;
 } */
-@media (min-height: 730px) {
+@media (min-height: 760px) {
   .side-bar-scroll {
     height: 100% !important;
     overflow-x: hidden !important;
@@ -600,11 +600,10 @@ a {
   text-decoration: none !important;
 }
 .social-icons {
-  height: 30px;
-  width: 30px;
+  height: 25px;
+  width: 25px;
   margin-right: 25px;
   cursor: pointer;
-  padding: 5px;
 }
 .custom-card-text-title {
   margin-top: 0px !important;
