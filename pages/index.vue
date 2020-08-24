@@ -29,22 +29,22 @@
               <div>
                 <b-img
                   alt="facebook logo of resultonlinebd page"
-                  class="footer-name social-icons"
-                  :src="require('~/assets/user/footer/facebook-circled.png')"
+                  class="footer-name social-icons bg-dark rounded"
+                  :src="require('~/assets/user/icons/fb.png')"
                 ></b-img>
               </div>
               <div>
                 <b-img
                   alt="instagram logo of resultonlinebd page"
-                  class="footer-name social-icons"
-                  :src="require('~/assets/user/footer/images.jpeg')"
+                  class="footer-name social-icons bg-dark rounded"
+                  :src="require('~/assets/user/icons/insta.png')"
                 ></b-img>
               </div>
               <div>
                 <b-img
                   alt="twiter logo of resultonlinebd page"
-                  class="footer-name social-icons"
-                  :src="require('~/assets/user/footer/download.png')"
+                  class="footer-name social-icons bg-dark rounded"
+                  :src="require('~/assets/user/icons/tw.png')"
                 ></b-img>
               </div>
             </div>
@@ -600,10 +600,11 @@ a {
   text-decoration: none !important;
 }
 .social-icons {
-  height: 25px;
-  width: 25px;
+  height: 30px;
+  width: 30px;
   margin-right: 25px;
   cursor: pointer;
+  padding: 5px;
 }
 .custom-card-text-title {
   margin-top: 0px !important;

@@ -4,6 +4,7 @@
       <div class="d-flex justify-content-center pt-2">
         <div class="mr-4">
           <b-img
+            alt="footer reolib logo"
             height="20"
             width="22"
             class="rounded"
@@ -18,19 +19,23 @@
         </div>
         <div class="ml-4">
           <b-img
+            alt="footer facebook logo"
             class="social-icons"
             :src="require('~/assets/user/icons/fb.png')"
           ></b-img>
 
           <b-img
+            alt="footer instagram logo"
             class="social-icons"
             :src="require('~/assets/user/icons/insta.png')"
           ></b-img>
           <b-img
+            alt="footer twitter logo"
             class="social-icons"
             :src="require('~/assets/user/icons/tw.png')"
           ></b-img>
           <b-img
+            alt="footer pinterest logo"
             class="social-icons"
             :src="require('~/assets/user/icons/pin.png')"
           ></b-img>

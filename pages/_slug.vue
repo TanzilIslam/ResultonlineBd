@@ -224,6 +224,7 @@
     <div class="recommended">
       <div class="d-flex mb-3">
         <b-img
+          alt="recomanded logo"
           style="background-color: #343a40; padding: 5px;"
           height="40"
           width="40"
@@ -261,6 +262,7 @@
     <div class="high-rated mb-4">
       <div class="d-flex mb-3">
         <b-img
+          alt="high rated  logo"
           style="background-color: #343a40; padding: 5px;"
           height="40"
           width="40"

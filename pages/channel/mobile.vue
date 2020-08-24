@@ -1,6 +1,6 @@
 <template>
   <div class="mobile-post">
-    <b-row>
+    <b-row no-gutters>
       <!-- sideBar Start -->
       <b-col class="pr-2" cols="12" sm="12" md="3" lg="3" xl="3">
         <FixedChannelSideBar />
@@ -18,7 +18,13 @@
             </h5>
           </div>
 
-          <b-list-group class="channel-side-bar channel-side-bar-list-group">
+          <b-list-group
+            class="channel-side-bar channel-side-bar-list-group"
+            v-bind:style="{
+              height: heightOfScreen + 'px',
+              overflowY: 'scroll'
+            }"
+          >
             <button
               class="main-tag-button channel-side-bar-list-item btn btn-light"
               v-for="(item, index) in mainTagList.results"
@@ -28,6 +34,7 @@
             >
               <b-img
                 :src="item.tag_icon"
+                :alt="item.tag_name"
                 class="shadow channel-side-bar-list-item-icon"
               ></b-img>
               {{ item.tag_name }}
@@ -71,6 +78,7 @@
             img-height="80"
             img-src="~/assets/user/icons/channel-cover-mobile.jpg"
             text-variant="white"
+            img-alt="mobile Phone"
           >
             <b-card-text text-tag="h2" class="channel-cover-title">
               Mobile Phone</b-card-text
@@ -240,7 +248,7 @@
                         img-height="300"
                         overlay
                         :img-src="article.photo"
-                        img-alt="card Image"
+                        :img-alt="article.Seoimgalt"
                         text-variant="black"
                         img-fluid
                       >
@@ -281,8 +289,14 @@
 
           <!-- pagination start -->
           <div class="myPagination">
-            <div class="text-center mt-4 mb-3">
-              <b-button variant="dark" @click="loadData">Load More</b-button>
+            <div class="d-flex justify-content-center">
+              <vs-button
+                :loading="loadMoreLoading"
+                color="#343a40"
+                flat
+                @click="loadData"
+                ><strong>Load More</strong></vs-button
+              >
             </div>
           </div>
         </div>
@@ -363,6 +377,7 @@ export default {
   },
   data() {
     return {
+      loadMoreLoading: false,
       seoObject: {},
       mainTagList: [],
       subTagList: [],
@@ -440,7 +455,16 @@ export default {
     TopCards: state => state.mobile.MobileArticles.slice(0, 1),
     BigCard: state => state.mobile.MobileArticles.slice(1, 2),
     MobileArticles: state => state.mobile.MobileArticles,
-    TagArticlesNextLink: state => state.mobile.TagArticlesNextLink
+    TagArticlesNextLink: state => state.mobile.TagArticlesNextLink,
+    heightOfScreen() {
+      if (process.browser) {
+        return (
+          (window.innerHeight ||
+            document.documentElement.clientHeight ||
+            document.body.clientHeight) - 145
+        );
+      }
+    }
   }),
 
   methods: {
@@ -520,6 +544,7 @@ export default {
     },
     async loadData() {
       // load home Articles
+      this.loadMoreLoading = true;
       if (this.parentSelected) {
         try {
           await this.$store.dispatch("mobile/FetchMoreMobileArticles");
@@ -568,6 +593,7 @@ export default {
             .finally(function() {});
         }
       }
+      this.loadMoreLoading = false;
     }
   },
   mounted() {

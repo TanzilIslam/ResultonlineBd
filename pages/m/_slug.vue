@@ -150,6 +150,7 @@
     <div class="recommended">
       <div class="d-flex mb-3">
         <b-img
+          alt="recomanded logo"
           style="background-color: #343a40; padding: 5px;"
           height="40"
           width="40"
@@ -188,11 +189,12 @@
     <div class="hot-this-month">
       <div class="d-flex mb-3">
         <b-img
-          style="background-color: #343a40; padding: 5px;"
+          alt="hot this month logo"
+          style="background-color: white; padding: 5px;"
           height="40"
           width="40"
           class="rounded"
-          :src="require('~/assets/user/detailPage/1.png')"
+          :src="require('~/assets/user/detailPage/fire.png')"
         >
         </b-img>
         <h5 style="color: #222;" class="ml-2 mt-2">
@@ -225,6 +227,7 @@
     <div class="mxmobile">
       <div class="d-flex mb-3">
         <b-img
+          alt="mix brand logo"
           style="background-color: #343a40; padding: 5px;"
           height="40"
           width="40"

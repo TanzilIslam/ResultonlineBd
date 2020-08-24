@@ -93,6 +93,7 @@
           <b-tab title-link-class="text-dark" active @click="goLatest()">
             <template v-slot:title>
               <b-img
+                alt="Fresh Logo"
                 src="~assets/user/icons/fresh.svg"
                 style="height: 20px; width: 20px;"
               ></b-img>
@@ -103,6 +104,7 @@
           <b-tab title-link-class="text-dark" @click="goAbout()">
             <template v-slot:title>
               <b-img
+                alt="about logo"
                 src="~assets/user/icons/about.svg"
                 style="height: 22px; width: 22px;"
               ></b-img>

@@ -32,7 +32,7 @@
               <b-icon
                 icon="reply"
                 @click="active2 = !active2"
-                class="mr-2"
+                class="mr-2 h5 my-auto"
               ></b-icon>
             </p>
           </div>
