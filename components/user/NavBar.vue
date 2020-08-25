@@ -121,15 +121,14 @@
             ></b-nav-item> -->
           </b-navbar-nav>
         </b-collapse>
+        <div v-if="showRightMenuCard" class="right-menu">
+          <p>Home</p>
+          <p>QandA</p>
+          <p>Blog</p>
+          <p><nuxt-link to="/favourite"> Favourite</nuxt-link></p>
+        </div>
       </b-container>
     </b-navbar>
-
-    <div v-if="showRightMenuCard" class="right-menu" id="myForm">
-      <p>Home</p>
-      <p>QandA</p>
-      <p>Blog</p>
-      <p><nuxt-link to="/favourite"> Favourite</nuxt-link></p>
-    </div>
   </div>
 </template>
 
@@ -219,7 +218,7 @@ export default {
 .right-menu {
   z-index: 9;
   position: fixed;
-  right: 25px;
+  right: 10px;
   top: 55px;
   background-color: white !important;
   padding: 10px;
