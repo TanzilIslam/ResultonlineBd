@@ -583,7 +583,7 @@ export default {
       try {
         await this.$store.dispatch("detailPage/FetchMoreHighRatedArticles");
       } catch (e) {
-        alert("No more data" + e);
+        // alert("No more data" + e);
       }
       this.loadedHighRated = true;
     },
