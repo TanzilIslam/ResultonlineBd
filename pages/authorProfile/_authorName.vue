@@ -44,15 +44,15 @@
             <div class="vl"></div>
           </div>
           <div class="pl-3 pt-4">
-            <h3 class="text-light">
+            <h4 class="text-light">
               {{ AuthorArticles.authorsname }}
-            </h3>
+            </h4>
             <div class="d-flex" style="cursor: pointer;">
               <div class="mr-4 pt-1">
                 <svg
                   @click="authorWeb"
-                  width="1.5em"
-                  height="1.5em"
+                  width="1em"
+                  height="1em"
                   viewBox="0 0 16 16"
                   class="bi bi-globe"
                   fill="currentColor"
@@ -64,7 +64,7 @@
                   />
                 </svg>
               </div>
-              <div class="h3">
+              <div class="h5 my-auto">
                 <b-icon
                   @click="active2 = !active2"
                   icon="reply"
@@ -82,6 +82,7 @@
           <b-img
             src="~assets/user/icons/fresh.svg"
             style="height: 20px; width: 20px;"
+            alt="fresh icon"
           ></b-img>
           Fresh
         </template>
@@ -92,6 +93,7 @@
           <b-img
             src="~assets/user/icons/about.svg"
             style="height: 22px; width: 22px;"
+            alt="about icon"
           ></b-img>
           About
         </template>
@@ -293,8 +295,8 @@ export default {
   
 } */
 .logo {
-  height: 150px;
-  width: 150px;
+  height: 100px;
+  width: 100px;
   border-radius: 10px;
   padding: 5px;
 }
@@ -302,6 +304,7 @@ export default {
   border-left: 3px solid rgb(230, 233, 230);
   height: 92%;
   margin-top: 6px;
+  margin-left: 15px;
 }
 a {
   color: black !important;

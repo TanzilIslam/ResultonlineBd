@@ -20,11 +20,11 @@
           </div>
           <div class="home-footer pt-3">
             <p class="mb-3 footer-name link-hover mr-2">
-              <span class="mr-2"><nuxt-link to="/t">Terms</nuxt-link></span>
-              <span>Privacy</span>
+              <span class="mr-2"><nuxt-link  to="/t">Terms</nuxt-link></span>
+              <nuxt-link  to="/t">Privacy</nuxt-link></span>
             </p>
             <p class="mb-3 footer-name link-hover">
-              <span class="mr-2">Get In Touch</span> <span>About Us</span>
+              <span class="mr-2"><nuxt-link to="/t">Get In Touch</nuxt-link></span> <span><nuxt-link to="/t" >About Us</nuxt-link></span>
             </p>
             <div class="d-flex">
               <div>

@@ -128,15 +128,6 @@
               class="sub-tag"
               >{{ item.tag_creator__tag_name }}
             </vs-button>
-            <!-- <b-button
-              variant="light"
-              v-for="(item, index) in subTagList"
-              :key="index"
-              @click="showSubTagPosts(item)"
-              class="sub-tag"
-            >
-              
-            </b-button> -->
           </div>
           <!-- Sub Tags End -->
 

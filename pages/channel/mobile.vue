@@ -116,41 +116,22 @@
         <!-- Latest Div Start -->
         <div v-show="showLatestDiv">
           <!-- Mobile Brand Logo List Start -->
-          <b-row>
-            <b-col v-if="!brandLogoLoaded" md="12" lg="12">
-              <!-- <div class="spinner-warper">
-                <moon-loader
-                  color="#000000"
-                  class="spinner"
-                  :size="60"
-                ></moon-loader>
-              </div> -->
-            </b-col>
-
-            <b-col v-else cols="12" sm="12" md="12" lg="12" xl="12">
-              <vue-scroll :ops="ops">
-                <b-list-group horizontal>
-                  <b-list-group-item
-                    class="brand-list"
-                    v-for="(item, index) in subTagList"
-                    :key="index"
-                  >
-                    <b-img
-                      :src="item.Brand_profile"
-                      class="logo shadow"
-                      alt="Kitten"
-                      @click="showSubTagPosts(item)"
-                    ></b-img>
-                  </b-list-group-item>
-                </b-list-group>
-              </vue-scroll>
-            </b-col>
-          </b-row>
+          <div class="d-flex justify-content-start flex-wrap mt-2 mb-4">
+            <vs-button
+              flat
+              v-for="(item, index) in subTagList"
+              :key="index"
+              :color="item.tag_creator__tagNameBG"
+              @click="showSubTagPosts(item)"
+              class="sub-tag"
+              >{{ item.tag_creator__tag_name }}
+            </vs-button>
+          </div>
           <!-- Mobile Brand Logo List End -->
 
           <!-- showing MainTag data start -->
           <div v-if="mainTagSelected">
-            <b-row class="mt-4">
+            <b-row class="">
               <b-col
                 v-if="!dataLoading"
                 cols="12"
@@ -432,18 +413,6 @@ export default {
       })
       .finally(function() {});
 
-    // Sub Tag List Fetch
-    await this.$axios
-      .$get(process.env.baseUrl + "/listBrand")
-      .then(function(posts) {
-        self.subTagList = posts.results;
-      })
-      .catch(function(error) {
-        console.log("No Net" + error);
-      })
-      .finally(function() {});
-    this.brandLogoLoaded = true;
-
     // Channel Home Page Articles Fetch
     await this.$axios
       .$get(process.env.channelUrl + `Mobile`)
@@ -453,7 +422,7 @@ export default {
   },
   computed: mapState({
     TopCards: state => state.mobile.MobileArticles.slice(0, 1),
-    BigCard: state => state.mobile.MobileArticles.slice(1, 2),
+    BigCard: state => state.mobile.MobileArticles.slice(0, 1),
     MobileArticles: state => state.mobile.MobileArticles,
     TagArticlesNextLink: state => state.mobile.TagArticlesNextLink,
     heightOfScreen() {
@@ -512,16 +481,32 @@ export default {
       this.mainTagSelected = true;
       this.dataLoading = false;
       var self = this;
-      await this.$axios
-        .$get(item.tag_content_link)
+      await self.$axios
+        .$get(process.env.baseUrl + `/Listsub_Tag/${item.query_slug}`)
         .then(function(posts) {
-          self.$store.dispatch("mobile/FetchMobileArticles", posts.results);
+          self.subTagList = posts.results.List;
+        })
+        .catch(function(error) {
+          console.log("No Net subtag" + error);
+        })
+        .finally(function() {});
+      await self.$axios
+        .$get(process.env.baseUrl + `/channelpagetag/${item.query_slug}`)
+        .then(function(posts) {
+          posts.results.List.forEach(element => {
+            element.photo = process.env.baseUrl + "/media/" + element.photo;
+          });
+          self.$store.dispatch(
+            "mobile/FetchMobileArticles",
+            posts.results.List
+          );
           self.$store.dispatch("mobile/SetTagNextDataLink", posts.next);
         })
         .catch(function(error) {
           console.log("No Net" + error);
         })
         .finally(function() {});
+
       this.dataLoading = true;
     },
     // show sub tag articles
@@ -530,9 +515,16 @@ export default {
       this.dataLoading = false;
       var self = this;
       await this.$axios
-        .$get(item.ChannelDataUrl)
+        .$get(process.env.baseUrl + "/targetData/" + item.tag_creator__tagSlug)
         .then(function(posts) {
-          self.$store.dispatch("mobile/FetchMobileArticles", posts.results);
+          posts.results.List.forEach(element => {
+            element.photo = process.env.baseUrl + "/media/" + element.photo;
+          });
+
+          self.$store.dispatch(
+            "mobile/FetchMobileArticles",
+            posts.results.List
+          );
           self.$store.dispatch("mobile/SetTagNextDataLink", posts.next);
         })
         .catch(function(error) {
@@ -558,10 +550,12 @@ export default {
           // alert("null");
         } else {
           var self = this;
+
           await this.$axios
             .$get(self.TagArticlesNextLink)
             .then(function(posts) {
-              posts.results.forEach(element => {
+              posts.results.List.forEach(element => {
+                element.photo = process.env.baseUrl + "/media/" + element.photo;
                 self.$store.dispatch("mobile/SetMoreTagArticles", element);
               });
               self.$store.dispatch("mobile/SetTagNextDataLink", posts.next);
@@ -583,6 +577,8 @@ export default {
             .$get(self.TagArticlesNextLink)
             .then(function(posts) {
               posts.results.forEach(element => {
+                element.photo = process.env.baseUrl + "/media/" + element.photo;
+
                 self.$store.dispatch("mobile/SetMoreTagArticles", element);
               });
               self.$store.dispatch("mobile/SetTagNextDataLink", posts.next);
