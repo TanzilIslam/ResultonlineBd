@@ -20,7 +20,8 @@
           </div>
           <div class="home-footer pt-3">
             <p class="mb-3 footer-name link-hover mr-2">
-              <span class="mr-2">Terms</span> <span>Privacy</span>
+              <span class="mr-2"><nuxt-link to="/t">Terms</nuxt-link></span>
+              <span>Privacy</span>
             </p>
             <p class="mb-3 footer-name link-hover">
               <span class="mr-2">Get In Touch</span> <span>About Us</span>

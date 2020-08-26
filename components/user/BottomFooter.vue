@@ -2,7 +2,7 @@
   <div class="footer" style="background-color: #000000;">
     <b-container>
       <div class="d-flex justify-content-center pt-2">
-        <div class="mr-4">
+        <div class="">
           <b-img
             alt="footer reolib logo"
             height="20"
@@ -10,14 +10,14 @@
             class="rounded"
             src="~/assets/user/icons/footerLogo.png"
           ></b-img>
-          |
         </div>
-        <div class="ml-4 mr-4 pt-1">
+        <div class="line ml-2 mr-2"></div>
+        <div class="mr-5 pt-1">
           <p style="color: white;font-size:12px">
             ©2020 ReoLib.All Rights Reserved
           </p>
         </div>
-        <div class="ml-4">
+        <div class="ml-5">
           <b-img
             alt="footer facebook logo"
             class="social-icons"
@@ -50,6 +50,11 @@ export default {};
 </script>
 
 <style scoped>
+.line {
+  border-left: 2px solid rgb(255, 255, 255);
+  height: 20px;
+  margin-top: 4px;
+}
 .last-section,
 h5 {
   color: #4a4a4a !important;

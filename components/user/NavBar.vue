@@ -104,7 +104,7 @@
             </div>
           </div>
 
-          <b-navbar-nav>
+          <b-navbar-nav class="">
             <!-- <b-nav-item> -->
             <b-img
               style="cursor:pointer;"
@@ -121,11 +121,13 @@
             ></b-nav-item> -->
           </b-navbar-nav>
         </b-collapse>
-        <div v-if="showRightMenuCard" class="right-menu">
-          <p>Home</p>
-          <p>QandA</p>
-          <p>Blog</p>
-          <p><nuxt-link to="/favourite"> Favourite</nuxt-link></p>
+        <div class="d-flex justify-content-end ">
+          <div v-if="showRightMenuCard" class="right-menu text-right">
+            <p><nuxt-link to="/">Home</nuxt-link></p>
+            <p @click="commingSoon">QandA</p>
+            <p @click="commingSoon">Blog</p>
+            <p><nuxt-link to="/favourite"> Favourite</nuxt-link></p>
+          </div>
         </div>
       </b-container>
     </b-navbar>
@@ -156,9 +158,16 @@ export default {
         this.showRightMenuCard = false;
       }
     },
-    // showRightMenu() {
-    //   this.showRightMenuCard = true;
-    // },
+    commingSoon() {
+      const noti = this.$vs.notification({
+        duration: 4000,
+        color: "#4a5153",
+
+        progress: "auto",
+        title: "Comming Soon",
+        text: "This section is now under construct.We will launch it very soon!"
+      });
+    },
     searchinfo() {
       if (this.keyword != "") {
         this.$router.push("/search/" + this.keyword);
@@ -215,10 +224,13 @@ export default {
   color: black !important;
   text-decoration: none;
 }
+.right-menu p {
+  cursor: pointer;
+}
 .right-menu {
   z-index: 9;
   position: fixed;
-  right: 10px;
+  /* right: 10px; */
   top: 55px;
   background-color: white !important;
   padding: 10px;

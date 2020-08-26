@@ -5,16 +5,16 @@ export default {
    ** Headers of the page
    */
   head: {
-    title: process.env.npm_package_name || "",
-    meta: [
-      { charset: "utf-8" },
-      { name: "viewport", content: "width=device-width, initial-scale=1" },
-      {
-        hid: "description",
-        name: "description",
-        content: process.env.npm_package_description || ""
-      }
-    ],
+    // title: process.env.npm_package_name || "",
+    // meta: [
+    //   { charset: "utf-8" },
+    //   { name: "viewport", content: "width=device-width, initial-scale=1" },
+    //   {
+    //     hid: "description",
+    //     name: "description",
+    //     content: process.env.npm_package_description || ""
+    //   }
+    // ],
     link: [
       { rel: "png", type: "image/x-icon", href: "/favicon.ico" }
       // { rel: "stylesheet", href: "https://unpkg.com/vuesax@4.0.1-alpha.16/dist/vuesax.min.css" }
