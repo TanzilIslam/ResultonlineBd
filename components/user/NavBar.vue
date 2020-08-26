@@ -112,7 +112,7 @@
               width="30"
               class="rounded"
               alt="right menu logo"
-              src="~/assets/user/icons/right-menu.png"
+              src="~/assets/user/icons/menu.svg"
               @click="showRightMenu"
             ></b-img>
             <!-- </b-nav-item> -->

@@ -42,6 +42,7 @@
                   <div @click="setview(article.view, article.slug)">
                     <b-card no-body class="custom-author-small-card">
                       <b-card-img-lazy
+                        :alt="article.Seoimgalt"
                         :src="imgpath + article.photo"
                         blank-color="#bbb"
                         top
@@ -63,6 +64,7 @@
                   <div @click="setview(article.view, article.slug)">
                     <b-card no-body class="custom-author-small-card">
                       <b-card-img-lazy
+                        :alt="article.Seoimgalt"
                         :src="imgpath + article.photo"
                         blank-color="#bbb"
                         top
@@ -87,9 +89,15 @@
     <b-container> </b-container>
 
     <!-- Pagination Start End -->
-    <div class="myPagination">
-      <div class="text-center mt-5 mb-3">
-        <b-button variant="dark" @click="loadData">Load More</b-button>
+    <div class="myPagination ">
+      <div class="d-flex justify-content-center">
+        <vs-button
+          :loading="loadMoreLoading"
+          color="#343a40"
+          flat
+          @click="loadData"
+          ><strong>Load More</strong></vs-button
+        >
       </div>
     </div>
     <!-- Pagination End -->
@@ -101,9 +109,68 @@ export default {
   layout: "default",
   data() {
     return {
+      loadMoreLoading: false,
       datas: [],
+      seoObject: {},
       next: "",
       imgpath: "http://cdn.resultonlinebd.com/media/"
+    };
+  },
+  head() {
+    return {
+      title: this.seoObject.tag_name,
+      meta: [
+        {
+          hid: "description",
+          name: "description",
+          content: `Top articles of ${this.seoObject.tag_name}`
+        },
+        {
+          hid: "keywords",
+          name: "keywords",
+          content: this.seoObject.tag_name
+        },
+        {
+          hid: "twitter:card",
+          name: "twitter:card",
+          content: this.seoObject.tag_name
+        },
+        {
+          hid: "twitter:title",
+          name: "twitter:title",
+          content: this.seoObject.tag_name
+        },
+        {
+          hid: "twitter:description",
+          name: "twitter:description",
+          content: `Top articles of ${this.seoObject.tag_name}`
+        },
+        {
+          hid: "og:title",
+          property: "og:title",
+          content: this.seoObject.tag_name
+        },
+        {
+          hid: "og:type",
+          property: "og:type",
+          content: "article.text"
+        },
+        {
+          hid: "og:url",
+          property: "og:url",
+          content: ""
+        },
+        {
+          hid: "og:description",
+          name: "og:description",
+          content: `Top articles of ${this.seoObject.tag_name}`
+        }
+        // {
+        //   hid: "og:image",
+        //   name: "og:image",
+        //   content: this.seoObject.meta_image
+        // }
+      ]
     };
   },
 
@@ -114,6 +181,7 @@ export default {
       .then(function(posts) {
         self.datas = posts.results;
         self.next = posts.next;
+        self.seoObject = posts.results;
       })
       .catch(function(e) {
         console.log(e);
@@ -130,6 +198,7 @@ export default {
       // }
     },
     async loadData() {
+      this.loadMoreLoading = true;
       if (this.next != null) {
         var self = this;
         await self.$axios
@@ -147,6 +216,7 @@ export default {
       } else {
         // alert("Null");
       }
+      this.loadMoreLoading = false;
     }
   }
 };

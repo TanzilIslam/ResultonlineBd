@@ -465,25 +465,6 @@ export default {
         this.showCl = false;
       }
     }
-    // async setview(article) {
-    // try {
-    //   await this.$axios.$put(process.env.baseUrl + `/count/${article.slug}`, {
-    //     view: article.view + 1
-    //   });
-    // } catch (e) {
-    //   alert("No more data" + e);
-    // }
-    // }
-    // async setviewqAndA(view, slug) {
-    //   await this.$axios
-    //     .$put(process.env.baseUrl + `/q&a/api/v1/dtls/${slug}`, {
-    //       view: view + 1,
-    //     })
-    //     .then(function (response) {})
-    //     .catch(function (e) {
-    //       console.log(e);
-    //     });
-    // },
   },
   mounted() {
     // this.check();
@@ -541,6 +522,11 @@ export default {
   font-family: "Inter", sans-serif;
   font-size: 0.875rem;
 }
+
+ .footer-name a{
+   color: #757575 !important;
+
+ }
 /* .home{
 
 } */

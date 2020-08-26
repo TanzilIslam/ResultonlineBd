@@ -1,6 +1,6 @@
 <template>
   <div class="health-post">
-    <b-row>
+    <b-row no-gutters>
       <!-- sideBar Start -->
       <b-col class="pr-2" cols="12" sm="12" md="3" lg="3" xl="3">
         <FixedChannelSideBar />
@@ -19,7 +19,13 @@
           </div>
           <!--  -->
 
-          <b-list-group class="channel-side-bar channel-side-bar-list-group">
+          <b-list-group
+            v-bind:style="{
+              height: heightOfScreen + 'px',
+              overflowY: 'scroll'
+            }"
+            class="channel-side-bar channel-side-bar-list-group"
+          >
             <button
               class="main-tag-button channel-side-bar-list-item btn btn-light"
               v-for="(item, index) in mainTagList.results"
@@ -28,6 +34,7 @@
               type="button"
             >
               <b-img
+                :alt="item.tag_name"
                 :src="item.tag_icon"
                 class="shadow channel-side-bar-list-item-icon"
               ></b-img>
@@ -68,6 +75,7 @@
         <!-- Cover Start -->
         <div class="channel-cover">
           <b-card
+            img-alt="health cover"
             overlay
             img-height="80"
             img-src="~/assets/user/icons/channel-cover-health.jpg"
@@ -85,6 +93,7 @@
           <b-tab title-link-class="text-dark" active @click="goLatest()">
             <template v-slot:title>
               <b-img
+                alt="fresh logo"
                 src="~assets/user/icons/fresh.svg"
                 style="height: 20px; width: 20px;"
               ></b-img>
@@ -95,6 +104,7 @@
           <b-tab title-link-class="text-dark" @click="goAbout()">
             <template v-slot:title>
               <b-img
+                alt="about logo"
                 src="~assets/user/icons/about.svg"
                 style="height: 22px; width: 22px;"
               ></b-img>
@@ -108,18 +118,16 @@
         <!-- Latest Div Start -->
         <div v-show="showLatestDiv">
           <!-- Sub Tags Start -->
-          <div
-            class="d-flex justify-content-between justify-content-lg-between justify-content-xl-between flex-wrap mt-2 mb-4"
-          >
-            <b-button
-              variant="light"
+          <div class="d-flex justify-content-start flex-wrap mt-2 mb-4">
+            <vs-button
+              flat
               v-for="(item, index) in subTagList"
               :key="index"
+              :color="item.tag_creator__tagNameBG"
               @click="showSubTagPosts(item)"
               class="sub-tag"
-            >
-              {{ item.tag_name }}
-            </b-button>
+              >{{ item.tag_creator__tag_name }}
+            </vs-button>
           </div>
           <!-- Sub Tags End -->
 
@@ -159,9 +167,15 @@
             </b-col>
           </b-row>
           <!-- Pagination Start End -->
-          <div class="myPagination">
-            <div class="text-center mt-5 mb-3">
-              <b-button variant="dark" @click="loadData">Load More</b-button>
+          <div class="myPagination ">
+            <div class="d-flex justify-content-center">
+              <vs-button
+                :loading="loadMoreLoading"
+                color="#343a40"
+                flat
+                @click="loadData"
+                ><strong>Load More</strong></vs-button
+              >
             </div>
           </div>
           <!-- Pagination End -->
@@ -244,7 +258,7 @@ export default {
     var self = this;
 
     await self.$axios
-      .$get(process.env.baseUrl + "/s/all/Health")
+      .$get(process.env.baseUrl + "/s/all/health")
       .then(function(posts) {
         self.seoObject = posts;
       })
@@ -263,17 +277,6 @@ export default {
       })
       .finally(function() {});
 
-    // Sub Tag List Fetch
-    await this.$axios
-      .$get(process.env.baseUrl + "/Tag_creator?search=Health")
-      .then(function(posts) {
-        self.subTagList = posts.results;
-      })
-      .catch(function(error) {
-        console.log("No Net" + error);
-      })
-      .finally(function() {});
-
     // Channel Home Page Articles Fetch
     await this.$axios
       .$get(process.env.channelUrl + `Health`)
@@ -283,7 +286,16 @@ export default {
   },
   computed: mapState({
     HealthArticles: state => state.health.HealthArticles,
-    TagArticlesNextLink: state => state.health.TagArticlesNextLink
+    TagArticlesNextLink: state => state.health.TagArticlesNextLink,
+    heightOfScreen() {
+      if (process.browser) {
+        return (
+          (window.innerHeight ||
+            document.documentElement.clientHeight ||
+            document.body.clientHeight) - 145
+        );
+      }
+    }
   }),
   data() {
     return {
@@ -295,7 +307,8 @@ export default {
       dataLoading: true,
       subTagSelected: false,
       mainTagSelected: false,
-      parentSelected: true
+      parentSelected: true,
+      loadMoreLoading: false
     };
   },
   methods: {
@@ -342,9 +355,24 @@ export default {
       this.dataLoading = false;
       var self = this;
       await this.$axios
-        .$get(item.tag_content_link)
+        .$get(process.env.baseUrl + `/Listsub_Tag/${item.query_slug}`)
         .then(function(posts) {
-          self.$store.dispatch("health/FetchHealthArticles", posts.results);
+          self.subTagList = posts.results.List;
+        })
+        .catch(function(error) {
+          console.log("No Net" + error);
+        })
+        .finally(function() {});
+      await this.$axios
+        .$get(process.env.baseUrl + `/channelpagetag/${item.query_slug}`)
+        .then(function(posts) {
+          posts.results.List.forEach(element => {
+            element.photo = process.env.baseUrl + "/media/" + element.photo;
+          });
+          self.$store.dispatch(
+            "health/FetchHealthArticles",
+            posts.results.List
+          );
           self.$store.dispatch("health/SetTagNextDataLink", posts.next);
         })
         .catch(function(error) {
@@ -360,9 +388,16 @@ export default {
       this.dataLoading = false;
       var self = this;
       await this.$axios
-        .$get(item.tag_target_link)
+        .$get(process.env.baseUrl + "/targetData/" + item.tag_creator__tagSlug)
         .then(function(posts) {
-          self.$store.dispatch("health/FetchHealthArticles", posts.results);
+          posts.results.List.forEach(element => {
+            element.photo = process.env.baseUrl + "/media/" + element.photo;
+          });
+
+          self.$store.dispatch(
+            "health/FetchHealthArticles",
+            posts.results.List
+          );
           self.$store.dispatch("health/SetTagNextDataLink", posts.next);
         })
         .catch(function(error) {
@@ -375,6 +410,7 @@ export default {
     },
     async loadData() {
       // load home Articles
+      this.loadMoreLoading = true;
       if (this.parentSelected) {
         try {
           await this.$store.dispatch("health/FetchMoreHealthArticles");
@@ -391,7 +427,8 @@ export default {
           await this.$axios
             .$get(self.TagArticlesNextLink)
             .then(function(posts) {
-              posts.results.forEach(element => {
+              posts.results.List.forEach(element => {
+                element.photo = process.env.baseUrl + "/media/" + element.photo;
                 self.$store.dispatch("health/SetMoreTagArticles", element);
               });
               self.$store.dispatch("health/SetTagNextDataLink", posts.next);
@@ -412,7 +449,8 @@ export default {
           await this.$axios
             .$get(self.TagArticlesNextLink)
             .then(function(posts) {
-              posts.results.forEach(element => {
+              posts.results.List.forEach(element => {
+                element.photo = process.env.baseUrl + "/media/" + element.photo;
                 self.$store.dispatch("health/SetMoreTagArticles", element);
               });
               self.$store.dispatch("health/SetTagNextDataLink", posts.next);
@@ -423,6 +461,7 @@ export default {
             .finally(function() {});
         }
       }
+      this.loadMoreLoading = false;
     }
   },
   mounted() {

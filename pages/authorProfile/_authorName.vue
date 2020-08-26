@@ -129,9 +129,15 @@
         </b-col>
       </b-row>
 
-      <div class="myPagination">
-        <div class="text-center mt-5 mb-3">
-          <b-button variant="dark" @click="loadData">Load More</b-button>
+      <div class="myPagination ">
+        <div class="d-flex justify-content-center">
+          <vs-button
+            :loading="loadMoreLoading"
+            color="#343a40"
+            flat
+            @click="loadData"
+            ><strong>Load More</strong></vs-button
+          >
         </div>
       </div>
     </div>
@@ -236,6 +242,7 @@ export default {
 
   data() {
     return {
+      loadMoreLoading: false,
       showLatestDiv: true,
       showAboutDiv: false,
       Loading: false,
@@ -264,6 +271,7 @@ export default {
       self.showAboutDiv = true;
     },
     async loadData() {
+      this.loadMoreLoading = true;
       if (this.nextLink != null) {
         var self = this;
         await self.$axios.$get(self.nextLink).then(function(posts) {
@@ -276,6 +284,7 @@ export default {
       } else {
         // alert("null");
       }
+      this.loadMoreLoading = false;
     },
     authorWeb() {
       window.open(this.AuthorArticles.authorsweblink, "_blank");
