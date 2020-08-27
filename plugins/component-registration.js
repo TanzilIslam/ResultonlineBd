@@ -86,3 +86,7 @@ Vue.use(Vuesax, {
 });
 import ShareModal from "~/components/user/ShareModal";
 Vue.component("ShareModal", ShareModal);
+
+import NuxtJsonld from "nuxt-jsonld";
+
+Vue.use(NuxtJsonld);

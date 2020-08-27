@@ -1,10 +1,17 @@
 <template>
-  <div v-if="article.is_active" class="home-card">
+  <div
+    v-if="article.is_active"
+    class="home-card"
+    itemscope
+    itemtype="https://schema.org/Article"
+    itemprop="articleBody"
+  >
     <div class="rounded">
       <b-card no-body class="mb-4">
         <div class="d-flex">
           <div class="ml-3 mt-3 mb-2">
             <b-card-img-lazy
+              itemprop="image"
               :alt="article.contentowners.authorsname"
               blank-color="#bbb"
               class="rounded-circle p-1 img-logo"
@@ -19,7 +26,7 @@
                   prefetch
                   :to="`/authorProfile/${article.contentowners.authorsname}`"
                 >
-                  <h5>
+                  <h5 itemprop="author">
                     {{ article.contentowners.authorsname }}
                   </h5>
                 </nuxt-link>
@@ -40,18 +47,19 @@
               </div>
             </div>
 
-            <b-card-text text-tag="p" class="text-muted"
+            <b-card-text itemprop="dateCreated" text-tag="p" class="text-muted"
               >{{ article.release_date }}
               <!-- <b-icon icon="clock-fill" variant="gray"></b-icon> -->
             </b-card-text>
           </div>
         </div>
 
-        <h5 class="ml-4 py-3">{{ article.title }}</h5>
+        <h5 itemprop="name" class="ml-4 py-3">{{ article.title }}</h5>
         <div v-if="article.channel.channelname == 'Mobile phone'">
           <nuxt-link prefetch :to="`/m/${article.slug}`">
             <div>
               <b-card-img-lazy
+                itemprop="image"
                 :alt="article.Seoimgalt"
                 blank-color="#bbb"
                 :src="article.photo"
@@ -67,6 +75,7 @@
           <nuxt-link prefetch :to="`/${article.slug}`">
             <div>
               <b-card-img-lazy
+                itemprop="image"
                 :alt="article.Seoimgalt"
                 blank-color="#bbb"
                 :src="article.photo"

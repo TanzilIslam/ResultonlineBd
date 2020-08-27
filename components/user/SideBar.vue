@@ -2,19 +2,24 @@
   <div>
     <div class="sideBar mb-4">
       <h5 class="text-center chanel">Channel</h5>
-      <b-list-group class="list pb-2 px-3">
+      <b-list-group
+        class="list pb-2 px-3"
+        itemscope
+        itemtype="https://schema.org/LinkRole"
+      >
         <b-list-group-item
           to="/channel/programming"
           class="d-flex align-items-center mylist"
         >
           <div class="image-holder">
             <b-img
+              itemprop="image"
               alt="logo of programming channel"
               class="image-logo"
               src="~assets/user/icons/programming.svg"
             ></b-img>
           </div>
-          <p class="item-holder">Programming</p>
+          <p itemprop="roleName" class="item-holder">Programming</p>
         </b-list-group-item>
         <b-list-group-item
           to="/channel/mobile"
@@ -22,12 +27,13 @@
         >
           <div class="image-holder">
             <b-img
+              itemprop="image"
               alt="logo of Mobile Phone channel"
               class="image-logo"
               src="~assets/user/icons/mobile.svg"
             ></b-img>
           </div>
-          <p class="item-holder">Mobile Phone</p>
+          <p itemprop="roleName" class="item-holder">Mobile Phone</p>
         </b-list-group-item>
 
         <b-list-group-item
@@ -36,12 +42,13 @@
         >
           <div class="image-holder">
             <b-img
+              itemprop="image"
               alt="logo of celebrity and movie channel"
               class="image-logo"
               src="~/assets/user/icons/celebrity.svg"
             ></b-img>
           </div>
-          <p class="item-holder">Celebrity & Movie</p>
+          <p itemprop="roleName" class="item-holder">Celebrity & Movie</p>
         </b-list-group-item>
 
         <b-list-group-item
@@ -50,12 +57,13 @@
         >
           <div class="image-holder">
             <b-img
+              itemprop="image"
               alt="logo of gaming  channel"
               class="image-logo"
               src="~assets/user/icons/gaming.svg"
             ></b-img>
           </div>
-          <p class="item-holder">Gaming</p>
+          <p itemprop="roleName" class="item-holder">Gaming</p>
         </b-list-group-item>
 
         <b-list-group-item
@@ -64,12 +72,13 @@
         >
           <div class="image-holder">
             <b-img
+              itemprop="image"
               alt="logo of history channel"
               class="image-logo"
               src="~assets/user/icons/history.svg"
             ></b-img>
           </div>
-          <p class="item-holder">History</p>
+          <p itemprop="roleName" class="item-holder">History</p>
         </b-list-group-item>
 
         <b-list-group-item
@@ -78,12 +87,13 @@
         >
           <div class="image-holder">
             <b-img
+              itemprop="image"
               alt="logo of health channel"
               class="image-logo"
               src="~assets/user/icons/health.svg"
             ></b-img>
           </div>
-          <p class="item-holder">Health</p>
+          <p itemprop="roleName" class="item-holder">Health</p>
         </b-list-group-item>
 
         <b-list-group-item
@@ -92,12 +102,13 @@
         >
           <div class="image-holder">
             <b-img
+              itemprop="image"
               alt="logo of technology channel"
               class="image-logo"
               src="~assets/user/icons/technology.svg"
             ></b-img>
           </div>
-          <p class="item-holder">Technology</p>
+          <p itemprop="roleName" class="item-holder">Technology</p>
         </b-list-group-item>
 
         <b-list-group-item
@@ -106,12 +117,13 @@
         >
           <div class="image-holder">
             <b-img
+              itemprop="image"
               alt="logo of Design Library channel"
               class="image-logo"
               src="~assets/user/icons/designlibrary.svg"
             ></b-img>
           </div>
-          <p class="item-holder">Design Library</p>
+          <p itemprop="roleName" class="item-holder">Design Library</p>
         </b-list-group-item>
       </b-list-group>
     </div>
