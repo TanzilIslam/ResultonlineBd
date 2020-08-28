@@ -1,73 +1,25 @@
 <template>
-  <div>
+  <div class="pt-4">
     <b-card no-body>
       <b-tabs card vertical nav-wrapper-class="w-25">
         <b-tab title="Terms" active
-          ><div>
-            <h4><strong>Terms</strong></h4>
-            <p>
-              Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sint
-              laboriosam maiores magnam ipsum consequuntur optio, porro
-              dignissimos in exercitationem quaerat, assumenda reiciendis cumque
-              totam eveniet? Impedit quod expedita obcaecati quos.
-            </p>
-            <p>
-              Lorem ipsum dolor, sit amet consectetur adipisicing elit. Illum,
-              animi ipsum. Atque rerum debitis ratione quia quasi dignissimos
-              aut totam earum quisquam, numquam et, libero minima facilis, at
-              magni impedit?
-            </p>
+          ><div v-html="pageData.Terms">
+            <!-- <h4><strong>Terms</strong></h4> -->
           </div></b-tab
         >
         <b-tab title="Privacy"
-          ><div>
-            <h4><strong>Privacy</strong></h4>
-            <p>
-              Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sint
-              laboriosam maiores magnam ipsum consequuntur optio, porro
-              dignissimos in exercitationem quaerat, assumenda reiciendis cumque
-              totam eveniet? Impedit quod expedita obcaecati quos.
-            </p>
-            <p>
-              Lorem ipsum dolor, sit amet consectetur adipisicing elit. Illum,
-              animi ipsum. Atque rerum debitis ratione quia quasi dignissimos
-              aut totam earum quisquam, numquam et, libero minima facilis, at
-              magni impedit?
-            </p>
+          ><div v-html="pageData.Privacy">
+            <!-- <h4><strong>Privacy</strong></h4> -->
           </div></b-tab
         >
         <b-tab title="Get in Touch"
-          ><div>
-            <h4><strong>Get In Touch</strong></h4>
-            <p>
-              Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sint
-              laboriosam maiores magnam ipsum consequuntur optio, porro
-              dignissimos in exercitationem quaerat, assumenda reiciendis cumque
-              totam eveniet? Impedit quod expedita obcaecati quos.
-            </p>
-            <p>
-              Lorem ipsum dolor, sit amet consectetur adipisicing elit. Illum,
-              animi ipsum. Atque rerum debitis ratione quia quasi dignissimos
-              aut totam earum quisquam, numquam et, libero minima facilis, at
-              magni impedit?
-            </p>
+          ><div v-html="pageData.GetinTouch">
+            <!-- <h4><strong>Get In Touch</strong></h4> -->
           </div></b-tab
         >
         <b-tab title="About Us"
-          ><div>
-            <h4><strong>About Us</strong></h4>
-            <p>
-              Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sint
-              laboriosam maiores magnam ipsum consequuntur optio, porro
-              dignissimos in exercitationem quaerat, assumenda reiciendis cumque
-              totam eveniet? Impedit quod expedita obcaecati quos.
-            </p>
-            <p>
-              Lorem ipsum dolor, sit amet consectetur adipisicing elit. Illum,
-              animi ipsum. Atque rerum debitis ratione quia quasi dignissimos
-              aut totam earum quisquam, numquam et, libero minima facilis, at
-              magni impedit?
-            </p>
+          ><div v-html="pageData.AboutUs">
+            <!-- <h4><strong>About Us</strong></h4> -->
           </div></b-tab
         >
       </b-tabs>
@@ -78,7 +30,15 @@
 <script>
 export default {
   data() {
-    return {};
+    return {
+      pageData: {}
+    };
+  },
+  async fetch() {
+    var self = this;
+    await self.$axios.$get(process.env.baseUrl + "/t").then(function(data) {
+      self.pageData = data.data;
+    });
   }
 };
 </script>
@@ -91,6 +51,7 @@ a:hover {
   color: black !important;
 }
 .nav-link.active {
-  background-color: #f7f7f7 !important;
+  background-color: #e2e6ea;
+  border-radius: 8px !important;
 }
 </style>

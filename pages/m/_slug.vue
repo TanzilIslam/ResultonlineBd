@@ -298,12 +298,58 @@ export default {
   },
   head() {
     return {
+      script: [{ type: "application/ld+json", json: this.schema }],
       title: this.DetailArticle.SeoTitle,
       meta: [
         {
           hid: "description",
           name: "description",
           content: this.DetailArticle.SeoMetaDes
+        },
+        {
+          hid: "keywords",
+          name: "keywords",
+          content: this.DetailArticle.SeoMetaDes
+        },
+        {
+          hid: "twitter:card",
+          name: "twitter:card",
+          content: this.DetailArticle.SeoTitle
+        },
+        {
+          hid: "twitter:title",
+          name: "twitter:title",
+          content: this.DetailArticle.SeoTitle
+        },
+        {
+          hid: "twitter:description",
+          name: "twitter:description",
+          content: this.DetailArticle.SeoMetaDes
+        },
+        {
+          hid: "og:title",
+          property: "og:title",
+          content: this.DetailArticle.SeoTitle
+        },
+        {
+          hid: "og:type",
+          property: "og:type",
+          content: "article.text"
+        },
+        {
+          hid: "og:url",
+          property: "og:url",
+          content: ""
+        },
+        {
+          hid: "og:description",
+          name: "og:description",
+          content: this.DetailArticle.SeoMetaDes
+        },
+        {
+          hid: "og:image",
+          name: "og:image",
+          content: this.DetailArticle.photo
         }
       ]
     };
@@ -371,6 +417,33 @@ export default {
 
   computed: mapState({
     DetailArticle: state => state.mobileDetailPage.DetailArticle,
+    author: state =>
+      state.mobileDetailPage.DetailArticle.contentowners.authorsname,
+    schema() {
+      return {
+        "@context": "http://schema.org",
+        "@type": "NewsArticle",
+        mainEntityOfPage: {
+          "@type": "WebPage",
+          "@id": "https://google.com/article"
+        },
+        headline: this.DetailArticle.title,
+        image: [this.DetailArticle.photo],
+        datePublished: this.DetailArticle.release_date,
+        author: {
+          "@type": "Person",
+          name: this.author
+        },
+        publisher: {
+          "@type": "Organization",
+          name: "Google",
+          logo: {
+            "@type": "ImageObject",
+            url: "https://google.com/logo.jpg"
+          }
+        }
+      };
+    },
     // tagCreator() {
     //   var tagName;
     //   for (const i of this.DetailArticle.tag_creator) {

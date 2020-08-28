@@ -110,8 +110,8 @@
             <!-- <b-nav-item> -->
             <b-img
               style="cursor:pointer;"
-              height="30"
-              width="30"
+              height="25"
+              width="25"
               class="rounded"
               alt="right menu logo"
               src="~/assets/user/icons/menu.svg"
@@ -236,6 +236,9 @@ export default {
   top: 55px;
   background-color: white !important;
   padding: 10px;
+
+  box-shadow: 0 5px 0.9rem -0.8rem rgba(0, 0, 0, 0.8),
+    0 0 0 1px rgba(0, 0, 0, 0.05);
   border-radius: 5px;
 }
 .logo {
