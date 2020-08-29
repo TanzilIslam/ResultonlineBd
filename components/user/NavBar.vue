@@ -1,12 +1,7 @@
 <template>
   <div class="custom-navbar">
-    <b-navbar
-      type="dark"
-      id="my-nav"
-      class="fixed-top custom-mynav"
-      toggleable="md"
-    >
-      <b-container class="pl-2 pr-3">
+    <b-navbar type="dark" id="my-nav" class="fixed-top dekstop-nav">
+      <b-container>
         <b-navbar-brand to="/" class="brand-logo"
           ><b-img
             itemprop="image"
@@ -16,80 +11,7 @@
           ></b-img>
         </b-navbar-brand>
 
-        <b-navbar-toggle v-if="show" target="sidebar-forNav"></b-navbar-toggle>
-
-        <b-navbar-brand v-if="show" to="/" class="brand-logo-sm-device"
-          ><b-img
-            itemprop="image"
-            alt="result online bd logo"
-            :src="require('~/assets/user/icons/brand.png')"
-            class="logo"
-          ></b-img>
-        </b-navbar-brand>
-
-        <b-navbar-brand
-          class="search-logo-sm-device"
-          v-bind:class="{ range: showSearch }"
-        >
-          <div v-if="!show" class="d-flex">
-            <div class="d-flex w-100">
-              <div class="w-100">
-                <form @keyup.enter.prevent="searchinfo">
-                  <autocomplete
-                    :search="searchData"
-                    placeholder="Search Here..."
-                    :get-result-value="getResultValue"
-                    @submit="handleSubmit"
-                  ></autocomplete>
-                </form>
-              </div>
-              <div class="btn icon-button" @click="searchinfo">
-                <b-icon icon="search" variant="light"></b-icon>
-              </div>
-            </div>
-
-            <div class="pl-4">
-              <b-icon
-                variant="light"
-                scale="2"
-                icon="x"
-                @click="customMethod"
-              ></b-icon>
-            </div>
-          </div>
-
-          <b-icon
-            v-if="show"
-            icon="search"
-            variant="light"
-            @click="show = false"
-          ></b-icon>
-        </b-navbar-brand>
-
-        <b-sidebar id="sidebar-forNav" backdrop shadow backdrop-variant="light">
-          <div class="px-3">
-            <b-navbar-nav class="Side-bar-item mb-2">
-              <b-nav-item to="/" class="mt-1" href="#">Home</b-nav-item>
-              <b-nav-item to="/qAnda" class="mt-1" href="#">Q&A</b-nav-item>
-              <b-nav-item to="/blog" class="mt-1" href="#">Blog</b-nav-item>
-              <b-nav-item class="mt-1" to="/favourite" href="#"
-                >Favourite</b-nav-item
-              >
-            </b-navbar-nav>
-          </div>
-        </b-sidebar>
-
         <b-collapse id="nav-collapse" is-nav>
-          <b-navbar-nav class="ml-4 mr-2 item">
-            <!-- <b-nav-item to="/" class="my-auto" href="#">Home</b-nav-item> -->
-            <!-- <b-nav-item to="/qAnda" class="my-auto ml-1" href="#"
-              >Q&A</b-nav-item
-            > -->
-            <!-- <b-nav-item to="/blog" class="my-auto mt-1" href="#"
-              >Blog</b-nav-item
-            > -->
-          </b-navbar-nav>
-
           <div class="d-flex w-100 justify-content-center">
             <div class="w-75">
               <form @keyup.enter.prevent="searchinfo">
@@ -106,8 +28,7 @@
             </div>
           </div>
 
-          <b-navbar-nav class="">
-            <!-- <b-nav-item> -->
+          <b-navbar-nav class="mr-4">
             <b-img
               style="cursor:pointer;"
               height="25"
@@ -117,10 +38,6 @@
               src="~/assets/user/icons/menu.svg"
               @click="showRightMenu"
             ></b-img>
-            <!-- </b-nav-item> -->
-            <!-- <b-nav-item class="my-auto" to="/favourite" href="#"
-              ><b-icon icon="list" variant="white"></b-icon
-            ></b-nav-item> -->
           </b-navbar-nav>
         </b-collapse>
         <div class="d-flex justify-content-end ">
@@ -133,6 +50,84 @@
         </div>
       </b-container>
     </b-navbar>
+
+    <div type="dark" id="my-nav" class="fixed-top  mobile-nav">
+      <div class="d-flex align-items-center justify-content-between">
+        <div>
+          <b-navbar-toggle v-if="show" target="sidebar-forNav">
+            <template v-slot:default="{ expanded }">
+              <b-img
+                style="cursor:pointer;"
+                height="20"
+                width="20"
+                class="rounded"
+                alt="right menu"
+                src="~/assets/user/icons/menu.svg"
+              ></b-img>
+            </template>
+          </b-navbar-toggle>
+        </div>
+        <div v-if="show" class="brand-logo-sm-device ">
+          <b-img
+            itemprop="image"
+            alt="result online bd logo"
+            :src="require('~/assets/user/icons/brand.png')"
+            class="mobile-logo"
+          ></b-img>
+        </div>
+        <div>
+          <b-icon
+            v-if="show"
+            icon="search"
+            variant="light"
+            class="mr-3"
+            style="height:17px;width:17px;"
+            @click="show = false"
+          ></b-icon>
+        </div>
+      </div>
+
+      <div v-if="!show" class="d-flex w-100 pl-2 pr-2 pt-1">
+        <div class="w-100">
+          <form @keyup.enter.prevent="searchinfo">
+            <autocomplete
+              :search="searchData"
+              placeholder="Search Here..."
+              :get-result-value="getResultValue"
+              @submit="handleSubmit"
+            ></autocomplete>
+          </form>
+        </div>
+        <div class="btn icon-button" @click="searchinfo">
+          <b-icon icon="search" variant="light"></b-icon>
+        </div>
+        <div class="pl-2 pt-1">
+          <b-icon
+            variant="light"
+            class="h4"
+            icon="x"
+            @click="customMethod"
+          ></b-icon>
+        </div>
+      </div>
+
+      <b-sidebar id="sidebar-forNav" backdrop shadow backdrop-variant="light">
+        <div class="px-3">
+          <b-navbar-nav class="Side-bar-item mb-2">
+            <!-- <b-nav-item to="/" class="mt-1" href="#">Home</b-nav-item> -->
+            <b-nav-item @click="commingSoon" class="mt-1" href="#"
+              >Q&A</b-nav-item
+            >
+            <b-nav-item @click="commingSoon" class="mt-1" href="#"
+              >Blog</b-nav-item
+            >
+            <b-nav-item class="mt-1" to="/favourite" href="#"
+              >Favourite</b-nav-item
+            >
+          </b-navbar-nav>
+        </div>
+      </b-sidebar>
+    </div>
   </div>
 </template>
 
@@ -177,7 +172,7 @@ export default {
     },
     customMethod() {
       this.show = true;
-      this.showSearch = true;
+      // this.showSearch = true;
     },
     searchData(input) {
       return new Promise(resolve => {
@@ -209,19 +204,37 @@ export default {
     }
   },
   computed: {
-    showSearch() {
-      if (this.show == false) {
-        return true;
-      } else {
-        return false;
-      }
-    }
+    // showSearch() {
+    //   if (this.show == false) {
+    //     return true;
+    //   } else {
+    //     return false;
+    //   }
+    // }
   },
   mounted() {}
 };
 </script>
 
 <style scoped>
+@media (max-width: 767px) {
+  .dekstop-nav {
+    display: none !important;
+  }
+
+  .custom-navbar {
+    margin-bottom: 46px !important;
+  }
+}
+.mobile-nav {
+  height: 44px;
+  background-color: #242729 !important;
+  padding-right: 0px !important;
+}
+
+.custom-navbar {
+  margin-bottom: 55px;
+}
 .right-menu a {
   color: black !important;
   text-decoration: none;
@@ -245,9 +258,14 @@ export default {
   height: 64px;
   width: 110px;
   border-radius: 4px;
-  margin-left: -7px;
+  margin-left: -10px;
 }
-.custom-mynav {
+.mobile-logo {
+  height: 50px;
+  width: 90px;
+  border-radius: 4px;
+}
+.dekstop-nav {
   height: 50px;
   background-color: #242729 !important;
   padding-right: 0px !important;
@@ -265,16 +283,19 @@ a {
   .search-logo-sm-device {
     display: none !important;
   }
+  .mobile-nav {
+    display: none !important;
+  }
 }
 @media (min-width: 0px) and (max-width: 767px) {
-  .range {
+  /* .range {
     width: inherit !important;
-  }
+  } */
 
   .navbar {
     padding: 0px !important;
   }
-  .custom-mynav {
+  .dekstop-nav {
     height: 55px;
   }
   .Side-bar-item,
@@ -282,13 +303,13 @@ a {
     color: rgb(0, 0, 0) !important;
     font-size: 17px;
   }
-  .custom-navbar {
+  /* .custom-navbar {
     margin-bottom: 75px !important;
-  }
-
+  } */
+  /* 
   .brand-logo {
     display: none !important;
-  }
+  } */
   button:focus {
     outline: none !important;
     outline: none !important;
@@ -299,9 +320,9 @@ a {
   outline: none !important;
   outline-style: none !important;
 }
-.custom-navbar {
+/* .custom-navbar {
   margin-bottom: 55px;
-}
+} */
 .form-control {
   border-color: #3b4045;
   background-color: #3b4045;
