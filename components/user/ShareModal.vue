@@ -30,7 +30,7 @@
       </b-img>
     </div>
     <b-input-group size="sm" class="pt-4">
-      <b-form-input :value="place"></b-form-input>
+      <b-form-input id="myInput" :value="place"></b-form-input>
       <b-input-group-append>
         <b-img
           style="cursor: pointer;"
@@ -62,15 +62,22 @@ export default {
   },
   methods: {
     copyLink() {
-      navigator.clipboard.writeText(this.place);
-      const noti = this.$vs.notification({
-        duration: 4000,
-        color: "#4a5153",
+      if (process.browser) {
+        var copyText = document.getElementById("myInput");
+        copyText.select();
+        copyText.setSelectionRange(0, 99999);
+        document.execCommand("copy");
 
-        progress: "auto",
-        title: "Copied",
-        text: "This article link is  copied."
-      });
+        // navigator.clipboard.writeText(this.place);
+        const noti = this.$vs.notification({
+          duration: 4000,
+          color: "#4a5153",
+
+          progress: "auto",
+          title: "Copied",
+          text: "This article link is  copied."
+        });
+      }
     },
     shareToFb() {
       window.open(

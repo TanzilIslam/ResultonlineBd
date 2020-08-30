@@ -273,20 +273,6 @@ a {
   z-index: 2;
 }
 
-/* Loading spinner */
-/* .autocomplete[data-loading="true"]::after { */
-/* content: "";
-  border: 3px solid #000000;
-  border-right: 3px solid rgb(255, 255, 255);
-  border-radius: 100%;
-  width: 20px;
-  height: 20px;
-  position: absolute;
-  right: 12px;
-  top: 50%;
-  transform: translateY(-50%);
-  animation: rotate 1s infinite linear; */
-
 .autocomplete-result-list {
   margin: 0px;
   border: 1px solid rgba(0, 0, 0, 0.12);
@@ -353,7 +339,7 @@ a {
 }
 
 .carousel-inner {
-  border-radius: 5px !important;
+  border-radius: 5px;
 }
 
 .carousel-caption {
@@ -404,6 +390,10 @@ a {
     border-radius: 0px !important;
   }
 
+  .home-sidebar,
+  .home-latest {
+    display: none !important;
+  }
   .home-sidebar,
   .home-latest,
   .index-home-card {

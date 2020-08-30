@@ -1,6 +1,6 @@
 <template>
   <div class="myCarousel">
-    <b-row class="pt-2" v-if="loadingImg">
+    <b-row class="pt-2 car-img" v-if="loadingImg">
       <b-col cols="12" sm="12" md="12" lg="12" xl="12">
         <vue-content-loading :width="300" :height="65">
           <rect x="0" y="0" rx="0" ry="0" width="300" height="60" />

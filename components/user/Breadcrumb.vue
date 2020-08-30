@@ -1,5 +1,5 @@
 <template>
-  <div class="breadcrumbs py-3">
+  <div class="breadcrumbs py-md-3 py-lg-3 py-xl-3">
     <!-- <b-container> -->
 
     <div class="d-flex justify-content-center">
