@@ -54,26 +54,30 @@
     <div type="dark" id="my-nav" class="fixed-top  mobile-nav">
       <div class="d-flex align-items-center justify-content-between">
         <div>
-          <b-navbar-toggle v-if="show" target="sidebar-forNav">
+          <b-navbar-toggle v-if="show" target="">
             <template v-slot:default="{ expanded }">
-              <b-img
-                style="cursor:pointer;"
-                height="20"
-                width="20"
-                class="rounded"
-                alt="right menu"
-                src="~/assets/user/icons/menu.svg"
-              ></b-img>
+              <nuxt-link to="/u">
+                <b-img
+                  style="cursor:pointer;"
+                  height="20"
+                  width="20"
+                  class="rounded"
+                  alt="right menu"
+                  src="~/assets/user/icons/menu.svg"
+                ></b-img>
+              </nuxt-link>
             </template>
           </b-navbar-toggle>
         </div>
         <div v-if="show" class="brand-logo-sm-device ">
-          <b-img
-            itemprop="image"
-            alt="result online bd logo"
-            :src="require('~/assets/user/icons/brand.png')"
-            class="mobile-logo"
-          ></b-img>
+          <nuxt-link to="/">
+            <b-img
+              itemprop="image"
+              alt="result online bd logo"
+              :src="require('~/assets/user/icons/brand.png')"
+              class="mobile-logo"
+            ></b-img>
+          </nuxt-link>
         </div>
         <div>
           <b-icon
@@ -111,10 +115,10 @@
         </div>
       </div>
 
-      <b-sidebar id="sidebar-forNav" backdrop shadow backdrop-variant="light">
+      <!-- <b-sidebar id="sidebar-forNav" backdrop shadow backdrop-variant="light">
         <div class="px-3">
           <b-navbar-nav class="Side-bar-item mb-2">
-            <!-- <b-nav-item to="/" class="mt-1" href="#">Home</b-nav-item> -->
+           
             <b-nav-item @click="commingSoon" class="mt-1" href="#"
               >Q&A</b-nav-item
             >
@@ -126,7 +130,7 @@
             >
           </b-navbar-nav>
         </div>
-      </b-sidebar>
+      </b-sidebar> -->
     </div>
   </div>
 </template>

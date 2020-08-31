@@ -1,7 +1,7 @@
 <template>
   <div class="footer" style="background-color: #000000;">
     <b-container>
-      <div class="d-flex justify-content-center pt-2">
+      <div class="d-flex hide-in-mobile justify-content-center pt-2">
         <div class="">
           <b-img
             alt="footer reolib logo"
@@ -18,6 +18,47 @@
           </p>
         </div>
         <div class="ml-5">
+          <b-img
+            alt="footer facebook logo"
+            class="social-icons"
+            :src="require('~/assets/user/icons/fb.png')"
+          ></b-img>
+
+          <b-img
+            alt="footer instagram logo"
+            class="social-icons"
+            :src="require('~/assets/user/icons/insta.png')"
+          ></b-img>
+          <b-img
+            alt="footer twitter logo"
+            class="social-icons"
+            :src="require('~/assets/user/icons/tw.png')"
+          ></b-img>
+          <b-img
+            alt="footer pinterest logo"
+            class="social-icons"
+            :src="require('~/assets/user/icons/pin.png')"
+          ></b-img>
+        </div>
+      </div>
+      <div class="hide-in-dekstop py-3">
+        <div class="d-flex justify-content-center pb-2">
+          <b-img
+            alt="footer reolib logo"
+            height="20"
+            width="22"
+            class="rounded"
+            src="~/assets/user/icons/footerLogo.png"
+          ></b-img>
+          <div class="line ml-2 mr-2"></div>
+          <div class="mr-5 pt-1">
+            <p style="color: white;font-size:12px">
+              ©2020 ReoLib.All Rights Reserved
+            </p>
+          </div>
+        </div>
+
+        <div class="d-flex justify-content-around">
           <b-img
             alt="footer facebook logo"
             class="social-icons"

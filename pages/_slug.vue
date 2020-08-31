@@ -263,7 +263,7 @@
             lg="3"
             xl="3"
             v-for="(article, index) in RecommendedArticles.slice(0, 1)"
-            :key="index"
+            :key="article.id"
           >
             <!-- <nuxt-link prefetch :to="`/detailPost/${article.slug}`"> -->
             <ChannelCommonCard :article="article" :data-index="index" />
@@ -280,7 +280,7 @@
               1,
               RecommendedArticles.length
             )"
-            :key="index"
+            :key="article.id"
           >
             <!-- <nuxt-link prefetch :to="`/detailPost/${article.slug}`"> -->
             <ChannelCommonCard :article="article" :data-index="index" />
@@ -335,7 +335,7 @@
             lg="3"
             xl="3"
             v-for="(article, index) in HighRatedArticles.slice(0, 1)"
-            :key="index"
+            :key="article.id"
           >
             <!-- <nuxt-link prefetch :to="`/detailPost/${article.slug}`"> -->
             <ChannelCommonCard :article="article" :data-index="index" />
@@ -352,7 +352,7 @@
               1,
               HighRatedArticles.length
             )"
-            :key="index"
+            :key="article.id"
           >
             <!-- <nuxt-link prefetch :to="`/detailPost/${article.slug}`"> -->
             <ChannelCommonCard :article="article" :data-index="index" />
@@ -540,12 +540,12 @@ export default {
   },
   computed: mapState({
     DetailArticle: state => state.detailPage.DetailArticle,
-    details: state =>
-      state.detailPage.DetailArticle.details
-        .replace(/(^\s*)|(\s*$)/gi, "")
-        .replace(/[ ]{2,}/gi, " ")
-        .replace(/\n /, "\n")
-        .split(" "),
+    // details: state =>
+    //   state.detailPage.DetailArticle.details
+    //     .replace(/(^\s*)|(\s*$)/gi, "")
+    //     .replace(/[ ]{2,}/gi, " ")
+    //     .replace(/\n /, "\n")
+    //     .split(" "),
     RecommendedArticles: state => state.detailPage.RecommendedArticles,
     HighRatedArticles: state => state.detailPage.HighRatedArticles,
     RelatedArticles: state => state.detailPage.RelatedArticles,
@@ -563,7 +563,7 @@ export default {
         datePublished: this.DetailArticle.release_date,
         author: {
           "@type": "Person"
-          // name: this.author
+          // name: this.DetailArticle.contentowners.authorsname
         },
         publisher: {
           "@type": "Organization",

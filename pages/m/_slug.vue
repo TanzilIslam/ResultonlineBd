@@ -196,7 +196,7 @@
             lg="3"
             xl="3"
             v-for="(article, index) in RecommendedArticles.slice(0, 1)"
-            :key="index"
+            :key="article.id"
           >
             <!-- <nuxt-link prefetch :to="`/detailPost/${article.slug}`"> -->
             <ChannelCommonCard :article="article" :data-index="index" />
@@ -213,7 +213,7 @@
               1,
               RecommendedArticles.length
             )"
-            :key="index"
+            :key="article.id"
           >
             <!-- <nuxt-link prefetch :to="`/detailPost/${article.slug}`"> -->
             <ChannelCommonCard :article="article" :data-index="index" />
@@ -269,7 +269,7 @@
             lg="3"
             xl="3"
             v-for="(article, index) in hotMonth.slice(0, 1)"
-            :key="index"
+            :key="article.id"
           >
             <!-- <nuxt-link prefetch :to="`/detailPost/${article.slug}`"> -->
             <ChannelCommonCard :article="article" :data-index="index" />
@@ -283,7 +283,7 @@
             lg="3"
             xl="3"
             v-for="(article, index) in hotMonth.slice(1, hotMonth.length)"
-            :key="index"
+            :key="article.id"
           >
             <!-- <nuxt-link prefetch :to="`/detailPost/${article.slug}`"> -->
             <ChannelCommonCard :article="article" :data-index="index" />
@@ -338,7 +338,7 @@
             lg="3"
             xl="3"
             v-for="(article, index) in mixBrand.slice(0, 1)"
-            :key="index"
+            :key="article.id"
           >
             <!-- <nuxt-link prefetch :to="`/detailPost/${article.slug}`"> -->
             <ChannelCommonCard :article="article" :data-index="index" />
@@ -352,7 +352,7 @@
             lg="3"
             xl="3"
             v-for="(article, index) in mixBrand.slice(1, mixBrand.length)"
-            :key="index"
+            :key="article.id"
           >
             <!-- <nuxt-link prefetch :to="`/detailPost/${article.slug}`"> -->
             <ChannelCommonCard :article="article" :data-index="index" />
@@ -517,8 +517,8 @@ export default {
 
   computed: mapState({
     DetailArticle: state => state.mobileDetailPage.DetailArticle,
-    author: state =>
-      state.mobileDetailPage.DetailArticle.contentowners.authorsname,
+    // author: state =>
+    //   state.mobileDetailPage.DetailArticle.contentowners.authorsname,
     schema() {
       return {
         "@context": "http://schema.org",
@@ -531,8 +531,8 @@ export default {
         image: [this.DetailArticle.photo],
         datePublished: this.DetailArticle.release_date,
         author: {
-          "@type": "Person",
-          name: this.author
+          "@type": "Person"
+          // name: this.DetailArticle.contentowners.authorsname
         },
         publisher: {
           "@type": "Organization",
@@ -552,12 +552,12 @@ export default {
     //   }
     //   return tagName;
     // },
-    details: state =>
-      state.mobileDetailPage.DetailArticle.details
-        .replace(/(^\s*)|(\s*$)/gi, "")
-        .replace(/[ ]{2,}/gi, " ")
-        .replace(/\n /, "\n")
-        .split(" "),
+    // details: state =>
+    //   state.mobileDetailPage.DetailArticle.details
+    //     .replace(/(^\s*)|(\s*$)/gi, "")
+    //     .replace(/[ ]{2,}/gi, " ")
+    //     .replace(/\n /, "\n")
+    //     .split(" "),
     RecommendedArticles: state => state.mobileDetailPage.RecommendedArticles,
     RelatedArticles: state => state.mobileDetailPage.RelatedArticles
   }),

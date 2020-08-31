@@ -381,8 +381,10 @@ a {
   }
 }
 @media (max-width: 425px) {
+  /* .mobile-channel-bar {
+  } */
   .hide-in-mobile {
-    display: none;
+    display: none !important;
   }
   .breadcrumbs {
     margin-bottom: 5px !important;
