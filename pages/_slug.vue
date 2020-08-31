@@ -8,8 +8,8 @@
               img-height="110"
             ></b-card>
           </div>  -->
-    <b-row>
-      <b-col cols="12" sm="12" md="8" lg="8" xl="8">
+    <b-row class="mobile-row">
+      <b-col class="mobile-colmun" cols="12" sm="12" md="8" lg="8" xl="8">
         <div>
           <div v-if="DetailArticle.is_active">
             <VclDetailCard v-if="notCompleted" />
@@ -26,25 +26,21 @@
               {{ DetailArticle.contentowners.authorsname }} |
               {{ DetailArticle.release_date }}
             </span>
-            <div class="d-flex float-right mb-4">
+            <div class="d-flex float-right mr-2">
               <b-img
                 alt="png"
                 class=""
                 style="width: 20px; height: 20px;"
                 :src="require('~/assets/user/detailPage/fire.png')"
               ></b-img>
-              <b-card-text
-                text-tag="p"
-                class="view-logo-detailpage text-muted"
-                >{{ DetailArticle.view }}</b-card-text
-              >
+              <p class="text-muted mr-3">{{ DetailArticle.view }}</p>
               <b-icon
-                class="mr-3 custom-home-card h4"
+                class="mr-3 custom-home-card  h4"
                 @click="active2 = !active2"
                 icon="reply"
               ></b-icon>
               <b-icon
-                class="mr-3 custom-home-card h5"
+                class=" custom-home-card h5"
                 :icon="icon"
                 :variant="iconColor"
                 @click="setFavourite(6000, '#4a5153')"
@@ -111,7 +107,7 @@
         md="6"
         lg="6"
         xl="6"
-        class="order-md-last order-lg-last order-xl-last"
+        class="order-md-last order-lg-last order-xl-last mobile-colmun"
       >
         <div class="tags d-flex mt-4 mb-3">
           <p class="text-dark mr-2 my-auto " style="font-size: 1rem;">Tags:</p>
@@ -161,14 +157,14 @@
           <h6 class="mt-3">Total Star : {{ DetailArticle.reviewcount }}</h6>
         </div>
         <div v-if="reviewLoading" class="pt-3">
-          <b-row>
-            <b-col cols="12" sm="12" md="7" lg="7" xl="7">
+          <b-row class="mobile-row">
+            <b-col class="mobile-colmun" cols="12" sm="12" md="7" lg="7" xl="7">
               <VclStar />
             </b-col>
           </b-row>
         </div>
       </b-col>
-      <b-col cols="12" sm="12" md="4" lg="4" xl="4">
+      <b-col class="mobile-colmun" cols="12" sm="12" md="4" lg="4" xl="4">
         <div class="pt-2 pl-2 latest-home-card-detailpage">
           <VclRelatedCard v-if="$fetchState.pending" />
 
@@ -242,14 +238,48 @@
         Error while fetching posts: {{ $fetchState.error.message }}
       </h4>
       <div v-else>
-        <b-row>
+        <b-row class="hide-in-mobile">
           <b-col
+            class=""
             cols="12"
             sm="6"
             md="3"
             lg="3"
             xl="3"
             v-for="(article, index) in RecommendedArticles"
+            :key="index"
+          >
+            <!-- <nuxt-link prefetch :to="`/detailPost/${article.slug}`"> -->
+            <ChannelCommonCard :article="article" :data-index="index" />
+            <!-- </nuxt-link> -->
+          </b-col>
+        </b-row>
+        <b-row no-gutters class="mobile-row  hide-in-dekstop">
+          <b-col
+            class="mobile-colmun"
+            cols="12"
+            sm="6"
+            md="3"
+            lg="3"
+            xl="3"
+            v-for="(article, index) in RecommendedArticles.slice(0, 1)"
+            :key="index"
+          >
+            <!-- <nuxt-link prefetch :to="`/detailPost/${article.slug}`"> -->
+            <ChannelCommonCard :article="article" :data-index="index" />
+            <!-- </nuxt-link> -->
+          </b-col>
+          <b-col
+            class="pr-1"
+            cols="6"
+            sm="6"
+            md="3"
+            lg="3"
+            xl="3"
+            v-for="(article, index) in RecommendedArticles.slice(
+              1,
+              RecommendedArticles.length
+            )"
             :key="index"
           >
             <!-- <nuxt-link prefetch :to="`/detailPost/${article.slug}`"> -->
@@ -280,14 +310,48 @@
         Error while fetching posts: {{ $fetchState.error.message }}
       </h4>
       <div v-else>
-        <b-row>
+        <b-row class="hide-in-mobile">
           <b-col
+            class=""
             cols="12"
             sm="6"
             md="3"
             lg="3"
             xl="3"
             v-for="(article, index) in HighRatedArticles"
+            :key="index"
+          >
+            <!-- <nuxt-link prefetch :to="`/detailPost/${article.slug}`"> -->
+            <ChannelCommonCard :article="article" :data-index="index" />
+            <!-- </nuxt-link> -->
+          </b-col>
+        </b-row>
+        <b-row no-gutters class="mobile-row  hide-in-dekstop">
+          <b-col
+            class="mobile-colmun"
+            cols="12"
+            sm="6"
+            md="3"
+            lg="3"
+            xl="3"
+            v-for="(article, index) in HighRatedArticles.slice(0, 1)"
+            :key="index"
+          >
+            <!-- <nuxt-link prefetch :to="`/detailPost/${article.slug}`"> -->
+            <ChannelCommonCard :article="article" :data-index="index" />
+            <!-- </nuxt-link> -->
+          </b-col>
+          <b-col
+            class="pr-1"
+            cols="6"
+            sm="6"
+            md="3"
+            lg="3"
+            xl="3"
+            v-for="(article, index) in HighRatedArticles.slice(
+              1,
+              HighRatedArticles.length
+            )"
             :key="index"
           >
             <!-- <nuxt-link prefetch :to="`/detailPost/${article.slug}`"> -->
@@ -351,6 +415,7 @@ export default {
       notCompleted: true,
       active2: false,
       iconColor: "dark"
+      // author: ""
     };
   },
   head() {
@@ -418,6 +483,7 @@ export default {
       .then(function(posts) {
         // console.log("1st get ", posts.view);
         self.articleView = posts.view;
+        // self.author = posts.contentowners.authorsname;
       });
 
     await self.$axios
@@ -483,7 +549,7 @@ export default {
     RecommendedArticles: state => state.detailPage.RecommendedArticles,
     HighRatedArticles: state => state.detailPage.HighRatedArticles,
     RelatedArticles: state => state.detailPage.RelatedArticles,
-    author: state => state.detailPage.DetailArticle.contentowners.authorsname,
+    // author: state => state.detailPage.DetailArticle.contentowners.authorsname,
     schema() {
       return {
         "@context": "http://schema.org",
@@ -496,8 +562,8 @@ export default {
         image: [this.DetailArticle.photo],
         datePublished: this.DetailArticle.release_date,
         author: {
-          "@type": "Person",
-          name: this.author
+          "@type": "Person"
+          // name: this.author
         },
         publisher: {
           "@type": "Organization",

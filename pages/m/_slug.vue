@@ -1,7 +1,14 @@
 <template>
   <div class="mobile-detail-post">
-    <b-row>
-      <b-col class="mx-auto" cols="12" sm="12" md="8" lg="8" xl="8">
+    <b-row class="mobile-row">
+      <b-col
+        class="mx-auto mobile-colmun"
+        cols="12"
+        sm="12"
+        md="8"
+        lg="8"
+        xl="8"
+      >
         <VclDetailCard v-if="$fetchState.pending" />
 
         <h4 v-else-if="$fetchState.error">
@@ -21,25 +28,22 @@
               {{ DetailArticle.contentowners.authorsname }} |
               {{ DetailArticle.release_date }}
             </span>
-            <div class="d-flex float-right mb-4">
+            <div class="d-flex float-right mr-2">
               <b-img
                 alt="png"
                 class=""
                 style="width: 20px; height: 20px;"
                 :src="require('~/assets/user/detailPage/fire.png')"
               ></b-img>
-              <b-card-text
-                text-tag="p"
-                class="view-logo-detailpage text-muted"
-                >{{ DetailArticle.view }}</b-card-text
-              >
+              <p class="text-muted mr-3">{{ DetailArticle.view }}</p>
+
               <b-icon
                 class="mr-3 custom-home-card h4"
                 @click="active2 = !active2"
                 icon="reply"
               ></b-icon>
               <b-icon
-                class="mr-3 custom-home-card h5"
+                class="custom-home-card h5"
                 :icon="icon"
                 :variant="iconColor"
                 @click="setFavourite(6000, '#4a5153')"
@@ -138,8 +142,8 @@
           <h6 class="mt-3">Total Star : {{ DetailArticle.reviewcount }}</h6>
         </div>
         <div v-if="reviewLoading" class="pt-3">
-          <b-row>
-            <b-col cols="12" sm="12" md="7" lg="7" xl="7">
+          <b-row class="mobile-row">
+            <b-col class="mobile-colmun" cols="12" sm="12" md="7" lg="7" xl="7">
               <VclStar />
             </b-col>
           </b-row>
@@ -167,14 +171,48 @@
         Error while fetching posts: {{ $fetchState.error.message }}
       </h4>
       <div v-else>
-        <b-row>
+        <b-row class="hide-in-mobile">
           <b-col
+            class=""
             cols="12"
             sm="6"
             md="3"
             lg="3"
             xl="3"
             v-for="(article, index) in RecommendedArticles"
+            :key="index"
+          >
+            <!-- <nuxt-link prefetch :to="`/detailPost/${article.slug}`"> -->
+            <ChannelCommonCard :article="article" :data-index="index" />
+            <!-- </nuxt-link> -->
+          </b-col>
+        </b-row>
+        <b-row no-gutters class="mobile-row  hide-in-dekstop">
+          <b-col
+            class="mobile-colmun"
+            cols="12"
+            sm="6"
+            md="3"
+            lg="3"
+            xl="3"
+            v-for="(article, index) in RecommendedArticles.slice(0, 1)"
+            :key="index"
+          >
+            <!-- <nuxt-link prefetch :to="`/detailPost/${article.slug}`"> -->
+            <ChannelCommonCard :article="article" :data-index="index" />
+            <!-- </nuxt-link> -->
+          </b-col>
+          <b-col
+            class="pr-1"
+            cols="6"
+            sm="6"
+            md="3"
+            lg="3"
+            xl="3"
+            v-for="(article, index) in RecommendedArticles.slice(
+              1,
+              RecommendedArticles.length
+            )"
             :key="index"
           >
             <!-- <nuxt-link prefetch :to="`/detailPost/${article.slug}`"> -->
@@ -206,8 +244,9 @@
         Error while fetching posts: {{ $fetchState.error.message }}
       </h4>
       <div v-else>
-        <b-row>
+        <b-row class="hide-in-mobile">
           <b-col
+            class=""
             cols="12"
             sm="6"
             md="3"
@@ -217,7 +256,37 @@
             :key="index"
           >
             <!-- <nuxt-link prefetch :to="`/detailPost/${article.slug}`"> -->
-            <MobileCards :article="article" :data-index="index" />
+            <ChannelCommonCard :article="article" :data-index="index" />
+            <!-- </nuxt-link> -->
+          </b-col>
+        </b-row>
+        <b-row no-gutters class="mobile-row  hide-in-dekstop">
+          <b-col
+            class="mobile-colmun"
+            cols="12"
+            sm="6"
+            md="3"
+            lg="3"
+            xl="3"
+            v-for="(article, index) in hotMonth.slice(0, 1)"
+            :key="index"
+          >
+            <!-- <nuxt-link prefetch :to="`/detailPost/${article.slug}`"> -->
+            <ChannelCommonCard :article="article" :data-index="index" />
+            <!-- </nuxt-link> -->
+          </b-col>
+          <b-col
+            class="pr-1"
+            cols="6"
+            sm="6"
+            md="3"
+            lg="3"
+            xl="3"
+            v-for="(article, index) in hotMonth.slice(1, hotMonth.length)"
+            :key="index"
+          >
+            <!-- <nuxt-link prefetch :to="`/detailPost/${article.slug}`"> -->
+            <ChannelCommonCard :article="article" :data-index="index" />
             <!-- </nuxt-link> -->
           </b-col>
         </b-row>
@@ -244,8 +313,9 @@
         Error while fetching posts: {{ $fetchState.error.message }}
       </h4>
       <div v-else>
-        <b-row>
+        <b-row class="hide-in-mobile">
           <b-col
+            class=""
             cols="12"
             sm="6"
             md="3"
@@ -255,7 +325,37 @@
             :key="index"
           >
             <!-- <nuxt-link prefetch :to="`/detailPost/${article.slug}`"> -->
-            <MobileCards :article="article" :data-index="index" />
+            <ChannelCommonCard :article="article" :data-index="index" />
+            <!-- </nuxt-link> -->
+          </b-col>
+        </b-row>
+        <b-row no-gutters class="mobile-row  hide-in-dekstop">
+          <b-col
+            class="mobile-colmun"
+            cols="12"
+            sm="6"
+            md="3"
+            lg="3"
+            xl="3"
+            v-for="(article, index) in mixBrand.slice(0, 1)"
+            :key="index"
+          >
+            <!-- <nuxt-link prefetch :to="`/detailPost/${article.slug}`"> -->
+            <ChannelCommonCard :article="article" :data-index="index" />
+            <!-- </nuxt-link> -->
+          </b-col>
+          <b-col
+            class="pr-1"
+            cols="6"
+            sm="6"
+            md="3"
+            lg="3"
+            xl="3"
+            v-for="(article, index) in mixBrand.slice(1, mixBrand.length)"
+            :key="index"
+          >
+            <!-- <nuxt-link prefetch :to="`/detailPost/${article.slug}`"> -->
+            <ChannelCommonCard :article="article" :data-index="index" />
             <!-- </nuxt-link> -->
           </b-col>
         </b-row>
@@ -298,7 +398,6 @@ export default {
   },
   head() {
     return {
-      script: [{ type: "application/ld+json", json: this.schema }],
       title: this.DetailArticle.SeoTitle,
       meta: [
         {
@@ -351,7 +450,8 @@ export default {
           name: "og:image",
           content: this.DetailArticle.photo
         }
-      ]
+      ],
+      script: [{ type: "application/ld+json", json: this.schema }]
     };
   },
   async fetch() {
