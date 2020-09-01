@@ -1,6 +1,6 @@
 <template>
   <div class="author-profile">
-    <div>
+    <div class="author-cover">
       <b-img
         alt="cover photo of author Profile"
         v-if="$fetchState.pending"
@@ -18,10 +18,13 @@
         "
         :img-alt="AuthorArticles.authorsname"
         text-variant="white"
-        class="rounded"
+        class="rounded cover"
         img-height="300"
       >
-        <div class="d-flex justify-content-center" style="padding-top:50px;">
+        <div
+          class="d-flex justify-content-center main-sec"
+          style="padding-top:50px;"
+        >
           <div>
             <b-img
               v-if="loadImg"
@@ -106,14 +109,64 @@
       <h4 v-else-if="$fetchState.error">
         Error while fetching posts: {{ $fetchState.error.message }}
       </h4>
-      <b-row v-else>
+      <b-row class="hide-in-mobile" v-else>
         <b-col
+          class=""
           sm="6"
           md="3"
           lg="3"
           xl="3"
           v-for="(a, index) in AuthorArticles.List"
           :key="index"
+        >
+          <div v-if="a.is_active">
+            <AuthorSmallCard
+              :ArticleCover="'http://cdn.resultonlinebd.com/media/' + a.photo"
+              :ArticleTitle="a.title"
+              :ArticlePublish="a.release_date"
+              :ArticleSlug="a.slug"
+              :ArticleView="a.view"
+              :article="a.channel__slug_channel"
+              :imgAlt="a.Seoimgalt"
+            />
+          </div>
+        </b-col>
+      </b-row>
+      <b-row no-gutters class="mobile-row  hide-in-dekstop">
+        <b-col
+          class="mobile-colmun"
+          cols="12"
+          sm="6"
+          md="3"
+          lg="3"
+          xl="3"
+          v-for="(a, index) in AuthorArticles.List.slice(0, 1)"
+          :key="a.id"
+        >
+          <div v-if="a.is_active">
+            <AuthorSmallCard
+              :ArticleCover="'http://cdn.resultonlinebd.com/media/' + a.photo"
+              :ArticleTitle="a.title"
+              :ArticlePublish="a.release_date"
+              :ArticleSlug="a.slug"
+              :ArticleView="a.view"
+              :article="a.channel__slug_channel"
+              :imgAlt="a.Seoimgalt"
+            />
+          </div>
+        </b-col>
+        <b-col
+          class="p-3"
+          cols="6"
+          sm="6"
+          md="3"
+          lg="3"
+          xl="3"
+          v-for="(a, index) in AuthorArticles.List.slice(
+            1,
+            AuthorArticles.List.length
+          )"
+          :key="a.id"
         >
           <div v-if="a.is_active">
             <AuthorSmallCard
@@ -304,7 +357,7 @@ export default {
   
 } */
 .logo {
-  height: 100px;
+  height: 100px !important;
   width: 100px;
   border-radius: 10px;
   padding: 5px;

@@ -383,6 +383,13 @@ a {
 @media (max-width: 425px) {
   /* .mobile-channel-bar {
   } */
+
+  .main-sec {
+    padding-top: 20px !important;
+  }
+  .cover img {
+    height: 200px !important;
+  }
   .hide-in-mobile {
     display: none !important;
   }
