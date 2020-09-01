@@ -203,7 +203,7 @@
             <!-- </nuxt-link> -->
           </b-col>
           <b-col
-            class="pr-1"
+            class="p-3"
             cols="6"
             sm="6"
             md="3"
@@ -276,7 +276,7 @@
             <!-- </nuxt-link> -->
           </b-col>
           <b-col
-            class="pr-1"
+            class="p-3"
             cols="6"
             sm="6"
             md="3"
@@ -345,7 +345,7 @@
             <!-- </nuxt-link> -->
           </b-col>
           <b-col
-            class="pr-1"
+            class="p-3"
             cols="6"
             sm="6"
             md="3"

@@ -1,8 +1,8 @@
 <template>
   <div class="mobile-post">
-    <b-row no-gutters>
+    <b-row no-gutters class="mobile-row">
       <!-- sideBar Start -->
-      <b-col class="pr-2" cols="12" sm="12" md="3" lg="3" xl="3">
+      <b-col class="pr-2 hide-in-mobile" cols="12" sm="12" md="3" lg="3" xl="3">
         <FixedChannelSideBar />
         <div class="mb-4 channel-side-bar-sticky">
           <div class="d-flex channel-side-bar-title">
@@ -68,11 +68,47 @@
           </div>
         </div>
       </b-col>
+
+      <b-col cols="12" class="hide-in-dekstop mobile-colmun">
+        <FixedChannelSideBar />
+        <div class="mobile-channel-bar">
+          <div class="d-flex channel-side-bar-title">
+            <b-icon
+              v-b-toggle.sidebar-backdrop
+              class="ml-3 p-1 my-auto menu-logo"
+              scale="2"
+              style="cursor: pointer;"
+              icon="chevron-right"
+            ></b-icon>
+            <h5 class="mx-auto my-auto">
+              Mobile Phone
+            </h5>
+          </div>
+          <div class="pb-3">
+            <vuescroll :ops="ops">
+              <div class="d-flex">
+                <div
+                  class="mx-3 py-2"
+                  v-for="(item, index) in mainTagList.results"
+                  :key="index"
+                >
+                  <b-img
+                    @click="showMainTagPosts(item)"
+                    :alt="item.tag_name"
+                    :src="item.tag_icon"
+                    class="shadow channel-side-bar-list-item-icon"
+                  ></b-img>
+                </div>
+              </div>
+            </vuescroll>
+          </div>
+        </div>
+      </b-col>
       <!-- Side Bar End -->
 
-      <b-col cols="12" sm="12" md="9" lg="9" xl="9">
+      <b-col class="mobile-colmun" cols="12" sm="12" md="9" lg="9" xl="9">
         <!-- Cover Start -->
-        <div class="channel-cover">
+        <div class="channel-cover hide-in-mobile">
           <b-card
             overlay
             img-height="80"
@@ -131,7 +167,7 @@
 
           <!-- showing MainTag data start -->
           <div v-if="mainTagSelected">
-            <b-row class="">
+            <b-row class="mobile-row">
               <b-col
                 v-if="!dataLoading"
                 cols="12"
@@ -139,7 +175,7 @@
                 md="12"
                 lg="12"
                 xl="12"
-                class="text-center"
+                class="text-center mobile-colmun"
               >
                 <b-spinner
                   style="width: 3rem; height: 3rem;"
@@ -153,7 +189,7 @@
                 md="4"
                 lg="4"
                 xl="4"
-                class="mb-1"
+                class="mb-1 mobile-colmun"
                 v-for="(article, index) in MobileArticles"
                 :key="index"
               >
@@ -167,14 +203,14 @@
 
           <!-- showing BrandList Data start -->
           <div v-else-if="subTagSelected">
-            <b-row class="mt-4">
+            <b-row class="mt-4 mobile-row">
               <b-col
                 cols="12"
                 sm="6"
                 md="4"
                 lg="4"
                 xl="4"
-                class="mb-1"
+                class="mb-1 mobile-colmun"
                 v-for="(article, index) in MobileArticles"
                 :key="index"
               >
@@ -194,7 +230,7 @@
 
             <div v-else>
               <!-- small mobile card start -->
-              <b-row class="mt-4 mb-4">
+              <b-row class="mt-4 mb-4 mobile-row">
                 <b-col
                   v-for="(article, index) in TopCards"
                   :key="index"
@@ -203,7 +239,7 @@
                   md="4"
                   lg="4"
                   xl="4"
-                  class="mb-1"
+                  class="mb-1 mobile-colmun"
                 >
                   <!-- <nuxt-link prefetch :to="`/detailPost/${article.slug}`"> -->
                   <MobileCards :article="article" :data-index="index" />
@@ -213,8 +249,9 @@
               <!-- small mobile card end -->
 
               <!-- big mobile card start -->
-              <b-row class="mb-4">
+              <b-row class="mb-4 mobile-row">
                 <b-col
+                  class="mobile-colmun"
                   cols="12"
                   sm="12"
                   md="12"
@@ -247,9 +284,9 @@
               <!-- big Mobile Card End -->
 
               <!-- bottom mobile card start -->
-              <b-row>
+              <b-row class="mobile-row">
                 <b-col
-                  class="mb-1"
+                  class="mb-1 mobile-colmun"
                   v-for="(article, index) in MobileArticles"
                   :key="index"
                   cols="12"
@@ -295,9 +332,13 @@
 </template>
 
 <script>
+import vuescroll from "vuescroll";
 import { mapState } from "vuex";
 import { state } from "../../store/authorProfile";
 export default {
+  components: {
+    vuescroll
+  },
   layout: "default",
   head() {
     return {

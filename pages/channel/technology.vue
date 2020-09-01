@@ -1,8 +1,8 @@
 <template>
   <div class="technology-post">
-    <b-row no-gutters>
+    <b-row no-gutters class="mobile-row">
       <!-- sideBar Start -->
-      <b-col class="pr-2" cols="12" sm="12" md="3" lg="3" xl="3">
+      <b-col class="pr-2 hide-in-mobile" cols="12" sm="12" md="3" lg="3" xl="3">
         <FixedChannelSideBar />
         <div class="mb-4 channel-side-bar-sticky">
           <div class="d-flex channel-side-bar-title">
@@ -69,11 +69,47 @@
           </div>
         </div>
       </b-col>
+
+      <b-col cols="12" class="hide-in-dekstop mobile-colmun">
+        <FixedChannelSideBar />
+        <div class="mobile-channel-bar">
+          <div class="d-flex channel-side-bar-title">
+            <b-icon
+              v-b-toggle.sidebar-backdrop
+              class="ml-3 p-1 my-auto menu-logo"
+              scale="2"
+              style="cursor: pointer;"
+              icon="chevron-right"
+            ></b-icon>
+            <h5 class="mx-auto my-auto">
+              Technology
+            </h5>
+          </div>
+          <div class="pb-3">
+            <vuescroll :ops="ops">
+              <div class="d-flex">
+                <div
+                  class="mx-3 py-2"
+                  v-for="(item, index) in mainTagList.results"
+                  :key="index"
+                >
+                  <b-img
+                    @click="showMainTagPosts(item)"
+                    :alt="item.tag_name"
+                    :src="item.tag_icon"
+                    class="shadow channel-side-bar-list-item-icon"
+                  ></b-img>
+                </div>
+              </div>
+            </vuescroll>
+          </div>
+        </div>
+      </b-col>
       <!-- Side Bar End -->
 
-      <b-col cols="12" sm="12" md="9" lg="9" xl="9">
+      <b-col class="mobile-colmun" cols="12" sm="12" md="9" lg="9" xl="9">
         <!-- Cover Start -->
-        <div class="channel-cover">
+        <div class="channel-cover hide-in-mobile">
           <b-card
             img-alt="technology cover"
             overlay
@@ -136,7 +172,7 @@
           <h4 v-else-if="$fetchState.error">
             Error while fetching posts: {{ $fetchState.error.message }}
           </h4>
-          <b-row v-else>
+          <b-row class="mobile-row" v-else>
             <b-col
               v-if="!dataLoading"
               cols="12"
@@ -153,6 +189,7 @@
             </b-col>
 
             <b-col
+              class="mobile-colmun"
               v-else
               md="4"
               lg="4"
@@ -195,8 +232,12 @@
 </template>
 
 <script>
+import vuescroll from "vuescroll";
 import { mapState } from "vuex";
 export default {
+  components: {
+    vuescroll
+  },
   layout: "default",
   head() {
     return {
@@ -311,7 +352,27 @@ export default {
       subTagSelected: false,
       mainTagSelected: false,
       parentSelected: true,
-      loadMoreLoading: false
+      loadMoreLoading: false,
+      ops: {
+        vuescroll: {
+          mode: "slide",
+          zooming: false
+        },
+        scrollPanel: {
+          initialScrollY: 0,
+          initialScrollX: 0,
+          scrollingX: true,
+          scrollingY: false,
+          speed: 200
+        },
+        rail: {
+          keepShow: false
+        },
+        bar: {
+          keepShow: false,
+          disable: true
+        }
+      }
     };
   },
   methods: {
@@ -467,6 +528,7 @@ export default {
             .finally(function() {});
         }
       }
+      this.loadMoreLoading = false;
     }
   },
   mounted() {
