@@ -52,7 +52,13 @@ export default {
     "bootstrap-vue/nuxt",
     // Doc: https://axios.nuxtjs.org/usage
     "@nuxtjs/axios",
-    "@nuxtjs/sitemap"
+    "@nuxtjs/sitemap",
+    [
+      "@nuxtjs/google-adsense",
+      {
+        id: "ca-pub-3003235812345626"
+      }
+    ]
   ],
   bootstrapVue: {
     icons: true // Install the IconsPlugin (in addition to BootStrapVue plugin

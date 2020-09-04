@@ -1,13 +1,10 @@
 <template>
   <div class="detail-post">
-    <!-- <h1>{{ schema }}</h1> -->
-    <!-- <div class="add-top mb-2  pt-1">
-            <b-card
-              no-body
-              img-src="~/assets/user/dummyImages/add2.png"
-              img-height="110"
-            ></b-card>
-          </div>  -->
+    <div class="add-top mb-2  pt-1">
+      <b-card no-body>
+        <adsbygoogle />
+      </b-card>
+    </div>
     <b-row class="mobile-row">
       <b-col class="mobile-colmun" cols="12" sm="12" md="8" lg="8" xl="8">
         <div>
@@ -208,13 +205,11 @@
             </b-list-group-item>
           </b-list-group>
         </div>
-        <!-- <div class="add-right pt-4">
-                <b-card
-                  no-body
-                  img-src="~/assets/user/dummyImages/add1.png"
-                  img-height="300"
-                ></b-card>
-              </div> -->
+        <div class="add-right pt-4">
+          <b-card no-body>
+            <adsbygoogle />
+          </b-card>
+        </div>
       </b-col>
     </b-row>
     <hr />
@@ -402,6 +397,9 @@ export default {
   components: { VclStar },
   data() {
     return {
+      styleObject: {
+        height: "100px"
+      },
       rating: 0,
       loadedRecommended: true,
       loadedHighRated: true,
