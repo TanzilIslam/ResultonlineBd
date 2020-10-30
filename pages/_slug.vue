@@ -2,7 +2,14 @@
   <div class="detail-post">
     <div class="add-top mb-2  pt-1">
       <b-card no-body>
-        <adsbygoogle />
+        <ins
+          class="adsbygoogle"
+          style="display:block"
+          data-ad-client="ca-pub-3003235812345626"
+          data-ad-slot="9798864203"
+          data-ad-format="auto"
+          data-full-width-responsive="true"
+        ></ins>
       </b-card>
     </div>
     <b-row class="mobile-row">
@@ -206,9 +213,16 @@
           </b-list-group>
         </div>
         <div class="add-right pt-4">
-          <b-card no-body>
-            <adsbygoogle />
-          </b-card>
+          <!-- <b-card no-body>
+            <ins
+              class="adsbygoogle"
+              style="display:block"
+              data-ad-client="ca-pub-3003235812345626"
+              data-ad-slot="9798864203"
+              data-ad-format="auto"
+              data-full-width-responsive="true"
+            ></ins>
+          </b-card> -->
         </div>
       </b-col>
     </b-row>
@@ -697,6 +711,7 @@ export default {
     }
   },
   mounted() {
+    (adsbygoogle = window.adsbygoogle || []).push({});
     this.checkLocal();
     this.checkLocalStorage();
     this.$nextTick(() => {

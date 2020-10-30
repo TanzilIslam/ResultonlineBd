@@ -6,6 +6,15 @@ export default {
    */
   head: {
     // title: process.env.npm_package_name || "",
+    script: [
+        {
+          // 'data-ad-client': "ca-pub-3003235812345626",
+          async:true,
+          src:"https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"
+          
+        }
+      ],
+
     meta: [
       { charset: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" }
@@ -53,12 +62,12 @@ export default {
     // Doc: https://axios.nuxtjs.org/usage
     "@nuxtjs/axios",
     "@nuxtjs/sitemap",
-    [
-      "@nuxtjs/google-adsense",
-      {
-        id: "ca-pub-3003235812345626"
-      }
-    ]
+    // [
+    //   "@nuxtjs/google-adsense",
+    //   {
+    //     id: "ca-pub-3003235812345626",
+    //   }
+    // ]
   ],
   bootstrapVue: {
     icons: true // Install the IconsPlugin (in addition to BootStrapVue plugin
@@ -93,7 +102,7 @@ export default {
     channelPagination: `http://cdn.resultonlinebd.com/channel_Dataapi?page=`,
     channelMainTag: `http://cdn.resultonlinebd.com/tagmanager?search=`
   },
-  server: {
-    host: "0"
-  }
+  // server: {
+  //   host: "0"
+  // }
 };
