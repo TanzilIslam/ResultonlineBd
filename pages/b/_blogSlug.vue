@@ -174,12 +174,52 @@ export default {
   },
   head() {
     return {
-      title: this.DetailArticle.title,
+      title: this.DetailArticle.SeoTitle,
       meta: [
         {
           hid: "description",
           name: "description",
-          content: this.DetailArticle.details
+          content: this.DetailArticle.SeoMetaDes
+        },
+        {
+          hid: "keywords",
+          name: "keywords",
+          content: this.DetailArticle.SeoMetaDes
+        },
+        {
+          hid: "twitter:card",
+          name: "twitter:card",
+          content: this.DetailArticle.SeoTitle
+        },
+        {
+          hid: "twitter:description",
+          name: "twitter:description",
+          content: this.DetailArticle.SeoMetaDes
+        },
+        {
+          hid: "og:title",
+          property: "og:title",
+          content: this.DetailArticle.SeoTitle
+        },
+        {
+          hid: "og:type",
+          property: "og:type",
+          content: "article.text"
+        },
+        {
+          hid: "og:url",
+          property: "og:url",
+          content: ""
+        },
+        {
+          hid: "og:description",
+          name: "og:description",
+          content: this.DetailArticle.SeoMetaDes
+        },
+        {
+          hid: "og:image",
+          name: "og:image",
+          content: this.DetailArticle.photo
         }
       ]
     };
