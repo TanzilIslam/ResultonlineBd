@@ -2,7 +2,7 @@
   <div class="high-rated">
     <Carousel />
     <Breadcrumb :highRatedActive="true" />
-    <div class="top-container">
+    <!-- <div class="top-container">
       <b-row>
         <b-col
           sm="6"
@@ -12,19 +12,13 @@
           v-for="(article, index) in HighRatedArticles"
           :key="index"
         >
-          <!-- <nuxt-link prefetch :to="`/detailPost/${article.slug}`"> -->
+
           <CheckSmallCard :article="article" :data-index="index" />
-          <!-- </nuxt-link> -->
+
         </b-col>
       </b-row>
-      <!-- Pagination Start End -->
-      <!-- <div class="myPagination">
-        <div class="text-center mt-5 mb-3">
-          <b-button variant="dark" @click="loadData">Load More</b-button>
-        </div>
-      </div> -->
-      <!-- Pagination End -->
-    </div>
+    
+    </div> -->
   </div>
 </template>
 
@@ -91,20 +85,20 @@ export default {
     };
   },
   async fetch() {
-    var self = this;
-    await self.$axios
-      .$get(process.env.baseUrl + "/s/all/")
-      .then(function(posts) {
-        self.seoObject = posts;
-      })
-      .catch(function(error) {
-        console.log(error);
-      });
-    await self.$axios
-      .$get(process.env.baseUrl + `/high_ratetd`)
-      .then(posts =>
-        self.$store.dispatch("highRated/FetchHighRatedArticles", posts.results)
-      );
+    // var self = this;
+    // await self.$axios
+    //   .$get(process.env.baseUrl + "/s/all/")
+    //   .then(function(posts) {
+    //     self.seoObject = posts;
+    //   })
+    //   .catch(function(error) {
+    //     console.log(error);
+    //   });
+    // await self.$axios
+    //   .$get(process.env.baseUrl + `/high_ratetd`)
+    //   .then(posts =>
+    //     self.$store.dispatch("highRated/FetchHighRatedArticles", posts.results)
+    //   );
   },
   computed: mapState({
     HighRatedArticles: state => state.highRated.HighRatedArticles

@@ -153,8 +153,9 @@
         <!--Tab End -->
         <!-- Latest Div Start -->
         <div v-show="showLatestDiv">
+          <VclChannelCommonCard  />
           <!-- Sub Tags Start -->
-          <div class="d-flex justify-content-start flex-wrap mt-2 mb-4">
+          <!-- <div class="d-flex justify-content-start flex-wrap mt-2 mb-4">
             <vs-button
               flat
               v-for="(item, index) in subTagList"
@@ -164,11 +165,12 @@
               class="sub-tag"
               >{{ item.tag_creator__tag_name }}
             </vs-button>
-          </div>
+          </div> -->
           <!-- Sub Tags End -->
-
-          <VclChannelCommonCard v-if="$fetchState.pending" />
-          <h4 v-else-if="$fetchState.error">
+    <!-- <VclChannelCommonCard  /> -->
+    <!-- <VclChannelCommonCard  /> -->
+   <!-- <VclChannelCommonCard  /> -->
+          <!-- <h4 v-else-if="$fetchState.error">
             Error while fetching posts: {{ $fetchState.error.message }}
           </h4>
           <b-row class="mobile-row" v-else>
@@ -198,12 +200,10 @@
               v-for="(article, index) in ProgrammingArticles"
               :key="index"
             >
-              <!-- <nuxt-link prefetch :to="`/detailPost/${article.slug}`"> -->
               <ChannelCommonCard :article="article" :data-index="index" />
-              <!-- </nuxt-link> -->
             </b-col>
-          </b-row>
-          <!-- Pagination Start End -->
+          </b-row> -->
+
           <div class="myPagination ">
             <div class="d-flex justify-content-center">
               <vs-button
@@ -215,7 +215,7 @@
               >
             </div>
           </div>
-          <!-- Pagination End -->
+
         </div>
         <!-- Latest Div End -->
 
@@ -297,36 +297,36 @@ export default {
     };
   },
   async fetch() {
-    var self = this;
-    await self.$axios
-      .$get(process.env.baseUrl + "/s/all/programming")
-      .then(function(posts) {
-        self.seoObject = posts;
-      })
-      .catch(function(error) {
-        console.log(error);
-      });
+    // var self = this;
+    // await self.$axios
+    //   .$get(process.env.baseUrl + "/s/all/programming")
+    //   .then(function(posts) {
+    //     self.seoObject = posts;
+    //   })
+    //   .catch(function(error) {
+    //     console.log(error);
+    //   });
 
-    // Main Tag List Fetch
-    await this.$axios
-      .$get(process.env.channelMainTag + `programming`)
-      .then(function(posts) {
-        self.mainTagList = posts;
-      })
-      .catch(function(error) {
-        console.log("No Net" + error);
-      })
-      .finally(function() {});
 
-    // Channel Home Page Articles Fetch
-    await this.$axios
-      .$get(process.env.channelUrl + `Programming`)
-      .then(posts =>
-        this.$store.dispatch(
-          "programming/FetchProgrammingArticles",
-          posts.results
-        )
-      );
+    // await this.$axios
+    //   .$get(process.env.channelMainTag + `programming`)
+    //   .then(function(posts) {
+    //     self.mainTagList = posts;
+    //   })
+    //   .catch(function(error) {
+    //     console.log("No Net" + error);
+    //   })
+    //   .finally(function() {});
+
+
+    // await this.$axios
+    //   .$get(process.env.channelUrl + `Programming`)
+    //   .then(posts =>
+    //     this.$store.dispatch(
+    //       "programming/FetchProgrammingArticles",
+    //       posts.results
+    //     )
+    //   );
   },
   computed: mapState({
     ProgrammingArticles: state => state.programming.ProgrammingArticles,
@@ -387,155 +387,152 @@ export default {
       self.showAboutDiv = true;
     },
     async loadMoreMainTagListItem() {
-      var self = this;
-      await this.$axios
-        .$get(this.mainTagList.next)
-        .then(function(posts) {
-          posts.results.forEach(element => {
-            self.mainTagList.results.push(element);
-          });
-          self.mainTagList.next = posts.next;
-          self.mainTagList.previous = posts.previous;
-        })
-        .catch(function(error) {
-          console.log("No Net" + error);
-        })
-        .finally(function() {});
+      // var self = this;
+      // await this.$axios
+      //   .$get(this.mainTagList.next)
+      //   .then(function(posts) {
+      //     posts.results.forEach(element => {
+      //       self.mainTagList.results.push(element);
+      //     });
+      //     self.mainTagList.next = posts.next;
+      //     self.mainTagList.previous = posts.previous;
+      //   })
+      //   .catch(function(error) {
+      //     console.log("No Net" + error);
+      //   })
+      //   .finally(function() {});
     },
     async loadLessMainTagListItem() {
-      var self = this;
-      await self.$axios
-        .$get(self.mainTagList.previous)
-        .then(function(posts) {
-          self.mainTagList = posts;
-        })
-        .catch(function(error) {
-          console.log("No Net" + error);
-        })
-        .finally(function() {});
+      // var self = this;
+      // await self.$axios
+      //   .$get(self.mainTagList.previous)
+      //   .then(function(posts) {
+      //     self.mainTagList = posts;
+      //   })
+      //   .catch(function(error) {
+      //     console.log("No Net" + error);
+      //   })
+      //   .finally(function() {});
     },
     // show Main tag articles
     async showMainTagPosts(item) {
-      this.dataLoading = false;
-      var self = this;
+      // this.dataLoading = false;
+      // var self = this;
 
-      await this.$axios
-        .$get(process.env.baseUrl + `/Listsub_Tag/${item.query_slug}`)
-        .then(function(posts) {
-          self.subTagList = posts.results.List;
-        })
-        .catch(function(error) {
-          console.log("No Net" + error);
-        })
-        .finally(function() {});
+      // await this.$axios
+      //   .$get(process.env.baseUrl + `/Listsub_Tag/${item.query_slug}`)
+      //   .then(function(posts) {
+      //     self.subTagList = posts.results.List;
+      //   })
+      //   .catch(function(error) {
+      //     console.log("No Net" + error);
+      //   })
+      //   .finally(function() {});
 
-      await self.$axios
-        .$get(process.env.baseUrl + `/channelpagetag/${item.query_slug}`)
-        .then(function(posts) {
-          posts.results.List.forEach(element => {
-            element.photo = process.env.baseUrl + "/media/" + element.photo;
-          });
-          self.$store.dispatch(
-            "programming/FetchProgrammingArticles",
-            posts.results.List
-          );
-          self.$store.dispatch("programming/SetTagNextDataLink", posts.next);
-        })
-        .catch(function(error) {
-          console.log("No Net" + error);
-        })
-        .finally(function() {});
-      this.dataLoading = true;
-      this.mainTagSelected = true;
-      this.parentSelected = false;
+      // await self.$axios
+      //   .$get(process.env.baseUrl + `/channelpagetag/${item.query_slug}`)
+      //   .then(function(posts) {
+      //     posts.results.List.forEach(element => {
+      //       element.photo = process.env.baseUrl + "/media/" + element.photo;
+      //     });
+      //     self.$store.dispatch(
+      //       "programming/FetchProgrammingArticles",
+      //       posts.results.List
+      //     );
+      //     self.$store.dispatch("programming/SetTagNextDataLink", posts.next);
+      //   })
+      //   .catch(function(error) {
+      //     console.log("No Net" + error);
+      //   })
+      //   .finally(function() {});
+      // this.dataLoading = true;
+      // this.mainTagSelected = true;
+      // this.parentSelected = false;
     },
     // show sub tag articles
     async showSubTagPosts(item) {
-      this.dataLoading = false;
-      var self = this;
-      await this.$axios
-        .$get(process.env.baseUrl + "/targetData/" + item.tag_creator__tagSlug)
-        .then(function(posts) {
-          posts.results.List.forEach(element => {
-            element.photo = process.env.baseUrl + "/media/" + element.photo;
-          });
+      // this.dataLoading = false;
+      // var self = this;
+      // await this.$axios
+      //   .$get(process.env.baseUrl + "/targetData/" + item.tag_creator__tagSlug)
+      //   .then(function(posts) {
+      //     posts.results.List.forEach(element => {
+      //       element.photo = process.env.baseUrl + "/media/" + element.photo;
+      //     });
 
-          self.$store.dispatch(
-            "programming/FetchProgrammingArticles",
-            posts.results.List
-          );
-          self.$store.dispatch("programming/SetTagNextDataLink", posts.next);
-        })
-        .catch(function(error) {
-          console.log("No Net" + error);
-        })
-        .finally(function() {});
-      this.dataLoading = true;
-      this.subTagSelected = true;
-      (this.parentSelected = false), (this.mainTagSelected = false);
+      //     self.$store.dispatch(
+      //       "programming/FetchProgrammingArticles",
+      //       posts.results.List
+      //     );
+      //     self.$store.dispatch("programming/SetTagNextDataLink", posts.next);
+      //   })
+      //   .catch(function(error) {
+      //     console.log("No Net" + error);
+      //   })
+      //   .finally(function() {});
+      // this.dataLoading = true;
+      // this.subTagSelected = true;
+      // (this.parentSelected = false), (this.mainTagSelected = false);
     },
     async loadData() {
-      // load home Articles
-      this.loadMoreLoading = true;
-      if (this.parentSelected) {
-        try {
-          await this.$store.dispatch(
-            "programming/FetchMoreProgrammingArticles"
-          );
-        } catch (e) {
-          // alert("No more data" + e);
-        }
-      }
-      // load main tag articles
-      else if (this.mainTagSelected) {
-        if (this.TagArticlesNextLink == null) {
-          // alert("null");
-        } else {
-          var self = this;
-          await this.$axios
-            .$get(self.TagArticlesNextLink)
-            .then(function(posts) {
-              posts.results.List.forEach(element => {
-                element.photo = process.env.baseUrl + "/media/" + element.photo;
-                self.$store.dispatch("programming/SetMoreTagArticles", element);
-              });
-              self.$store.dispatch(
-                "programming/SetTagNextDataLink",
-                posts.next
-              );
-            })
-            .catch(function(error) {
-              console.log("No Net" + error);
-            })
-            .finally(function() {});
-        }
-      }
+      // this.loadMoreLoading = true;
+      // if (this.parentSelected) {
+      //   try {
+      //     await this.$store.dispatch(
+      //       "programming/FetchMoreProgrammingArticles"
+      //     );
+      //   } catch (e) {
+      //   }
+      // }
 
-      // load sub tag articles
-      else if (this.subTagSelected) {
-        if (this.TagArticlesNextLink == null) {
-          // alert("null");
-        } else {
-          var self = this;
-          await this.$axios
-            .$get(self.TagArticlesNextLink)
-            .then(function(posts) {
-              posts.results.List.forEach(element => {
-                element.photo = process.env.baseUrl + "/media/" + element.photo;
-                self.$store.dispatch("programming/SetMoreTagArticles", element);
-              });
-              self.$store.dispatch(
-                "programming/SetTagNextDataLink",
-                posts.next
-              );
-            })
-            .catch(function(error) {
-              console.log("No Net" + error);
-            })
-            .finally(function() {});
-        }
-      }
-      this.loadMoreLoading = false;
+      // else if (this.mainTagSelected) {
+      //   if (this.TagArticlesNextLink == null) {
+      //   } else {
+      //     var self = this;
+      //     await this.$axios
+      //       .$get(self.TagArticlesNextLink)
+      //       .then(function(posts) {
+      //         posts.results.List.forEach(element => {
+      //           element.photo = process.env.baseUrl + "/media/" + element.photo;
+      //           self.$store.dispatch("programming/SetMoreTagArticles", element);
+      //         });
+      //         self.$store.dispatch(
+      //           "programming/SetTagNextDataLink",
+      //           posts.next
+      //         );
+      //       })
+      //       .catch(function(error) {
+      //         console.log("No Net" + error);
+      //       })
+      //       .finally(function() {});
+      //   }
+      // }
+
+
+      // else if (this.subTagSelected) {
+      //   if (this.TagArticlesNextLink == null) {
+
+      //   } else {
+      //     var self = this;
+      //     await this.$axios
+      //       .$get(self.TagArticlesNextLink)
+      //       .then(function(posts) {
+      //         posts.results.List.forEach(element => {
+      //           element.photo = process.env.baseUrl + "/media/" + element.photo;
+      //           self.$store.dispatch("programming/SetMoreTagArticles", element);
+      //         });
+      //         self.$store.dispatch(
+      //           "programming/SetTagNextDataLink",
+      //           posts.next
+      //         );
+      //       })
+      //       .catch(function(error) {
+      //         console.log("No Net" + error);
+      //       })
+      //       .finally(function() {});
+      //   }
+      // }
+      // this.loadMoreLoading = false;
     }
   },
   watch: {

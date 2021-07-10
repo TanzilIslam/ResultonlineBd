@@ -82,12 +82,11 @@
               class="px-2"
               :cWidth="360"
               :alignVc="true"
-              v-if="$fetchState.pending"
             />
-            <h4 v-else-if="$fetchState.error">
+            <!-- <h4 v-else-if="$fetchState.error">
               Error while fetching posts: {{ $fetchState.error.message }}
-            </h4>
-            <b-list-group-item
+            </h4> -->
+            <!-- <b-list-group-item
               v-else
               v-for="(article, index) in LatestArticles"
               :key="index"
@@ -136,7 +135,7 @@
 
                 <hr class="custom-latest-item-hr" v-if="index < 4" />
               </div>
-            </b-list-group-item>
+            </b-list-group-item> -->
           </b-list-group>
         </div>
 
@@ -338,7 +337,7 @@ export default {
   data() {
     return {
       loading: false,
-      showCl: false,
+      showCl: true,
       nextUrl: "",
       blog: [],
       qandA: [],
@@ -349,14 +348,14 @@ export default {
     //seo
     var self = this;
 
-    await self.$axios
-      .$get(process.env.baseUrl + "/s/h/Homepage")
-      .then(function(posts) {
-        self.seoObject = posts;
-      })
-      .catch(function(error) {
-        console.log(error);
-      });
+    // await self.$axios
+    //   .$get(process.env.baseUrl + "/s/h/Homepage")
+    //   .then(function(posts) {
+    //     self.seoObject = posts;
+    //   })
+    //   .catch(function(error) {
+    //     console.log(error);
+    //   });
 
     var tokenStr1 =
       "dhhdofhofhwefieo90zSeheoip.Nwwuhehewuheo#ddofhh$$iohdoishNb<annsiasias>abssbuis<snosoiasnios>";
@@ -366,24 +365,24 @@ export default {
     //   "Authorization",
     //   `Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJrZXkiOiJjdXN0b21fdmFsdWUifQ.Gn4_F3IujZkyYR3gygA0TZuVeprhDDiDCWE1LvvCKsY${tokenStr1}`
     // );
-    await self.$axios
-      .$get(process.env.baseUrl, {
-        headers: {
-          Authorization: `Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJrZXkiOiJjdXN0b21fdmFsdWUifQ.Gn4_F3IujZkyYR3gygA0TZuVeprhDDiDCWE1LvvCKsY`
-        }
-      })
-      .then(function(posts) {
-        self.$store.dispatch("home/FetchHomeArticles", posts.results);
-        self.nextUrl = posts.next;
-      })
-      .catch(function(error) {
-        console.log("No Net" + error);
-      })
-      .finally(function() {});
+    // await self.$axios
+    //   .$get(process.env.baseUrl, {
+    //     headers: {
+    //       Authorization: `Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJrZXkiOiJjdXN0b21fdmFsdWUifQ.Gn4_F3IujZkyYR3gygA0TZuVeprhDDiDCWE1LvvCKsY`
+    //     }
+    //   })
+    //   .then(function(posts) {
+    //     self.$store.dispatch("home/FetchHomeArticles", posts.results);
+    //     self.nextUrl = posts.next;
+    //   })
+    //   .catch(function(error) {
+    //     console.log("No Net" + error);
+    //   })
+    //   .finally(function() {});
 
-    await this.$axios
-      .$get(process.env.baseUrl + `/latestdata`)
-      .then(posts => this.$store.dispatch("home/FetchLatestArticles", posts));
+    // await this.$axios
+    //   .$get(process.env.baseUrl + `/latestdata`)
+    //   .then(posts => this.$store.dispatch("home/FetchLatestArticles", posts));
 
     // blog
     // await this.$axios
@@ -410,68 +409,67 @@ export default {
   }),
   methods: {
     scroll() {
-      window.onscroll = () => {
-        // this.lazyload();
-        let bottomOfWindow =
-          Math.max(
-            window.pageYOffset,
-            document.documentElement.scrollTop,
-            document.body.scrollTop
-          ) +
-            window.innerHeight ===
-          document.documentElement.offsetHeight;
+      // window.onscroll = () => {
+      //   // this.lazyload();
+      //   let bottomOfWindow =
+      //     Math.max(
+      //       window.pageYOffset,
+      //       document.documentElement.scrollTop,
+      //       document.body.scrollTop
+      //     ) +
+      //       window.innerHeight ===
+      //     document.documentElement.offsetHeight;
 
-        let bottomOfWindowTwo =
-          window.innerHeight + document.documentElement.scrollTop >=
-          document.body.offsetHeight;
+      //   let bottomOfWindowTwo =
+      //     window.innerHeight + document.documentElement.scrollTop >=
+      //     document.body.offsetHeight;
 
-        const scrollY = window.scrollY;
-        const visible = document.documentElement.clientHeight;
-        const pageHeight = document.documentElement.scrollHeight;
+      //   const scrollY = window.scrollY;
+      //   const visible = document.documentElement.clientHeight;
+      //   const pageHeight = document.documentElement.scrollHeight;
 
-        let bottomOfWindowThree = visible + scrollY >= pageHeight;
-        if (bottomOfWindowTwo) {
-          if (this.$route.path === "/") {
-            this.showCl = true;
-            this.loadData();
-          }
-        }
-      };
+      //   let bottomOfWindowThree = visible + scrollY >= pageHeight;
+      //   if (bottomOfWindowTwo) {
+      //     if (this.$route.path === "/") {
+      //       this.showCl = true;
+      //       this.loadData();
+      //     }
+      //   }
+      // };
     },
     async loadData() {
-      if (this.nextUrl != null) {
-        var self = this;
-        self.$axios.setHeader(
-          "Authorization",
-          "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJrZXkiOiJjdXN0b21fdmFsdWUifQ.Gn4_F3IujZkyYR3gygA0TZuVeprhDDiDCWE1LvvCKsY"
-        );
-        await this.$axios
-          .$get(self.nextUrl)
-          .then(function(posts) {
-            posts.results.forEach(element => {
-              self.$store.dispatch("home/More", element);
-            });
-            self.nextUrl = posts.next;
-            self.loaded = true;
-          })
-          .catch(function(error) {
-            console.log("No Net" + error);
-          })
-          .finally(function() {});
+      // if (this.nextUrl != null) {
+      //   var self = this;
+      //   self.$axios.setHeader(
+      //     "Authorization",
+      //     "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJrZXkiOiJjdXN0b21fdmFsdWUifQ.Gn4_F3IujZkyYR3gygA0TZuVeprhDDiDCWE1LvvCKsY"
+      //   );
+      //   await this.$axios
+      //     .$get(self.nextUrl)
+      //     .then(function(posts) {
+      //       posts.results.forEach(element => {
+      //         self.$store.dispatch("home/More", element);
+      //       });
+      //       self.nextUrl = posts.next;
+      //       self.loaded = true;
+      //     })
+      //     .catch(function(error) {
+      //       console.log("No Net" + error);
+      //     })
+      //     .finally(function() {});
 
-        self.showCl = false;
-      } else {
-        // this.$bvToast.show("my-toast");
-        this.showCl = false;
-      }
+      //   self.showCl = false;
+      // } else {
+      //   this.showCl = false;
+      // }
     }
   },
   mounted() {
     // this.check();
     this.scroll();
     this.$nextTick(() => {
-      this.$nuxt.$loading.start();
-      setTimeout(() => this.$nuxt.$loading.finish(), 1000);
+      // this.$nuxt.$loading.start();
+      // setTimeout(() => this.$nuxt.$loading.finish(), 1000);
     });
   }
 };

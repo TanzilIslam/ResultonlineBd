@@ -63,10 +63,10 @@ export default {
     }
   },
   async mounted() {
-    await this.$axios
-      .$get(process.env.baseUrl + `/Coverimgapi`)
-      .then(posts => (this.data = posts));
-    this.loadingImg = false;
+    // await this.$axios
+    //   .$get(process.env.baseUrl + `/Coverimgapi`)
+    //   .then(posts => (this.data = posts));
+    // this.loadingImg = false;
   }
 };
 </script>

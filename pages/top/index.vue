@@ -3,8 +3,8 @@
     <Carousel />
     <Breadcrumb :topActive="true" />
     <div class="top-container">
-      <VclChannelCommonCard v-if="$fetchState.pending" />
-      <h4 v-else-if="$fetchState.error">
+      <VclChannelCommonCard  />
+      <!-- <h4 v-else-if="$fetchState.error">
         Error while fetching posts: {{ $fetchState.error.message }}
       </h4>
       <div v-else>
@@ -17,27 +17,10 @@
             v-for="(article, index) in TopArticles"
             :key="index"
           >
-            <!-- <nuxt-link prefetch :to="`/detailPost/${article.slug}`"> -->
             <CheckSmallCard :article="article" :data-index="index" />
-            <!-- </nuxt-link> -->
           </b-col>
         </b-row>
-      </div>
-      <!-- Pagination Start End -->
-      <!-- <div class="myPagination">
-        <div class="text-center mt-5 mb-3">
-          <span v-if="!loaded"
-            ><b-spinner
-              style="width: 2rem; height: 2rem;"
-              label="Loading..."
-            ></b-spinner
-          ></span>
-          <b-button v-else-if="loaded" variant="dark" @click="loadData">
-            <span> Load More</span>
-          </b-button>
-        </div>
       </div> -->
-      <!-- Pagination End -->
     </div>
   </div>
 </template>
@@ -111,32 +94,32 @@ export default {
     };
   },
   async fetch() {
-    var self = this;
-    await self.$axios
-      .$get(process.env.baseUrl + "/s/all/")
-      .then(function(posts) {
-        self.seoObject = posts;
-      })
-      .catch(function(error) {
-        console.log(error);
-      });
+    // var self = this;
+    // await self.$axios
+    //   .$get(process.env.baseUrl + "/s/all/")
+    //   .then(function(posts) {
+    //     self.seoObject = posts;
+    //   })
+    //   .catch(function(error) {
+    //     console.log(error);
+    //   });
 
-    await self.$axios
-      .$get(process.env.baseUrl + `/TopContent`)
-      .then(posts =>
-        self.$store.dispatch("top/FetchTopArticles", posts.results)
-      );
+    // await self.$axios
+    //   .$get(process.env.baseUrl + `/TopContent`)
+    //   .then(posts =>
+    //     self.$store.dispatch("top/FetchTopArticles", posts.results)
+    //   );
   },
   computed: mapState({
     TopArticles: state => state.top.TopArticles
   }),
   methods: {
     async loadData() {
-      try {
-        await this.$store.dispatch("top/FetchMoreTopArticles");
-      } catch (e) {
-        // alert("No more data");
-      }
+      // try {
+      //   await this.$store.dispatch("top/FetchMoreTopArticles");
+      // } catch (e) {
+
+      // }
     }
   },
   mounted() {

@@ -22,6 +22,20 @@
           <p itemprop="roleName" class="item-holder">Programming</p>
         </b-list-group-item>
         <b-list-group-item
+          to="/channel/programming"
+          class="d-flex align-items-center mylist"
+        >
+          <div class="image-holder">
+            <b-img
+              itemprop="image"
+              alt="logo of Mobile Phone channel"
+              class="image-logo"
+              src="~assets/user/icons/mobile.svg"
+            ></b-img>
+          </div>
+          <p itemprop="roleName" class="item-holder">Mobile Phone</p>
+        </b-list-group-item>
+                        <!-- <b-list-group-item
           to="/channel/mobile"
           class="d-flex align-items-center mylist"
         >
@@ -35,8 +49,24 @@
           </div>
           <p itemprop="roleName" class="item-holder">Mobile Phone</p>
         </b-list-group-item>
+  -->
+                <!-- <b-list-group-item
+          to="/channel/mobile"
+          class="d-flex align-items-center mylist"
+        >
+          <div class="image-holder">
+            <b-img
+              itemprop="image"
+              alt="logo of Mobile Phone channel"
+              class="image-logo"
+              src="~assets/user/icons/mobile.svg"
+            ></b-img>
+          </div>
+          <p itemprop="roleName" class="item-holder">Mobile Phone</p>
+        </b-list-group-item>
+  -->
 
-        <b-list-group-item
+        <!-- <b-list-group-item
           to="/channel/celebrity"
           class="d-flex align-items-center mylist"
         >
@@ -124,7 +154,7 @@
             ></b-img>
           </div>
           <p itemprop="roleName" class="item-holder">Design Library</p>
-        </b-list-group-item>
+        </b-list-group-item> -->
       </b-list-group>
     </div>
   </div>
