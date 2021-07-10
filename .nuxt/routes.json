@@ -4,197 +4,171 @@
     "path": "/blog",
     "component": "C:\\\\Users\\\\tanji\\\\Desktop\\\\ResultOnlineBd\\\\pages\\\\blog\\\\index.vue",
     "chunkName": "pages/blog/index",
-    "url": "/blog",
-    "_name": "_21b262ed"
+    "url": "/blog"
   },
   {
     "name": "favourite",
     "path": "/favourite",
     "component": "C:\\\\Users\\\\tanji\\\\Desktop\\\\ResultOnlineBd\\\\pages\\\\favourite\\\\index.vue",
     "chunkName": "pages/favourite/index",
-    "url": "/favourite",
-    "_name": "_755794dc"
+    "url": "/favourite"
   },
   {
     "name": "high-rated",
     "path": "/high-rated",
     "component": "C:\\\\Users\\\\tanji\\\\Desktop\\\\ResultOnlineBd\\\\pages\\\\high-rated\\\\index.vue",
     "chunkName": "pages/high-rated/index",
-    "url": "/high-rated",
-    "_name": "_4e28c2d6"
+    "url": "/high-rated"
   },
   {
     "name": "qAnda",
     "path": "/qAnda",
     "component": "C:\\\\Users\\\\tanji\\\\Desktop\\\\ResultOnlineBd\\\\pages\\\\qAnda\\\\index.vue",
     "chunkName": "pages/qAnda/index",
-    "url": "/qAnda",
-    "_name": "_1db71e4a"
+    "url": "/qAnda"
   },
   {
     "name": "t",
     "path": "/t",
     "component": "C:\\\\Users\\\\tanji\\\\Desktop\\\\ResultOnlineBd\\\\pages\\\\t\\\\index.vue",
     "chunkName": "pages/t/index",
-    "url": "/t",
-    "_name": "_2a116331"
+    "url": "/t"
   },
   {
     "name": "top",
     "path": "/top",
     "component": "C:\\\\Users\\\\tanji\\\\Desktop\\\\ResultOnlineBd\\\\pages\\\\top\\\\index.vue",
     "chunkName": "pages/top/index",
-    "url": "/top",
-    "_name": "_443398f0"
+    "url": "/top"
   },
   {
     "name": "u",
     "path": "/u",
     "component": "C:\\\\Users\\\\tanji\\\\Desktop\\\\ResultOnlineBd\\\\pages\\\\u\\\\index.vue",
     "chunkName": "pages/u/index",
-    "url": "/u",
-    "_name": "_31c30890"
+    "url": "/u"
   },
   {
     "name": "channel-celebrity",
     "path": "/channel/celebrity",
     "component": "C:\\\\Users\\\\tanji\\\\Desktop\\\\ResultOnlineBd\\\\pages\\\\channel\\\\celebrity.vue",
     "chunkName": "pages/channel/celebrity",
-    "url": "/channel/celebrity",
-    "_name": "_9bffe8da"
+    "url": "/channel/celebrity"
   },
   {
     "name": "channel-designlibrary",
     "path": "/channel/designlibrary",
     "component": "C:\\\\Users\\\\tanji\\\\Desktop\\\\ResultOnlineBd\\\\pages\\\\channel\\\\designlibrary.vue",
     "chunkName": "pages/channel/designlibrary",
-    "url": "/channel/designlibrary",
-    "_name": "_5662d1ed"
+    "url": "/channel/designlibrary"
   },
   {
     "name": "channel-gaming",
     "path": "/channel/gaming",
     "component": "C:\\\\Users\\\\tanji\\\\Desktop\\\\ResultOnlineBd\\\\pages\\\\channel\\\\gaming.vue",
     "chunkName": "pages/channel/gaming",
-    "url": "/channel/gaming",
-    "_name": "_2f593daf"
+    "url": "/channel/gaming"
   },
   {
     "name": "channel-health",
     "path": "/channel/health",
     "component": "C:\\\\Users\\\\tanji\\\\Desktop\\\\ResultOnlineBd\\\\pages\\\\channel\\\\health.vue",
     "chunkName": "pages/channel/health",
-    "url": "/channel/health",
-    "_name": "_3f242d5c"
+    "url": "/channel/health"
   },
   {
     "name": "channel-history",
     "path": "/channel/history",
     "component": "C:\\\\Users\\\\tanji\\\\Desktop\\\\ResultOnlineBd\\\\pages\\\\channel\\\\history.vue",
     "chunkName": "pages/channel/history",
-    "url": "/channel/history",
-    "_name": "_2ef1f3c4"
+    "url": "/channel/history"
   },
   {
     "name": "channel-mobile",
     "path": "/channel/mobile",
     "component": "C:\\\\Users\\\\tanji\\\\Desktop\\\\ResultOnlineBd\\\\pages\\\\channel\\\\mobile.vue",
     "chunkName": "pages/channel/mobile",
-    "url": "/channel/mobile",
-    "_name": "_eac5aebc"
+    "url": "/channel/mobile"
   },
   {
     "name": "channel-programming",
     "path": "/channel/programming",
     "component": "C:\\\\Users\\\\tanji\\\\Desktop\\\\ResultOnlineBd\\\\pages\\\\channel\\\\programming.vue",
     "chunkName": "pages/channel/programming",
-    "url": "/channel/programming",
-    "_name": "_7a9a8cee"
+    "url": "/channel/programming"
   },
   {
     "name": "channel-technology",
     "path": "/channel/technology",
     "component": "C:\\\\Users\\\\tanji\\\\Desktop\\\\ResultOnlineBd\\\\pages\\\\channel\\\\technology.vue",
     "chunkName": "pages/channel/technology",
-    "url": "/channel/technology",
-    "_name": "_5b8737e8"
+    "url": "/channel/technology"
   },
   {
     "name": "allBlogPost-blogPost",
     "path": "/allBlogPost/:blogPost?",
     "component": "C:\\\\Users\\\\tanji\\\\Desktop\\\\ResultOnlineBd\\\\pages\\\\allBlogPost\\\\_blogPost.vue",
-    "chunkName": "pages/allBlogPost/_blogPost",
-    "_name": "_b841da5e"
+    "chunkName": "pages/allBlogPost/_blogPost"
   },
   {
     "name": "allQandA-qaSlug",
     "path": "/allQandA/:qaSlug?",
     "component": "C:\\\\Users\\\\tanji\\\\Desktop\\\\ResultOnlineBd\\\\pages\\\\allQandA\\\\_qaSlug.vue",
-    "chunkName": "pages/allQandA/_qaSlug",
-    "_name": "_45ed775d"
+    "chunkName": "pages/allQandA/_qaSlug"
   },
   {
     "name": "authorProfile-authorName",
     "path": "/authorProfile/:authorName?",
     "component": "C:\\\\Users\\\\tanji\\\\Desktop\\\\ResultOnlineBd\\\\pages\\\\authorProfile\\\\_authorName.vue",
-    "chunkName": "pages/authorProfile/_authorName",
-    "_name": "_c68158ec"
+    "chunkName": "pages/authorProfile/_authorName"
   },
   {
     "name": "b-blogSlug",
     "path": "/b/:blogSlug?",
     "component": "C:\\\\Users\\\\tanji\\\\Desktop\\\\ResultOnlineBd\\\\pages\\\\b\\\\_blogSlug.vue",
-    "chunkName": "pages/b/_blogSlug",
-    "_name": "_1c411206"
+    "chunkName": "pages/b/_blogSlug"
   },
   {
     "name": "detailPost-slug",
     "path": "/detailPost/:slug?",
     "component": "C:\\\\Users\\\\tanji\\\\Desktop\\\\ResultOnlineBd\\\\pages\\\\detailPost\\\\_slug.vue",
-    "chunkName": "pages/detailPost/_slug",
-    "_name": "_50f34196"
+    "chunkName": "pages/detailPost/_slug"
   },
   {
     "name": "m-slug",
     "path": "/m/:slug?",
     "component": "C:\\\\Users\\\\tanji\\\\Desktop\\\\ResultOnlineBd\\\\pages\\\\m\\\\_slug.vue",
-    "chunkName": "pages/m/_slug",
-    "_name": "_1b018760"
+    "chunkName": "pages/m/_slug"
   },
   {
     "name": "q-qadetail",
     "path": "/q/:qadetail?",
     "component": "C:\\\\Users\\\\tanji\\\\Desktop\\\\ResultOnlineBd\\\\pages\\\\q\\\\_qadetail.vue",
-    "chunkName": "pages/q/_qadetail",
-    "_name": "_cd836bfc"
+    "chunkName": "pages/q/_qadetail"
   },
   {
     "name": "search-key",
     "path": "/search/:key?",
     "component": "C:\\\\Users\\\\tanji\\\\Desktop\\\\ResultOnlineBd\\\\pages\\\\search\\\\_key.vue",
-    "chunkName": "pages/search/_key",
-    "_name": "_1531f1ca"
+    "chunkName": "pages/search/_key"
   },
   {
     "name": "tagPage-tag",
     "path": "/tagPage/:tag?",
     "component": "C:\\\\Users\\\\tanji\\\\Desktop\\\\ResultOnlineBd\\\\pages\\\\tagPage\\\\_tag.vue",
-    "chunkName": "pages/tagPage/_tag",
-    "_name": "_4d0ed921"
+    "chunkName": "pages/tagPage/_tag"
   },
   {
     "name": "index",
     "path": "/",
     "component": "C:\\\\Users\\\\tanji\\\\Desktop\\\\ResultOnlineBd\\\\pages\\\\index.vue",
     "chunkName": "pages/index",
-    "url": "/",
-    "_name": "_0abf370f"
+    "url": "/"
   },
   {
     "name": "slug",
     "path": "/:slug",
     "component": "C:\\\\Users\\\\tanji\\\\Desktop\\\\ResultOnlineBd\\\\pages\\\\_slug.vue",
-    "chunkName": "pages/_slug",
-    "_name": "_090895c7"
+    "chunkName": "pages/_slug"
   }
 ]
